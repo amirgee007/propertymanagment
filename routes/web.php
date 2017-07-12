@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('admin/dashboard');
 });
 
+Route::get('/dashboard', array(
+    'as' => 'get.dashboard',
+    'uses' => 'Admin\AdminController@dashboard'));
+
 
 Auth::routes();
 
