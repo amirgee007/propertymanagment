@@ -11,16 +11,83 @@
 |
 */
 
-Route::get('/', function () {
-    return view('admin/dashboard');
-});
+Route::get('/', 'AdminAuth\AuthController@showLoginForm');
 
-Route::get('/dashboard', array(
-    'as' => 'get.dashboard',
-    'uses' => 'Admin\AdminController@dashboard'));
 
+Route::get('/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+Route::post('/logout', 'Auth\LoginController@logout')->name('userLogout');
+Route::get('/password-reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password-reset');
+
+
+//// Authentication Routes...
+//Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+//Route::post('login', 'Auth\LoginController@login');
+//Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+//
+//// Registration Routes...
+//Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+//Route::post('register', 'Auth\RegisterController@register');
+//
+//// Password Reset Routes...
+//Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm');
+//Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+//Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
+//Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+//
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+////////////////////////////////////////////////////Admin Pannel/////////////////////////
+///
+///
+Route::group(['middleware' => ['admin']], function () {
+
+    Route::post('/dashboard', array(
+        'as' => 'post.dashboard',
+        'uses' => 'Admin\AdminController@dashboard'));
+
+    Route::get('/dashboard', array(
+        'as' => 'get.dashboard',
+        'uses' => 'Admin\AdminController@dashboard'));
+
+
+    Route::get('/dashboard/logout', array(
+        'as' => 'logout',
+        'uses' => 'AdminAuth\AuthController@logout'));
+
+
+////////////////////////////////Users Routes///////////////////////////////////
+    Route::get('/user', array(
+        'as' => 'user.index',
+        'uses' => 'Admin\UserController@index'));
+
+    Route::post('/user/add', array(
+        'as' => 'user.add',
+        'uses' => 'Admin\UserController@store'));
+
+
+    Route::get('/user/{id}', array(
+        'as' => 'user.edit',
+        'uses' => 'Admin\UserController@edit'));
+
+    Route::post('/user/{id}', array(
+        'as' => 'user.update',
+        'uses' => 'Admin\UserController@update'));
+
+
+    Route::get('/user/delete/{id}', array(
+        'as' => 'user.delete',
+        'uses' => 'Admin\UserController@destroy'));
+
+
+////////////////////////////////Events Routes///////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////////////
+});
+
+
 

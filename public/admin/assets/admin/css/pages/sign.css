@@ -101,7 +101,7 @@ body.page-boxed #sign-wrapper form {
   background-color: white;
 }
 #sign-wrapper .ckbox label {
-  color: #B6B6B6;
+  /*color: #B6B6B6;*/
 }
 #sign-wrapper .brand {
   text-align: center;

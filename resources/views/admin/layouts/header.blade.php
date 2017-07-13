@@ -13,7 +13,7 @@
         <div class="navbar-header">
 
             <!-- Start brand -->
-            <a class="navbar-brand" href="dashboard.html">
+            <a class="navbar-brand" href="{{route('get.dashboard')}}">
                 <img class="logo" src="http://img.djavaui.com/?create=175x50,81B71A?f=ffffff" alt="brand logo"/>
             </a><!-- /.navbar-brand -->
             <!--/ End brand -->
@@ -293,7 +293,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <span class="meta">
                                     <span class="avatar"><img src="http://img.djavaui.com/?create=35x35,4888E1?f=ffffff" class="img-circle" alt="admin"></span>
-                                    <span class="text hidden-xs hidden-sm text-muted">Tol Lee</span>
+                                    <span class="text hidden-xs hidden-sm text-muted">{{\Auth::user()->name}}</span>
                                     <span class="caret"></span>
                                 </span>
                     </a>
@@ -307,7 +307,7 @@
                         <li><a href="#"><i class="fa fa-flag"></i>Help</a></li>
                         <li><a href="setting.html"><i class="fa fa-cog"></i>Settings</a></li>
                         <li class="divider"></li>
-                        <li><a href="index.html"><i class="fa fa-sign-out"></i>Logout</a></li>
+                        <li><a href="{{url("/dashboard/logout")}}"><i class="fa fa-sign-out"></i>Logout</a></li>
                     </ul>
                     <!--/ End dropdown menu -->
                 </li><!-- /.dropdown navbar-profile -->

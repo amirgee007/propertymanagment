@@ -2,7 +2,9 @@
  * SIGN
  * ======================================================================== */
 body {
-  background-color: transparent !important;
+  /*background-color: red !important;*/
+  background-image: url("/admin/images/propmgt.jpg");
+  background-size: cover;
 }
 body.page-boxed {
   background-color: #505050;
@@ -102,7 +104,7 @@ body.page-boxed #sign-wrapper form {
   background-color: white;
 }
 #sign-wrapper .ckbox label {
-  color: #f7f7f7;
+  /*color: #f7f7f7;*/
 }
 #sign-wrapper .brand {
   text-align: center;
