@@ -21,7 +21,8 @@ class Admin
         if (Auth::check()) {
             return $next($request);
         }
+        return redirect('/')->with('error', 'You must be logged in!');
 
-        return redirect('/login');
+
     }
 }

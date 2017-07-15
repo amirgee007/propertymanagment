@@ -1,7 +1,7 @@
 @extends('admin..auths.loginBase')
 @section('forms')
+    @include('admin.auths.notifications')
 
-    <!-- Login form -->
     <form class="sign-in form-horizontal shadow no-overflow" action="{{ route('login') }}" method="POST">
         {{ csrf_field() }}
         <div class="sign-header">
@@ -9,35 +9,35 @@
                 <div class="sign-text">
                     <span>Member Area</span>
                 </div>
-            </div><!-- /.form-group -->
-        </div><!-- /.sign-header -->
+            </div>
+        </div>
         <div class="sign-body">
             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                 <div class="input-group input-group-lg rounded no-overflow">
-                    <input id="email" type="text" name="email" class="form-control input-sm" value="{{ old('email') }}" required autofocus placeholder="Enter Email Here">
+                    <input id="email" type="email" name="email" class="form-control input-sm" value="{{ old('email') }}"
+                           required autofocus placeholder="Enter Email Here">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                    {{--@if ($errors->has('email'))--}}
-                        {{--<span class="help-block">--}}
-                                        {{--<strong>{{ $errors->first('email') }}</strong>--}}
-                        {{--</span>--}}
-                    {{--@endif--}}
-
                 </div>
+                @if ($errors->has('email'))
+                    <span class="help-block">
+                    <strong>{{ $errors->first('email') }}</strong>
+                    </span>
+                @endif
             </div><!-- /.form-group -->
 
 
             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                 <div class="input-group input-group-lg rounded no-overflow">
-                    <input id="password" type="password" class="form-control input-sm" placeholder="Password" name="password" value="" required>
+                    <input id="password" type="password" class="form-control input-sm" placeholder="Password"
+                           name="password" value="" required>
                     <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                    {{--@if ($errors->has('password'))--}}
-                    {{--<span class="help-block">--}}
-                    {{--<strong>{{ $errors->first('password') }}</strong>--}}
-                    {{--</span>--}}
-                    {{--@endif--}}
                 </div>
+                @if ($errors->has('password'))
+                    <span class="help-block">
+                    <strong>{{ $errors->first('password') }}</strong>
+                    </span>
+                @endif
             </div>
-
 
 
         </div><!-- /.sign-body -->
@@ -53,7 +53,8 @@
                 </div>
             </div><!-- /.form-group -->
             <div class="form-group">
-                <button type="submit" class="btn btn-theme btn-lg btn-block no-margin rounded" id="login-btn">Sign In</button>
+                <button type="submit" class="btn btn-theme btn-lg btn-block no-margin rounded" id="login-btn">Sign In
+                </button>
             </div><!-- /.form-group -->
 
             <div class="form-group">

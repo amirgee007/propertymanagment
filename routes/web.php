@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'AdminAuth\AuthController@showLoginForm');
+Route::get('/', 'AdminAuth\AuthController@showLoginForm')->name('login');
 
 
 Route::get('/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
@@ -37,7 +37,7 @@ Route::get('/password-reset', 'Auth\ForgotPasswordController@showLinkRequestForm
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
 
 
 ////////////////////////////////////////////////////Admin Pannel/////////////////////////

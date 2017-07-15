@@ -46,8 +46,7 @@ class LoginController extends Controller
         if (Auth::user()) {
             return redirect('/dashboard');
         }
-        $errors = new MessageBag(['password' => ['Email and/or password invalid or Not Admin.']]);
-        return view('admin.auths.login')->withErrors($errors)->withInput(Input::except('password'));;
+        return redirect('/')->with('error', 'You must be logged in!');
 
     }
 
