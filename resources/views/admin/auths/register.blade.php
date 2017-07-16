@@ -2,17 +2,17 @@
 @section('forms')
 
     <!-- Login form -->
-    <form class="sign-in form-horizontal shadow no-overflow" action="{{ route('login') }}" method="post">
+    <form class="sign-in form-horizontal shadow no-overflow" method="POST" action="{{ route('register') }}" >
         {{ csrf_field() }}
         <div class="sign-header">
             <div class="form-group">
                 <div class="sign-text">
                     <span>Register Here</span>
                 </div>
-            </div><!-- /.form-group -->
-        </div><!-- /.sign-header -->
+            </div>
+        </div>
 
-        <div class="sign-body">
+        <div class="" style="margin-top: 20px">
             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                 <div class="input-group input-group-lg rounded no-overflow">
                     <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" autofocus placeholder="Enter Name Here">
@@ -24,12 +24,12 @@
                                         <strong>{{ $errors->first('name') }}</strong>
                                     </span>
                 @endif
-            </div><!-- /.form-group -->
+            </div>
 
 
             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                 <div class="input-group input-group-lg rounded no-overflow">
-                    <input id="email" type="text" class="form-control input-sm" value="{{ old('email') }}" placeholder="Enter Email Here" >
+                    <input id="email" name="email" type="text" class="form-control input-sm" value="{{ old('email') }}" placeholder="Enter Email Here" >
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
 
 
@@ -57,7 +57,7 @@
 
             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                 <div class="input-group input-group-lg rounded no-overflow">
-                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password">
+                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" required>
                     <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                 </div>
             </div>
