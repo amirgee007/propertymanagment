@@ -48,16 +48,16 @@
                 <!--/ End sidebar shrink -->
 
                 <!-- Start form search -->
-                <li class="navbar-search">
-                    <!-- Just view on mobile screen-->
-                    <a href="#" class="trigger-search"><i class="fa fa-search"></i></a>
-                    <form class="navbar-form">
-                        <div class="form-group has-feedback">
-                            <input type="text" class="form-control typeahead rounded" placeholder="Search for member, data and things">
-                            <button type="submit" class="btn btn-theme fa fa-search form-control-feedback rounded"></button>
-                        </div>
-                    </form>
-                </li>
+                {{--<li class="navbar-search">--}}
+                    {{--<!-- Just view on mobile screen-->--}}
+                    {{--<a href="#" class="trigger-search"><i class="fa fa-search"></i></a>--}}
+                    {{--<form class="navbar-form">--}}
+                        {{--<div class="form-group has-feedback">--}}
+                            {{--<input type="text" class="form-control typeahead rounded" placeholder="Search for member, data and things">--}}
+                            {{--<button type="submit" class="btn btn-theme fa fa-search form-control-feedback rounded"></button>--}}
+                        {{--</div>--}}
+                    {{--</form>--}}
+                {{--</li>--}}
                 <!--/ End form search -->
 
             </ul><!-- /.nav navbar-nav navbar-left -->
@@ -74,7 +74,7 @@
                     <!-- Start dropdown menu -->
                     <div class="dropdown-menu animated flipInX">
                         <div class="dropdown-header">
-                            <span class="title">Messages <strong>(7)</strong></span>
+                            <span class="title">Messages <strong>(2)</strong></span>
                             <span class="option text-right"><a href="javascript:void(0);" data-toggle="modal" data-target="#modal-navbar-messages">+ New message</a></span>
                         </div>
                         <div class="dropdown-body">
@@ -91,8 +91,8 @@
                             <!-- Start message list -->
                             <div class="media-list niceScroll">
 
-                                <a href="message-detail.html" class="media">
-                                    <div class="pull-left"><img src="../../../img/avatar/50/2.png" class="media-object img-circle" alt="John Kribo"/></div>
+                                <a href="#" class="media">
+                                    <div class="pull-left"><img src="#" class="media-object img-circle" alt="John Kribo"/></div>
                                     <div class="media-body">
                                         <span class="media-heading">Jack Mendez</span>
                                         <span class="media-text">Manufacture of structures already completed designs I made, just waiting assign another.</span>
@@ -104,88 +104,9 @@
                                     </div><!-- /.media-body -->
                                 </a><!-- /.media -->
 
-                                <a href="message-detail.html" class="media">
-                                    <div class="pull-left"><img src="../../../img/avatar/50/3.png" class="media-object img-circle" alt="Jennifer Poiyem"/></div>
-                                    <div class="media-body">
-                                        <span class="media-heading">Linda Mitchell</span>
-                                        <span class="media-text">Can you please tell me about this project Blankon?</span>
-                                        <!-- Start meta icon -->
-                                        <span class="media-meta pull-right">17 hours</span>
-                                        <!--/ End meta icon -->
-                                    </div><!-- /.media-body -->
-                                </a><!-- /.media -->
-
-                                <a href="message-detail.html" class="media">
-                                    <div class="pull-left"><img src="../../../img/avatar/50/4.png" class="media-object img-circle" alt="Clara Wati"/></div>
-                                    <div class="media-body">
-                                        <span class="media-heading">Clara Wati</span>
-                                        <span class="media-text">Great work! Do you have any plans to add loading indicators for AJAX calls that might take longer than normal?</span>
-                                        <!-- Start meta icon -->
-                                        <span class="media-meta pull-right">1 days</span>
-                                        <!--/ End meta icon -->
-                                    </div><!-- /.media-body -->
-                                </a><!-- /.media -->
-
-                                <a href="message-detail.html" class="media">
-                                    <div class="pull-left"><img src="../../../img/avatar/50/5.png" class="media-object img-circle" alt="Toni Mriang"/></div>
-                                    <div class="media-body">
-                                        <span class="media-heading">Toni Mriang</span>
-                                        <span class="media-text">Please give me access repository.</span>
-                                        <!-- Start meta icon -->
-                                        <span class="media-meta"><i class="fa fa-paperclip"></i></span>
-                                        <span class="media-meta pull-right">2 days</span>
-                                        <!--/ End meta icon -->
-                                    </div><!-- /.media-body -->
-                                </a><!-- /.media -->
-
-                                <a href="message-detail.html" class="media">
-                                    <div class="pull-left"><img src="../../../img/avatar/50/6.png" class="media-object img-circle" alt="Bella negoro"/></div>
-                                    <div class="media-body">
-                                        <span class="media-heading">Bella negoro</span>
-                                        <span class="media-text">Great work! Good luck!</span>
-                                        <!-- Start meta icon -->
-                                        <span class="media-meta"><i class="fa fa-paperclip"></i></span>
-                                        <span class="media-meta"><i class="fa fa-user"></i></span>
-                                        <span class="media-meta pull-right">1 week</span>
-                                        <!--/ End meta icon -->
-                                    </div><!-- /.media-body -->
-                                </a><!-- /.media -->
-
-                                <a href="message-detail.html" class="media">
-                                    <div class="pull-left"><img src="../../../img/avatar/50/7.png" class="media-object img-circle" alt="Kim Mbako"/></div>
-                                    <div class="media-body">
-                                        <span class="media-heading">Kim Mbako</span>
-                                        <span class="media-text">Hi! First of all, thank you for the very nice theme for creating awesome web applications :)</span>
-                                        <!-- Start meta icon -->
-                                        <span class="media-meta"><i class="fa fa-paperclip"></i></span>
-                                        <span class="media-meta pull-right">1 week</span>
-                                        <!--/ End meta icon -->
-                                    </div><!-- /.media-body -->
-                                </a><!-- /.media -->
-
-                                <a href="message-detail.html" class="media">
-                                    <div class="pull-left"><img src="../../../img/avatar/50/8.png" class="media-object img-circle" alt="Pack Suparman"/></div>
-                                    <div class="media-body">
-                                        <span class="media-heading">Pack Suparman</span>
-                                        <span class="media-text">Apik temen kie jan sistem, nyong gep njajal..</span>
-                                        <!-- Start meta icon -->
-                                        <span class="media-meta pull-right">1 week</span>
-                                        <!--/ End meta icon -->
-                                    </div><!-- /.media-body -->
-                                </a><!-- /.media -->
-
-                                <!-- Start message indicator -->
-                                <a href="messages.html" class="media indicator inline">
-                                    <span class="spinner">Load more messages...</span>
-                                </a>
-                                <!--/ End message indicator -->
-
                             </div>
                             <!--/ End message list -->
 
-                        </div>
-                        <div class="dropdown-footer">
-                            <a href="messages.html">See All</a>
                         </div>
                     </div>
                     <!--/ End dropdown menu -->
@@ -280,7 +201,7 @@
 
                         </div>
                         <div class="dropdown-footer">
-                            <a href="notifications.html">See All</a>
+                            <a href="#">See All</a>
                         </div>
                     </div>
                     <!--/ End dropdown menu -->
@@ -300,12 +221,12 @@
                     <!-- Start dropdown menu -->
                     <ul class="dropdown-menu animated flipInX">
                         <li class="dropdown-header">Account</li>
-                        <li><a href="page-profile.html"><i class="fa fa-user"></i>View profile</a></li>
-                        <li><a href="mail-inbox.html"><i class="fa fa-envelope-square"></i>Inbox <span class="label label-info pull-right">30</span></a></li>
+                        <li><a href="{{route('view.profile')}}"><i class="fa fa-user"></i>View profile</a></li>
+                        <li><a href="#"><i class="fa fa-envelope-square"></i>Inbox <span class="label label-info pull-right">30</span></a></li>
                         <li><a href="#"><i class="fa fa-share-square"></i>Integrations</a></li>
                         <li class="dropdown-header">Additional</li>
                         <li><a href="#"><i class="fa fa-flag"></i>Help</a></li>
-                        <li><a href="setting.html"><i class="fa fa-cog"></i>Settings</a></li>
+                        <li><a href="#"><i class="fa fa-cog"></i>Settings</a></li>
                         <li class="divider"></li>
                         <li><a href="{{url("/dashboard/logout")}}"><i class="fa fa-sign-out"></i>Logout</a></li>
                     </ul>
@@ -313,11 +234,11 @@
                 </li><!-- /.dropdown navbar-profile -->
                 <!--/ End profile -->
 
-                <!-- Start settings -->
-                <li class="navbar-setting pull-right">
-                    <a href="javascript:void(0);"><i class="fa fa-cog fa-spin"></i></a>
-                </li><!-- /.navbar-setting pull-right -->
-                <!--/ End settings -->
+                {{--<!-- Start settings -->--}}
+                {{--<li class="navbar-setting pull-right">--}}
+                    {{--<a href="javascript:void(0);"><i class="fa fa-cog fa-spin"></i></a>--}}
+                {{--</li><!-- /.navbar-setting pull-right -->--}}
+                {{--<!--/ End settings -->--}}
 
             </ul>
             <!--/ End right navigation -->

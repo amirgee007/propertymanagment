@@ -28,33 +28,33 @@
     <!--/ END FONT STYLES -->
 
 <!-- START @GLOBAL MANDATORY STYLES -->
-    <link href="admin/assets/global/plugins/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/admin/assets/global/plugins/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!--/ END GLOBAL MANDATORY STYLES -->
 
 <!-- START @PAGE LEVEL STYLES -->
-    <link href="admin/assets/global/plugins/bower_components/fontawesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="admin/assets/global/plugins/bower_components/animate.css/animate.min.css" rel="stylesheet">
-    <link href="admin/assets/global/plugins/bower_components/bootstrap-calendar/css/calendar.min.css" rel="stylesheet">
-    <link href="admin/assets/global/plugins/bower_components/jquery.gritter/css/jquery.gritter.css" rel="stylesheet">
-    <link href="admin/assets/global/plugins/bower_components/morrisjs/morris.css" rel="stylesheet">
-    <link href="admin/assets/global/plugins/bower_components/horizontal-chart/build/css/horizBarChart.css" rel="stylesheet">
+    <link href="/admin/assets/global/plugins/bower_components/fontawesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/admin/assets/global/plugins/bower_components/animate.css/animate.min.css" rel="stylesheet">
+    <link href="/admin/assets/global/plugins/bower_components/bootstrap-calendar/css/calendar.min.css" rel="stylesheet">
+    <link href="/admin/assets/global/plugins/bower_components/jquery.gritter/css/jquery.gritter.css" rel="stylesheet">
+    <link href="/admin/assets/global/plugins/bower_components/morrisjs/morris.css" rel="stylesheet">
+    <link href="/admin/assets/global/plugins/bower_components/horizontal-chart/build/css/horizBarChart.css" rel="stylesheet">
     <!--/ END PAGE LEVEL STYLES -->
 
 <!-- START @THEME STYLES -->
-    <link href="admin/assets/admin/css/reset.css" rel="stylesheet">
-    <link href="admin/assets/admin/css/layout.css" rel="stylesheet">
-    <link href="admin/assets/admin/css/components.css" rel="stylesheet">
-    <link href="admin/assets/admin/css/plugins.css" rel="stylesheet">
-    <link href="admin/assets/admin/css/themes/default.theme.css" rel="stylesheet" id="theme">
-    <link href="admin/assets/admin/css/pages/dashboard-projects.css" rel="stylesheet">
-    <link href="admin/assets/admin/css/custom.css" rel="stylesheet">
+    <link href="/admin/assets/admin/css/reset.css" rel="stylesheet">
+    <link href="/admin/assets/admin/css/layout.css" rel="stylesheet">
+    <link href="/admin/assets/admin/css/components.css" rel="stylesheet">
+    <link href="/admin/assets/admin/css/plugins.css" rel="stylesheet">
+    <link href="/admin/assets/admin/css/themes/default.theme.css" rel="stylesheet" id="theme">
+    <link href="/admin/assets/admin/css/pages/dashboard-projects.css" rel="stylesheet">
+    <link href="/admin/assets/admin/css/custom.css" rel="stylesheet">
     <!--/ END THEME STYLES -->
 
 <!-- START @IE SUPPORT -->
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-    <script src="admin/assets/global/plugins/bower_components/html5shiv/dist/html5shiv.min.js"></script>
-    <script src="admin/assets/global/plugins/bower_components/respond-minmax/dest/respond.min.js"></script>
+    <script src="/admin/assets/global/plugins/bower_components/html5shiv/dist/html5shiv.min.js"></script>
+    <script src="/admin/assets/global/plugins/bower_components/respond-minmax/dest/respond.min.js"></script>
     <![endif]-->
     <!--/ END IE SUPPORT -->
 </head>
@@ -145,35 +145,35 @@
 
 <!-- START JAVASCRIPT SECTION (Load javascripts at bottom to reduce load time) -->
 <!-- START @CORE PLUGINS -->
-<script src="admin/assets/global/plugins/bower_components/jquery/dist/jquery.min.js"></script>
-<script src="admin/assets/global/plugins/bower_components/jquery-cookie/jquery.cookie.js"></script>
-<script src="admin/assets/global/plugins/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="admin/assets/global/plugins/bower_components/typehead.js/dist/handlebars.js"></script>
-<script src="admin/assets/global/plugins/bower_components/typehead.js/dist/typeahead.bundle.min.js"></script>
-<script src="admin/assets/global/plugins/bower_components/jquery-nicescroll/jquery.nicescroll.min.js"></script>
-<script src="admin/assets/global/plugins/bower_components/jquery.sparkline.min/index.js"></script>
-<script src="admin/assets/global/plugins/bower_components/jquery-easing-original/jquery.easing.1.3.min.js"></script>
-<script src="admin/assets/global/plugins/bower_components/ionsound/js/ion.sound.min.js"></script>
-<script src="admin/assets/global/plugins/bower_components/bootbox/bootbox.js"></script>
-<script src="admin/assets/global/plugins/bower_components/retina.js/dist/retina.min.js"></script>
+<script src="/admin/assets/global/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/admin/assets/global/plugins/bower_components/jquery-cookie/jquery.cookie.js"></script>
+<script src="/admin/assets/global/plugins/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/admin/assets/global/plugins/bower_components/typehead.js/dist/handlebars.js"></script>
+<script src="/admin/assets/global/plugins/bower_components/typehead.js/dist/typeahead.bundle.min.js"></script>
+<script src="/admin/assets/global/plugins/bower_components/jquery-nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/admin/assets/global/plugins/bower_components/jquery.sparkline.min/index.js"></script>
+<script src="/admin/assets/global/plugins/bower_components/jquery-easing-original/jquery.easing.1.3.min.js"></script>
+<script src="/admin/assets/global/plugins/bower_components/ionsound/js/ion.sound.min.js"></script>
+<script src="/admin/assets/global/plugins/bower_components/bootbox/bootbox.js"></script>
+<script src="/admin/assets/global/plugins/bower_components/retina.js/dist/retina.min.js"></script>
 <!--/ END CORE PLUGINS -->
 
 <!-- START @PAGE LEVEL PLUGINS -->
-<script src="admin/assets/global/plugins/bower_components/bootstrap-session-timeout/dist/bootstrap-session-timeout.min.js"></script>
-<script src="admin/assets/global/plugins/bower_components/underscore/underscore-min.js"></script>
-<script src="admin/assets/global/plugins/bower_components/jsTimezoneDetect/jstz.min.js"></script>
-<script src="admin/assets/global/plugins/bower_components/bootstrap-calendar/js/calendar.min.js"></script>
-<script src="admin/assets/global/plugins/bower_components/raphael/raphael-min.js"></script>
-<script src="admin/assets/global/plugins/bower_components/morrisjs/morris.min.js"></script>
-<script src="admin/assets/global/plugins/bower_components/horizontal-chart/build/js/jquery.horizBarChart.min.js"></script>
-<script src="admin/assets/global/plugins/bower_components/waypoints/lib/jquery.waypoints.min.js"></script>
-<script src="admin/assets/global/plugins/bower_components/counter-up/jquery.counterup.min.js"></script>
+<script src="/admin/assets/global/plugins/bower_components/bootstrap-session-timeout/dist/bootstrap-session-timeout.min.js"></script>
+<script src="/admin/assets/global/plugins/bower_components/underscore/underscore-min.js"></script>
+<script src="/admin/assets/global/plugins/bower_components/jsTimezoneDetect/jstz.min.js"></script>
+<script src="/admin/assets/global/plugins/bower_components/bootstrap-calendar/js/calendar.min.js"></script>
+<script src="/admin/assets/global/plugins/bower_components/raphael/raphael-min.js"></script>
+<script src="/admin/assets/global/plugins/bower_components/morrisjs/morris.min.js"></script>
+<script src="/admin/assets/global/plugins/bower_components/horizontal-chart/build/js/jquery.horizBarChart.min.js"></script>
+<script src="/admin/assets/global/plugins/bower_components/waypoints/lib/jquery.waypoints.min.js"></script>
+<script src="/admin/assets/global/plugins/bower_components/counter-up/jquery.counterup.min.js"></script>
 <!--/ END PAGE LEVEL PLUGINS -->
 
 <!-- START @PAGE LEVEL SCRIPTS -->
-<script src="admin/assets/admin/js/apps.js"></script>
-<script src="admin/assets/admin/js/pages/project-management/blankon.project.management.dashboard.js"></script>
-<script src="admin/assets/admin/js/demo.js"></script>
+<script src="/admin/assets/admin/js/apps.js"></script>
+<script src="/admin/assets/admin/js/pages/project-management/blankon.project.management.dashboard.js"></script>
+<script src="/admin/assets/admin/js/demo.js"></script>
 <!--/ END PAGE LEVEL SCRIPTS -->
 <!--/ END JAVASCRIPT SECTION -->
 

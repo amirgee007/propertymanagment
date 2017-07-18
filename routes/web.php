@@ -58,6 +58,12 @@ Route::group(['middleware' => ['admin']], function () {
         'as' => 'logout',
         'uses' => 'AdminAuth\AuthController@logout'));
 
+    Route::get('/dashboard/profile', array(
+        'as' => 'view.profile',
+        'uses' => 'Admin\AdminController@viewProfile'));
+
+
+
 
 ////////////////////////////////Users Routes///////////////////////////////////
     Route::get('/user', array(
