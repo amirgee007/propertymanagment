@@ -11,7 +11,7 @@
     <meta name="description" content="Blankon is a theme fullpack admin template powered by Twitter bootstrap 3 front-end framework. Included are multiple example pages, elements styles, and javascript widgets to get your project started.">
     <meta name="keywords" content="admin, admin template, bootstrap3, clean, fontawesome4, good documentation, lightweight admin, responsive dashboard, webapp">
     <meta name="author" content="Djava UI">
-    <title>MEMBER AREA | BLANKON - Fullpack Admin Theme</title>
+    <title>Login Area | Property Management</title>
     <!--/ END META SECTION -->
 
 <!-- START @FAVICONS -->

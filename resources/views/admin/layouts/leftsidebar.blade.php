@@ -29,12 +29,12 @@
         <!--/ End navigation - dashboard -->
 
         <!-- Start navigation - my projects -->
-        <li>
-            <a href="#">
-                <span class="icon"><i class="fa fa-black-tie"></i></span>
-                <span class="text">All E-Condo Features</span>
-            </a>
-        </li>
+        {{--<li>--}}
+            {{--<a href="#">--}}
+                {{--<span class="icon"><i class="fa fa-black-tie"></i></span>--}}
+                {{--<span class="text">All E-Condo Features</span>--}}
+            {{--</a>--}}
+        {{--</li>--}}
         <!--/ End navigation - my projects -->
 
         <li class="submenu">
@@ -44,9 +44,10 @@
                 <span class="arrow"></span>
             </a>
             <ul>
-                <li><a href="#">Ownership Management <span class="label label-success pull-right"></span></a></li>
-                <li><a href="#">Invoicing <span class="label label-warning pull-right"></span></a></li>
-                <li><a href="#">Managements <span class="label label-danger pull-right"></span></a></li>
+                <li><a href="{{route('owner.add.new')}}">Add Owners profile<span class="label label-success pull-right"></span></a></li>
+                <li><a href="#">View Profile <span class="label label-warning pull-right"></span></a></li>
+                <li><a href="#">Assign lot <span class="label label-danger pull-right"></span></a></li>
+                <li><a href="#">Sell to Other <span class="label label-danger pull-right"></span></a></li>
             </ul>
         </li>
 

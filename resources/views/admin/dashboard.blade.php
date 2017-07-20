@@ -7,7 +7,7 @@
 @section('content')
 
 
-    <!-- START @PAGE CONTENT -->
+        <!-- START @PAGE CONTENT -->
         <section id="page-content">
             <!-- Start page header -->
             <div class="header-content">

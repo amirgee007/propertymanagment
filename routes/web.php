@@ -89,7 +89,15 @@ Route::group(['middleware' => ['admin']], function () {
         'uses' => 'Admin\UserController@destroy'));
 
 
-////////////////////////////////Events Routes///////////////////////////////////
+////////////////////////////////owner Routes///////////////////////////////////
+    Route::get('/dashboard/owner/add', array(
+        'as' => 'owner.add.new',
+        'uses' => 'Admin\OwnerController@viewProfile'));
+
+ Route::post('/dashboard/owner/store', array(
+        'as' => 'post.owner.store',
+        'uses' => 'Admin\OwnerController@store'));
+
 
 
 ////////////////////////////////////////////////////////////////////////
