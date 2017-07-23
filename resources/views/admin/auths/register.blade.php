@@ -1,4 +1,8 @@
 @extends('admin..auths.loginBase')
+@section('title')
+    Regester New
+    @parent
+@stop
 @section('forms')
 
     <!-- Login form -->

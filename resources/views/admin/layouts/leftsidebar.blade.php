@@ -3,8 +3,8 @@
     <!-- Start left navigation - profile shortcut -->
     <div class="sidebar-content">
         <div class="media">
-            <a class="pull-left has-notif avatar" href="page-profile.html">
-                <img src="http://img.djavaui.com/?create=50x50,4888E1?f=ffffff" alt="admin">
+            <a class="pull-left has-notif avatar" href="#">
+                <img src="{{url('/')}}/admin/images/user.png" alt="admin">
                 <i class="online"></i>
             </a>
             <div class="media-body">
@@ -45,8 +45,9 @@
             </a>
             <ul>
                 <li><a href="{{route('owner.add.new')}}">Add Owners profile<span class="label label-success pull-right"></span></a></li>
-                <li><a href="#">View Profile <span class="label label-warning pull-right"></span></a></li>
+                <li><a href="{{route('owner.show')}}">View Profile <span class="label label-warning pull-right"></span></a></li>
                 <li><a href="#">Assign lot <span class="label label-danger pull-right"></span></a></li>
+                <li><a href="#">List of owned Lot No <span class="label label-danger pull-right"></span></a></li>
                 <li><a href="#">Sell to Other <span class="label label-danger pull-right"></span></a></li>
             </ul>
         </li>

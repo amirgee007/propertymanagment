@@ -1,4 +1,9 @@
 <?php
+Route::get('/form',function (){
+
+    return view('admin/original/form-element');
+
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +42,6 @@ Route::get('/password-reset', 'Auth\ForgotPasswordController@showLinkRequestForm
 
 Auth::routes();
 
-//Route::get('/home', 'HomeController@index')->name('home');
 
 
 ////////////////////////////////////////////////////Admin Pannel/////////////////////////
@@ -90,11 +94,16 @@ Route::group(['middleware' => ['admin']], function () {
 
 
 ////////////////////////////////owner Routes///////////////////////////////////
+    Route::get('/dashboard/owner/show', array(
+        'as' => 'owner.show',
+        'uses' => 'Admin\OwnerController@show'));
+
     Route::get('/dashboard/owner/add', array(
         'as' => 'owner.add.new',
         'uses' => 'Admin\OwnerController@viewProfile'));
 
- Route::post('/dashboard/owner/store', array(
+
+    Route::post('/dashboard/owner/store', array(
         'as' => 'post.owner.store',
         'uses' => 'Admin\OwnerController@store'));
 

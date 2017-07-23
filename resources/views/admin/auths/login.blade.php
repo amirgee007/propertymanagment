@@ -1,4 +1,8 @@
 @extends('admin..auths.loginBase')
+@section('title')
+    Login Area
+    @parent
+@stop
 @section('forms')
     @include('admin.auths.notifications')
 

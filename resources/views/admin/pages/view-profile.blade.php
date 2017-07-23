@@ -1,7 +1,7 @@
 @extends('admin.layouts.base')
 
     @section('title')
-        Main
+        View Profile
         @parent
     @stop
 @section('content')
@@ -44,16 +44,16 @@
                                         <img data-no-retina class="img-circle img-bordered-primary" src="../../../img/avatar/100/1.png" alt="Tol Lee">
                                     </li>
                                     <li class="text-center">
-                                        <h4 class="text-capitalize">Tol Lee</h4>
-                                        <p class="text-muted text-capitalize">web designer</p>
+                                        <h4 class="text-capitalize">{{\Auth::user()->name}}</h4>
+                                        <p class="text-muted text-capitalize">Owner</p>
                                     </li>
                                     <li>
-                                        <a href="https://wrapbootstrap.com/signin" target="_blank" class="btn btn-success text-center btn-block">PRO Account</a>
+                                        <a href="#" target="_blank" class="btn btn-success text-center btn-block">PRO Account</a>
                                     </li>
                                     <li><br/></li>
                                     <li>
                                         <div class="btn-group-vertical btn-block">
-                                            <a href="" class="btn btn-default"><i class="fa fa-cog pull-right"></i>Edit Account</a>
+                                            <a href="#" class="btn btn-default"><i class="fa fa-cog pull-right"></i>Edit Account</a>
                                             <a href="#" class="btn btn-default"><i class="fa fa-sign-out pull-right"></i>Logout</a>
                                         </div>
                                     </li>
@@ -68,9 +68,9 @@
                                 <h3 class="panel-title">Contact</h3>
                             </div>
                             <div class="pull-right">
-                                <a href="https://www.facebook.com/djavaui/" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-facebook"></i></a>
-                                <a href="https://twitter.com/djavaui" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-twitter"></i></a>
-                                <a href="https://plus.google.com/102744122511959250698" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-google-plus"></i></a>
+                                <a href="#" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-facebook"></i></a>
+                                <a href="#" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-twitter"></i></a>
+                                <a href="#" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-google-plus"></i></a>
                             </div>
                             <div class="clearfix"></div>
                         </div><!-- /.panel-heading -->
@@ -95,8 +95,8 @@
                                         <i class="fa fa-bars"></i>
                                     </button>
                                     <ul class="dropdown-menu pull-right no-border" role="menu">
-                                        <li class="active"><a href="page-timeline.html"><i class="fa fa-fw fa-clock-o"></i> <span>Timeline</span></a></li>
-                                        <li><a href="page-profile.html"><i class="fa fa-fw fa-user"></i> <span>About</span></a></li>
+                                        <li class="active"><a href="#"><i class="fa fa-fw fa-clock-o"></i> <span>Timeline</span></a></li>
+                                        <li><a href="#"><i class="fa fa-fw fa-user"></i> <span>About</span></a></li>
 
                                     </ul>
                                 </div>
@@ -165,7 +165,7 @@
 
         <!-- Start footer content -->
         <footer class="footer-content">
-            2014 - <span id="copyright-year"></span> &copy; Blankon Admin. Created by <a href="http://djavaui.com/" target="_blank">Djava UI</a>, Yogyakarta ID
+            2014 - <span id="copyright-year"></span> &copy; Blankon Admin. Created by <a href="seersol.com" target="_blank">Djava UI</a>, Yogyakarta ID
             <span class="pull-right">0.01 GB(0%) of 15 GB used</span>
         </footer><!-- /.footer-content -->
         <!--/ End footer content -->

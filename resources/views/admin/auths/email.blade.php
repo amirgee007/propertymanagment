@@ -1,4 +1,8 @@
 @extends('admin..auths.loginBase')
+@section('title')
+    Send Passwors reset link
+    @parent
+@stop
 @section('forms')
     @if (session('status'))
         <div class="alert alert-success">

@@ -14,13 +14,14 @@ class CreateCompaniesTable extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->increments('comp_id');
+            $table->integer('owner_id');
             $table->string('comp_name');
-            $table->string('comp_address');
-            $table->string('comp_reg_no');
-            $table->string('comp_telephone_no');
-            $table->string('comp_fax_no');
-            $table->string('comp_contact_person');
-            $table->string('comp_contact_no');
+            $table->string('comp_address')->nullable();
+            $table->string('comp_reg_no')->nullable();
+            $table->string('comp_telephone_no')->nullable();
+            $table->string('comp_fax_no')->nullable();
+            $table->string('comp_contact_person')->nullable();
+            $table->string('comp_contact_no')->nullable();
             $table->timestamps();
 
         });

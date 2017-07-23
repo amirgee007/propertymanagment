@@ -11,8 +11,11 @@
     <meta name="description" content="Blankon is a theme fullpack admin template powered by Twitter bootstrap 3 front-end framework. Included are multiple example pages, elements styles, and javascript widgets to get your project started.">
     <meta name="keywords" content="admin, admin template, bootstrap3, clean, fontawesome4, good documentation, lightweight admin, responsive dashboard, webapp">
     <meta name="author" content="Djava UI">
-    <title>Login Area | Property Management</title>
-    <!--/ END META SECTION -->
+    <title>
+        @section('title')
+            | Property Management
+        @show
+    </title>
 
 <!-- START @FAVICONS -->
     <link href="http://themes.djavaui.com/blankon-fullpack-admin-theme/img/ico/html/apple-touch-icon-144x144-precomposed.png" rel="apple-touch-icon-precomposed" sizes="144x144">

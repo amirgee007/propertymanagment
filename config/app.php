@@ -107,6 +107,8 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    'Carbon' => 'Carbon\Carbon',
+
     /*
     |--------------------------------------------------------------------------
     | Logging Configuration
@@ -164,6 +166,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
 
+
         /*
          * Package Service Providers...
          */
@@ -177,6 +180,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Laracasts\Flash\FlashServiceProvider::class,
 
     ],
 

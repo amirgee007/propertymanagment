@@ -6,7 +6,6 @@
     @stop
 @section('content')
 
-
         <!-- START @PAGE CONTENT -->
         <section id="page-content">
             <!-- Start page header -->
@@ -70,22 +69,14 @@
                                 <div id="project-progress" class="chart"></div>
                             </div><!-- /.panel-body -->
                         </div><!-- /.panel -->
-                        <!--/ End project progress -->
+
                     </div>
                 </div>
-            </div><!-- /.body-content -->
-            <!--/ End body content -->
+            </div>
 
-            <!-- Start footer content -->
-            <footer class="footer-content">
-                2014 - <span id="copyright-year"></span> &copy; Blankon Admin. Created by <a href="http://djavaui.com/" target="_blank">Djava UI</a>, Yogyakarta ID
-                <span class="pull-right">0.01 GB(0%) of 15 GB used</span>
-            </footer><!-- /.footer-content -->
-            <!--/ End footer content -->
+            @include('admin.layouts.pagefooter')
 
-        </section><!-- /#page-content -->
-        <!--/ END PAGE CONTENT -->
-
+        </section>
 @endsection
 
 @section('footer_scripts')
