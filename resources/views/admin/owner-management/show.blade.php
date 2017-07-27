@@ -98,7 +98,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Owner Address</label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control input-sm" value="{{$owner->owner_address or 'null'}}" readonly>
+                                            <input type="text" class="form-control input-sm"  readonly>
 
                                         </div>
                                     </div><!-- /.form-group -->
@@ -106,7 +106,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Phone 1</label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control input-sm" value="{{$owner->owner_phone1 or 'null'}}" readonly>
+                                            <input type="text" class="form-control input-sm"  readonly>
 
                                         </div>
                                     </div><!-- /.form-group -->
@@ -114,7 +114,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Phone 2</label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control input-sm" value="{{$owner->owner_phone2 or 'null'}}" readonly>
+                                            <input type="text" class="form-control input-sm"  readonly>
 
                                         </div>
                                     </div><!-- /.form-group -->

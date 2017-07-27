@@ -94,18 +94,30 @@ Route::group(['middleware' => ['admin']], function () {
 
 
 ////////////////////////////////owner Routes///////////////////////////////////
-    Route::get('/dashboard/owner/show', array(
-        'as' => 'owner.show',
-        'uses' => 'Admin\OwnerController@show'));
 
     Route::get('/dashboard/owner/add', array(
         'as' => 'owner.add.new',
         'uses' => 'Admin\OwnerController@viewProfile'));
 
 
+    Route::get('/dashboard/owner/show', array(
+        'as' => 'owner.show',
+        'uses' => 'Admin\OwnerController@show'));
+
+
+    Route::get('/dashboard/owner/edit', array(
+        'as' => 'owner.edit',
+        'uses' => 'Admin\OwnerController@edit'));
+
+
     Route::post('/dashboard/owner/store', array(
         'as' => 'post.owner.store',
         'uses' => 'Admin\OwnerController@store'));
+
+
+    Route::post('/dashboard/owner/update', array(
+        'as' => 'post.owner.update',
+        'uses' => 'Admin\OwnerController@update'));
 
 
 
