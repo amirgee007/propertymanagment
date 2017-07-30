@@ -119,6 +119,10 @@ Route::group(['middleware' => ['admin']], function () {
         'as' => 'post.owner.update',
         'uses' => 'Admin\OwnerController@update'));
 
+    Route::post('/dashboard/owner/verify', array(
+        'as' => 'post.owner.verify',
+        'uses' => 'Admin\OwnerController@verify'));
+
 
 
 ////////////////////////////////////////////////////////////////////////

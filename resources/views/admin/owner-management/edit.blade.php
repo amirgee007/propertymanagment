@@ -53,7 +53,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#tab3-2" data-toggle="tab">
+                                    <a href="#login-tab" data-toggle="tab">
                                         <i class="fa fa-file-text"></i>
                                         <div>
                                             <span class="text-strong">Login Tab</span>
@@ -62,7 +62,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#tab3-3" data-toggle="tab">
+                                    <a href="#lot-tab" data-toggle="tab">
                                         <i class="fa fa-credit-card"></i>
                                         <div>
                                             <span class="text-strong">Lot Tab</span>
@@ -71,11 +71,21 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#tab3-4" data-toggle="tab">
+                                    <a href="#carpark-tab" data-toggle="tab">
                                         <i class="fa fa-check-circle"></i>
                                         <div>
                                             <span class="text-strong">Carpark Tab</span>
                                             <span>4</span>
+                                        </div>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#meter-tab" data-toggle="tab">
+                                        <i class="fa fa-check-circle"></i>
+                                        <div>
+                                            <span class="text-strong">Meter Tab</span>
+                                            <span>5</span>
                                         </div>
                                     </a>
                                 </li>
@@ -88,7 +98,6 @@
                             <div class="tab-content">
                                 <div class="tab-pane fade in active" id="profile-tab">
                                     <h4>Edit Profile here</h4>
-
                                     <form class="form-horizontal form-bordered" action="{{route('post.owner.update')}}"
                                           role="form" id="sample-validation-2" method="post">
                                         <div class="form-body">
@@ -251,21 +260,147 @@
                                         </div>
 
                                     </form>
+                                </div>
+
+                                <div class="tab-pane fade" id="login-tab">
+                                    <h4>Login Info</h4>
+                                    <form class="form-horizontal form-bordered" action="{{route('post.owner.verify')}}"
+                                          role="form" id="sample-validation-2" method="post">
+                                        <div class="form-body">
+                                            <div class="form-group form-group-divider">
+                                                <div class="form-inner">
+                                                    <h4 class="no-margin"><span
+                                                                class="label label-success label-circle">1</span> Login
+                                                        Information</h4>
+                                                </div>
+                                            </div>
+                                            {{csrf_field()}}
+
+                                            <input type="hidden" name="owner_id" value="{{$owner->owner_id or 'null'}}" >
+
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Email. <span
+                                                            class="asterisk">*</span></label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" value="{{\Auth::user()->email}}" class="form-control input-sm" name="email"
+                                                           required>
+                                                </div>
+                                            </div><!-- /.form-group -->
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Pssword. <span
+                                                            class="asterisk">*</span></label>
+                                                <div class="col-sm-7">
+                                                    <input type="password" value="" class="form-control input-sm" name="password"
+                                                           required>
+                                                </div>
+                                            </div><!-- /.form-group -->
+
+                                        </div>
+
+                                        <div class="form-footer">
+                                            <div class="col-sm-offset-3">
+                                                <button type="submit" class="btn btn-theme">Save Login Info</button>
+                                            </div>
+                                        </div>
+
+                                    </form>
 
                                 </div>
-                                <div class="tab-pane fade" id="tab3-2">
-                                    <h4>what type of data here or which form</h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                </div>
-                                <div class="tab-pane fade" id="tab3-3">
-                                    <h4>what type of data here or which form</h4>
+                                <div class="tab-pane fade" id="lot-tab">
+                                    <h4>Lot Tab</h4>
+                                    <form class="form-horizontal form-bordered" action="{{route('post.owner.verify')}}"
+                                          role="form" id="sample-validation-2" method="post">
+                                        <div class="form-body">
+                                            <div class="form-group form-group-divider">
+                                                <div class="form-inner">
+                                                    <h4 class="no-margin"><span
+                                                                class="label label-success label-circle">1</span> Lot Tab</h4>
+                                                </div>
+                                            </div>
+                                            {{csrf_field()}}
 
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                </div>
-                                <div class="tab-pane fade" id="tab3-4">
-                                    <h4>what type of data here or which form</h4>
+                                            <input type="hidden" name="owner_id" value="{{$owner->owner_id or 'null'}}" >
 
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Lot Type. <span
+                                                            class="asterisk">*</span></label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" value="" class="form-control input-sm" name="lot_type"
+                                                           required>
+                                                </div>
+                                            </div><!-- /.form-group -->
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">No. <span
+                                                            class="asterisk">*</span></label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" value="" class="form-control input-sm" name="lot_number"
+                                                           required>
+                                                </div>
+                                            </div><!-- /.form-group -->
+
+                                        </div>
+
+                                        <div class="form-footer">
+                                            <div class="col-sm-offset-3">
+                                                <button type="submit" class="btn btn-theme">Save</button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+
+                                </div>
+                                <div class="tab-pane fade" id="carpark-tab">
+                                    <h4>Car Park Data</h4>
+                                    <form class="form-horizontal form-bordered" action="{{route('post.owner.verify')}}"
+                                          role="form" id="sample-validation-2" method="post">
+                                        <div class="form-body">
+                                            <div class="form-group form-group-divider">
+                                                <div class="form-inner">
+                                                    <h4 class="no-margin"><span
+                                                                class="label label-success label-circle">1</span> Park
+                                                        Information</h4>
+                                                </div>
+                                            </div>
+                                            {{csrf_field()}}
+
+                                            <input type="hidden" name="owner_id" value="{{$owner->owner_id or 'null'}}" >
+
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Carpark no <span
+                                                            class="asterisk">*</span></label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" value="" class="form-control input-sm" name="email"
+                                                           required>
+                                                </div>
+                                            </div>
+
+
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label">Carpark no <span
+                                                                class="asterisk">*</span></label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" value="" class="form-control input-sm" name="lot number"
+                                                           required>
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+
+                                        <div class="form-footer">
+                                            <div class="col-sm-offset-3">
+                                                <button type="submit" class="btn btn-theme">Save Info</button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+
                                 </div>
                             </div>
                         </div><!-- /.panel-body -->
