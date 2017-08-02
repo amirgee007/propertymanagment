@@ -15,6 +15,7 @@ $app = new Illuminate\Foundation\Application(
     realpath(__DIR__.'/../')
 );
 
+
 /*
 |--------------------------------------------------------------------------
 | Bind Important Interfaces
@@ -25,6 +26,9 @@ $app = new Illuminate\Foundation\Application(
 | incoming requests to this application from both the web and CLI.
 |
 */
+
+class_alias('Barryvdh\Snappy\Facades\SnappyPdf', 'PDF');
+$app->register(Barryvdh\Snappy\LumenServiceProvider::class);
 
 $app->singleton(
     Illuminate\Contracts\Http\Kernel::class,
@@ -40,6 +44,9 @@ $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
     App\Exceptions\Handler::class
 );
+
+class_alias(Barryvdh\Snappy\Facades\SnappyPdf::class, 'PDF');
+class_alias(Barryvdh\Snappy\Facades\SnappyImage::class, 'SnappyImage');
 
 /*
 |--------------------------------------------------------------------------

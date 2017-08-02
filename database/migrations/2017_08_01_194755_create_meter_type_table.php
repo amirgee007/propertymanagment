@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLotTypeTable extends Migration
+class CreateMeterTypeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,13 +14,14 @@ class CreateLotTypeTable extends Migration
     public function up()
     {
 
-        Schema::create('lot_types', function(Blueprint $table)
+        Schema::create('meter_types', function(Blueprint $table)
         {
-            $table->increments('lot_type_id')->index();
-            $table->string('lot_type_name');
-            $table->string('lot_type_description');
-            $table->float('lot_type_size');
-            $table->integer('lot_type_qty');
+            $table->increments('meter_type_id')->index();
+            $table->string('meter_name');
+            $table->string('meter_code');
+            $table->float('minimum_charges');
+            $table->float('tax_amount');
+
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
 
@@ -36,6 +37,6 @@ class CreateLotTypeTable extends Migration
      */
     public function down()
     {
-        Schema::drop('lot_types');
+        Schema::drop('meter_types');
     }
 }

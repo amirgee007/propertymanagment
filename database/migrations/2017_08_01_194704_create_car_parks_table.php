@@ -4,20 +4,27 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLotsTable extends Migration
+class CreateCarParksTable extends Migration
 {
-
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
     public function up()
     {
-        Schema::create('lots', function(Blueprint $table)
+
+        Schema::create('car_parks', function(Blueprint $table)
         {
-            $table->increments('lot_id')->index();
-            $table->string('lot_name');
-            $table->integer('lot_type_id')->nullable();
+            $table->increments('car_park_id')->index();
+            $table->string('number');
+
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
 
         });
+
+
     }
 
     /**
@@ -27,6 +34,6 @@ class CreateLotsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('lots');
+        Schema::drop('car_parks');
     }
 }

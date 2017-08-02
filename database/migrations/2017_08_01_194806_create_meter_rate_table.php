@@ -4,20 +4,30 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLotsTable extends Migration
+class CreateMeterRateTable extends Migration
 {
-
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
     public function up()
     {
-        Schema::create('lots', function(Blueprint $table)
+
+        Schema::create('meter_rate', function(Blueprint $table)
         {
-            $table->increments('lot_id')->index();
-            $table->string('lot_name');
-            $table->integer('lot_type_id')->nullable();
+            $table->increments('meter_rate_id')->index();
+            $table->string('meter_number');
+            $table->float('from');
+            $table->float('to');
+            $table->float('rate');
+
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
 
         });
+
+
     }
 
     /**
@@ -27,6 +37,6 @@ class CreateLotsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('lots');
+        Schema::drop('meter_rate');
     }
 }

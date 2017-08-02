@@ -310,7 +310,7 @@
                                 </div>
                                 <div class="tab-pane fade" id="lot-tab">
                                     <h4>Lot Tab</h4>
-                                    <form class="form-horizontal form-bordered" action="{{route('post.owner.verify')}}"
+                                    <form class="form-horizontal form-bordered" action="{{route('post.owner.add.lots')}}"
                                           role="form" id="sample-validation-2" method="post">
                                         <div class="form-body">
                                             <div class="form-group form-group-divider">
