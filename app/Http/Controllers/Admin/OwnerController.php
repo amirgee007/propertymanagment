@@ -160,5 +160,18 @@ class OwnerController extends Controller
 
     }
 
+    public function assignLot(){
+        return view('admin.owner-management.assignLot');
+    }
+
+    public function listOfAssignLot(){
+        return view('admin.owner-management.listAssignLot');
+
+    }
+
+    public function settToOther(){
+        return view('admin.owner-management.sellLot');
+
+    }
 
 }

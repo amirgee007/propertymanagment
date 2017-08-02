@@ -10,7 +10,7 @@
     <!-- START @PAGE LEVEL STYLES -->
     <link href="/admin/assets/global/plugins/bower_components/fontawesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="/admin/assets/global/plugins/bower_components/animate.css/animate.min.css" rel="stylesheet">
-    <link href="/admin/assets/commercial/plugins/cube-portfolio/cubeportfolio/css/cubeportfolio.min.css" rel="stylesheet">
+    {{--<link href="/admin/assets/commercial/plugins/cube-portfolio/cubeportfolio/css/cubeportfolio.min.css" rel="stylesheet">--}}
     <!--/ END PAGE LEVEL STYLES -->
 
     <link href="/admin/assets/global/plugins/bower_components/bootstrap-datepicker-vitalets/css/datepicker.css"
@@ -96,6 +96,7 @@
                         <!-- Start tabs content -->
                         <div class="panel-body col-lg-9 col-md-9 col-sm-9">
                             <div class="tab-content">
+
                                 <div class="tab-pane fade in active" id="profile-tab">
                                     <h4>Edit Profile here</h4>
                                     <form class="form-horizontal form-bordered" action="{{route('post.owner.update')}}"
@@ -278,7 +279,6 @@
 
                                             <input type="hidden" name="owner_id" value="{{$owner->owner_id or 'null'}}" >
 
-
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Email. <span
                                                             class="asterisk">*</span></label>
@@ -308,21 +308,21 @@
                                     </form>
 
                                 </div>
+
                                 <div class="tab-pane fade" id="lot-tab">
                                     <h4>Lot Tab</h4>
-                                    <form class="form-horizontal form-bordered" action="{{route('post.owner.add.lots')}}"
+                                    <form class="form-horizontal form-bordered" action="{{route('post.owner.assign.lot')}}"
                                           role="form" id="sample-validation-2" method="post">
                                         <div class="form-body">
                                             <div class="form-group form-group-divider">
                                                 <div class="form-inner">
                                                     <h4 class="no-margin"><span
-                                                                class="label label-success label-circle">1</span> Lot Tab</h4>
+                                                                class="label label-success label-circle">1</span> Lot Information</h4>
                                                 </div>
                                             </div>
                                             {{csrf_field()}}
 
                                             <input type="hidden" name="owner_id" value="{{$owner->owner_id or 'null'}}" >
-
 
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Lot Type. <span
@@ -349,47 +349,31 @@
                                                 <button type="submit" class="btn btn-theme">Save</button>
                                             </div>
                                         </div>
-
                                     </form>
-
                                 </div>
+
                                 <div class="tab-pane fade" id="carpark-tab">
                                     <h4>Car Park Data</h4>
-                                    <form class="form-horizontal form-bordered" action="{{route('post.owner.verify')}}"
+                                    <form class="form-horizontal form-bordered" action="{{route('post.owner.assign.carpark')}}"
                                           role="form" id="sample-validation-2" method="post">
                                         <div class="form-body">
                                             <div class="form-group form-group-divider">
                                                 <div class="form-inner">
                                                     <h4 class="no-margin"><span
-                                                                class="label label-success label-circle">1</span> Park
+                                                                class="label label-success label-circle">1</span> Car Park
                                                         Information</h4>
                                                 </div>
                                             </div>
                                             {{csrf_field()}}
-
                                             <input type="hidden" name="owner_id" value="{{$owner->owner_id or 'null'}}" >
-
-
-                                            <div class="form-group">
-                                                <label class="col-sm-3 control-label">Carpark no <span
-                                                            class="asterisk">*</span></label>
-                                                <div class="col-sm-7">
-                                                    <input type="text" value="" class="form-control input-sm" name="email"
-                                                           required>
-                                                </div>
-                                            </div>
-
-
                                                 <div class="form-group">
                                                     <label class="col-sm-3 control-label">Carpark no <span
                                                                 class="asterisk">*</span></label>
                                                 <div class="col-sm-7">
-                                                    <input type="text" value="" class="form-control input-sm" name="lot number"
+                                                    <input type="text" value="" class="form-control input-sm" name="car_park_no"
                                                            required>
                                                 </div>
-
                                             </div>
-
 
                                         </div>
 
@@ -402,16 +386,77 @@
                                     </form>
 
                                 </div>
+
+                                <div class="tab-pane fade" id="meter-tab">
+                                    <h4>Meter Data</h4>
+                                    <form class="form-horizontal form-bordered" action="{{route('post.owner.assign.carpark')}}"
+                                          role="form" id="sample-validation-2" method="post">
+                                        <div class="form-body">
+                                            <div class="form-group form-group-divider">
+                                                <div class="form-inner">
+                                                    <h4 class="no-margin"><span
+                                                                class="label label-success label-circle">1</span> Meter
+                                                        Information</h4>
+                                                </div>
+                                            </div>
+                                            {{csrf_field()}}
+                                            <input type="hidden" name="owner_id" value="{{$owner->owner_id or 'null'}}" >
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Meter Type <span
+                                                            class="asterisk">*</span></label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" value="" class="form-control input-sm" name="meter_type"
+                                                           required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Meter Id <span
+                                                            class="asterisk">*</span></label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" value="" class="form-control input-sm" name="meter_id"
+                                                           required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Meter no <span
+                                                            class="asterisk">*</span></label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" value="" class="form-control input-sm" name="meter_no"
+                                                           required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Lot no <span
+                                                            class="asterisk">*</span></label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" value="" class="form-control input-sm" name="lot_number"
+                                                           required>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-footer">
+                                            <div class="col-sm-offset-3">
+                                                <button type="submit" class="btn btn-theme">Save Info</button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+
+                                </div>
+
+
                             </div>
                         </div><!-- /.panel-body -->
                         <!--/ End tabs content -->
                     </div><!-- /.panel -->
-                    <!--/ End vertical tabs -->
-
                 </div>
             </div><!-- /.row -->
-
-
         </div>
 
         @include('admin.layouts.pagefooter')

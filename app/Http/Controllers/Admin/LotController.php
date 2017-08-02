@@ -5,7 +5,11 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class LotsController extends Controller
+class LotController extends Controller
 {
-    //
+    public function assignLot(Request $request){
+
+
+
+    }
 }

@@ -137,8 +137,29 @@ Route::group(['middleware' => ['admin']], function () {
         'uses' => 'Admin\OwnerController@update'));
 
     Route::post('/dashboard/owner/verify', array(
-        'as' => 'post.owner.add.lots',
+        'as' => 'post.owner.verify',
         'uses' => 'Admin\OwnerController@verify'));
+
+    Route::post('/dashboard/owner/addlot', array(
+        'as' => 'post.owner.assign.lot',
+        'uses' => 'Admin\LotController@assignLot'));
+
+    Route::post('/dashboard/owner/carpark', array(
+        'as' => 'post.owner.assign.carpark',
+        'uses' => 'Admin\CarParkController@assignCarPark'));
+
+    Route::get('/dashboard/owner/assign-lot', array(
+        'as' => 'owner.assign.lot',
+        'uses' => 'Admin\OwnerController@assignLot'));
+
+    Route::get('/dashboard/owner/list-assign-lot', array(
+        'as' => 'owner.list.assign.lot',
+        'uses' => 'Admin\OwnerController@listOfAssignLot'));
+
+    Route::get('/dashboard/owner/sell-to-other', array(
+        'as' => 'owner.lot.sell.other',
+        'uses' => 'Admin\OwnerController@settToOther'));
+
 
 
 
