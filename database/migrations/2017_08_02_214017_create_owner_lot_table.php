@@ -13,7 +13,7 @@ class CreateOwnerLotTable extends Migration
      */
     public function up()
     {
-        Schema::create('lots', function(Blueprint $table)
+        Schema::create('owner_lots', function(Blueprint $table)
         {
             $table->increments('lot_id')->index();
             $table->string('lot_name');
