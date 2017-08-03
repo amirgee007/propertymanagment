@@ -16,15 +16,14 @@ class CreateMeterReadingTable extends Migration
 
         Schema::create('meter_reading', function(Blueprint $table)
         {
-            $table->increments('lot_type_id')->index();
-            $table->string('number');
-            $table->integer('meter_id');
-            $table->integer('lot_no');
 
-            $table->timestamp('last_reading_date')->nullable();
+            $table->increments('meter_reading_id');
+            $table->integer('meter_id');
+            $table->string('reading_number');
+            $table->integer('lot_no');
+            $table->dateTime('last_reading_date')->nullable();
             $table->float('last_reading')->nullable();
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
 
         });
 

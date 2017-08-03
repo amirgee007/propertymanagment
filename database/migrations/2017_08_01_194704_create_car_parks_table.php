@@ -16,11 +16,9 @@ class CreateCarParksTable extends Migration
 
         Schema::create('car_parks', function(Blueprint $table)
         {
-            $table->increments('car_park_id')->index();
+            $table->increments('car_park_id');
             $table->string('number');
-
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
 
         });
 

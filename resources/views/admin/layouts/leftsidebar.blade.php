@@ -45,7 +45,7 @@
             </a>
             <ul>
                 <li><a href="{{route('owner.add.new')}}">Add Owners profile<span class="label label-success pull-right"></span></a></li>
-{{--                <li><a href="{{route('owner.show')}}">view Owner <span class="label label-warning pull-right"></span></a></li>--}}
+{{--            <li><a href="{{route('owner.show')}}">view Owner <span class="label label-warning pull-right"></span></a></li>--}}
                 <li><a href="{{route('owner.edit')}}">Edit Owner Profile<span class="label label-warning pull-right"></span></a></li>
                 <li><a href="{{route('owner.assign.lot')}}">Assign lot <span class="label label-danger pull-right"></span></a></li>
                 <li><a href="{{route('owner.list.assign.lot')}}">List of owned Lot No <span class="label label-danger pull-right"></span></a></li>

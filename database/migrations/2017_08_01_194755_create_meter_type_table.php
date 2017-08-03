@@ -16,14 +16,13 @@ class CreateMeterTypeTable extends Migration
 
         Schema::create('meter_types', function(Blueprint $table)
         {
-            $table->increments('meter_type_id')->index();
+            $table->increments('meter_types_id');
+            $table->integer('meter_id');
             $table->string('meter_name');
             $table->string('meter_code');
             $table->float('minimum_charges');
             $table->float('tax_amount');
-
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
 
         });
 

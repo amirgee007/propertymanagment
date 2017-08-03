@@ -16,13 +16,13 @@ class CreateLotTypeTable extends Migration
 
         Schema::create('lot_types', function(Blueprint $table)
         {
-            $table->increments('lot_type_id')->index();
+            $table->increments('lot_type_id');
+            $table->integer('lot_id')->nullable();
             $table->string('lot_type_name')->unique();
             $table->string('lot_type_description');
-            $table->float('lot_type_size');
-            $table->integer('lot_type_qty');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->float('lot_type_size')->nullable();
+            $table->integer('lot_type_qty')->nullable();
+            $table->timestamps();
 
         });
     }

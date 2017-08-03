@@ -16,14 +16,13 @@ class CreateMeterRateTable extends Migration
 
         Schema::create('meter_rate', function(Blueprint $table)
         {
-            $table->increments('meter_rate_id')->index();
+            $table->increments('meter_rate_id');
+            $table->integer('meter_id');
             $table->string('meter_number');
-            $table->float('from');
-            $table->float('to');
+            $table->bigInteger('from');
+            $table->bigInteger('to');
             $table->float('rate');
-
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
 
         });
 

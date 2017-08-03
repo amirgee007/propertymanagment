@@ -16,17 +16,12 @@ class CreateMetersTable extends Migration
 
         Schema::create('meters', function(Blueprint $table)
         {
-            $table->increments('meter_id')->index();
+            $table->increments('meter_id');
             $table->string('meter_type');
             $table->string('number');
             $table->string('lot_no');
-
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
-
+            $table->timestamps();
         });
-
-
     }
 
     /**

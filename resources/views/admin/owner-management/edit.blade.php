@@ -325,6 +325,19 @@
                                             <input type="hidden" name="owner_id" value="{{$owner->owner_id or 'null'}}" >
 
                                             <div class="form-group">
+                                                <label class="col-sm-3 control-label">Lot Type </label>
+                                                <div class="col-sm-7">
+                                                    <select class="form-control" name="owner_type">
+                                                        <option value="">Choose type</option>
+                                                        @foreach()
+                                                        <option value="individual">Individual</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div><!-- /.form-group -->
+
+
+                                            <div class="form-group">
                                                 <label class="col-sm-3 control-label">Lot Type. <span
                                                             class="asterisk">*</span></label>
                                                 <div class="col-sm-7">
@@ -334,7 +347,7 @@
                                             </div><!-- /.form-group -->
 
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label">No. <span
+                                                <label class="col-sm-3 control-label">Lot No. <span
                                                             class="asterisk">*</span></label>
                                                 <div class="col-sm-7">
                                                     <input type="text" value="" class="form-control input-sm" name="lot_number"
