@@ -18,7 +18,6 @@ class CreateOwnerCarParkTable extends Migration
             $table->increments('owner_car_park_id')->index();
             $table->integer('owner_id');
             $table->integer('carpark_no')->nullable();
-            $table->integer('carpark_no')->nullable();
             $table->integer('loc_area_text')->nullable();
 
         });
