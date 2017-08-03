@@ -11,5 +11,6 @@ class LotController extends Controller
 
 
 
+        dd($request->all());
     }
 }
