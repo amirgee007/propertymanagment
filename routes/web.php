@@ -11,7 +11,7 @@ Route::get('/download', function () {
         'lotTypes' => $lotTypes,
     );
 
-    $pdf = PDF::loadView('welcome',$data);
+    $pdf = PDF::loadView('admin/reports/pdf',$data);
 //    return $pdf->setOption('margin-top', 5)->stream();
     return $pdf->download('invoice.pdf');
 
