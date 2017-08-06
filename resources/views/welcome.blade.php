@@ -65,31 +65,60 @@
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @if (Auth::check())
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ url('/login') }}">Login</a>
-                        <a href="{{ url('/register') }}">Register</a>
-                    @endif
-                </div>
-            @endif
+    <div class="body-content animated fadeIn">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <div class="pull-left">
+                            <h3 class="panel-title">All lot Types</h3>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="panel-body no-padding">
+                        <div class="table-responsive" style="margin-top: -1px;">
+                            <table class="table table-striped table-primary">
+                                <thead>
+                                <tr>
+                                    <th class="text-center border-right" style="width: 1%;">ID</th>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Code</th>
+                                    <th>Size</th>
+                                    <th>Quantity</th>
+                                    <th>Created At</th>
+                                    <th>Photo</th>
+                                    <th class="text-center" style="width: 12%;">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($lotTypes as $lotType)
+                                    <tr>
+                                        <td class="text-center border-right">{{$lotType->lot_type_id ?? ''}}</td>
+                                        <td>{{$lotType->lot_type_name}}</td>
+                                        <td>{{$lotType->lot_type_description}}</td>
+                                        <td>{{$lotType->lot_type_code}}</td>
+                                        <td>{{$lotType->lot_type_size}}</td>
+                                        <td>{{$lotType->lot_type_qty}}</td>
+                                        <td>{{ isset($lotType->created_at) ? $lotType->created_at->diffForHumans() :  ''  }}</td>
+                                        <td class="text-center">
+                                            <a href="#" class="btn btn-success btn-xs" data-toggle="tooltip" data-placement="top" data-original-title="View detail"><i class="fa fa-eye"></i></a>
+                                            <a href="#" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                                            <a onclick="return confirm('Are you sure you want to delete this record?')" href="{{ route('lot.type.delete', $lotType->lot_type_id) }}"  class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                                        </td>
+                                        <td><img src="{{url('/')}}/admin/images/user.png" alt="admin"></td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div><!-- /.table-responsive -->
+                    </div><!-- /.panel-body -->
+                </div><!-- /.panel -->
+                <!--/ End basic color table -->
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
+            </div><!-- /.col-md-12 -->
+        </div><!-- /.row -->
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
-            </div>
-        </div>
+    </div>
     </body>
 </html>

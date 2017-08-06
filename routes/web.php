@@ -1,7 +1,19 @@
 <?php
 
-Route::get('/form', function () {
+use App\Models\LotType;
+use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 
+Route::get('/download', function () {
+
+    $lotTypes = LotType::all();
+
+    $data = array(
+        'lotTypes' => $lotTypes,
+    );
+
+    $pdf = PDF::loadView('welcome',$data);
+//    return $pdf->setOption('margin-top', 5)->stream();
+    return $pdf->download('invoice.pdf');
 
 });
 

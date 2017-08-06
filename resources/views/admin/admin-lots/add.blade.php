@@ -145,8 +145,7 @@
                     </div><!-- /.col-md-12 -->
                 </div><!-- /.row -->
 
-            </div><!-- /.body-content -->
-            <!--/ End body content -->
+            </div>
 
 
         @include('admin.layouts.pagefooter')
