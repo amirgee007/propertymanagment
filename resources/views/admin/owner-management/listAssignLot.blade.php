@@ -49,18 +49,25 @@
                                             <table class="table">
                                                 <thead>
                                                 <tr>
-                                                    <th>Owner</th>
-                                                    <th>Name</th>
+                                                    <th>Id</th>
+                                                    <th>Lot Id</th>
                                                     <th>Lot Name</th>
+                                                    <th>Lot Type Id</th>
+                                                    <th>Created At</th>
 
                                                 </tr>
                                                 </thead>
                                                 <tbody>
+                                                @foreach($ownedLots as $ownedLot)
                                                 <tr>
-                                                    <td>1</td>
-                                                    <td>Anna</td>
-                                                    <td>lot 101</td>
+                                                    <td>{{$ownedLot->owner_lot_id}}</td>
+                                                    <td>{{$ownedLot->lot_id}}</td>
+                                                    <td>{{\App\PropertyManagement\Helper::lotName($ownedLot)}}</td>
+                                                    <td>{{$ownedLot->lot_type_id}}</td>
+                                                    <td>{{ isset($ownedLot->created_at) ? $ownedLot->created_at->diffForHumans() :  ''  }}</td>
+
                                                 </tr>
+                                                @endforeach
                                                 </tbody>
                                             </table>
                                         </div>

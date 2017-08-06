@@ -14,17 +14,17 @@ class CreateMeterRateTable extends Migration
     public function up()
     {
 
-        Schema::create('meter_rate', function(Blueprint $table)
-        {
-            $table->increments('meter_rate_id');
-            $table->integer('meter_id');
-            $table->string('meter_number');
-            $table->bigInteger('from');
-            $table->bigInteger('to');
-            $table->float('rate');
-            $table->timestamps();
-
-        });
+//        Schema::create('meter_rate', function(Blueprint $table)
+//        {
+//            $table->increments('meter_rate_id');
+//            $table->integer('meter_id');
+//            $table->string('meter_number');
+//            $table->bigInteger('from');
+//            $table->bigInteger('to');
+//            $table->float('rate');
+//            $table->timestamps();
+//
+//        });
 
 
     }
@@ -36,6 +36,6 @@ class CreateMeterRateTable extends Migration
      */
     public function down()
     {
-        Schema::drop('meter_rate');
+//        Schema::drop('meter_rate');
     }
 }

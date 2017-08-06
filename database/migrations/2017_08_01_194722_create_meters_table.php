@@ -14,14 +14,14 @@ class CreateMetersTable extends Migration
     public function up()
     {
 
-        Schema::create('meters', function(Blueprint $table)
-        {
-            $table->increments('meter_id');
-            $table->string('meter_type');
-            $table->string('number');
-            $table->string('lot_no');
-            $table->timestamps();
-        });
+//        Schema::create('meters', function(Blueprint $table)
+//        {
+//            $table->increments('meter_id');
+//            $table->string('meter_type');
+//            $table->string('number');
+//            $table->string('lot_no');
+//            $table->timestamps();
+//        });
     }
 
     /**
@@ -31,6 +31,6 @@ class CreateMetersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('meters');
+//        Schema::drop('meters');
     }
 }

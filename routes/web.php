@@ -119,28 +119,48 @@ Route::group(['middleware' => ['admin']], function () {
         'as' => 'post.owner.verify',
         'uses' => 'Admin\OwnerController@verify'));
 
-    Route::post('/dashboard/owner/addlot', array(
-        'as' => 'post.owner.assign.lot',
-        'uses' => 'Admin\LotController@assignLot'));
 
-    Route::post('/dashboard/owner/carpark', array(
+    Route::post('/dashboard/owner/car-park', array(
         'as' => 'post.owner.assign.carpark',
         'uses' => 'Admin\CarParkController@assignCarPark'));
 
+
     Route::get('/dashboard/owner/assign-lot', array(
         'as' => 'owner.assign.lot',
-        'uses' => 'Admin\OwnerController@assignLot'));
+        'uses' => 'Admin\LotController@assignLotShow'));
 
-    Route::get('/dashboard/owner/list-assign-lot', array(
+    Route::post('/dashboard/owner/assign-lot/save', array(
+        'as' => 'post.owner.assign.lot',
+        'uses' => 'Admin\LotController@assignLotSave'));
+
+
+    Route::get('/dashboard/owner/assign-lot/list', array(
         'as' => 'owner.list.assign.lot',
-        'uses' => 'Admin\OwnerController@listOfAssignLot'));
+        'uses' => 'Admin\LotController@listOfAssignLot'));
+
+
 
     Route::get('/dashboard/owner/sell-to-other', array(
         'as' => 'owner.lot.sell.other',
-        'uses' => 'Admin\OwnerController@settToOther'));
+        'uses' => 'Admin\LotController@sellToOther'));
 
 
-////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////Lots Management/////////
+
+    Route::get('/dashboard/lot/add', array(
+        'as' => 'get.lot.list',
+        'uses' => 'Admin\LotController@show'));
+
+    Route::post('/dashboard/lot/add/save-lot-type', array(
+        'as' => 'post.lot.save.lotType',
+        'uses' => 'Admin\LotController@saveLotType'));
+
+    Route::get('/dashboard/lot/delete{id}', array(
+        'as' => 'lot.type.delete',
+        'uses' => 'Admin\LotController@deleteLotType'));
+
+
+//////////////////////////////////////////////////
 });
 
 

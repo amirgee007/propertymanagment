@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class OwnerCarPark extends Model
 {
-    protected $table = 'OwnerCarPark';
+    protected $table = 'owner_car_park';
     protected $guarded = [];
+
 }
+

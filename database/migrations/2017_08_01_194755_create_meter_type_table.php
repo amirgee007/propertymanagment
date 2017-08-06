@@ -14,17 +14,17 @@ class CreateMeterTypeTable extends Migration
     public function up()
     {
 
-        Schema::create('meter_types', function(Blueprint $table)
-        {
-            $table->increments('meter_types_id');
-            $table->integer('meter_id');
-            $table->string('meter_name');
-            $table->string('meter_code');
-            $table->float('minimum_charges');
-            $table->float('tax_amount');
-            $table->timestamps();
-
-        });
+//        Schema::create('meter_types', function(Blueprint $table)
+//        {
+//            $table->increments('meter_types_id');
+//            $table->integer('meter_id');
+//            $table->string('meter_name');
+//            $table->string('meter_code');
+//            $table->float('minimum_charges');
+//            $table->float('tax_amount');
+//            $table->timestamps();
+//
+//        });
 
 
     }
@@ -36,6 +36,6 @@ class CreateMeterTypeTable extends Migration
      */
     public function down()
     {
-        Schema::drop('meter_types');
+//        Schema::drop('meter_types');
     }
 }

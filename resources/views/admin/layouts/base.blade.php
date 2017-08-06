@@ -43,6 +43,8 @@
     <link href="/admin/assets/admin/css/pages/dashboard-projects.css" rel="stylesheet">
     <link href="/admin/assets/admin/css/custom.css" rel="stylesheet">
 
+    <link href="{{ asset('assets/vendors/toastr/css/toastr.min.css') }}" rel="stylesheet" type="text/css"/>
+
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="/admin/assets/global/plugins/bower_components/html5shiv/dist/html5shiv.min.js"></script>
@@ -161,9 +163,29 @@
 <script src="/admin/assets/admin/js/pages/project-management/blankon.project.management.dashboard.js"></script>
 <script src="/admin/assets/admin/js/demo.js"></script>
 
+<script src="{{ asset('assets/vendors/toastr/js/toastr.min.js') }}" type="text/javascript"></script>
+
 <script>
     $('#flash-overlay-modal').modal();
     $('div.alert').not('.alert-important').delay(4000).fadeOut(350);
+
+
+    @if (Session::has('app_info'))
+    toastr.info("{{ Session::get('app_info') }}", "Message");
+    @endif
+
+    @if (Session::has('app_message'))
+    toastr.success("{{ Session::get('app_message') }}", "Message");
+    @endif
+
+    @if (Session::has('app_warning'))
+    toastr.warning("{{ Session::get('app_warning') }}", "Message");
+    @endif
+
+    @if (Session::has('app_error'))
+    toastr.error("{{ Session::get('app_error') }}", "Message");
+    @endif
+
 </script>
 
 <!--/ END GOOGLE ANALYTICS -->

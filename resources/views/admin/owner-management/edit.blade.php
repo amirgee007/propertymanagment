@@ -311,8 +311,7 @@
 
                                 <div class="tab-pane fade" id="lot-tab">
                                     <h4>Lot Tab</h4>
-                                    <form class="form-horizontal form-bordered" action="{{route('post.owner.assign.lot')}}"
-                                          role="form" id="sample-validation-2" method="post">
+                                    <form class="form-horizontal form-bordered" action="{{route('post.owner.assign.lot')}}" role="form" id="owner-assign-lot" method="post">
                                         <div class="form-body">
                                             <div class="form-group form-group-divider">
                                                 <div class="form-inner">
@@ -325,41 +324,34 @@
                                             <input type="hidden" name="owner_id" value="{{$owner->owner_id or 'null'}}" >
 
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label">Lot Type </label>
+                                                <label class="col-sm-3 control-label">Lot Type</label>
                                                 <div class="col-sm-7">
-                                                    <select class="form-control" name="owner_type">
+                                                    <select class="form-control" name="lot_type_id" required>
                                                         <option value="">Choose type</option>
-                                                        @foreach()
-                                                        <option value="individual">Individual</option>
+                                                        @foreach($lotType as $lotTp)
+                                                            <option value="{{$lotTp->lot_type_id}}">{{$lotTp->lot_type_name}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
-                                            </div><!-- /.form-group -->
+                                            </div>
 
 
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label">Lot Type. <span
-                                                            class="asterisk">*</span></label>
+                                                <label class="col-sm-3 control-label">Lot Name </label>
                                                 <div class="col-sm-7">
-                                                    <input type="text" value="" class="form-control input-sm" name="lot_type"
-                                                           required>
+                                                    <select class="form-control" name="lot_id" required>
+                                                        <option value="">Choose Name</option>
+                                                        @foreach($lots as $lot)
+                                                            <option value="{{$lot->lot_id}}">{{$lot->lot_name}}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
-                                            </div><!-- /.form-group -->
-
-                                            <div class="form-group">
-                                                <label class="col-sm-3 control-label">Lot No. <span
-                                                            class="asterisk">*</span></label>
-                                                <div class="col-sm-7">
-                                                    <input type="text" value="" class="form-control input-sm" name="lot_number"
-                                                           required>
-                                                </div>
-                                            </div><!-- /.form-group -->
-
+                                            </div>
                                         </div>
 
                                         <div class="form-footer">
                                             <div class="col-sm-offset-3">
-                                                <button type="submit" class="btn btn-theme">Save</button>
+                                                <button type="submit" class="btn btn-theme" id="assign-lot-btn">Save</button>
                                             </div>
                                         </div>
                                     </form>
@@ -368,7 +360,7 @@
                                 <div class="tab-pane fade" id="carpark-tab">
                                     <h4>Car Park Data</h4>
                                     <form class="form-horizontal form-bordered" action="{{route('post.owner.assign.carpark')}}"
-                                          role="form" id="sample-validation-2" method="post">
+                                          role="form" id="owner-car-park" method="post">
                                         <div class="form-body">
                                             <div class="form-group form-group-divider">
                                                 <div class="form-inner">
@@ -384,6 +376,15 @@
                                                                 class="asterisk">*</span></label>
                                                 <div class="col-sm-7">
                                                     <input type="text" value="" class="form-control input-sm" name="car_park_no"
+                                                           required>
+                                                </div>
+                                                </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Location Area Text <span
+                                                            class="asterisk">*</span></label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" value="" class="form-control input-sm" name="loc_area_text"
                                                            required>
                                                 </div>
                                             </div>
@@ -486,6 +487,8 @@
 
     <script>
 
+        toastr.success("welcome to Edit Owner Page.", "Thanks");
+
         function toggle(className, obj) {
             var $input = $(obj);
             if ($input.prop('checked')) {
@@ -506,6 +509,65 @@
             }).on('changeDate', function (e) {
                 $(this).datepicker('hide');
             });
+
+
+            $('#owner-assign-lot').on('submit' , function (e) {
+
+                e.preventDefault();
+                form = $(this);
+                var action = form.attr('action');
+                $.ajax({
+                    url: action,
+                    data: form.serialize(),
+                    headers: { 'X-XSRF-TOKEN' : '{{\Illuminate\Support\Facades\Crypt::encrypt(csrf_token())}}' },
+                    error: function() {
+
+                    },
+                    success: function(response) {
+                        if(response.status == 'saved'){
+                            toastr.success("Lot Assigned to Owner" , "Asign Lot");
+                            $("#owner-assign-lot").trigger('reset'); //jquery
+
+                        }else{
+                            toastr.error("Some Thing went wrong", "Not Saved");
+                        }
+                    },
+
+                    type: 'POST'
+                });
+
+            });
+
+            $('#owner-car-park').on('submit' , function (e) {
+
+                e.preventDefault();
+                form = $(this);
+                var action = form.attr('action');
+                $.ajax({
+                    url: action,
+                    data: form.serialize(),
+                    headers: { 'X-XSRF-TOKEN' : '{{\Illuminate\Support\Facades\Crypt::encrypt(csrf_token())}}' },
+                    error: function() {
+
+                    },
+                    success: function(response) {
+                        if(response.status == 'saved'){
+                            toastr.success("Car Park Assigned to Owner" , "Assign Car");
+                            $("#owner-car-park").trigger('reset'); //jquery
+
+                        }else{
+                            toastr.error("Some Thing went wrong", "Not Saved");
+                        }
+                    },
+
+                    type: 'POST'
+                });
+
+            });
+
+
+
+
 
         });
 

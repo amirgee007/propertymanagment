@@ -8,9 +8,11 @@ class Owner extends Model
 {
 
     protected $table = 'owners';
+    protected $primaryKey = 'owner_id';
 
     protected $fillable = [
         'owner_id',
+        'user_id',
         'owner_type',
         'owner_id_card_no',
         'owner_name',
@@ -21,9 +23,9 @@ class Owner extends Model
         'owner_phone2'
     ];
 
-    public function companies()
+    public function ownedLots()
     {
-        return $this->hasMany(Company::class, 'owner_id' , 'owner_id');
+        return $this->hasMany(Lot::class, 'owner_id', 'owner_id');
     }
 
 

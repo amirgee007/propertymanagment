@@ -31,43 +31,50 @@
                 <div class="col-md-12">
                     <div class="panel rounded shadow">
                         <div class="panel-body no-padding">
-                            <form class="form-horizontal form-bordered" action="#"
-                                  role="form" id="sample-validation-2" method="post">
+                            <form class="form-horizontal form-bordered" action="{{route('post.owner.assign.lot')}}"
+                                  role="form" id="owner-assign-lot" method="post">
                                 <div class="form-body">
                                     <div class="form-group form-group-divider">
                                         <div class="form-inner">
                                             <h4 class="no-margin"><span
                                                         class="label label-success label-circle">1</span> General
-                                                Information of Lot</h4>
+                                                Information of Lot Assign</h4>
                                         </div>
                                     </div>
                                     {{csrf_field()}}
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Owner Type</label>
+                                        <label class="col-sm-3 control-label">Owner</label>
                                         <div class="col-sm-7">
-                                            <select class="form-control" name="owner_type">
-                                                <option value="">Choose type</option>
-                                                <option value="individual">Individual</option>
-                                                <option value="combined">Combined</option>
-                                                <option value="company">Company</option>
+                                            <select class="form-control" name="owner_id">
+                                                <option value="">Choose Owner</option>
+                                            @foreach($owners as $owner)
+                                                    <option value="{{$owner->owner_id}}">{{$owner->owner_name}}</option>
+                                            @endforeach
                                             </select>
                                             <label for="sv2_state" class="error"></label>
                                         </div>
                                     </div><!-- /.form-group -->
 
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Identity Card No. <span
+                                        <label class="col-sm-3 control-label">Lot Number<span
                                                     class="asterisk">*</span></label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control input-sm" name="owner_id_card_no"
-                                                   required>
+                                            <select class="form-control" name="lot_id">
+                                                <option value="">Choose Lot</option>
+                                                @foreach($lots as $lot)
+                                                    <option value="{{$lot->lot_id}}">{{$lot->lot_name}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
-                                    </div><!-- /.form-group -->
+                                    </div>
 
                                 <div class="form-footer">
                                     <div class="col-sm-offset-3">
                                         <button type="submit" class="btn btn-theme">Assign Lot</button>
+                                        <a type="button" href="{{route('owner.list.assign.lot')}}" class="btn btn-warning">See All Assigned</a>
+
                                     </div>
+
                                 </div>
 
                             </form>
@@ -92,26 +99,35 @@
 
     <script>
 
-        function toggle(className, obj) {
-            var $input = $(obj);
-            if ($input.prop('checked')) {
-                $(className).show();
-                $("#company_name").attr('required', true);
-            }
-            else {
-                $(className).hide();
-                $("#company_name").attr('required', false);
-            }
-        }
-
-
         $(document).ready(function () {
 
-            $('#dp1').datepicker({
-                format: 'dd-mm-yyyy',
-            }).on('changeDate', function (e) {
-                $(this).datepicker('hide');
+            $('#owner-assign-lot').on('submit' , function (e) {
+
+                e.preventDefault();
+                form = $(this);
+                var action = form.attr('action');
+                $.ajax({
+                    url: action,
+                    data: form.serialize(),
+                    headers: { 'X-XSRF-TOKEN' : '{{\Illuminate\Support\Facades\Crypt::encrypt(csrf_token())}}' },
+                    error: function() {
+
+                    },
+                    success: function(response) {
+                        if(response.status == 'saved'){
+                            toastr.success("Lot Assigned to Owner" , "Asign Lot");
+                            $("#owner-assign-lot").trigger('reset'); //jquery
+
+                        }else{
+                            toastr.error("Some Thing went wrong", "Not Saved");
+                        }
+                    },
+
+                    type: 'POST'
+                });
+
             });
+
 
         });
 

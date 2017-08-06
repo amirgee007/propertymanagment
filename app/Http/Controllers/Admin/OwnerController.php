@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Company;
+use App\Models\Lot;
+use App\Models\LotType;
 use App\Models\Owner;
 use App\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +16,7 @@ class OwnerController extends Controller
 
     public function viewProfile()
     {
-        return view('/admin/owner-management/add');
+        return view('admin.owner-management.add');
     }
 
 
@@ -29,6 +30,7 @@ class OwnerController extends Controller
             flash('First Add owners Info')->warning();
             redirect()->route('owner.add.new');
         }
+
 
         $company = !is_null($owner) ? $owner->companies->first() : '';
 
@@ -81,26 +83,26 @@ class OwnerController extends Controller
     public function edit()
     {
 
-
         $user_id = Auth::user()->id;
         $owner = Owner::where('owner_id', $user_id)->first();
-        if (is_null($owner)) {
 
+        if (is_null($owner)) {
             flash('First Add owners Info')->warning();
-            redirect()->route('owner.add.new');
+            return redirect('/dashboard/owner/add');
         }
 
-        $company = !is_null($owner) ? $owner->companies->first() : '';
+        $company = isset($owner->companies) ? $owner->companies->first() : '';
 
-        //$ob = (Owner::first()->owner_dob);
-        //dd(Carbon::parse($ob)->diffInYears(Carbon::now()));
+        $lots = Lot::all();
+        $lotType = LotType::all();
 
-        return view('admin.owner-management.edit', compact('company', 'owner'));
+        return view('admin.owner-management.edit', compact('lotType','lots','company', 'owner'));
 
     }
 
     public function update(Request $request)
     {
+
 
         $ownerId = null;
         $savableOwner = Owner::where('owner_id', $request->owner_id)->first();
@@ -114,12 +116,11 @@ class OwnerController extends Controller
         $savableOwner->owner_phone2 = isset($request->owner_phone2) ? $request->owner_phone2 : '';
         $savableOwner->is_company = isset($request->is_company) ? $request->is_company : false;
         $savableOwner->user_id = (Auth::user()) ? Auth::user()->id : '0';
-        $savableOwner->update();
-        $ownerId = $savableOwner->id;
+        $savableOwner->save();
+        $ownerId = $savableOwner->owner_id;
 
 
         if (isset($request->is_company)) {
-
 
             $savableCompany = Company::where('comp_id', $request->company_id)->first();
 
@@ -140,7 +141,6 @@ class OwnerController extends Controller
 
     }
 
-
     public function verify(Request $request)
     {
 
@@ -160,18 +160,5 @@ class OwnerController extends Controller
 
     }
 
-    public function assignLot(){
-        return view('admin.owner-management.assignLot');
-    }
-
-    public function listOfAssignLot(){
-        return view('admin.owner-management.listAssignLot');
-
-    }
-
-    public function settToOther(){
-        return view('admin.owner-management.sellLot');
-
-    }
 
 }

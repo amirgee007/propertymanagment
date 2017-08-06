@@ -14,18 +14,18 @@ class CreateMeterReadingTable extends Migration
     public function up()
     {
 
-        Schema::create('meter_reading', function(Blueprint $table)
-        {
-
-            $table->increments('meter_reading_id');
-            $table->integer('meter_id');
-            $table->string('reading_number');
-            $table->integer('lot_no');
-            $table->dateTime('last_reading_date')->nullable();
-            $table->float('last_reading')->nullable();
-            $table->timestamps();
-
-        });
+//        Schema::create('meter_reading', function(Blueprint $table)
+//        {
+//
+//            $table->increments('meter_reading_id');
+//            $table->integer('meter_id');
+//            $table->string('reading_number');
+//            $table->integer('lot_no');
+//            $table->dateTime('last_reading_date')->nullable();
+//            $table->float('last_reading')->nullable();
+//            $table->timestamps();
+//
+//        });
 
 
     }
@@ -37,6 +37,6 @@ class CreateMeterReadingTable extends Migration
      */
     public function down()
     {
-        Schema::drop('meter_reading');
+//        Schema::drop('meter_reading');
     }
 }

@@ -8,4 +8,7 @@ class Lot extends Model
 {
     protected $table = 'lots';
     protected $guarded = [];
+    protected $primaryKey ='lot_id';
+
+
 }

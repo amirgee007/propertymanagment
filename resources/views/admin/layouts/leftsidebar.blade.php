@@ -53,6 +53,18 @@
             </ul>
         </li>
 
+        <li class="submenu">
+            <a href="javascript:void(0);">
+                <span class="icon"><i class="fa fa-suitcase"></i></span>
+                <span class="text">Lots Management</span>
+                <span class="arrow"></span>
+            </a>
+            <ul>
+                <li><a href="{{route('get.lot.list')}}">Add Lot Type<span class="label label-success pull-right"></span></a></li>
+
+            </ul>
+        </li>
+
 
         <li class="submenu">
             <a href="javascript:void(0);">
