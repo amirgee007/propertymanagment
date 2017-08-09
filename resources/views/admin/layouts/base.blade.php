@@ -144,7 +144,6 @@
 <script src="/admin/assets/global/plugins/bower_components/jquery-nicescroll/jquery.nicescroll.min.js"></script>
 <script src="/admin/assets/global/plugins/bower_components/jquery.sparkline.min/index.js"></script>
 <script src="/admin/assets/global/plugins/bower_components/jquery-easing-original/jquery.easing.1.3.min.js"></script>
-<script src="/admin/assets/global/plugins/bower_components/ionsound/js/ion.sound.min.js"></script>
 <script src="/admin/assets/global/plugins/bower_components/bootbox/bootbox.js"></script>
 <script src="/admin/assets/global/plugins/bower_components/retina.js/dist/retina.min.js"></script>
 
@@ -160,12 +159,44 @@
 <script src="/admin/assets/global/plugins/bower_components/counter-up/jquery.counterup.min.js"></script>
 
 <script src="/admin/assets/admin/js/apps.js"></script>
-<script src="/admin/assets/admin/js/pages/project-management/blankon.project.management.dashboard.js"></script>
+<!--<script src="/admin/assets/admin/js/pages/project-management/blankon.project.management.dashboard.js"></script>-->
 <script src="/admin/assets/admin/js/demo.js"></script>
 
 <script src="{{ asset('assets/vendors/toastr/js/toastr.min.js') }}" type="text/javascript"></script>
 
 <script>
+	     $(document).ready(function (){
+			
+			 //Create trigger click for open menu sidebar
+            $('.submenu > a').click(function() {
+                var parentElement = $(this).parent('.submenu'),
+                    nextElement = $(this).nextAll(),
+                    arrowIcon = $(this).find('.arrow'),
+                    plusIcon = $(this).find('.plus');
+
+                if(parentElement.parent('ul').find('ul:visible')){
+                    parentElement.parent('ul').find('ul:visible').slideUp('fast');
+                    parentElement.parent('ul').find('.open').removeClass('open');
+                }
+
+                if(nextElement.is('ul:visible')) {
+                    arrowIcon.removeClass('open');
+                    plusIcon.removeClass('open');
+                    nextElement.slideUp('fast');
+                    arrowIcon.removeClass('fa-angle-double-down').addClass('fa-angle-double-right');
+                }
+
+                if(!nextElement.is('ul:visible')) {
+                    arrowIcon.addClass('open');
+                    plusIcon.addClass('open');
+                    nextElement.slideDown('fast');
+                    arrowIcon.removeClass('fa-angle-double-right').addClass('fa-angle-double-down');
+                }
+
+            });
+		 });
+		 
+		 
     $('#flash-overlay-modal').modal();
     $('div.alert').not('.alert-important').delay(4000).fadeOut(350);
 
