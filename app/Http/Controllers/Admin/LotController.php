@@ -60,13 +60,17 @@ class LotController extends Controller
 
         $owners = Owner::all();
         $lots = Lot::all();
-        return view('admin.owner-management.assignLot' , compact('owners' , 'lots'));
+        $lotsTypes = LotType::all();
+        return view('admin.owner-management.assignLot' , compact('owners' , 'lots' ,'lotsTypes'));
     }
 
     public function listOfAssignLot(){
 
-        $current_owner = Auth::user()->owner;
+        $current_owner = Auth::user()->owner ? Auth::user()->owner : null;
+        if ($current_owner)
         $ownedLots =OwnerLot::where('owner_id',$current_owner->owner_id)->get();
+        else
+        $ownedLots =[];
 
         return view('admin.owner-management.listAssignLot' , compact('ownedLots'));
 
@@ -99,6 +103,13 @@ class LotController extends Controller
             $response = ['status' => 'error'];
         }
         return response()->json($response);
+
+    }
+
+    public function ajaxCall(Request $request){
+        $lots = Lot::where('lot_type_id' ,$request->id)->pluck('lot_name', 'lot_id');
+
+        return $lots;
 
     }
 }

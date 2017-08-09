@@ -150,6 +150,10 @@ Route::group(['middleware' => ['admin']], function () {
         'as' => 'owner.list.assign.lot',
         'uses' => 'Admin\LotController@listOfAssignLot'));
 
+    Route::get('/dashboard/owner/assign-lot/ajaxCall', array(
+        'as' => 'owner.assign.lot.ajax',
+        'uses' => 'Admin\LotController@ajaxCall'));
+
 
 
     Route::get('/dashboard/owner/sell-to-other', array(

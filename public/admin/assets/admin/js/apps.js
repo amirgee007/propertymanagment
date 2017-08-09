@@ -149,18 +149,7 @@ var BlankonApp = function(){
 
             // Input sounds
             if($('.page-sound').length){
-                $('input, textarea').on('input', function(){
-                    ion.sound.play("tap");
-                });
-                $('input[type=file]').on('click', function(){
-                    ion.sound.play("metal_plate_2");
-                });
-                $('input[type=checkbox], input[type=radio]').on('click', function(){
-                    ion.sound.play("button_tiny");
-                });
-                $('select').on('change', function(){
-                    ion.sound.play("snap");
-                });
+
             }
         },
 
