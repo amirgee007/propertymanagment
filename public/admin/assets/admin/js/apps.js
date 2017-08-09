@@ -1,9 +1,9 @@
 /* ==========================================================================
- * Template: Blankon Fullpack Admin Theme
+ * Template:SEERSOL Admin Theme
  * ---------------------------------------------------------------------------
- * Author: Djava UI
- * Website: http://djavaui.com
- * Email: support@djavaui.com
+ * Author: hamad
+ * Website: http://seersol.com
+ * Email:  hamad.pixiders@gmail.com
  * ========================================================================== */
 
 var BlankonApp = function(){
@@ -17,7 +17,7 @@ var BlankonApp = function(){
             BlankonApp.handleBaseURL();
             BlankonApp.handleIE();
             BlankonApp.handleCheckCookie();
-            BlankonApp.handleSound();
+            //BlankonApp.handleSound();
             BlankonApp.handleBackToTop();
             BlankonApp.handleSidebarNavigation();
             BlankonApp.handleSidebarScroll();
@@ -104,56 +104,6 @@ var BlankonApp = function(){
         },
 
         // =========================================================================
-        // SOUNDS
-        // =========================================================================
-        handleSound: function () {
-            if($('.page-sound').length){
-                ion.sound({
-                    sounds: [
-                        {name: "beer_can_opening"},
-                        {name: "bell_ring", volume: 0.6},
-                        {name: "branch_break", volume: 0.3},
-                        {name: "button_click"},
-                        {name: "button_click_on"},
-                        {name: "button_push"},
-                        {name: "button_tiny", volume: 0.6},
-                        {name: "camera_flashing"},
-                        {name: "camera_flashing_2", volume: 0.6},
-                        {name: "cd_tray", volume: 0.6},
-                        {name: "computer_error"},
-                        {name: "door_bell"},
-                        {name: "door_bump", volume: 0.3},
-                        {name: "glass"},
-                        {name: "keyboard_desk"},
-                        {name: "light_bulb_breaking", volume: 0.6},
-                        {name: "metal_plate"},
-                        {name: "metal_plate_2"},
-                        {name: "pop_cork"},
-                        {name: "snap"},
-                        {name: "staple_gun"},
-                        {name: "tap", volume: 0.6},
-                        {name: "water_droplet"},
-                        {name: "water_droplet_2"},
-                        {name: "water_droplet_3", volume: 0.6}
-                    ],
-                    path: BlankonApp.handleBaseURL()+'/assets/global/plugins/bower_components/ionsound/sounds/',
-                    preload: true
-                });
-
-                // Add effect sound water droplet type 3
-                $('.dropdown-toggle').on('click', function(){
-                    ion.sound.play("water_droplet_3");
-                });
-
-            }
-
-            // Input sounds
-            if($('.page-sound').length){
-
-            }
-        },
-
-        // =========================================================================
         // BACK TOP
         // =========================================================================
         handleBackToTop: function () {
@@ -168,7 +118,6 @@ var BlankonApp = function(){
             // scroll body to 0px on click
             $('#back-top').click(function () {
                 // Add sound
-                ion.sound.play("cd_tray");
                 $('body,html').animate({
                     scrollTop: 0
                 }, 800);
@@ -187,10 +136,7 @@ var BlankonApp = function(){
                     arrowIcon = $(this).find('.arrow'),
                     plusIcon = $(this).find('.plus');
 
-                // Add effect sound button click
-                if($('.page-sound').length){
-                    ion.sound.play("button_click_on");
-                }
+                
 
                 if(parentElement.parent('ul').find('ul:visible')){
                     parentElement.parent('ul').find('ul:visible').slideUp('fast');
@@ -299,10 +245,7 @@ var BlankonApp = function(){
             // When the minimize trigger is clicked
             $('.navbar-minimize a').on('click',function(){
 
-                // Add effect sound button click
-                if($('.page-sound').length){
-                    ion.sound.play("button_click");
-                }
+                
 
                 // Check class sidebar right show
                 if($('.page-sidebar-right-show').length){
@@ -341,7 +284,7 @@ var BlankonApp = function(){
             $('.navbar-setting a').on('click',function(){
                 // Add effect sound button click
                 if($('.page-sound').length){
-                    ion.sound.play("button_click");
+                   
                 }
                 if($('.page-sidebar-minimize.page-sidebar-right-show').length){
                     $('body').toggleClass('page-sidebar-minimize page-sidebar-right-show');
@@ -355,10 +298,7 @@ var BlankonApp = function(){
 
             // This action available on mobile view
             $('.navbar-minimize-mobile.left').on('click',function(){
-                // Add effect sound button click
-                if($('.page-sound').length){
-                    ion.sound.play("button_click");
-                }
+                
                 if($('body.page-sidebar-right-show').length){
                     $('body').removeClass('page-sidebar-right-show');
                     $('body').removeClass('page-sidebar-minimize');
@@ -366,10 +306,7 @@ var BlankonApp = function(){
                 $('body').toggleClass('page-sidebar-left-show');
             });
             $('.navbar-minimize-mobile.right').on('click',function(){
-                // Add effect sound button click
-                if($('.page-sound').length){
-                    ion.sound.play("button_click");
-                }
+                
                 if($('body.page-sidebar-left-show').length){
                     $('body').removeClass('page-sidebar-left-show');
                     $('body').removeClass('page-sidebar-minimize');
@@ -463,10 +400,7 @@ var BlankonApp = function(){
                 state = !state;
                 if (state) {
                     // Trigger for fullscreen
-                    // Add effect sound bell ring
-                    if($('.page-sound').length){
-                        ion.sound.play("bell_ring");
-                    }
+                    
                     $(this).toggleClass('fg-theme');
                     $(this).attr('data-original-title','Exit Fullscreen');
                     var docElement, request;
@@ -477,10 +411,7 @@ var BlankonApp = function(){
                     }
                 } else {
                     // Trigger for exit fullscreen
-                    // Add effect sound bell ring
-                    if($('.page-sound').length){
-                        ion.sound.play("bell_ring");
-                    }
+                   
                     $(this).removeClass('fg-theme');
                     $(this).attr('data-original-title','Fullscreen')
                     var docElement, request;
@@ -632,7 +563,6 @@ var BlankonApp = function(){
         handleBoxModal: function () {
             $('#setting').on('click', function(){
                 // Add sound
-                ion.sound.play('camera_flashing');
                 bootbox.dialog({
                     message: 'I am a custom dialog setting',
                     title: 'Custom setting',
@@ -665,7 +595,6 @@ var BlankonApp = function(){
 
             $('#lock-screen').on('click', function(){
                 // Add sound
-                ion.sound.play('camera_flashing');
                 bootbox.dialog({
                     message: 'Locker with notification display, Receive your notifications directly on your lock screen',
                     title: 'Lock Screen',
@@ -688,7 +617,6 @@ var BlankonApp = function(){
 
             $('#logout').on('click', function(){
                 // Add sound
-                ion.sound.play('camera_flashing');
                 bootbox.dialog({
                     message: 'Do you want to exit from Blankon?',
                     title: 'Logout',

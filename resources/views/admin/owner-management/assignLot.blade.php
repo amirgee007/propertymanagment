@@ -72,11 +72,10 @@
                                         <label class="col-sm-3 control-label">Lot Number<span
                                                     class="asterisk">*</span></label>
                                         <div class="col-sm-7">
-                                            <select class="form-control" name="lot_id" required>
-                                                <option value="">Choose Lot</option>
-                                                @foreach($lots as $lot)
-                                                    <option value="{{$lot->lot_id}}">{{$lot->lot_name}}</option>
-                                                @endforeach
+
+                                            <select class="form-control" name="lot_id" id="lot_id" disabled>
+											 <option value="">Choose Lot</option>
+
                                             </select>
                                         </div>
                                     </div>
@@ -114,32 +113,26 @@
 
         $(document).ready(function (){
         $("#lot_type_id").on('change', function () {
+			$("#lot_id").prop('disabled', true);
             var type_id = $(this).val();
-
-            if (type_id !== '' && type_id!== null) {
-                $("select[name='lot_id']").prop('disabled', false);
-                $.ajax({
-                    type: 'GET',
-                    url:  route('owner.assign.lot.ajax') ,
-                    data: {id: type_id }
-                }).done(function (data) {
-                    $.each(data, function (key, value)
-                    {
-                        $("select[name='lot_id']")
-                            .append($("<option></option>")
-                                .attr("value", key)
-                                .text(value));
-                    });
-                }).fail(function(jqXHR, textStatus){
-                    console.log(jqXHR);
+			var id_String = 'id=' + type_id;
+			$.ajax({
+                    type: "GET",
+                    url: '{{url("/dashboard/owner/assign-lot/ajaxCall")}}',
+                    data: id_String,
+                    cache: false,
+                    success: function(data) {
+						$("select[name='lot_id']").prop('disabled', false);
+						$.each(data, function (key, value)
+						{
+								$("#lot_id")
+									.append($("<option></option>")
+									.attr("value", key)
+									.text(value));
+						});
+                    }
                 });
-            } else {
-                $("select[name='lot_id']").prop('disabled',
-                    true)
-            }
         });
-
-
             $('#owner-assign-lot').on('submit' , function (e) {
                 e.preventDefault();
                 form = $(this);
