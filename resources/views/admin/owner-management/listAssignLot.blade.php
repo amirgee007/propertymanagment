@@ -37,8 +37,7 @@
                                     <div class="form-group form-group-divider">
                                         <div class="form-inner">
                                             <h4 class="no-margin"><span
-                                                        class="label label-success label-circle">1</span> General
-                                                Information of Lot</h4>
+                                                        class="label label-success label-circle">1</span>Assigned Lots Detail</h4>
                                         </div>
                                     </div>
 
@@ -50,21 +49,17 @@
                                                 <thead>
                                                 <tr>
                                                     <th>Id</th>
-                                                    <th>Lot Id</th>
                                                     <th>Lot Name</th>
-                                                    <th>Lot Type Id</th>
-                                                    <th>Created At</th>
-
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 @foreach($ownedLots as $ownedLot)
                                                 <tr>
-                                                    <td>{{$ownedLot->owner_lot_id}}</td>
-                                                    <td>{{$ownedLot->lot_id}}</td>
-                                                    <td>{{\App\PropertyManagement\Helper::lotName($ownedLot)}}</td>
-                                                    <td>{{$ownedLot->lot_type_id}}</td>
-                                                    <td>{{ isset($ownedLot->created_at) ? $ownedLot->created_at->diffForHumans() :  ''  }}</td>
+                                                    <th>{{$ownedLot->owner_lot_id}}</th>
+                                                    {{--<th>{{$ownedLot->lot_id}}</th>--}}
+                                                    <th>{{\App\PropertyManagement\Helper::lotName($ownedLot)}}</th>
+                                                    {{--<th>{{$ownedLot->lot_type_id}}</th>--}}
+                                                    {{--<th>{{ isset($ownedLot->created_at) ? $ownedLot->created_at->diffForHumans() :  ''  }}</th>--}}
 
                                                 </tr>
                                                 @endforeach

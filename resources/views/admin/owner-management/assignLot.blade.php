@@ -45,7 +45,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Owner</label>
                                         <div class="col-sm-7">
-                                            <select class="form-control" name="owner_id">
+                                            <select class="form-control" name="owner_id" required>
                                                 <option value="">Choose Owner</option>
                                             @foreach($owners as $owner)
                                                     <option value="{{$owner->owner_id}}">{{$owner->owner_name}}</option>
@@ -72,7 +72,7 @@
                                         <label class="col-sm-3 control-label">Lot Number<span
                                                     class="asterisk">*</span></label>
                                         <div class="col-sm-7">
-                                            <select class="form-control" name="lot_id">
+                                            <select class="form-control" name="lot_id" required>
                                                 <option value="">Choose Lot</option>
                                                 @foreach($lots as $lot)
                                                     <option value="{{$lot->lot_id}}">{{$lot->lot_name}}</option>
