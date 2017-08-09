@@ -55,8 +55,19 @@
                                         </div>
                                     </div><!-- /.form-group -->
 
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Lot Type<span
+                                                    class="asterisk">*</span></label>
+                                        <div class="col-sm-7">
+                                            <select class="form-control" name="lot_type_id" required id="lot_type_id">
+                                                <option value="">Choose Lot Type</option>
+                                                @foreach($lotsTypes as $lot)
+                                                    <option value="{{$lot->lot_type_id}}">{{$lot->lot_type_name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
 
-                                    <div class="form-group"></div>
+                                    </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Lot Number<span
                                                     class="asterisk">*</span></label>
@@ -101,37 +112,35 @@
 
     <script>
 
-        {{--$("#lot_type_id").on('change', function () {--}}
-            {{--var type_id = $(this).val();--}}
-            {{--alert(type_id);--}}
-            {{--if (type_id !== '' && type_id!== null) {--}}
-                {{--$("select[name='lot_id']").prop('disabled',--}}
-                    {{--false).find('option[value]').remove();--}}
-                {{--$.ajax({--}}
-                    {{--type: 'GET',--}}
-                    {{--url: {{ route('owner.assign.lot.ajax') }},--}}
-                    {{--data: {id: type_id },--}}
-                {{--}).done(function (data) {--}}
-                    {{--$.each(data, function (key, value) {--}}
-                        {{--$("select[name='lot_id']")--}}
-                            {{--.append($("<option></option>")--}}
-                                {{--.attr("value", key)--}}
-                                {{--.text(value));--}}
-                    {{--});--}}
-                {{--}).fail(function(jqXHR, textStatus){--}}
-                    {{--console.log(jqXHR);--}}
-                {{--});--}}
-            {{--} else {--}}
-                {{--$("select[name='lot_id']").prop('disabled',--}}
-                    {{--true).find("option[value]").remove();--}}
-            {{--}--}}
-        {{--});--}}
+        $(document).ready(function (){
+        $("#lot_type_id").on('change', function () {
+            var type_id = $(this).val();
 
+            if (type_id !== '' && type_id!== null) {
+                $("select[name='lot_id']").prop('disabled', false);
+                $.ajax({
+                    type: 'GET',
+                    url:  route('owner.assign.lot.ajax') ,
+                    data: {id: type_id }
+                }).done(function (data) {
+                    $.each(data, function (key, value)
+                    {
+                        $("select[name='lot_id']")
+                            .append($("<option></option>")
+                                .attr("value", key)
+                                .text(value));
+                    });
+                }).fail(function(jqXHR, textStatus){
+                    console.log(jqXHR);
+                });
+            } else {
+                $("select[name='lot_id']").prop('disabled',
+                    true)
+            }
+        });
 
-        $(document).ready(function () {
 
             $('#owner-assign-lot').on('submit' , function (e) {
-
                 e.preventDefault();
                 form = $(this);
                 var action = form.attr('action');
