@@ -109,7 +109,9 @@ class LotController extends Controller
     }
 
     public function ajaxCall(Request $request){
-        $lots = Lot::where('lot_type_id' ,$request->id)->pluck('lot_name', 'lot_id');
+        $assignedLotsIds = OwnerLot::pluck('lot_id');
+
+        $lots = Lot::where('lot_type_id' ,$request->id)->whereNotIn('lot_id' ,$assignedLotsIds)->pluck('lot_name', 'lot_id');
 
         return $lots;
 

@@ -116,6 +116,7 @@
 			$("#lot_id").prop('disabled', true);
             var type_id = $(this).val();
 			var id_String = 'id=' + type_id;
+            $('#lot_id').empty();
 			$.ajax({
                     type: "GET",
                     url: '{{url("/dashboard/owner/assign-lot/ajaxCall")}}',
@@ -123,6 +124,7 @@
                     cache: false,
                     success: function(data) {
 						$("select[name='lot_id']").prop('disabled', false);
+
 						$.each(data, function (key, value)
 						{
 								$("#lot_id")
