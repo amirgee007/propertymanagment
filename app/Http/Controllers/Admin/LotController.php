@@ -40,11 +40,13 @@ class LotController extends Controller
 
             $lotType = LotType::firstOrCreate($request->except('_token'));
 
-            $lot =     Lot::firstOrCreate(['lot_type_id' => $lotType->lot_type_id]);
+            for ($i = 1; $i <= $request->lot_type_qty; $i++) {
+            $name = $lotType->lot_type_code . $i;
+            $lot = Lot::firstOrCreate(['lot_type_id' => $lotType->lot_type_id , 'lot_name' => $name]);
             $lot->lot_type_id = $lotType->lot_type_id;
-            $lot->lot_name = $lotType->lot_type_code.$lot->lot_id;
+            $lot->lot_name = $name;
             $lot->save();
-
+            }
             flash('Successfully Created the LotType')->success();
             return back();
 
