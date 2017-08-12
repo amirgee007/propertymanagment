@@ -167,33 +167,7 @@
 <script>
 	     $(document).ready(function (){
 			
-			 //Create trigger click for open menu sidebar
-            $('.submenu > a').click(function() {
-                var parentElement = $(this).parent('.submenu'),
-                    nextElement = $(this).nextAll(),
-                    arrowIcon = $(this).find('.arrow'),
-                    plusIcon = $(this).find('.plus');
-
-                if(parentElement.parent('ul').find('ul:visible')){
-                    parentElement.parent('ul').find('ul:visible').slideUp('fast');
-                    parentElement.parent('ul').find('.open').removeClass('open');
-                }
-
-                if(nextElement.is('ul:visible')) {
-                    arrowIcon.removeClass('open');
-                    plusIcon.removeClass('open');
-                    nextElement.slideUp('fast');
-                    arrowIcon.removeClass('fa-angle-double-down').addClass('fa-angle-double-right');
-                }
-
-                if(!nextElement.is('ul:visible')) {
-                    arrowIcon.addClass('open');
-                    plusIcon.addClass('open');
-                    nextElement.slideDown('fast');
-                    arrowIcon.removeClass('fa-angle-double-right').addClass('fa-angle-double-down');
-                }
-
-            });
+			
 		 });
 		 
 		 

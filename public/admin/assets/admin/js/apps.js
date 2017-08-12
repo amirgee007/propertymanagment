@@ -17,7 +17,6 @@ var BlankonApp = function(){
             BlankonApp.handleBaseURL();
             BlankonApp.handleIE();
             BlankonApp.handleCheckCookie();
-            //BlankonApp.handleSound();
             BlankonApp.handleBackToTop();
             BlankonApp.handleSidebarNavigation();
             BlankonApp.handleSidebarScroll();
@@ -103,6 +102,7 @@ var BlankonApp = function(){
             }
         },
 
+       
         // =========================================================================
         // BACK TOP
         // =========================================================================
@@ -284,7 +284,6 @@ var BlankonApp = function(){
             $('.navbar-setting a').on('click',function(){
                 // Add effect sound button click
                 if($('.page-sound').length){
-                   
                 }
                 if($('.page-sidebar-minimize.page-sidebar-right-show').length){
                     $('body').toggleClass('page-sidebar-minimize page-sidebar-right-show');
@@ -298,7 +297,9 @@ var BlankonApp = function(){
 
             // This action available on mobile view
             $('.navbar-minimize-mobile.left').on('click',function(){
-                
+                // Add effect sound button click
+                if($('.page-sound').length){
+                }
                 if($('body.page-sidebar-right-show').length){
                     $('body').removeClass('page-sidebar-right-show');
                     $('body').removeClass('page-sidebar-minimize');
@@ -306,7 +307,9 @@ var BlankonApp = function(){
                 $('body').toggleClass('page-sidebar-left-show');
             });
             $('.navbar-minimize-mobile.right').on('click',function(){
-                
+                // Add effect sound button click
+                if($('.page-sound').length){
+                }
                 if($('body.page-sidebar-left-show').length){
                     $('body').removeClass('page-sidebar-left-show');
                     $('body').removeClass('page-sidebar-minimize');
@@ -400,7 +403,9 @@ var BlankonApp = function(){
                 state = !state;
                 if (state) {
                     // Trigger for fullscreen
-                    
+                    // Add effect sound bell ring
+                    if($('.page-sound').length){
+                    }
                     $(this).toggleClass('fg-theme');
                     $(this).attr('data-original-title','Exit Fullscreen');
                     var docElement, request;
@@ -411,7 +416,9 @@ var BlankonApp = function(){
                     }
                 } else {
                     // Trigger for exit fullscreen
-                   
+                    // Add effect sound bell ring
+                    if($('.page-sound').length){
+                    }
                     $(this).removeClass('fg-theme');
                     $(this).attr('data-original-title','Fullscreen')
                     var docElement, request;
