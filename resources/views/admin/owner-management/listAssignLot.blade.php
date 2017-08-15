@@ -55,7 +55,7 @@
                                                 <tbody>
                                                 @foreach($ownedLots as $ownedLot)
                                                 <tr>
-                                                    <th>{{$ownedLot->owner_lot_id}}</th>
+                                                    <th>{{$ownedLot->id}}</th>
                                                     {{--<th>{{$ownedLot->lot_id}}</th>--}}
                                                     <th>{{\App\PropertyManagement\Helper::lotName($ownedLot)}}</th>
                                                     {{--<th>{{$ownedLot->lot_type_id}}</th>--}}

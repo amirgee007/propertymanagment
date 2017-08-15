@@ -30,6 +30,9 @@
 
     <link href="/admin/assets/global/plugins/bower_components/fontawesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="/admin/assets/global/plugins/bower_components/animate.css/animate.min.css" rel="stylesheet">
+    <link href="/admin/assets/global/plugins/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css" rel="stylesheet">
+    <link href="/admin/assets/global/plugins/bower_components/jasny-bootstrap-fileinput/css/jasny-bootstrap-fileinput.min.css" rel="stylesheet">
+    <link href="/admin/assets/global/plugins/bower_components/chosen_v1.2.0/chosen.min.css" rel="stylesheet">
     <link href="/admin/assets/global/plugins/bower_components/bootstrap-calendar/css/calendar.min.css" rel="stylesheet">
     <link href="/admin/assets/global/plugins/bower_components/jquery.gritter/css/jquery.gritter.css" rel="stylesheet">
     <link href="/admin/assets/global/plugins/bower_components/morrisjs/morris.css" rel="stylesheet">

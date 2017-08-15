@@ -45,11 +45,11 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Owner</label>
                                         <div class="col-sm-7">
-                                            <select class="form-control" name="owner_id" required>
+                                            <select class="form-control" name="lot_owner_id" required>
                                                 <option value="">Choose Owner</option>
-                                            @foreach($owners as $owner)
+                                                @foreach($owners as $owner)
                                                     <option value="{{$owner->owner_id}}">{{$owner->owner_name}}</option>
-                                            @endforeach
+                                                @endforeach
                                             </select>
                                             <label for="sv2_state" class="error"></label>
                                         </div>
@@ -73,21 +73,22 @@
                                                     class="asterisk">*</span></label>
                                         <div class="col-sm-7">
 
-                                            <select class="form-control" name="lot_id" id="lot_id" disabled>
-											 <option value="">Choose Lot</option>
+                                            <select class="form-control" name="lot_id[]" multiple id="lot_id" disabled>
+                                                <option value="">Choose Lot</option>
 
                                             </select>
                                         </div>
                                     </div>
 
-                                <div class="form-footer">
-                                    <div class="col-sm-offset-3">
-                                        <button type="submit" class="btn btn-theme">Assign Lot</button>
-                                        <a type="button" href="{{route('owner.list.assign.lot')}}" class="btn btn-warning">See All Assigned</a>
+                                    <div class="form-footer">
+                                        <div class="col-sm-offset-3">
+                                            <button type="submit" class="btn btn-theme">Assign Lot</button>
+                                            <a type="button" href="{{route('owner.list.assign.lot')}}"
+                                               class="btn btn-warning">See All Assigned</a>
+
+                                        </div>
 
                                     </div>
-
-                                </div>
 
                             </form>
                         </div><!-- /.panel-body -->
@@ -108,50 +109,51 @@
     <script src="/admin/assets/global/plugins/bower_components/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
     <script src="/admin/assets/global/plugins/bower_components/moment/min/moment.min.js"></script>
     <script src="/admin/assets/global/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
     <script>
 
-        $(document).ready(function (){
-        $("#lot_type_id").on('change', function () {
-			$("#lot_id").prop('disabled', true);
-            var type_id = $(this).val();
-			var id_String = 'id=' + type_id;
-            $('#lot_id').empty();
-			$.ajax({
+        $(document).ready(function () {
+            $("#lot_type_id").on('change', function () {
+                $("#lot_id").prop('disabled', true);
+                var type_id = $(this).val();
+                var id_String = 'id=' + type_id;
+                $('#lot_id').empty();
+                $.ajax({
                     type: "GET",
                     url: '{{url("/dashboard/owner/assign-lot/ajaxCall")}}',
                     data: id_String,
                     cache: false,
-                    success: function(data) {
-						$("select[name='lot_id']").prop('disabled', false);
+                    success: function (data) {
+                        $("#lot_id").prop('disabled', false);
 
-						$.each(data, function (key, value)
-						{
-								$("#lot_id")
-									.append($("<option></option>")
-									.attr("value", key)
-									.text(value));
-						});
+                        $.each(data, function (key, value) {
+                            $("#lot_id")
+                                .append($("<option></option>")
+                                    .attr("value", key)
+                                    .text(value));
+                        });
                     }
                 });
-        });
-            $('#owner-assign-lot').on('submit' , function (e) {
+            });
+            $('#owner-assign-lot').on('submit', function (e) {
                 e.preventDefault();
                 form = $(this);
                 var action = form.attr('action');
                 $.ajax({
                     url: action,
                     data: form.serialize(),
-                    headers: { 'X-XSRF-TOKEN' : '{{\Illuminate\Support\Facades\Crypt::encrypt(csrf_token())}}' },
-                    error: function() {
+                    headers: {'X-XSRF-TOKEN': '{{\Illuminate\Support\Facades\Crypt::encrypt(csrf_token())}}'},
+                    error: function () {
 
                     },
-                    success: function(response) {
-                        if(response.status == 'saved'){
-                            toastr.success("Lot Assigned to Owner" , "Asign Lot");
-                            $("#owner-assign-lot").trigger('reset'); //jquery
+                    success: function (response) {
+                        if (response.status == 'saved') {
+                            toastr.success("Lot Assigned to Owner", "Asign Lot");
+                            window.location.reload(); //jquery
 
-                        }else{
+                        } else {
                             toastr.error("Some Thing went wrong", "Not Saved");
                         }
                     },
@@ -163,6 +165,9 @@
 
 
         });
+
+        $('select').select2();
+        $('#lot_id').select2();
 
     </script>
 

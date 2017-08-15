@@ -44,7 +44,6 @@ class OwnerController extends Controller
 
     public function store(Request $request)
     {
-
         $ownerId = null;
         $savableOwner = new Owner();
         $savableOwner->owner_type = isset($request->owner_type) ? $request->owner_type : '';

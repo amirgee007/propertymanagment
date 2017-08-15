@@ -15,10 +15,11 @@ class CreateOwnerLotTable extends Migration
     {
         Schema::create('owner_lots', function(Blueprint $table)
         {
-            $table->increments('owner_lot_id');
+            $table->increments('id');
             $table->integer('lot_id')->nullable();
             $table->integer('lot_type_id')->nullable();
-            $table->integer('owner_id')->nullable();
+            $table->integer('lot_owner_id')->unsigned();
+            $table->foreign('lot_owner_id')->references('owner_id')->on('owners')->onDelete('cascade');
             $table->timestamps();
 
         });

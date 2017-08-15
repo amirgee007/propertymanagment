@@ -15,7 +15,8 @@ class CreateOwnerTable extends Migration
     {
         Schema::create('owners', function (Blueprint $table) {
             $table->increments('owner_id');
-            $table->integer('user_id');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('owner_type')->nullable();
             $table->string('owner_id_card_no');
             $table->string('owner_name')->nullable();

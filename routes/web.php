@@ -160,6 +160,14 @@ Route::group(['middleware' => ['admin']], function () {
         'as' => 'owner.lot.sell.other',
         'uses' => 'Admin\LotController@sellToOther'));
 
+    Route::post('/dashboard/owner/sell-to-other', array(
+        'as' => 'post.owner.sell.to.others',
+        'uses' => 'Admin\LotController@sellToOtherStore'));
+
+    Route::get('/dashboard/owner/check-owner-bills/ajaxCall', array(
+        'as' => 'owner.bills.check',
+        'uses' => 'Admin\LotController@checkOwnerBills'));
+
 
 //////////////////////////////////////////////////Lots Management/////////
 

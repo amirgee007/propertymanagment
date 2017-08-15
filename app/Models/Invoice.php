@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Invoice extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'invoices';
 
     protected $fillable = [
@@ -19,4 +22,12 @@ class Invoice extends Model
         'invoice_charge_rate',
         'invoice_amount'
     ];
+
+    public function owner(){
+        return $this->belongsTo(Owner::class, 'owner_id', 'owner_id');
+    }
+
+    public function lot(){
+        return $this->belongsTo(Lot::class, 'lot_id', 'lot_id');
+    }
 }

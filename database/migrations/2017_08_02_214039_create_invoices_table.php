@@ -14,15 +14,18 @@ class CreateInvoicesTable extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->increments('invoice_id');
-            $table->string('invoice_owner_name');
-            $table->string('invoice_lot_no');
-            $table->date('invoice_date');
+            $table->integer('owner_id')->unsigned();
+            $table->foreign('owner_id')->references('owner_id')->on('owners')->onDelete('cascade');
+            $table->integer('lot_id')->unsigned();
+            $table->foreign('lot_id')->references('lot_id')->on('lots')->onDelete('cascade');
             $table->text('invoice_trans_des');
             $table->integer('invoice_quantity');
             $table->string('invoice_uom');
             $table->integer('invoice_charge_rate');
             $table->integer('invoice_amount');
+            $table->string('invoice_status');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
