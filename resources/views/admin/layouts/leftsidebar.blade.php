@@ -73,6 +73,7 @@
                 <span class="arrow"></span>
             </a>
             <ul>
+                <li><a href="{{ route('invoice.create') }}">Add Invoice<span class="label label-success pull-right"></span></a></li>
                 <li><a href="#">Ownership Management <span class="label label-success pull-right"></span></a></li>
                 <li><a href="#">Invoicing <span class="label label-warning pull-right"></span></a></li>
                 <li><a href="#">Managements <span class="label label-danger pull-right"></span></a></li>

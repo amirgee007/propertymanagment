@@ -11,23 +11,17 @@ class Invoice extends Model
 
     protected $table = 'invoices';
 
-    protected $fillable = [
-        'invoice_id',
-        'invoice_owner_name',
-        'invoice_lot_no',
-        'invoice_date',
-        'invoice_trans_des',
-        'invoice_quantity',
-        'invoice_uom',
-        'invoice_charge_rate',
-        'invoice_amount'
-    ];
+    protected $primaryKey = 'invoice_id';
 
-    public function owner(){
+    protected $guarded = [];
+
+    public function owner()
+    {
         return $this->belongsTo(Owner::class, 'owner_id', 'owner_id');
     }
 
-    public function lot(){
+    public function lot()
+    {
         return $this->belongsTo(Lot::class, 'lot_id', 'lot_id');
     }
 }
