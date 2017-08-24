@@ -183,8 +183,33 @@ Route::group(['middleware' => ['admin']], function () {
         'as' => 'lot.type.delete',
         'uses' => 'Admin\LotController@deleteLotType'));
 
-
 //////////////////////////////////////////////////
+
+    //////METER MANAGEMENT///////////
+
+    Route::prefix('/dashboard/meter')->namespace('Admin')->group(function () {
+
+        Route::get('/', [
+            'as' => 'meter.index',
+            'uses' => 'MeterController@index'
+        ]);
+
+        Route::get('/create', [
+            'as' => 'meter.create',
+            'uses' => 'MeterController@create'
+        ]);
+
+
+        Route::post('/create', [
+            'as' => 'meter.store',
+            'uses' => 'MeterController@store'
+        ]);
+    });
+
+
+
+
+
 });
 
 

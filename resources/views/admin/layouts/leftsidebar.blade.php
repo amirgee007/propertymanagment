@@ -87,8 +87,8 @@
                 <span class="arrow"></span>
             </a>
             <ul>
-                <li><a href="#">Create<span class="label label-success pull-right"></span></a></li>
-                <li><a href="#">Manage Meter<span class="label label-warning pull-right"></span></a></li>
+                <li><a href="{{route('meter.create')}}">Create<span class="label label-success pull-right"></span></a></li>
+                <li><a href="{{route('meter.index')}}">Manage Meter<span class="label label-warning pull-right"></span></a></li>
                 <li><a href="#">Assign Meter<span class="label label-danger pull-right"></span></a></li>
             </ul>
         </li>
