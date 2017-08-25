@@ -15,6 +15,8 @@ class Invoice extends Model
 
     protected $guarded = [];
 
+    protected $dates = [ 'date' ];
+
     public function owner()
     {
         return $this->belongsTo(Owner::class, 'owner_id', 'owner_id');
@@ -24,4 +26,6 @@ class Invoice extends Model
     {
         return $this->belongsTo(Lot::class, 'lot_id', 'lot_id');
     }
+
+
 }

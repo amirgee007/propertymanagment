@@ -59,10 +59,7 @@ Auth::routes();
 
 Route::group(['middleware' => ['admin'], 'namespace' => 'Admin'], function () {
 
-    Route::group(['prefix' => 'invoices'], function () {
-        Route::get('/create', 'InvoicesController@create')->name('invoice.create');
-        Route::post('/store', 'InvoicesController@store')->name('invoice.store');
-    });
+    Route::resource('invoices', 'InvoicesController');
 
     Route::post('/dashboard', array(
         'as' => 'post.dashboard',
@@ -72,38 +69,33 @@ Route::group(['middleware' => ['admin'], 'namespace' => 'Admin'], function () {
         'as' => 'get.dashboard',
         'uses' => 'AdminController@dashboard'));
 
-
-    Route::get('/dashboard/logout', array(
-        'as' => 'logout',
-        'uses' => 'AdminAuth\AuthController@logout'));
-
     Route::get('/dashboard/profile', array(
         'as' => 'view.profile',
         'uses' => 'AdminController@viewProfile'));
 
 
 ////////////////////////////////Users Routes///////////////////////////////////
-    Route::get('/user', array(
-        'as' => 'user.index',
-        'uses' => 'UserController@index'));
-
-    Route::post('/user/add', array(
-        'as' => 'user.add',
-        'uses' => 'UserController@store'));
-
-
-    Route::get('/user/{id}', array(
-        'as' => 'user.edit',
-        'uses' => 'UserController@edit'));
-
-    Route::post('/user/{id}', array(
-        'as' => 'user.update',
-        'uses' => 'UserController@update'));
-
-
-    Route::get('/user/delete/{id}', array(
-        'as' => 'user.delete',
-        'uses' => 'UserController@destroy'));
+//    Route::get('/user', array(
+//        'as' => 'user.index',
+//        'uses' => 'UserController@index'));
+//
+//    Route::post('/user/add', array(
+//        'as' => 'user.add',
+//        'uses' => 'UserController@store'));
+//
+//
+//    Route::get('/user/{id}', array(
+//        'as' => 'user.edit',
+//        'uses' => 'UserController@edit'));
+//
+//    Route::post('/user/{id}', array(
+//        'as' => 'user.update',
+//        'uses' => 'UserController@update'));
+//
+//
+//    Route::get('/user/delete/{id}', array(
+//        'as' => 'user.delete',
+//        'uses' => 'UserController@destroy'));
 
 
 ////////////////////////////////owner Routes///////////////////////////////////
@@ -190,6 +182,14 @@ Route::group(['middleware' => ['admin'], 'namespace' => 'Admin'], function () {
 
 
 //////////////////////////////////////////////////
+});
+
+
+Route::group(['middleware' => 'admin', 'namespace' => 'AdminAuth'], function () {
+
+    Route::get('/dashboard/logout', array(
+        'as' => 'logout',
+        'uses' => 'AuthController@logout'));
 });
 
 

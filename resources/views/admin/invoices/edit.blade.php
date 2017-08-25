@@ -1,7 +1,7 @@
 @extends('admin.layouts.base')
 
 @section('title')
-    Add Invoice
+    Edit Invoice
     @parent
 @stop
 
@@ -20,7 +20,7 @@
             <div class="breadcrumb-wrapper hidden-xs">
                 <span class="label">You are here:</span>
                 <ol class="breadcrumb">
-                    <li class="active">Add Invoice</li>
+                    <li class="active">Edit Invoice</li>
                 </ol>
             </div>
         </div>
@@ -52,7 +52,7 @@
                                             <select class="form-control" name="owner_id" required>
                                                 <option value="">Choose Owner</option>
                                                 @foreach($owners as $owner)
-                                                    <option value="{{$owner->owner_id}}">{{$owner->owner_name}}</option>
+                                                    <option @if($owner->owner_id == $invoice->owner_id) @endif value="{{ $owner->owner_id }}">{{ $owner->owner_name }}</option>
                                                 @endforeach
                                             </select>
                                             <label for="owner_id" class="error"></label>
@@ -66,7 +66,7 @@
                                             <select class="form-control" name="lot_id" required>
                                                 <option value="">Choose Lot</option>
                                                 @foreach($lots as $lot)
-                                                    <option value="{{ $lot->lot_id }}">{{ $lot->lot_name }}</option>
+                                                    <option @if($lot->lot_id == $invoice->lot_id) @endif value="{{ $lot->lot_id }}">{{ $lot->lot_name }}</option>
                                                 @endforeach
                                             </select>
                                             <label for="lot_id" class="error"></label>
@@ -77,7 +77,10 @@
                                         <label class="col-sm-3 control-label">Transaction Description<span
                                                     class="asterisk">*</span></label>
                                         <div class="col-sm-7">
-                                            <textarea class="form-control" name="invoice_trans_des" rows="5" required></textarea>
+                                            <textarea class="form-control" name="invoice_trans_des"
+                                                      required>
+                                                {{ $invoice->invoice_trans_des }}
+                                            </textarea>
                                         </div>
                                     </div><!-- /.form-group -->
 
@@ -85,7 +88,7 @@
                                         <label class="col-sm-3 control-label">Date<span
                                                     class="asterisk">*</span></label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control" name="date" id="dp1">
+                                            <input type="text" value="{{ is_null($invoice->date) ? "" :  $invoice->date->format('d-m-Y')  }}" class="form-control" name="date" id="dp1">
 
                                             <label for="date" class="error"></label>
                                         </div>
@@ -95,7 +98,7 @@
                                         <label class="col-sm-3 control-label">Quantity<span
                                                     class="asterisk">*</span></label>
                                         <div class="col-sm-7">
-                                            <input type="number" class="form-control" name="invoice_quantity">
+                                            <input type="number" class="form-control" value="{{ $invoice->invoice_quantity }}" name="invoice_quantity">
                                             {{--<label for="invoice_quantity" class="error @if($errors->has('invoice_quantity')) show @endif">{{ @$errors->get('invoice_quantity')[0] }}</label>--}}
                                         </div>
                                     </div><!-- /.form-group -->
@@ -104,7 +107,7 @@
                                         <label class="col-sm-3 control-label">UOM<span
                                                     class="asterisk">*</span></label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control" name="invoice_uom">
+                                            <input type="text" value="{{ $invoice->invoice_uom }}" class="form-control" name="">
                                             <label for="invoice_uom" class="error"></label>
                                         </div>
                                     </div><!-- /.form-group -->
@@ -113,8 +116,8 @@
                                         <label class="col-sm-3 control-label">Charge Rate<span
                                                     class="asterisk">*</span></label>
                                         <div class="col-sm-7">
-                                            <input type="number" class="form-control"
-                                                   name="invoice_charge_rate">                                            <label for="invoice_uom" class="error"></label>
+                                            <input value="{{ $invoice->invoice_charge_rate }}" type="number" class="form-control"
+                                                   name="invoice_charge_rate">
                                             <label for="invoice_charge_rate" class="error"></label>
                                         </div>
                                     </div><!-- /.form-group -->
@@ -123,7 +126,7 @@
                                         <label class="col-sm-3 control-label">Amount<span
                                                     class="asterisk">*</span></label>
                                         <div class="col-sm-7">
-                                            <input type="number" class="form-control" name="invoice_amount">
+                                            <input type="number" value="{{ $invoice->invoice_amount }}" class="form-control" name="invoice_amount">
                                             <label for="invoice_amount" class="error"></label>
                                         </div>
                                     </div><!-- /.form-group -->
@@ -132,11 +135,10 @@
 
                                 <div class="form-footer">
                                     <div class="col-sm-offset-3">
-                                        <button type="submit" class="btn btn-theme">Save Invoice</button>
+                                        <button type="submit" class="btn btn-theme">Update Invoice</button>
                                         <a href="{{ URL::previous() }}" class="btn">Cancel</a>
                                     </div>
                                 </div>
-
                             </form>
                         </div><!-- /.panel-body -->
                     </div><!-- /.panel -->
