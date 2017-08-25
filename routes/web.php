@@ -199,11 +199,21 @@ Route::group(['middleware' => ['admin']], function () {
             'uses' => 'MeterController@create'
         ]);
 
-
         Route::post('/create', [
             'as' => 'meter.store',
             'uses' => 'MeterController@store'
         ]);
+
+        Route::delete('/type/{id}', [
+            'as' => 'meter.type.delete',
+            'uses' => 'MeterController@deleteMeterType'
+        ]);
+
+        Route::delete('/rate/{id}', [
+            'as' => 'meter.rate.delete',
+            'uses' => 'MeterController@deleteMeterRate'
+        ]);
+
     });
 
 

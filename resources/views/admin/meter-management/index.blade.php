@@ -6,7 +6,9 @@
 @stop
 
 @section('header_styles')
+    <style>
 
+    </style>
 @endsection
 
 @section('content')
@@ -25,30 +27,84 @@
 
         <div class="body-content animated fadeIn">
             <div class="row">
-                <div class="col-md-12">
-                    <div class="panel rounded shadow">
-                        <div class="panel-body no-padding">
-                            <form class="form-horizontal form-bordered" action="{{route('post.owner.store')}}"
-                                  role="form" id="sample-validation-2" method="post">
-                            </form>
-                        </div><!-- /.panel-body -->
-                    </div><!-- /.panel -->
-                </div>
+                {{--meter type table --}}
+                @include('admin.meter-management.partials.meterType')
+                {{--meter rate table --}}
+                @include('admin.meter-management.partials.meterRate')
             </div>
-
         </div>
-
         @include('admin.layouts.pagefooter')
     </section>
-@endsection
+    {{--modals html include--}}
+        @include('admin.meter-management.partials.createModal')
+
+        @endsection
 
 @section('footer_scripts')
 
-    <script>
-        $(document).ready(function () {
+<script>
+    $(document).ready(function () {
 
+        $('.delete-meter-type').on('click' , function (e) {
+            var url = $(this).attr('data-url');
+            $('#delete-modal-title').html('Meter Type Delete Confirmation');
+            $('#delete-modal-body').html('<h3><strong> Are You sure to Delete the meter Type? </strong></h3>');
 
+            $('#delete-meter-btn').attr('data-url' , url);
+            $('#delete-meterType').modal('show');
         });
-    </script>
+
+
+        $('.delete-meter-rate').on('click' , function (e) {
+            var url = $(this).attr('data-url');
+            $('#delete-modal-title').html('Meter Rate Delete Confirmation');
+            $('#delete-modal-body').html('<h3><strong> Are You sure to Delete the meter Rate? </strong></h3>');
+
+            $('#delete-meter-btn').attr('data-url' , url);
+            $('#delete-meterType').modal('show');
+        });
+
+        $('#delete-meter-btn').on('click', function () {
+            const url = $('#delete-meter-btn').attr('data-url');
+            $('#delete-meterType').modal('hide');
+            $.ajax({
+                url: url,
+                headers: { 'X-XSRF-TOKEN' : '{{\Illuminate\Support\Facades\Crypt::encrypt(csrf_token())}}' },
+                error: function() {
+
+                },
+                success: function(data) {
+                    if(data.status) {
+                        $('#'+data.id).remove();
+                    }
+                },
+                type: 'DELETE'
+            });
+        });
+
+
+        $(document).on('click' , '#meterFormSubmit' , function (e) {
+            e.preventDefault();
+            var form = $('#meter-form');
+            var action = form.attr('action');
+            $.ajax({
+                url: action,
+                data: form.serialize(),
+                headers: { 'X-XSRF-TOKEN' : '{{\Illuminate\Support\Facades\Crypt::encrypt(csrf_token())}}' },
+                error: function() {
+
+                },
+                success: function(data) {
+                    if (data.status) {
+                        $('#meter-type-tbody').append(data.meterType);
+                        $('#meter-rate-tbody').append(data.meterRate);
+                        $('#myModal').modal('hide');
+                    }
+                },
+                type: 'POST'
+            });
+        })
+    });
+</script>
 
 @endsection

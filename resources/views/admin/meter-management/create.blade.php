@@ -27,11 +27,19 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel rounded shadow">
+                        <div class="panel-heading" style="padding: 2%">
+                            <h4 class="no-margin">
+                                Create Meter
+                            </h4>
+                        </div>
                         <div class="panel-body no-padding">
                             <form class="form-horizontal form-bordered" action="{{route('meter.store')}}"
                                   role="form" id="sample-validation-2" method="post">
                                 {{csrf_field()}}
                                 @include('admin.meter-management.partials.form')
+                                <div class="col-lg-12">
+                                    <button type="submit" id="meterFormSubmit" class="btn btn-theme">Save Meter</button>
+                                </div>
                             </form>
                         </div><!-- /.panel-body -->
                     </div><!-- /.panel -->
@@ -48,17 +56,7 @@
 
     <script>
         $(document).ready(function () {
-            function toggle(className, obj) {
-                var $input = $(obj);
-                if ($input.prop('checked')) {
-                    $(className).show();
-                    $("#company_name").attr('required', true);
-                }
-                else {
-                    $(className).hide();
-                    $("#company_name").attr('required', false);
-                }
-            }
+            
         });
     </script>
 
