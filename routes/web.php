@@ -180,8 +180,43 @@ Route::group(['middleware' => ['admin'], 'namespace' => 'Admin'], function () {
         'as' => 'lot.type.delete',
         'uses' => 'LotController@deleteLotType'));
 
-
 //////////////////////////////////////////////////
+
+    //////METER MANAGEMENT///////////
+
+    Route::prefix('/dashboard/meter')->namespace('Admin')->group(function () {
+
+        Route::get('/', [
+            'as' => 'meter.index',
+            'uses' => 'MeterController@index'
+        ]);
+
+        Route::get('/create', [
+            'as' => 'meter.create',
+            'uses' => 'MeterController@create'
+        ]);
+
+        Route::post('/create', [
+            'as' => 'meter.store',
+            'uses' => 'MeterController@store'
+        ]);
+
+        Route::delete('/type/{id}', [
+            'as' => 'meter.type.delete',
+            'uses' => 'MeterController@deleteMeterType'
+        ]);
+
+        Route::delete('/rate/{id}', [
+            'as' => 'meter.rate.delete',
+            'uses' => 'MeterController@deleteMeterRate'
+        ]);
+
+    });
+
+
+
+
+
 });
 
 
