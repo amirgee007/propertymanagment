@@ -121,7 +121,7 @@
                                         <tbody>
                                         @foreach($lotTypes as $lotType)
                                         <tr>
-                                            <td class="text-center border-right">{{$lotType->lot_type_id ?? ''}}</td>
+                                            <td class="text-center border-right">{{$lotType->lot_type_id}}</td>
                                             <td>{{$lotType->lot_type_name}}</td>
                                             <td>{{$lotType->lot_type_description}}</td>
                                             <td>{{$lotType->lot_type_code}}</td>
