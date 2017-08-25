@@ -37,6 +37,7 @@
                                   role="form" id="sample-validation-2" method="post">
                                 {{csrf_field()}}
                                 @include('admin.meter-management.partials.form')
+                                <input type="hidden" name="viewType" value="true" >
                                 <div class="col-lg-12">
                                     <button type="submit" id="meterFormSubmit" class="btn btn-theme">Save Meter</button>
                                 </div>
@@ -56,7 +57,7 @@
 
     <script>
         $(document).ready(function () {
-            
+
         });
     </script>
 

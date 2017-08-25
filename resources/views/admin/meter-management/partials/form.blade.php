@@ -6,7 +6,7 @@
     <div class="form-group">
         <label class="col-sm-3 control-label">Meter Name</label>
         <div class="col-sm-7">
-            <input type="text" class="form-control input-sm" name="meterType[meter_name]">
+            <input type="text" class="form-control input-sm" required name="meterType[meter_name]">
         </div>
     </div><!-- /.form-group -->
     {{--<div class="form-group">--}}
@@ -19,7 +19,7 @@
     <div class="form-group">
         <label class="col-sm-3 control-label">Meter Code</label>
         <div class="col-sm-7">
-            <input type="text" class="form-control input-sm" value="{{$randomNumber}}" name="meterType[meter_code]">
+            <input type="text" class="form-control input-sm" readonly value="{{$randomNumber}}" name="meterType[meter_code]">
         </div>
     </div><!-- /.form-group -->
 
@@ -27,7 +27,7 @@
     <div class="form-group">
         <label class="col-sm-3 control-label">Minimum Charges</label>
         <div class="col-sm-7">
-            <input type="text" class="form-control input-sm" name="meterType[minimum_charges]">
+            <input type="number" class="form-control input-sm" required name="meterType[minimum_charges]">
         </div>
     </div><!-- /.form-group -->
 
@@ -44,7 +44,7 @@
         <div class="form-group">
             <label class="col-sm-3 control-label">tax amount</label>
             <div class="col-sm-7">
-                <input type="text" class="form-control input-sm" name="meterType[tax_amount]">
+                <input type="number" class="form-control input-sm" name="meterType[tax_amount]">
             </div>
         </div>
     </div>
@@ -60,19 +60,19 @@
     <div class="form-group">
         <label class="col-sm-3 control-label">From</label>
         <div class="col-sm-7">
-            <input type="text" class="form-control input-sm" name="meter_rate[from]">
+            <input type="number" class="form-control input-sm" required name="meter_rate[from]">
         </div>
     </div><!-- /.form-group -->
     <div class="form-group">
         <label class="col-sm-3 control-label">To</label>
         <div class="col-sm-7">
-            <input type="text" class="form-control input-sm" name="meter_rate[to]">
+            <input type="number" class="form-control input-sm" required name="meter_rate[to]">
         </div>
     </div><!-- /.form-group -->
     <div class="form-group">
         <label class="col-sm-3 control-label">Rate</label>
         <div class="col-sm-7">
-            <input type="text" class="form-control input-sm" name="meter_rate[rate]">
+            <input type="number" class="form-control input-sm" required name="meter_rate[rate]">
         </div>
     </div><!-- /.form-group -->
 

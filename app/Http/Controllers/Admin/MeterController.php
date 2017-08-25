@@ -54,8 +54,10 @@ class MeterController extends Controller
                         </td>
                     </tr>";
 
-
-
+        if ($request->has('viewType')){
+            flash('Successfully Created the Meter Type and Rate')->success();
+            return redirect()->route('meter.index');
+        }
         return response()->json([
             'status' => true,
             'meterType' => $typeHtml,
