@@ -27,7 +27,7 @@
                                 <td>{{$meterRate->to}}</td>
                                 <td>{{$meterRate->rate}}</td>
                                 <td>
-                                    <button data-url="" class="btn btn-default">edit</button>
+                                    <button data-url="{{route('meter.rate.edit' , [$meterRate->id])}}" class="btn btn-default edit-meter-rate">edit</button>
                                     <button data-url="{{route('meter.rate.delete' , [$meterRate->id])}}" class="btn btn-danger delete-meter-rate">delete</button>
                                 </td>
                             </tr>

@@ -38,8 +38,8 @@ class MeterController extends Controller
                         <td>{$type->minimum_charges}</td>
                         <td>{$tax}</td>
                         <td>
-                            <a href=\"#\" class=\"btn btn-default\">edit</a>
-                            <a href=\"#\" class=\"btn btn-danger\">delete</a>
+                            <button data-url='".route('meter.type.edit' , [$type->id])."'  class='btn btn-default edit-meter-type'>edit</button>
+                            <button data-url='".route('meter.type.delete' , [$type->id])."' class=\"btn btn-danger delete-meter-type\">delete</button>
                         </td>
                     </tr>";
 
@@ -49,8 +49,8 @@ class MeterController extends Controller
                         <td>{$meterRate->to}</td>
                         <td>{$meterRate->rate}</td>
                         <td>
-                            <a href=\"#\" class=\"btn btn-default\">edit</a>
-                            <a href=\"#\" class=\"btn btn-danger\">delete</a>
+                            <button data-url='".route('meter.type.edit' , [$type->id])."'  class='btn btn-default edit-meter-type'>edit</button>
+                            <button data-url='".route('meter.type.delete' , [$type->id])."' class=\"btn btn-danger delete-meter-type\">delete</button>
                         </td>
                     </tr>";
 
@@ -74,6 +74,68 @@ class MeterController extends Controller
             'id' => 'm-type-'.$id
         ]);
     }
+
+    public function meterTypeEdit($id) {
+        $meterType = MeterType::findOrFail($id);
+
+        return view('admin.meter-management.partials.sub-partials.meter-type-form', compact('meterType') );
+    }
+
+    public function meterTypeUpdate(Request $request , $id) {
+
+        $meterType = MeterType::findOrFail($id);
+        $meterType->update($request->meterType);
+
+        $tax = !is_null($meterType->tax_amount)?$meterType->tax_amount:'N/A' ;
+
+        $typeHtml = "
+                        <td>{$meterType->meter_name}</td>
+                        <td>{$meterType->meter_code}</td>
+                        <td>{$meterType->minimum_charges}</td>
+                        <td>{$tax}</td>
+                        <td>
+                            <button data-url='".route('meter.type.edit' , [$meterType->id])."'  class='btn btn-default edit-meter-type'>edit</button>
+                            <button data-url='".route('meter.type.delete' , [$meterType->id])."' class=\"btn btn-danger delete-meter-type\">delete</button>
+                        </td>
+                    ";
+
+        return response()->json([
+            'html' => $typeHtml,
+            'id' => $id
+        ]);
+    }
+
+    public function meterRateEdit($id) {
+        $meterRate = MeterRate::findOrFail($id);
+
+        return view('admin.meter-management.partials.sub-partials.meter-rate-form', compact('meterRate') );
+    }
+
+    public function meterRateUpdate(Request $request , $id) {
+
+        $meterRate = MeterRate::findOrFail($id);
+        $meterRate->update($request->meter_rate);
+
+        $typeHtml = "
+                        <td>{$meterRate->id}</td>
+                        <td>{$meterRate->from}</td>
+                        <td>{$meterRate->to}</td>
+                        <td>{$meterRate->rate}</td>
+                        <td>
+                            <button data-url='".route('meter.rate.edit' , [$meterRate->id])."'  class='btn btn-default edit-meter-rate'>edit</button>
+                            <button data-url='".route('meter.rate.delete' , [$meterRate->id])."' class=\"btn btn-danger delete-meter-type\">delete</button>
+                        </td>
+                    ";
+
+        return response()->json([
+            'html' => $typeHtml,
+            'id' => $id
+        ]);
+    }
+
+
+
+
 
 
     public function deleteMeterRate($id) {

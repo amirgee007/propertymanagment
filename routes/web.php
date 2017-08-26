@@ -201,6 +201,26 @@ Route::prefix('/dashboard/meter')->namespace('Admin')->group(function () {
         'uses' => 'MeterController@store'
     ]);
 
+    Route::get('/type/{id}/edit', [
+        'as' => 'meter.type.edit',
+        'uses' => 'MeterController@meterTypeEdit'
+    ]);
+
+    Route::put('/type/{id}/edit', [
+        'as' => 'meter.type.edit.put',
+        'uses' => 'MeterController@meterTypeUpdate'
+    ]);
+
+    Route::get('/rate/{id}/edit', [
+        'as' => 'meter.rate.edit',
+        'uses' => 'MeterController@meterRateEdit'
+    ]);
+
+    Route::put('/rate/{id}/edit', [
+        'as' => 'meter.type.rate.put',
+        'uses' => 'MeterController@meterRateUpdate'
+    ]);
+
     Route::delete('/type/{id}', [
         'as' => 'meter.type.delete',
         'uses' => 'MeterController@deleteMeterType'

@@ -31,8 +31,8 @@
                                 <td>{{$meterType->minimum_charges}}</td>
                                 <td>{{!is_null($meterType->tax_amount)?$meterType->tax_amount:'N/As' }}</td>
                                 <td>
-                                    <button data-url="" class="btn btn-default edit-meter-type">edit</button>
-                                    <button data-url="{{route('meter.type.delete' , [$meterType->id])}}" class="btn btn-danger delete-meter-type">delete</button>
+                                    <button data-url="{{route('meter.type.edit' , [$meterType->id])}}" class="btn btn-default edit-meter-rate">edit</button>
+                                    <button data-url="{{route('meter.type.delete' , [$meterType->id])}}" class="btn btn-danger delete-meter-rate">delete</button>
                                 </td>
                             </tr>
                         @empty

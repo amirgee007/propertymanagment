@@ -45,6 +45,86 @@
 <script>
     $(document).ready(function () {
 
+        $(document).on('click' , '.edit-meter-rate' , function (e) {
+            const url = $(this).attr('data-url');
+            $.ajax({
+                url: url,
+                headers: { 'X-XSRF-TOKEN' : '{{\Illuminate\Support\Facades\Crypt::encrypt(csrf_token())}}' },
+                error: function() {
+                },
+                success: function(data) {
+                    form = $('#meter-rate-edit-form');
+                    form.attr('action' , url);
+                    form.html(data);
+                    $('#edit-meter-rate-modal').modal('show');
+                },
+                type: 'GET'
+            });
+        });
+
+        $('#meter-rate-edit-form').on('submit' , function (e) {
+
+            e.preventDefault();
+            form = $(this);
+            var action = form.attr('action');
+            $.ajax({
+                url: action,
+                data: form.serialize(),
+                headers: { 'X-XSRF-TOKEN' : '{{\Illuminate\Support\Facades\Crypt::encrypt(csrf_token())}}' },
+                error: function() {
+
+                },
+                success: function(data) {
+                    $('#m-rate-'+data.id).html(data.html);
+                    $('#edit-meter-rate-modal').modal('hide');
+                },
+                type: 'PUT'
+            });
+
+
+        });
+
+
+
+        $(document).on('click' , '.edit-meter-type' , function (e) {
+            const url = $(this).attr('data-url');
+            $.ajax({
+                url: url,
+                headers: { 'X-XSRF-TOKEN' : '{{\Illuminate\Support\Facades\Crypt::encrypt(csrf_token())}}' },
+                error: function() {
+                },
+                success: function(data) {
+                    form = $('#meter-type-edit-form');
+                    form.attr('action' , url);
+                    form.html(data);
+                    $('#edit-meter-modal').modal('show');
+                },
+                type: 'GET'
+            });
+        });
+
+        $('#meter-type-edit-form').on('submit' , function (e) {
+
+            e.preventDefault();
+            form = $(this);
+            var action = form.attr('action');
+            $.ajax({
+                url: action,
+                data: form.serialize(),
+                headers: { 'X-XSRF-TOKEN' : '{{\Illuminate\Support\Facades\Crypt::encrypt(csrf_token())}}' },
+                error: function() {
+
+                },
+                success: function(data) {
+                    $('#m-type-'+data.id).html(data.html);
+                    $('#edit-meter-modal').modal('hide');
+                },
+                type: 'PUT'
+            });
+
+
+        });
+
         $('.delete-meter-type').on('click' , function (e) {
             var url = $(this).attr('data-url');
             $('#delete-modal-title').html('Meter Type Delete Confirmation');
@@ -83,9 +163,9 @@
         });
 
 
-        $(document).on('click' , '#meterFormSubmit' , function (e) {
+        $('#meter-form').on('submit' , function (e) {
             e.preventDefault();
-            var form = $('#meter-form');
+            form = $(this);
             var action = form.attr('action');
             $.ajax({
                 url: action,
