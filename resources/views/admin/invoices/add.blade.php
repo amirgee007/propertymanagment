@@ -25,15 +25,7 @@
             </div>
         </div>
 
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <button type="button" class="close" data-dismiss="alert">×</button>
-                @foreach ($errors->all() as $error)
-                    <div>{{ $error }}</div>
-                @endforeach
-            </div>
-        @endif
-
+        @include('flash::error_message')
         @include('flash::message')
         <div class="body-content animated fadeIn">
             <div class="row">
@@ -161,13 +153,13 @@
     <script>
         $(document).ready(function () {
             $('#dp1').datepicker({
-                format: 'dd-mm-yyyy',
+                format: 'dd-mm-yyyy'
             }).on('changeDate', function (e) {
                 $(this).datepicker('hide');
             });
         });
-        $('select').select2();
 
+        $('select').select2();
     </script>
 
 @endsection

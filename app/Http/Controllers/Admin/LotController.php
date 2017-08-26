@@ -40,24 +40,29 @@ class LotController extends Controller
 
     public function saveLotType(Request $request)
     {
+        $this->validate($request, [
+            'lot_type_name'         => 'required|unique:lot_types|max:255',
+            'lot_type_description'  => 'required',
+            'lot_type_code'         => 'required|string|max:255',
+            'lot_type_size'         => 'required|string|max:255',
+            'lot_type_qty'          => 'required|integer',
+        ]);
 
         try {
+            $lotType = LotType::create($request->except('_token'));
 
-            $lotType = LotType::firstOrCreate($request->except('_token'));
-
-            for ($i = 1; $i <= $request->lot_type_qty; $i++) {
-                $name = $lotType->lot_type_code . $i;
-                $lot = Lot::firstOrCreate(['lot_type_id' => $lotType->lot_type_id, 'lot_name' => $name]);
-                $lot->lot_type_id = $lotType->lot_type_id;
-                $lot->lot_name = $name;
-                $lot->save();
+            for ($i = 1; $i <= $lotType->lot_type_qty; $i++) {
+                Lot::firstOrCreate([
+                    'lot_name' => $lotType->lot_type_code . $i,
+                    'lot_type_id' => $lotType->lot_type_id
+                ]);
             }
+
             flash('Successfully Created the LotType')->success();
             return back();
 
         } catch (\Exception $ex) {
             flash('Something went wrong')->error();
-
             return back();
         }
 
@@ -108,8 +113,8 @@ class LotController extends Controller
         $savableOwner->user_id = (Auth::user()) ? Auth::user()->id : '0';
         $savableOwner->save();
 
-        if($lots){
-            foreach ($lots as $lot){
+        if ($lots) {
+            foreach ($lots as $lot) {
                 $lot->update(['lot_owner_id' => $savableOwner->owner_id]);
             }
         }
@@ -166,7 +171,7 @@ class LotController extends Controller
     public function assignLotSave(Request $request)
     {
         $data = $request->except('_token');
-        foreach($data['lot_id'] as $lot_id) {
+        foreach ($data['lot_id'] as $lot_id) {
             $lot_detail = array(
                 'lot_id' => $lot_id,
                 'lot_type_id' => $data['lot_type_id'],

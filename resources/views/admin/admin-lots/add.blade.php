@@ -21,6 +21,7 @@
             </div>
         </div>
 
+        @include('flash::error_message')
         @include('flash::message')
         <div class="body-content animated fadeIn">
             <div class="row">
@@ -33,7 +34,7 @@
                                     <div class="panel rounded shadow">
                                         <div class="panel-heading">
                                             <div class="pull-left">
-                                                <h3 class="panel-title">Lot Type<code>Add New Here</code></h3>
+                                                <h3 class="panel-title">Lot Type <small>Add New Here</small></h3>
                                             </div>
                                             <div class="clearfix"></div>
                                         </div>
