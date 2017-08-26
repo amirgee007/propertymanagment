@@ -16,7 +16,7 @@
                             <th>Form</th>
                             <th>to</th>
                             <th>rate</th>
-                            <th>ction</th>
+                            <th>Action</th>
                         </tr>
                         </thead>
                         <tbody id="meter-rate-tbody">
