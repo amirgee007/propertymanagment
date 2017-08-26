@@ -20,7 +20,7 @@
                             <th>Meter Code</th>
                             <th>Minimum charges</th>
                             <th>Tax Amount</th>
-                            <th>ction</th>
+                            <th>Action</th>
                         </tr>
                         </thead>
                         <tbody id="meter-type-tbody">
