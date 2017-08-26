@@ -6,11 +6,6 @@
 @stop
 
 @section('header_styles')
-    <link href="/admin/assets/global/plugins/bower_components/bootstrap-datepicker-vitalets/css/datepicker.css"
-          rel="stylesheet">
-    <link href="/admin/assets/global/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.css"
-          rel="stylesheet">
-
 @endsection
 
 @section('content')
@@ -49,24 +44,24 @@
                                         <label class="col-sm-3 control-label">Owner<span
                                                     class="asterisk">*</span></label>
                                         <div class="col-sm-7">
-                                            <select class="form-control" name="owner_id" required>
-                                                <option value="">Choose Owner</option>
+                                            <select id="select_owner" data-placeholder="Choose an Owner" class="form-control chosen-select" tabindex="2" name="owner_id" required>
+                                                <option value="">Choose an Owner</option>
                                                 @foreach($owners as $owner)
-                                                    <option @if($owner->owner_id == $invoice->owner_id) @endif value="{{ $owner->owner_id }}">{{ $owner->owner_name }}</option>
+                                                    <option @if($owner->owner_id == $invoice->owner_id) selected @endif value="{{ $owner->owner_id }}">{{ $owner->owner_name }}</option>
                                                 @endforeach
                                             </select>
                                             <label for="owner_id" class="error"></label>
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
+                                    <div id="owner_lots" class="form-group">
                                         <label class="col-sm-3 control-label">Lot<span
                                                     class="asterisk">*</span></label>
                                         <div class="col-sm-7">
-                                            <select class="form-control" name="lot_id" required>
-                                                <option value="">Choose Lot</option>
+                                            <select data-placeholder="Choose a Lot" class="form-control chosen-select" name="lot_id" required>
+                                                <option value="">Choose a Lot</option>
                                                 @foreach($lots as $lot)
-                                                    <option @if($lot->lot_id == $invoice->lot_id) @endif value="{{ $lot->lot_id }}">{{ $lot->lot_name }}</option>
+                                                    <option @if($lot->lot_id == $invoice->lot_id) selected @endif value="{{ $lot->lot_id }}">{{ @$lot->lot->lot_name }}</option>
                                                 @endforeach
                                             </select>
                                             <label for="lot_id" class="error"></label>
@@ -77,10 +72,7 @@
                                         <label class="col-sm-3 control-label">Transaction Description<span
                                                     class="asterisk">*</span></label>
                                         <div class="col-sm-7">
-                                            <textarea class="form-control" name="invoice_trans_des"
-                                                      required>
-                                                {{ $invoice->invoice_trans_des }}
-                                            </textarea>
+                                            <textarea class="form-control" name="invoice_trans_des" rows="5" required>{{ $invoice->invoice_trans_des }}</textarea>
                                         </div>
                                     </div><!-- /.form-group -->
 
@@ -153,24 +145,9 @@
 @endsection
 
 @section('footer_scripts')
-    <script src="/admin/assets/global/plugins/bower_components/bootstrap-datepicker-vitalets/js/bootstrap-datepicker.js"></script>
-    <script src="/admin/assets/global/plugins/bower_components/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
-    <script src="/admin/assets/global/plugins/bower_components/moment/min/moment.min.js"></script>
-    <script src="/admin/assets/global/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
-
     <script>
-        $(document).ready(function () {
-            $('#dp1').datepicker({
-                format: 'dd-mm-yyyy',
-            }).on('changeDate', function (e) {
-                $(this).datepicker('hide');
-            });
-        });
-        $('select').select2();
-
+        window.owner_filter_url = '{{ route('filter.owner.lots') }}'
     </script>
-
+    <script src="{{ url('/js/invoices/invoice.js') }}"></script>
 @endsection
 

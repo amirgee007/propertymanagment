@@ -11,7 +11,7 @@ Route::get('/download', function () {
         'lotTypes' => $lotTypes,
     );
 
-    $pdf = PDF::loadView('admin/reports/pdf',$data);
+    $pdf = PDF::loadView('admin/reports/pdf', $data);
 //    return $pdf->setOption('margin-top', 5)->stream();
     return $pdf->download('invoice.pdf');
 
@@ -60,6 +60,8 @@ Auth::routes();
 Route::group(['middleware' => ['admin'], 'namespace' => 'Admin'], function () {
 
     Route::resource('invoices', 'InvoicesController');
+
+    Route::post('/invoices/owner/lots', 'InvoicesController@getOwnerLots')->name('filter.owner.lots');
 
     Route::post('/dashboard', array(
         'as' => 'post.dashboard',
@@ -152,7 +154,6 @@ Route::group(['middleware' => ['admin'], 'namespace' => 'Admin'], function () {
         'uses' => 'LotController@ajaxCall'));
 
 
-
     Route::get('/dashboard/owner/sell-to-other', array(
         'as' => 'owner.lot.sell.other',
         'uses' => 'LotController@sellToOther'));
@@ -237,19 +238,19 @@ Route::prefix('/dashboard/meter/assignment')->namespace('Admin')->group(function
         'as' => 'meter.assignment.index',
         'uses' => 'MeterAssignmentController@index'
     ]);
-    Route::post('/' , [
+    Route::post('/', [
         'as' => 'meter.assignment.store',
         'uses' => 'MeterAssignmentController@store'
     ]);
 
-    Route::delete('/{id}/delete' , [
+    Route::delete('/{id}/delete', [
         'as' => 'meter.assignment.delete',
         'uses' => 'MeterAssignmentController@delete'
     ]);
 });
 
 Route::prefix('/dashboard/meter/reading')->namespace('Admin')->group(function () {
-    Route::get('/' , [
+    Route::get('/', [
         'as' => 'meter.reading.index',
         'uses' => 'MeterReadingController@index'
     ]);

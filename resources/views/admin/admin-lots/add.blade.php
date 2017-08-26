@@ -104,9 +104,9 @@
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
-                            <div class="panel-body no-padding">
-                                <div class="table-responsive" style="margin-top: -1px;">
-                                    <table class="table table-striped table-primary">
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-theme">
                                         <thead>
                                         <tr>
                                             <th class="text-center border-right" style="width: 1%;">ID</th>

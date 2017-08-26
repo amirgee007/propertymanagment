@@ -12,6 +12,14 @@ use App\Http\Controllers\Controller;
 
 class InvoicesController extends Controller
 {
+
+    private $view;
+
+    function __construct($view = 'admin.invoices')
+    {
+        $this->view = $view;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +29,7 @@ class InvoicesController extends Controller
     {
         $invoices = Invoice::paginate(10);
 
-        return view('admin.invoices.index', compact('invoices'));
+        return view($this->view.'.index', compact('invoices'));
     }
 
     /**
@@ -32,9 +40,8 @@ class InvoicesController extends Controller
     public function create()
     {
         $owners = Owner::all();
-        $lots = Lot::all();
 
-        return view('admin.invoices.add', compact('owners', 'lots'));
+        return view($this->view.'.add', compact('owners'));
     }
 
     /**
@@ -69,7 +76,7 @@ class InvoicesController extends Controller
     {
         $invoice = Invoice::findOrFail($id);
 
-        return view('admin.invoices.show', compact('invoice'));
+        return view($this->view.'.show', compact('invoice'));
     }
 
     /**
@@ -82,9 +89,9 @@ class InvoicesController extends Controller
     {
         $invoice = Invoice::findOrFail($id);
         $owners = Owner::all();
-        $lots = Lot::all();
+        $lots = Owner::find($invoice->owner_id)->ownedLots;
 
-        return view('admin.invoices.edit', compact('owners', 'lots', 'invoice'));
+        return view($this->view.'.edit', compact('owners', 'lots', 'invoice'));
     }
 
     /**
@@ -150,6 +157,22 @@ class InvoicesController extends Controller
             'invoice_uom' => 'required|string',
             'invoice_charge_rate' => 'required|numeric',
             'invoice_amount' => 'required|numeric',
+        ]);
+    }
+
+    public function getOwnerLots(Request $request)
+    {
+        if (! $request->has('owner_id'))
+            return response()->json(['status' => false]);
+
+        $owner = Owner::find($request->owner_id);
+        if (! $owner)
+            return response()->json(['status' => false]);
+
+        $lots = $owner->ownedLots;
+        return response()->json([
+            'status' => true,
+            'view' => (string) view($this->view.'.partials.lot_select', compact('lots'))
         ]);
     }
 }
