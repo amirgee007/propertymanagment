@@ -246,9 +246,13 @@ Route::prefix('/dashboard/meter/assignment')->namespace('Admin')->group(function
         'as' => 'meter.assignment.delete',
         'uses' => 'MeterAssignmentController@delete'
     ]);
+});
 
-
-
+Route::prefix('/dashboard/meter/reading')->namespace('Admin')->group(function () {
+    Route::get('/' , [
+        'as' => 'meter.reading.index',
+        'uses' => 'MeterReadingController@index'
+    ]);
 });
 
 Route::group(['middleware' => 'admin', 'namespace' => 'AdminAuth'], function () {

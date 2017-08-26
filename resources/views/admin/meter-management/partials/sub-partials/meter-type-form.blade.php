@@ -5,7 +5,7 @@
 <div class="form-group">
     <label class="col-sm-3 control-label">Meter Name</label>
     <div class="col-sm-7">
-        <input type="text" class="form-control input-sm" value="{{$meterType->meter_name??''}}" required name="meterType[meter_name]">
+        <input type="text" class="form-control input-sm" value="{{isset($meterType->meter_name)?$meterType->meter_name:''}}" required name="meterType[meter_name]">
     </div>
 </div><!-- /.form-group -->
 {{--<div class="form-group">--}}
@@ -25,12 +25,11 @@
     </div>
 </div><!-- /.form-group -->
 
-
 <div class="form-group">
     <label class="col-sm-3 control-label">Minimum Charges</label>
     <div class="col-sm-7">
         <input type="number" class="form-control input-sm" required
-               value="{{$meterType->minimum_charges??''}}"
+               value="{{isset($meterType->minimum_charges)?$meterType->minimum_charges:''}}"
                name="meterType[minimum_charges]">
     </div>
 </div><!-- /.form-group -->
@@ -51,7 +50,7 @@
     <div class="form-group">
         <label class="col-sm-3 control-label">tax amount</label>
         <div class="col-sm-7">
-            <input type="number" class="form-control input-sm" value="{{$meterType->tax_amount??''}}" name="meterType[tax_amount]">
+            <input type="number" class="form-control input-sm" value="{{isset($meterType->tax_amount)?$meterType->tax_amount:''}}" name="meterType[tax_amount]">
         </div>
     </div>
 </div>

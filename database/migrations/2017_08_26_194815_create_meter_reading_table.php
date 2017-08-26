@@ -19,7 +19,7 @@ class CreateMeterReadingTable extends Migration
 
             $table->increments('id');
             $table->integer('meter_id');
-            $table->string('reading_number');
+            $table->string('reading_number')->nullable();
             $table->integer('lot_no');
             $table->dateTime('last_reading_date')->nullable();
             $table->float('last_reading')->nullable();
