@@ -35,12 +35,12 @@
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-danger ">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title" id="delete-modal-title">Meter Type Delete Confirmation</h4>
             </div>
             <div class="modal-body" id="delete-modal-body">
-                <h3><strong> Are You sure to Delete the meter Type </strong></h3>
+                <h5><strong> The record will be permanently removed from the system. Are you sure you want to delete? </strong></h5>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-danger" id="delete-meter-btn" data-url="">Confirm</button>

@@ -230,6 +230,24 @@ Route::prefix('/dashboard/meter')->namespace('Admin')->group(function () {
         'as' => 'meter.rate.delete',
         'uses' => 'MeterController@deleteMeterRate'
     ]);
+});
+
+Route::prefix('/dashboard/meter/assignment')->namespace('Admin')->group(function () {
+    Route::get('/', [
+        'as' => 'meter.assignment.index',
+        'uses' => 'MeterAssignmentController@index'
+    ]);
+    Route::post('/' , [
+        'as' => 'meter.assignment.store',
+        'uses' => 'MeterAssignmentController@store'
+    ]);
+
+    Route::delete('/{id}/delete' , [
+        'as' => 'meter.assignment.delete',
+        'uses' => 'MeterAssignmentController@delete'
+    ]);
+
+
 
 });
 
