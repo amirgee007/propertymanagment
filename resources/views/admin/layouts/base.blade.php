@@ -1,14 +1,19 @@
 <!DOCTYPE html>
-<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
-<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
-<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<!--[if IE 8]>
+<html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]>
+<html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en"> <!--<![endif]-->
 
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="Blankon is a theme fullpack admin template powered by Twitter bootstrap 3 front-end framework. Included are multiple example pages, elements styles, and javascript widgets to get your project started.">
-    <meta name="keywords" content="admin, admin template, bootstrap3, clean, fontawesome4, good documentation, lightweight admin, responsive dashboard, webapp">
+    <meta name="description"
+          content="Blankon is a theme fullpack admin template powered by Twitter bootstrap 3 front-end framework. Included are multiple example pages, elements styles, and javascript widgets to get your project started.">
+    <meta name="keywords"
+          content="admin, admin template, bootstrap3, clean, fontawesome4, good documentation, lightweight admin, responsive dashboard, webapp">
     <meta name="author" content="Djava UI">
 
     <title>
@@ -17,11 +22,16 @@
         @show
     </title>
 
-    <link href="http://themes.djavaui.com/blankon-fullpack-admin-theme/img/ico/html/apple-touch-icon-144x144-precomposed.png" rel="apple-touch-icon-precomposed" sizes="144x144">
-    <link href="http://themes.djavaui.com/blankon-fullpack-admin-theme/img/ico/html/apple-touch-icon-114x114-precomposed.png" rel="apple-touch-icon-precomposed" sizes="114x114">
-    <link href="http://themes.djavaui.com/blankon-fullpack-admin-theme/img/ico/html/apple-touch-icon-72x72-precomposed.png" rel="apple-touch-icon-precomposed" sizes="72x72">
-    <link href="http://themes.djavaui.com/blankon-fullpack-admin-theme/img/ico/html/apple-touch-icon-57x57-precomposed.png" rel="apple-touch-icon-precomposed">
-    <link href="http://themes.djavaui.com/blankon-fullpack-admin-theme/img/ico/html/apple-touch-icon.png" rel="shortcut icon">
+    <link href="http://themes.djavaui.com/blankon-fullpack-admin-theme/img/ico/html/apple-touch-icon-144x144-precomposed.png"
+          rel="apple-touch-icon-precomposed" sizes="144x144">
+    <link href="http://themes.djavaui.com/blankon-fullpack-admin-theme/img/ico/html/apple-touch-icon-114x114-precomposed.png"
+          rel="apple-touch-icon-precomposed" sizes="114x114">
+    <link href="http://themes.djavaui.com/blankon-fullpack-admin-theme/img/ico/html/apple-touch-icon-72x72-precomposed.png"
+          rel="apple-touch-icon-precomposed" sizes="72x72">
+    <link href="http://themes.djavaui.com/blankon-fullpack-admin-theme/img/ico/html/apple-touch-icon-57x57-precomposed.png"
+          rel="apple-touch-icon-precomposed">
+    <link href="http://themes.djavaui.com/blankon-fullpack-admin-theme/img/ico/html/apple-touch-icon.png"
+          rel="shortcut icon">
 
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" rel="stylesheet">
     <link href="http://fonts.googleapis.com/css?family=Oswald:700,400" rel="stylesheet">
@@ -30,13 +40,16 @@
 
     <link href="/admin/assets/global/plugins/bower_components/fontawesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="/admin/assets/global/plugins/bower_components/animate.css/animate.min.css" rel="stylesheet">
-    <link href="/admin/assets/global/plugins/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css" rel="stylesheet">
-    <link href="/admin/assets/global/plugins/bower_components/jasny-bootstrap-fileinput/css/jasny-bootstrap-fileinput.min.css" rel="stylesheet">
+    <link href="/admin/assets/global/plugins/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css"
+          rel="stylesheet">
+    <link href="/admin/assets/global/plugins/bower_components/jasny-bootstrap-fileinput/css/jasny-bootstrap-fileinput.min.css"
+          rel="stylesheet">
     <link href="/admin/assets/global/plugins/bower_components/chosen_v1.2.0/chosen.min.css" rel="stylesheet">
     <link href="/admin/assets/global/plugins/bower_components/bootstrap-calendar/css/calendar.min.css" rel="stylesheet">
     <link href="/admin/assets/global/plugins/bower_components/jquery.gritter/css/jquery.gritter.css" rel="stylesheet">
     <link href="/admin/assets/global/plugins/bower_components/morrisjs/morris.css" rel="stylesheet">
-    <link href="/admin/assets/global/plugins/bower_components/horizontal-chart/build/css/horizBarChart.css" rel="stylesheet">
+    <link href="/admin/assets/global/plugins/bower_components/horizontal-chart/build/css/horizBarChart.css"
+          rel="stylesheet">
 
     <link href="/admin/assets/admin/css/reset.css" rel="stylesheet">
     <link href="/admin/assets/admin/css/layout.css" rel="stylesheet">
@@ -55,6 +68,13 @@
     <![endif]-->
     <!--/ END IE SUPPORT -->
 
+    <link href="/admin/assets/global/plugins/bower_components/bootstrap-datepicker-vitalets/css/datepicker.css"
+          rel="stylesheet">
+    <link href="/admin/assets/global/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.css"
+          rel="stylesheet">
+    <link href="/admin/assets/global/plugins/bower_components/chosen_v1.2.0/chosen.min.css" rel="stylesheet">
+
+
     @yield('header_styles')
     <script>window.Laravel = <?php echo json_encode(['csrfToken' => csrf_token()]); ?></script>
 </head>
@@ -63,7 +83,8 @@
 <body class="page-session page-sound page-header-fixed page-sidebar-fixed page-footer-fixed demo-dashboard-session">
 
 <!--[if lt IE 9]>
-<p class="upgrade-browser">Upps!! You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/" target="_blank">upgrade your browser</a> to improve your experience.</p>
+<p class="upgrade-browser">Upps!! You are using an <strong>outdated</strong> browser. Please <a
+        href="http://browsehappy.com/" target="_blank">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
 
 <!-- START @WRAPPER -->
@@ -83,7 +104,6 @@
     <i class="fa fa-angle-up"></i>
 </div><!-- /#back-top -->
 <!--/ END BACK TOP -->
-
 
 
 <!-- Start modal navbar messages -->
@@ -122,7 +142,8 @@
                         <div class="form-group">
                             <label for="navbar-message-textarea" class="col-sm-3 control-label">Message</label>
                             <div class="col-sm-7">
-                                <textarea id="navbar-message-textarea" class="form-control" maxlength="20" rows="5" placeholder="Type your messages on here..."></textarea>
+                                <textarea id="navbar-message-textarea" class="form-control" maxlength="20" rows="5"
+                                          placeholder="Type your messages on here..."></textarea>
                             </div>
                         </div><!-- /.form-group -->
                     </div><!-- /.form-body -->
@@ -137,7 +158,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
 
 
 <script src="/admin/assets/global/plugins/bower_components/jquery/dist/jquery.min.js"></script>
@@ -167,14 +187,17 @@
 <script src="/admin/assets/admin/js/demo.js"></script>
 
 <script src="{{ asset('assets/vendors/toastr/js/toastr.min.js') }}" type="text/javascript"></script>
+<script src="/admin/assets/global/plugins/bower_components/bootstrap-datepicker-vitalets/js/bootstrap-datepicker.js"></script>
+<script src="/admin/assets/global/plugins/bower_components/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+<script src="/admin/assets/global/plugins/bower_components/moment/min/moment.min.js"></script>
+<script src="/admin/assets/global/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="/admin/assets/global/plugins/bower_components/chosen_v1.2.0/chosen.jquery.min.js"></script>
 
 <script>
-	     $(document).ready(function (){
-			
-			
-		 });
-		 
-		 
+    $(document).ready(function () {
+        $(".chosen-select").chosen();
+    });
+
     $('#flash-overlay-modal').modal();
     $('div.alert').not('.alert-important').delay(4000).fadeOut(350);
 

@@ -63,15 +63,12 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Transaction Description</label>
                                         <div class="col-sm-7">
-                                            <textarea class="form-control" name="invoice_trans_des"
-                                                      readonly="readonly">
-                                                {{ $invoice->invoice_trans_des }}
-                                            </textarea>
+                                            <textarea class="form-control" rows="5" readonly="readonly">{{ $invoice->invoice_trans_des }}</textarea>
                                         </div>
                                     </div><!-- /.form-group -->
 
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Date<</label>
+                                        <label class="col-sm-3 control-label">Date</label>
                                         <div class="col-sm-7">
                                             <input type="text" value="{{ is_null($invoice->date) ? "" :  $invoice->date->format('d-m-Y')  }}" class="form-control" readonly="readonly">
                                         </div>

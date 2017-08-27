@@ -7,17 +7,6 @@
 
 @section('header_styles')
 
-    <!-- START @PAGE LEVEL STYLES -->
-    <link href="/admin/assets/global/plugins/bower_components/fontawesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/admin/assets/global/plugins/bower_components/animate.css/animate.min.css" rel="stylesheet">
-    {{--<link href="/admin/assets/commercial/plugins/cube-portfolio/cubeportfolio/css/cubeportfolio.min.css" rel="stylesheet">--}}
-    <!--/ END PAGE LEVEL STYLES -->
-
-    <link href="/admin/assets/global/plugins/bower_components/bootstrap-datepicker-vitalets/css/datepicker.css"
-          rel="stylesheet">
-    <link href="/admin/assets/global/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.css"
-          rel="stylesheet">
-
 @endsection
 
 @section('content')
@@ -479,12 +468,6 @@
 @endsection
 
 @section('footer_scripts')
-    <!-- START @PAGE LEVEL PLUGINS -->
-    <script src="/admin/assets/global/plugins/bower_components/bootstrap-datepicker-vitalets/js/bootstrap-datepicker.js"></script>
-    <script src="/admin/assets/global/plugins/bower_components/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
-    <script src="/admin/assets/global/plugins/bower_components/moment/min/moment.min.js"></script>
-    <script src="/admin/assets/global/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
-
     <script>
 
         toastr.success("welcome to Edit Owner Page.", "Thanks");

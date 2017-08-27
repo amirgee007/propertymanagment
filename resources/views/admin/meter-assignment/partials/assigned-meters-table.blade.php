@@ -25,9 +25,9 @@
                         <tbody id="meter-tbody">
                         @foreach($meters as $meter)
                             <tr id="assign-meter-tr-{{$meter->id}}">
-                                <td>{{$meter->meterType->meter_name??''}}</td>
-                                <td>{{$meter->lotType->lot_type_name??''}}</td>
-                                <td>{{$meter->quantity}}</td>
+                                <td>{{ $meter->meterType ? @$meter->meterType->meter_name : null }}</td>
+                                <td>{{ $meter->lotType ? @$meter->lotType->lot_type_name : null }}</td>
+                                <td>{{ $meter->quantity }}</td>
                                 <td>
                                     <button data-url="{{route('meter.assignment.delete' , [$meter->id])}}" class="btn btn-danger meter-delete">Delete</button>
                                 </td>

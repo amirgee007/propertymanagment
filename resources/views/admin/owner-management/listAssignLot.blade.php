@@ -6,11 +6,6 @@
 @stop
 
 @section('header_styles')
-    <link href="/admin/assets/global/plugins/bower_components/bootstrap-datepicker-vitalets/css/datepicker.css"
-          rel="stylesheet">
-    <link href="/admin/assets/global/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.css"
-          rel="stylesheet">
-
 @endsection
 
 @section('content')

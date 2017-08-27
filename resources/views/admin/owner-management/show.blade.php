@@ -6,17 +6,13 @@
 @stop
 
 @section('header_styles')
-    <link href="/admin/assets/global/plugins/bower_components/bootstrap-datepicker-vitalets/css/datepicker.css"
-          rel="stylesheet">
-    <link href="/admin/assets/global/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.css"
-          rel="stylesheet">
 <style>
 
     form .form-group .control-label {
          font-weight: bold;
     }
 
-    </style>
+</style>
 @endsection
 
 @section('content')
@@ -227,12 +223,6 @@
 @endsection
 
 @section('footer_scripts')
-    <!-- START @PAGE LEVEL PLUGINS -->
-    <script src="/admin/assets/global/plugins/bower_components/bootstrap-datepicker-vitalets/js/bootstrap-datepicker.js"></script>
-    <script src="/admin/assets/global/plugins/bower_components/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
-    <script src="/admin/assets/global/plugins/bower_components/moment/min/moment.min.js"></script>
-    <script src="/admin/assets/global/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
-
     <script>
 
         function toggle(className, obj) {
