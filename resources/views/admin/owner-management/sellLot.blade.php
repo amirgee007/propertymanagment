@@ -311,7 +311,8 @@
                     headers: {'X-XSRF-TOKEN': '{{\Illuminate\Support\Facades\Crypt::encrypt(csrf_token())}}'},
                     cache: false,
                     success: function (data) {
-                        if (data.owner_bills.length !== 0) {
+                        $('#pending_bills').html('');
+                        if (data.owner_bills.length > 0) {
                             $('#bills_table_div').removeClass('hidden');
                             $.each(data.owner_bills, function (i, val) {
                                 $('#pending_bills').append(

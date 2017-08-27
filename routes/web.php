@@ -62,6 +62,7 @@ Route::group(['middleware' => ['admin'], 'namespace' => 'Admin'], function () {
     Route::resource('invoices', 'InvoicesController');
 
     Route::post('/invoices/owner/lots', 'InvoicesController@getOwnerLots')->name('filter.owner.lots');
+    Route::get('/invoices/download/pdf/{invoice_id}', 'InvoicesController@getPDF')->name('invoices.pdf');
 
     Route::post('/dashboard', array(
         'as' => 'post.dashboard',

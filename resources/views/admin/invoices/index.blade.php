@@ -72,6 +72,10 @@
                                                 <td>{{ $invoice->invoice_charge_rate }}</td>
                                                 <td>{{ $invoice->invoice_amount }}</td>
                                                 <td class="text-center">
+                                                    <a href="{{ route('invoices.pdf', $invoice->invoice_id) }}"
+                                                       class="btn btn-success btn-xs rounded"
+                                                       data-toggle="tooltip" data-placement="top"
+                                                       data-original-title="Download PDF"><i class="fa fa-file-pdf-o"></i></a>
                                                     <a href="{{ route('invoices.show', $invoice) }}"
                                                        class="btn btn-success btn-xs rounded"
                                                        data-toggle="tooltip" data-placement="top"

@@ -29,7 +29,7 @@ class InvoicesController extends Controller
     {
         $invoices = Invoice::paginate(10);
 
-        return view($this->view.'.index', compact('invoices'));
+        return view($this->view . '.index', compact('invoices'));
     }
 
     /**
@@ -41,7 +41,7 @@ class InvoicesController extends Controller
     {
         $owners = Owner::all();
 
-        return view($this->view.'.add', compact('owners'));
+        return view($this->view . '.add', compact('owners'));
     }
 
     /**
@@ -76,7 +76,7 @@ class InvoicesController extends Controller
     {
         $invoice = Invoice::findOrFail($id);
 
-        return view($this->view.'.show', compact('invoice'));
+        return view($this->view . '.show', compact('invoice'));
     }
 
     /**
@@ -91,7 +91,7 @@ class InvoicesController extends Controller
         $owners = Owner::all();
         $lots = Owner::find($invoice->owner_id)->ownedLots;
 
-        return view($this->view.'.edit', compact('owners', 'lots', 'invoice'));
+        return view($this->view . '.edit', compact('owners', 'lots', 'invoice'));
     }
 
     /**
@@ -160,19 +160,37 @@ class InvoicesController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getOwnerLots(Request $request)
     {
-        if (! $request->has('owner_id'))
+        if (!$request->has('owner_id'))
             return response()->json(['status' => false]);
 
         $owner = Owner::find($request->owner_id);
-        if (! $owner)
+        if (!$owner)
             return response()->json(['status' => false]);
 
         $lots = $owner->ownedLots;
         return response()->json([
             'status' => true,
-            'view' => (string) view($this->view.'.partials.lot_select', compact('lots'))
+            'view' => (string)view($this->view . '.partials.lot_select', compact('lots'))
         ]);
+    }
+
+    public function getPDF($id)
+    {
+        $invoice = Invoice::find($id);
+
+//        return view('admin.reports.pdf', compact('invoice'));
+
+        $pdf = \App::make('snappy.pdf.wrapper');
+        $pdf->loadView('admin.reports.pdf', $invoice);
+
+        $file_name = @$invoice->owner->owner_name . '-' . $invoice->id . '.pdf';
+
+        return $pdf->download($file_name);
     }
 }
