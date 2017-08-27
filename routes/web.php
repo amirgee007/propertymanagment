@@ -253,6 +253,29 @@ Route::prefix('/dashboard/meter/reading')->namespace('Admin')->group(function ()
         'as' => 'meter.reading.index',
         'uses' => 'MeterReadingController@index'
     ]);
+
+    Route::get('/create' ,[
+        'as' => 'meter.reading.create',
+        'uses' => 'MeterReadingController@create'
+    ]);
+
+    Route::post('/create' ,[
+        'as' => 'meter.reading.store',
+        'uses' => 'MeterReadingController@store'
+    ]);
+
+    Route::post('/get/lotTypeLots/' ,[
+        'as' => 'meter.reading.lot-type',
+        'uses' => 'MeterReadingController@getLotsFromLotType'
+    ]);
+
+    Route::post('/get/lot/meters' ,[
+        'as' => 'meter.reading.lot.meter',
+        'uses' => 'MeterReadingController@getLotsMeters'
+    ]);
+
+
+
 });
 
 Route::group(['middleware' => 'admin', 'namespace' => 'AdminAuth'], function () {

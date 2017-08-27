@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\LotType;
 use App\Models\Meter;
+use App\Models\MeterAssignment;
 use App\Models\MeterType;
 use Illuminate\Http\Request;
 
 class MeterAssignmentController extends Controller
 {
     public function index() {
-        $meters = Meter::with('meterType' , 'lotType')->get();
+        $meters = MeterAssignment::with('meterType' , 'lotType')->get();
 
         $meterTypes = MeterType::get()->pluck('meter_name' ,'id' )->toArray();
 
@@ -24,7 +25,20 @@ class MeterAssignmentController extends Controller
 
     public function store(Request $request) {
 
-        $meter = Meter::create($request->all());
+        $meter = MeterAssignment::create($request->all());
+
+        $lots = LotType::findOrFail($meter->lot_type_id)->lots;
+
+        foreach ($lots as $lot) {
+            $data = [
+                'meter_assignment_id' => $meter->id,
+                'meter_type_id' => $meter->meter_type_id,
+                'lot_id' => $lot->lot_id,
+            ];
+            for ($i = 1;$i <= $meter->quantity ; $i++) {
+                Meter::create($data);
+            }
+        }
 
         $html = "<tr id=\"assign-meter-tr-{$meter->id}\">
                                 <td>{$meter->meterType->meter_name}</td>
@@ -43,7 +57,7 @@ class MeterAssignmentController extends Controller
     }
 
     public function delete($id) {
-        $meter = Meter::findOrFail($id);
+        $meter = MeterAssignment::findOrFail($id);
         $meter->delete();
 
         return response()->json([

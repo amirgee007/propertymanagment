@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMetersTable extends Migration
+class CreateMeterAssignmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,7 @@ class CreateMetersTable extends Migration
      */
     public function up()
     {
-
-        Schema::create('meters', function(Blueprint $table)
-        {
+        Schema::create('meter_assignments', function (Blueprint $table) {
             $table->increments('id');
             $table->string('meter_type_id');
             $table->string('quantity');
@@ -31,6 +29,6 @@ class CreateMetersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('meters');
+        Schema::dropIfExists('meter_assignments');
     }
 }

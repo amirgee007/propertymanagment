@@ -9,4 +9,6 @@ class MeterType extends Model
     protected $table = 'meter_types';
     protected $guarded = [];
 
+
+
 }

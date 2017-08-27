@@ -3,15 +3,13 @@
         <div class="panel-heading" style="padding: 2%">
             <h4 class="no-margin">
                 Meters Reading
-
                 <div class="pull-right">
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#assign-meter-modal">Create New Meter Reading</button>
+                    <a href="{{route('meter.reading.create')}}" class="btn btn-info">Add Meter Reading</a>
                 </div>
             </h4>
         </div>
         <div class="panel-body no-padding">
-            <div class="col-lg-12">
-                <br>
+            <div class="col-lg-12" style="padding: 5px">
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
@@ -25,15 +23,15 @@
                         </tr>
                         </thead>
                         <tbody id="meter-reading-tbody">
-                        @foreach($meterReadings as $meterReading)
-                            <tr id="m-reading-{{$meterReading->id}}">
+                        @foreach($meters as $meter)
+                            <tr id="m-reading-{{$meter->id}}">
                                 <td> </td>
-                                <td>{{$meterReading->meter_id}}</td>
-                                <td>{{$meterReading->lot_no}}</td>
-                                <td>{{$meterReading->last_reading_date}}</td>
-                                <td>{{$meterReading->last_reading}}</td>
+                                <td>{{$meter->id}}</td>
+                                <td>{{$meter->lot_id}}</td>
+                                <td id="las-re-d-td-{{$meter->id}}">{{!is_null($meter->meterReadings()->first())?$meter->meterReadings()->first()->last_reading_date:'N/A'}}</td>
+                                <td id="las-re-td-{{$meter->id}}">{{!is_null($meter->meterReadings()->first())?$meter->meterReadings()->first()->last_reading:'N/A'}}</td>
                                 <td>
-                                    <button class="btn btn-info">Add Reading</button>
+                                    <button data-meter-id="{{$meter->id}}" data-lot-id="{{$meter->lot_id}}" class="btn btn-info meterReadingM">Add Reading</button>
                                     <button class="btn btn-primary">Export monthly meter Reading</button>
                                 </td>
                             </tr>
@@ -42,6 +40,12 @@
                     </table>
                 </div>
             </div>
+            <div class="col-lg-12">
+                <div class="pull-right">
+                    {{ $meters->links() }}
+                </div>
+            </div>
+
         </div>
     </div><!-- /.panel-body -->
 </div><!-- /.panel -->
