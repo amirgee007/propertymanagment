@@ -77,6 +77,7 @@
                 success: function(data) {
                     $('#m-rate-'+data.id).html(data.html);
                     $('#edit-meter-rate-modal').modal('hide');
+                    toastr.success("Meter Rate Updated Successfully");
                 },
                 type: 'PUT'
             });
@@ -118,6 +119,8 @@
                 success: function(data) {
                     $('#m-type-'+data.id).html(data.html);
                     $('#edit-meter-modal').modal('hide');
+
+                    toastr.success("Meter Type Updated Successfully");
                 },
                 type: 'PUT'
             });
@@ -156,6 +159,7 @@
                 success: function(data) {
                     if(data.status) {
                         $('#'+data.id).remove();
+                        toastr.success("Meter Type Deleted Successfully");
                     }
                 },
                 type: 'DELETE'
@@ -179,6 +183,8 @@
                         $('#meter-type-tbody').append(data.meterType);
                         $('#meter-rate-tbody').append(data.meterRate);
                         $('#myModal').modal('hide');
+
+                        toastr.success("Meter Type Created Successfully");
                     }
                 },
                 type: 'POST'

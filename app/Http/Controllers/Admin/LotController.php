@@ -194,4 +194,5 @@ class LotController extends Controller
         return $lots;
 
     }
+
 }

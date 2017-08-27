@@ -29,6 +29,8 @@
 <div class="form-group">
     <label class="col-sm-3 control-label">Quantity</label>
     <div class="col-sm-7">
-        <input type="number" class="form-control input-sm" value="{{ isset($assignMeter) ? $assignMeter->quantity : '' }}" required name="quantity">
+
+        <input type="number" class="form-control input-sm" value="{{isset($assignMeter->quantity)?$assignMeter->quantity:''}}" required name="quantity">
+
     </div>
 </div><!-- /.form-group -->
