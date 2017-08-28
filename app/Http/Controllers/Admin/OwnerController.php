@@ -14,25 +14,30 @@ use Illuminate\Support\Facades\Auth;
 class OwnerController extends Controller
 {
 
+    public function index()
+    {
+        $owners = Owner::paginate(10);
+
+        return view('admin.owner-management.index', compact('owners'));
+    }
+
     public function viewProfile()
     {
         return view('admin.owner-management.add');
     }
 
 
-    public function show()
+    public function show($id)
     {
+        $owner = Owner::find($id);
 
-        $user_id = Auth::user()->id;
-        $owner = Owner::where('owner_id', $user_id)->first();
         if (is_null($owner)) {
 
             flash('First Add owners Info')->warning();
             redirect()->route('owner.add.new');
         }
 
-
-        $company = !is_null($owner) ? $owner->companies->first() : '';
+        $company = count($owner->companies) ? $owner->companies->first() : '';
 
         //$ob = (Owner::first()->owner_dob);
         //dd(Carbon::parse($ob)->diffInYears(Carbon::now()));
@@ -44,11 +49,14 @@ class OwnerController extends Controller
 
     public function store(Request $request)
     {
+        $this->formValidation($request);
+
         $ownerId = null;
         $savableOwner = new Owner();
         $savableOwner->owner_type = isset($request->owner_type) ? $request->owner_type : '';
         $savableOwner->owner_id_card_no = isset($request->owner_id_card_no) ? $request->owner_id_card_no : '';
         $savableOwner->owner_name = isset($request->owner_name) ? $request->owner_name : '';
+        $savableOwner->email = isset($request->email) ? $request->email : null;
         $savableOwner->owner_dob = isset($request->owner_dob) ? $request->owner_dob : '';
         $savableOwner->owner_gender = isset($request->owner_gender) ? $request->owner_gender : '';
         $savableOwner->owner_address = isset($request->owner_address) ? $request->owner_address : '';
@@ -79,11 +87,9 @@ class OwnerController extends Controller
         return back();
     }
 
-    public function edit()
+    public function edit($id)
     {
-
-        $user_id = Auth::user()->id;
-        $owner = Owner::where('owner_id', $user_id)->first();
+        $owner = Owner::find($id);
 
         if (is_null($owner)) {
             flash('First Add owners Info')->warning();
@@ -101,13 +107,14 @@ class OwnerController extends Controller
 
     public function update(Request $request)
     {
-
+        $this->formValidation($request);
 
         $ownerId = null;
         $savableOwner = Owner::where('owner_id', $request->owner_id)->first();
         $savableOwner->owner_type = isset($request->owner_type) ? $request->owner_type : '';
         $savableOwner->owner_id_card_no = isset($request->owner_id_card_no) ? $request->owner_id_card_no : '';
         $savableOwner->owner_name = isset($request->owner_name) ? $request->owner_name : '';
+        $savableOwner->email = isset($request->email) ? $request->email : null;
         $savableOwner->owner_dob = isset($request->owner_dob) ? $request->owner_dob : '';
         $savableOwner->owner_gender = isset($request->owner_gender) ? $request->owner_gender : '';
         $savableOwner->owner_address = isset($request->owner_address) ? $request->owner_address : '';
@@ -156,8 +163,40 @@ class OwnerController extends Controller
         }
         flash('Something went wrong')->error();
         return back();
-
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy($id)
+    {
+        $owner = Owner::find($id);
+
+        if (!$owner) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Owner not found.'
+            ]);
+        } else {
+            $owner->delete();
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Owner deleted successfully.'
+            ]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     */
+    private function formValidation(Request $request)
+    {
+        $email_rule = isset($request->owner_id) ? ',' . $request->owner_id . ',owner_id' : '';
+
+        $this->validate($request, [
+            'email' => 'required|email|unique:owners,email' . $email_rule . '|regex:/^[^@\\s]+@([^@\\s]+\\.)+[^@\\s]+$/i',
+        ]);
+    }
 
 }
