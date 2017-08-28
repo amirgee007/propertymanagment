@@ -11,6 +11,7 @@
     <link href="/admin/assets/global/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.css"
           rel="stylesheet">
     <link href="{{asset('assets/vendors/select2/dist/css/select2.min.css')}}" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
     <style>
 
     </style>
@@ -66,8 +67,24 @@
     <script src="/admin/assets/global/plugins/bower_components/moment/min/moment.min.js"></script>
     <script src="/admin/assets/global/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
     <script src="{{asset('assets/vendors/select2/dist/js/select2.js')}}"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function () {
+
+            var t = $('#meter-reading-table').DataTable({
+                "paging":   false,
+                "columns": [
+                    null,
+                    null,
+                    { "searchable": false },
+                    { "searchable": false },
+                    { "searchable": false },
+                    { "searchable": false },
+                    { "searchable": false },
+                    { "searchable": false }
+                ]
+            });
+
 
             $('#meter-reading-form').on('submit' , function (e) {
                 e.preventDefault();

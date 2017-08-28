@@ -1,6 +1,4 @@
-<div class="panel-heading">
-    Meter Type
-</div>
+
 
 <div class="form-group">
     <label class="col-sm-3 control-label">Meter Name</label>
@@ -50,7 +48,7 @@
     <div class="form-group">
         <label class="col-sm-3 control-label">tax amount</label>
         <div class="col-sm-7">
-            <input type="number" class="form-control input-sm" value="{{isset($meterType->tax_amount)?$meterType->tax_amount:''}}" name="meterType[tax_amount]">
+            <input type="number" placeholder="Tax amount should be in percentage" class="form-control input-sm" value="{{isset($meterType->tax_amount)?$meterType->tax_amount:''}}" name="meterType[tax_amount]">
         </div>
     </div>
 </div>

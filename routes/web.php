@@ -183,102 +183,116 @@ Route::group(['middleware' => ['admin'], 'namespace' => 'Admin'], function () {
         'uses' => 'LotController@deleteLotType'));
 
 //////////////////////////////////////////////////
-});
+
 
 //////METER MANAGEMENT///////////
-Route::prefix('/dashboard/meter')->namespace('Admin')->group(function () {
+    Route::prefix('/dashboard/meter')->group(function () {
 
-    Route::get('/', [
-        'as' => 'meter.index',
-        'uses' => 'MeterController@index'
-    ]);
+        Route::get('/', [
+            'as' => 'meter.index',
+            'uses' => 'MeterController@index'
+        ]);
 
-    Route::get('/create', [
-        'as' => 'meter.create',
-        'uses' => 'MeterController@create'
-    ]);
+        Route::get('/create', [
+            'as' => 'meter.create',
+            'uses' => 'MeterController@create'
+        ]);
 
-    Route::post('/create', [
-        'as' => 'meter.store',
-        'uses' => 'MeterController@store'
-    ]);
+        Route::post('/create', [
+            'as' => 'meter.store',
+            'uses' => 'MeterController@store'
+        ]);
 
-    Route::get('/type/{id}/edit', [
-        'as' => 'meter.type.edit',
-        'uses' => 'MeterController@meterTypeEdit'
-    ]);
+        Route::get('/type/{id}/edit', [
+            'as' => 'meter.type.edit',
+            'uses' => 'MeterController@meterTypeEdit'
+        ]);
 
-    Route::put('/type/{id}/edit', [
-        'as' => 'meter.type.edit.put',
-        'uses' => 'MeterController@meterTypeUpdate'
-    ]);
+        Route::put('/type/{id}/edit', [
+            'as' => 'meter.type.edit.put',
+            'uses' => 'MeterController@meterTypeUpdate'
+        ]);
 
-    Route::get('/rate/{id}/edit', [
-        'as' => 'meter.rate.edit',
-        'uses' => 'MeterController@meterRateEdit'
-    ]);
+        ////////////////***METER RATE***////////////////
+        Route::get('/rate/', [
+            'as' => 'meter.rate.index',
+            'uses' => 'MeterController@meterRateIndex'
+        ]);
 
-    Route::put('/rate/{id}/edit', [
-        'as' => 'meter.type.rate.put',
-        'uses' => 'MeterController@meterRateUpdate'
-    ]);
+        Route::post('/rate/create', [
+            'as' => 'meter.rate.create',
+            'uses' => 'MeterController@meterRateCreate'
+        ]);
 
-    Route::delete('/type/{id}', [
-        'as' => 'meter.type.delete',
-        'uses' => 'MeterController@deleteMeterType'
-    ]);
+        Route::get('/rate/edit/{id}', [
+            'as' => 'meter.rate.edit',
+            'uses' => 'MeterController@meterRateEdit'
+        ]);
 
-    Route::delete('/rate/{id}', [
-        'as' => 'meter.rate.delete',
-        'uses' => 'MeterController@deleteMeterRate'
-    ]);
+        Route::put('/rate/{id}/edit', [
+            'as' => 'meter.type.rate.put',
+            'uses' => 'MeterController@meterRateUpdate'
+        ]);
+
+        Route::delete('/type/{id}', [
+            'as' => 'meter.type.delete',
+            'uses' => 'MeterController@deleteMeterType'
+        ]);
+
+        Route::delete('/rate/{id}', [
+            'as' => 'meter.rate.delete',
+            'uses' => 'MeterController@deleteMeterRate'
+        ]);
+    });
+
+    /////////////********METER ASSIGNMENT***********////////////
+    Route::prefix('/dashboard/meter/assignment')->group(function () {
+        Route::get('/', [
+            'as' => 'meter.assignment.index',
+            'uses' => 'MeterAssignmentController@index'
+        ]);
+        Route::post('/', [
+            'as' => 'meter.assignment.store',
+            'uses' => 'MeterAssignmentController@store'
+        ]);
+
+        Route::delete('/{id}/delete', [
+            'as' => 'meter.assignment.delete',
+            'uses' => 'MeterAssignmentController@delete'
+        ]);
+    });
+
+    /////////////********METER READING*********//////////////
+    Route::prefix('/dashboard/meter/reading')->group(function () {
+        Route::get('/', [
+            'as' => 'meter.reading.index',
+            'uses' => 'MeterReadingController@index'
+        ]);
+
+        Route::get('/create' ,[
+            'as' => 'meter.reading.create',
+            'uses' => 'MeterReadingController@create'
+        ]);
+
+        Route::post('/create' ,[
+            'as' => 'meter.reading.store',
+            'uses' => 'MeterReadingController@store'
+        ]);
+
+        Route::post('/get/lotTypeLots/' ,[
+            'as' => 'meter.reading.lot-type',
+            'uses' => 'MeterReadingController@getLotsFromLotType'
+        ]);
+
+        Route::post('/get/lot/meters' ,[
+            'as' => 'meter.reading.lot.meter',
+            'uses' => 'MeterReadingController@getLotsMeters'
+        ]);
+    });
+
+
 });
 
-Route::prefix('/dashboard/meter/assignment')->namespace('Admin')->group(function () {
-    Route::get('/', [
-        'as' => 'meter.assignment.index',
-        'uses' => 'MeterAssignmentController@index'
-    ]);
-    Route::post('/', [
-        'as' => 'meter.assignment.store',
-        'uses' => 'MeterAssignmentController@store'
-    ]);
-
-    Route::delete('/{id}/delete', [
-        'as' => 'meter.assignment.delete',
-        'uses' => 'MeterAssignmentController@delete'
-    ]);
-});
-
-Route::prefix('/dashboard/meter/reading')->namespace('Admin')->group(function () {
-    Route::get('/', [
-        'as' => 'meter.reading.index',
-        'uses' => 'MeterReadingController@index'
-    ]);
-
-    Route::get('/create' ,[
-        'as' => 'meter.reading.create',
-        'uses' => 'MeterReadingController@create'
-    ]);
-
-    Route::post('/create' ,[
-        'as' => 'meter.reading.store',
-        'uses' => 'MeterReadingController@store'
-    ]);
-
-    Route::post('/get/lotTypeLots/' ,[
-        'as' => 'meter.reading.lot-type',
-        'uses' => 'MeterReadingController@getLotsFromLotType'
-    ]);
-
-    Route::post('/get/lot/meters' ,[
-        'as' => 'meter.reading.lot.meter',
-        'uses' => 'MeterReadingController@getLotsMeters'
-    ]);
-
-
-
-});
 
 Route::group(['middleware' => 'admin', 'namespace' => 'AdminAuth'], function () {
 
