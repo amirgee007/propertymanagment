@@ -263,5 +263,14 @@ Route::group(['middleware' => 'admin', 'namespace' => 'AdminAuth'], function () 
         'uses' => 'AuthController@logout'));
 });
 
+Route::prefix('/dashboard/system-setting')->namespace('Admin')->group(function () {
+    Route::get('/create', array(
+        'as' => 'system-setting.create',
+        'uses' => 'SystemSettingController@create'));
+
+    Route::post('/edit', array(
+        'as' => 'system-setting.edit',
+        'uses' => 'SystemSettingController@edit'));
+});
 
 
