@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMetersTable extends Migration
+class AddEmailToOwnersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,8 @@ class CreateMetersTable extends Migration
      */
     public function up()
     {
-
-        Schema::create('meters', function(Blueprint $table)
-        {
-            $table->increments('id');
-            $table->string('meter_type_id');
-            $table->string('quantity');
-            $table->string('lot_type_id');
-            $table->timestamps();
+        Schema::table('owners', function (Blueprint $table) {
+            $table->string('email')->unique()->nullable()->after('owner_name');
         });
     }
 
@@ -31,6 +25,8 @@ class CreateMetersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('meters');
+        Schema::table('owners', function (Blueprint $table) {
+            $table->dropColumn('email');
+        });
     }
 }

@@ -6,6 +6,7 @@
 @stop
 
 @section('header_styles')
+    <link href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
     <style>
 
     </style>
@@ -41,9 +42,28 @@
         @endsection
 
 @section('footer_scripts')
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
 
 <script>
     $(document).ready(function () {
+
+        var t =$('#meter-rate-table').DataTable({
+            "paging":   false,
+            "searching": false,
+            'info': false
+        });
+
+
+
+        $('#meter-type-modal-btn').on('click', function () {
+            $('#meter-form')[0].reset();
+            $('#myModal').modal('show');
+        });
+
+        $('#meter-rate-modal-btn').on('click', function () {
+            $('#meter-rate-create-form')[0].reset();
+            $('#create-meter-rate-modal').modal('show');
+        });
 
         $(document).on('click' , '.edit-meter-rate' , function (e) {
             const url = $(this).attr('data-url');
@@ -77,6 +97,7 @@
                 success: function(data) {
                     $('#m-rate-'+data.id).html(data.html);
                     $('#edit-meter-rate-modal').modal('hide');
+                    toastr.success("Meter Rate Updated Successfully");
                 },
                 type: 'PUT'
             });
@@ -118,6 +139,8 @@
                 success: function(data) {
                     $('#m-type-'+data.id).html(data.html);
                     $('#edit-meter-modal').modal('hide');
+
+                    toastr.success("Meter Type Updated Successfully");
                 },
                 type: 'PUT'
             });
@@ -156,6 +179,7 @@
                 success: function(data) {
                     if(data.status) {
                         $('#'+data.id).remove();
+                        toastr.success("Meter Type Deleted Successfully");
                     }
                 },
                 type: 'DELETE'
@@ -179,11 +203,49 @@
                         $('#meter-type-tbody').append(data.meterType);
                         $('#meter-rate-tbody').append(data.meterRate);
                         $('#myModal').modal('hide');
+                        $('#meter_type_select_box')
+                            .append('<option value="'+data.type.id+'">'+data.type.meter_name+'</option>');
+                        toastr.success("Meter Type Created Successfully");
                     }
                 },
                 type: 'POST'
             });
-        })
+        });
+
+        $('#meter-rate-create-form').on('submit' , function (e) {
+            e.preventDefault();
+            form = $(this);
+            var action = form.attr('action');
+            $.ajax({
+                url: action,
+                data: form.serialize(),
+                headers: { 'X-XSRF-TOKEN' : '{{\Illuminate\Support\Facades\Crypt::encrypt(csrf_token())}}' },
+                error: function() {
+
+                },
+                success: function(data) {
+                    if (data.status) {
+                        var rowNode = t.row.add([
+                            data.rate.id,
+                            data.rate.from,
+                            data.rate.to,
+                            data.rate.rate,
+                            "<button data-url='{{url('/dashboard/meter/rate/edit/')}}"+data.rate.id+"'  class='btn btn-default edit-meter-type'>edit</button>\n" +
+                            "<button data-url='{{url('/dashboard/meter/rate/')}}"+data.rate.id+"' class='btn btn-danger delete-meter-type'>delete</button>"
+                        ]).draw( false );
+
+                        console.log(rowNode);
+                        $('#meter-rate-table tr:last').attr('id' , 'm-rate-'+data.rate.id);
+
+                        $('#create-meter-rate-modal').modal('hide');
+                        toastr.success("Meter Rate Created Successfully");
+                    }
+                },
+                type: 'POST'
+            });
+        });
+
+
     });
 </script>
 

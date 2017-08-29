@@ -5,7 +5,7 @@
                 Meter Types
 
                 <div class="pull-right">
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Create New Meter</button>
+                    <button type="button" class="btn btn-info" id="meter-type-modal-btn">Create New Meter</button>
                 </div>
             </h4>
         </div>
@@ -24,7 +24,7 @@
                         </tr>
                         </thead>
                         <tbody id="meter-type-tbody">
-                        @forelse($meterTypes as $meterType)
+                        @foreach($meterTypes as $meterType)
                             <tr id="m-type-{{$meterType->id}}">
                                 <td>{{$meterType->meter_name}}</td>
                                 <td>{{$meterType->meter_code}}</td>
@@ -35,12 +35,7 @@
                                     <button data-url="{{route('meter.type.delete' , [$meterType->id])}}" class="btn btn-danger delete-meter-rate">delete</button>
                                 </td>
                             </tr>
-                        @empty
-                            <tr>
-                                <td colspan="5">N/A</td>
-                            </tr>
-                        @endforelse
-
+                        @endforeach
                         </tbody>
                     </table>
                 </div>

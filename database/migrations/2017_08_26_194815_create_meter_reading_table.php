@@ -18,10 +18,17 @@ class CreateMeterReadingTable extends Migration
         {
 
             $table->increments('id');
-            $table->integer('meter_id');
+
+            $table->integer('meter_id')->unsigned();
+            $table->foreign('meter_id')->references('id')
+                ->on('meters')->onDelete('cascade');
+
+            $table->integer('lot_id')->unsigned();
+            $table->foreign('lot_id')->references('lot_id')
+                ->on('lots')->onDelete('cascade');
+
             $table->string('reading_number')->nullable();
-            $table->integer('lot_no');
-            $table->dateTime('last_reading_date')->nullable();
+            $table->date('reading_date')->nullable();
             $table->float('last_reading')->nullable();
             $table->timestamps();
 

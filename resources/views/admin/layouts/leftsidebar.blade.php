@@ -37,16 +37,14 @@
         {{--</li>--}}
         <!--/ End navigation - my projects -->
 
-        <li class="submenu">
+        <li class="submenu @if(request()->is('dashboard/owner/*', 'dashboard/owner')) active @endif">
             <a href="javascript:void(0);">
                 <span class="icon"><i class="fa fa-suitcase"></i></span>
                 <span class="text">Owner Management</span>
                 <span class="arrow"></span>
             </a>
             <ul>
-                <li><a href="{{route('owner.add.new')}}">Add Owners profile<span class="label label-success pull-right"></span></a></li>
-{{--            <li><a href="{{route('owner.show')}}">view Owner <span class="label label-warning pull-right"></span></a></li>--}}
-                <li><a href="{{route('owner.edit')}}">Edit Owner Profile<span class="label label-warning pull-right"></span></a></li>
+                <li class="@if(request()->is('dashboard/owner/*', 'dashboard/owner')) active @endif"><a href="{{route('owner.index')}}">Manage Owners<span class="label label-success pull-right"></span></a></li>
                 <li><a href="{{route('owner.assign.lot')}}">Assign lot <span class="label label-danger pull-right"></span></a></li>
                 <li><a href="{{route('owner.list.assign.lot')}}">List of owned Lot No <span class="label label-danger pull-right"></span></a></li>
                 <li><a href="{{route('owner.lot.sell.other')}}">Sell to Other <span class="label label-danger pull-right"></span></a></li>
@@ -87,10 +85,12 @@
                 <span class="arrow"></span>
             </a>
             <ul>
-                <li><a href="{{route('meter.create')}}">Create<span class="label label-success pull-right"></span></a></li>
-                <li><a href="{{route('meter.index')}}">Manage Meter<span class="label label-warning pull-right"></span></a></li>
+                {{--<li><a href="{{route('meter.create')}}">Create Meter Type<span class="label label-success pull-right"></span></a></li>--}}
+{{--                <li><a href="{{route('meter.rate.index')}}">Manage Rate<span class="label label-warning pull-right"></span></a></li>--}}
+                <li><a href="{{route('meter.index')}}">Meter Type<span class="label label-warning pull-right"></span></a></li>
                 <li><a href="{{route('meter.assignment.index')}}">Assign Meter<span class="label label-danger pull-right"></span></a></li>
                 <li><a href="{{route('meter.reading.index')}}">Manage Meter Reading<span class="label label-danger pull-right"></span></a></li>
+                {{--<li><a href="{{route('meter.reading.create')}}">Manage Meter Reading<span class="label label-danger pull-right"></span></a></li>--}}
             </ul>
         </li>
         <li class="submenu @if(request()->is('/dashboard/system-setting/*')) active @endif">

@@ -6,7 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class MeterType extends Model
 {
-    protected $table = 'meter_types';
     protected $guarded = [];
+
+    public function meterRates() {
+        return $this->hasMany(MeterRate::class);
+    }
+
 
 }

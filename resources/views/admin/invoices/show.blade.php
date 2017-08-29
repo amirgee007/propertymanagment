@@ -102,15 +102,83 @@
                                         </div>
                                     </div><!-- /.form-group -->
 
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Status</label>
+                                        <div class="col-sm-7">
+                                            <select class="form-control" disabled>
+                                                <option value="">Choose Status</option>
+                                                <option @if($invoice->invoice_status == 'paid') selected @endif value="paid">Paid</option>
+                                                <option @if($invoice->invoice_status == 'unpaid') selected @endif value="unpaid">Unpaid</option>
+                                                <option @if($invoice->invoice_status == 'partial') selected @endif value="partial">Partial</option>
+                                                <option @if($invoice->invoice_status == 'overdue') selected @endif value="overdue">Overdue</option>
+                                            </select>
+                                        </div>
+                                    </div><!-- /.form-group -->
+
                                 </div>
                             </form>
                         </div><!-- /.panel-body -->
+                    </div><!-- /.panel -->
+                    <div class="panel rounded shadow">
+                        <div class="panel-heading">
+                            <div class="pull-left">
+                                <h3 class="panel-title">List Payments</h3>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="panel-body">
+                        <div class="container">
+                            <br>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-theme">
+                                    <thead>
+                                    <tr>
+                                        <th>Payment ID</th>
+                                        <th>Owner Name</th>
+                                        <th>Payment Date</th>
+                                        <th>Amount</th>
+                                        <th>Method</th>
+                                        <th style="width: 30%">Notes</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($payments as $payment)
+                                        <tr>
+                                            <td>{{ $payment->invoice_payment_id }}</td>
+                                            <td>{{ @$payment->owner->owner_name }}</td>
+                                            <td>{{ is_null($payment->payment_date) ? "" :  \Carbon\Carbon::parse($invoice->payment_date)->format('d-m-Y')  }}</td>
+                                            <td>{{ $payment->amount }}</td>
+                                            <td>{{ $payment->method }}</td>
+                                            <td>{{ $payment->notes }}</td>
+                                            <td class="text-center">
+                                                <a href="#" class="btn btn-info btn-xs rounded send-invoice"
+                                                   data-toggle="tooltip" data-placement="top"
+                                                   data-original-title="Send Invoice"
+                                                   data-invoice-id="{{ $invoice->invoice_id }}"
+                                                   data-payment-id="{{ $payment->invoice_payment_id }}"
+                                                   data-email="{{ @$payment->owner->email }}"
+                                                >
+                                                    <i class="fa fa-envelope"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-center">
+                                {{ $payments->links() }}
+                            </div>
+                        </div>
+                    </div><!-- /.panel-body -->
                     </div><!-- /.panel -->
                 </div>
             </div>
 
         </div>
 
+        @include('admin.invoices.payment_partials.send_invoice_modal')
         @include('admin.layouts.pagefooter')
     </section>
 
@@ -119,5 +187,60 @@
 @section('footer_scripts')
     <script src="/admin/assets/global/plugins/bower_components/bootstrap-datepicker-vitalets/js/bootstrap-datepicker.js"></script>
     <script src="/admin/assets/global/plugins/bower_components/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $(document).on("click", ".send-invoice", function (event) {
+            var invoice_id = $(this).attr('data-invoice-id');
+            var payment_id = $(this).attr('data-payment-id');
+            var email = $(this).attr('data-email');
+
+            $('#from_email').val(email);
+            $('#from_email_p').text(email);
+            $('#subject').text('Payment Recipient for Invoice #'+ invoice_id);
+            $('#delivery_text').text('Send a copy to my self at '+ email);
+            $('#invoice_id').val(invoice_id);
+            $('#payment_id').val(payment_id);
+            $('#send-invoice-modal').modal();
+        });
+
+        $(document).on("click", ".reset-form, .close", function (event) {
+            document.getElementById("send-invoice-form").reset();
+        });
+
+        $('#send-invoice-form').submit(function(event) {
+            event.preventDefault();
+            var form = $(this);
+            $.ajax({
+                type: "POST",
+                cache: false,
+                headers: {'X-CSRF-TOKEN': Laravel.csrfToken},
+                url: form.attr('action'),
+                data: form.serialize(),
+                beforeSend: function () {
+                    $('#send-invoice').attr('disabled', true);
+                },
+                success: function (json) {
+                    if (json.success === true) {
+                        document.getElementById("send-invoice-form").reset();
+                        toastr.success(json.message, "Success!");
+                        $('#send-invoice-modal').modal('toggle');
+                    } else if (json.success === false) {
+                        $('#send-invoice').removeAttr('disabled');
+                        toastr.error(json.message, 'Error!');
+                    }
+                },
+                error: function (json) {
+                    $('#send-invoice').removeAttr('disabled');
+                    toastr.error(json.message, 'Error!');
+                },
+                dataType: "json"
+            });
+        });
+
+    });
+</script>
+
 @endsection
 

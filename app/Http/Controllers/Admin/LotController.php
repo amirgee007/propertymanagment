@@ -148,15 +148,9 @@ class LotController extends Controller
         $owner_lots = OwnerLot::where('lot_owner_id', $request->id)
             ->get();
 
-        if ($owner_bills && $owner_lots->isEmpty())
-            return response()->json([
-                'owner_bills' => $owner_bills
-            ]);
-        else
-            return response()->json([
-                'owner_bills' => true,
-                'owner_lots' => !$owner_lots->isEmpty()
-            ]);
+        return response()->json([
+            'owner_bills' => $owner_bills
+        ]);
     }
 
     private function getLotTypeId($lot_id)
@@ -200,4 +194,5 @@ class LotController extends Controller
         return $lots;
 
     }
+
 }

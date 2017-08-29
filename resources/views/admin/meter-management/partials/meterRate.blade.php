@@ -3,16 +3,19 @@
         <div class="panel-heading" style="padding: 2%">
             <h4 class="no-margin">
                 Meter Rates
+                <div class="pull-right">
+                    <button type="button" class="btn btn-info" id="meter-rate-modal-btn">Create New Meter Rate</button>
+                </div>
             </h4>
         </div>
         <div class="panel-body no-padding">
             <div class="col-lg-12">
                 <br>
                 <div class="table-responsive">
-                    <table class="table">
+                    <table id="meter-rate-table" class="table">
                         <thead>
                         <tr>
-                            <th>NO</th>
+                            <th>Meter ID</th>
                             <th>Form</th>
                             <th>to</th>
                             <th>rate</th>
@@ -20,7 +23,7 @@
                         </tr>
                         </thead>
                         <tbody id="meter-rate-tbody">
-                        @forelse($meterRates as $meterRate)
+                        @foreach($meterRates as $meterRate)
                             <tr id="m-rate-{{$meterRate->id}}">
                                 <td>{{$meterRate->id}}</td>
                                 <td>{{$meterRate->from}}</td>
@@ -31,12 +34,7 @@
                                     <button data-url="{{route('meter.rate.delete' , [$meterRate->id])}}" class="btn btn-danger delete-meter-rate">delete</button>
                                 </td>
                             </tr>
-                        @empty
-                            <tr>
-                                <td colspan="5">N/A</td>
-                            </tr>
-                        @endforelse
-
+                        @endforeach
                         </tbody>
                     </table>
                 </div>

@@ -63,6 +63,9 @@
                     success: function(data) {
                         if (data.status) {
                             $('#assign-meter-tr-'+data.id).remove();
+                            toastr.success("Meter Assign Successfully");
+                        }else {
+                            toastr.success("Meter Assignment deleted Successfully");
                         }
                         $('#delete-assign-meter').modal('hide');
                     },
@@ -85,6 +88,7 @@
                         if (data.status) {
                             $('#meter-tbody').append(data.html);
                             $('#assign-meter-modal').modal('hide');
+                            toastr.success("Meter Assign Successfully");
                         }
                     },
                     type: 'POST'

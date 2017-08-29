@@ -3,38 +3,52 @@
         <div class="panel-heading" style="padding: 2%">
             <h4 class="no-margin">
                 Meters Reading
-
                 <div class="pull-right">
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#assign-meter-modal">Create New Meter Reading</button>
+                    <a href="{{route('meter.reading.create')}}" class="btn btn-info">Add Meter Reading</a>
                 </div>
             </h4>
         </div>
         <div class="panel-body no-padding">
-            <div class="col-lg-12">
-                <br>
+            <div class="col-lg-12" style="padding: 5px">
                 <div class="table-responsive">
-                    <table class="table">
+                    <div id="meter-reading-table_filter" class="dataTables_filter">
+                        <label>Search:
+                            <input type="search" class="" value="{{$searchVal}}" placeholder="" id="meter-reading-search">
+                        </label>
+                    </div>
+                    <table class="table" id="meter-reading-table">
                         <thead>
                         <tr>
-                            <th>No</th>
-                            <th>Meter id</th>
-                            <th>Lot Number</th>
+                            <th>Meter ID</th>
+                            <th>Lot No</th>
                             <th>Last Reading Date</th>
-                            <th>Last Reading</th>
+                            <th>Current Readings</th>
+                            <th>Previous Readings</th>
+                            <th>Usage</th>
+                            <th>Amount</th>
                             <th>Action</th>
                         </tr>
                         </thead>
                         <tbody id="meter-reading-tbody">
-                        @foreach($meterReadings as $meterReading)
-                            <tr id="m-reading-{{$meterReading->id}}">
-                                <td> </td>
-                                <td>{{$meterReading->meter_id}}</td>
-                                <td>{{$meterReading->lot_no}}</td>
-                                <td>{{$meterReading->last_reading_date}}</td>
-                                <td>{{$meterReading->last_reading}}</td>
+                        @foreach($meters as $meter)
+                            <tr id="m-reading-{{$meter->id}}">
+                                <td>{{$meter->id}}</td>
+                                <td>{{$meter->lot_id}}</td>
+                                <td class="las-dat-td-{{$meter->id}}">{{$meter->lastReadingDate()}}</td>
+                                <td class="cur-re-td-{{$meter->id}}">{{$meter->currentReading()}}</td>
+                                <td class="las-re-td-{{$meter->id}}">{{$meter->lastReading()}}</td>
+                                <td class="las-usa-td-{{$meter->id}}">{{$meter->currentUsage()}}</td>
+                                <td class="las-amo-td-{{$meter->id}}">{{$meter->currentAmount()}}</td>
                                 <td>
-                                    <button class="btn btn-info">Add Reading</button>
-                                    <button class="btn btn-primary">Export monthly meter Reading</button>
+                                    <div class="dropdown">
+                                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">...
+                                            <span class="caret"></span></button>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="javascript:void(0)" data-meter-id="{{$meter->id}}" data-lot-id="{{$meter->lot_id}}" class="meterReadingM">Add Reading</a></li>
+                                            <li><a href="javascript:void(0)" class="">Export Report</a></li>
+                                        </ul>
+                                    </div>
+
                                 </td>
                             </tr>
                         @endforeach
@@ -42,6 +56,12 @@
                     </table>
                 </div>
             </div>
+            <div class="col-lg-12">
+                <div class="pull-right">
+                    {{ $meters->links() }}
+                </div>
+            </div>
+
         </div>
     </div><!-- /.panel-body -->
 </div><!-- /.panel -->

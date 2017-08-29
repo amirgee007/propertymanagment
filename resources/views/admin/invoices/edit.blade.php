@@ -123,6 +123,21 @@
                                         </div>
                                     </div><!-- /.form-group -->
 
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Status<span
+                                                    class="asterisk">*</span></label>
+                                        <div class="col-sm-7">
+                                            <select class="form-control" name="invoice_status" required>
+                                                <option value="">Choose Status</option>
+                                                <option @if($invoice->invoice_status == 'paid') selected @endif value="paid">Paid</option>
+                                                <option @if($invoice->invoice_status == 'unpaid') selected @endif value="unpaid">Unpaid</option>
+                                                <option @if($invoice->invoice_status == 'partial') selected @endif value="partial">Partial</option>
+                                                <option @if($invoice->invoice_status == 'overdue') selected @endif value="overdue">Overdue</option>
+                                            </select>
+                                            <label for="invoice_status" class="error"></label>
+                                        </div>
+                                    </div><!-- /.form-group -->
+
                                 </div>
 
                                 <div class="form-footer">

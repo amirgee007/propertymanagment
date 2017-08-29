@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\InvoicePayment;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Notification;
 use Validator;
 use App\Models\Invoice;
 use App\Models\Lot;
@@ -29,7 +31,7 @@ class InvoicesController extends Controller
     {
         $invoices = Invoice::paginate(10);
 
-        return view($this->view.'.index', compact('invoices'));
+        return view($this->view . '.index', compact('invoices'));
     }
 
     /**
@@ -41,7 +43,7 @@ class InvoicesController extends Controller
     {
         $owners = Owner::all();
 
-        return view($this->view.'.add', compact('owners'));
+        return view($this->view . '.add', compact('owners'));
     }
 
     /**
@@ -75,8 +77,9 @@ class InvoicesController extends Controller
     public function show($id)
     {
         $invoice = Invoice::findOrFail($id);
+        $payments = $invoice->payments()->paginate(10);
 
-        return view($this->view.'.show', compact('invoice'));
+        return view($this->view . '.show', compact('invoice', 'payments'));
     }
 
     /**
@@ -91,7 +94,7 @@ class InvoicesController extends Controller
         $owners = Owner::all();
         $lots = Owner::find($invoice->owner_id)->ownedLots;
 
-        return view($this->view.'.edit', compact('owners', 'lots', 'invoice'));
+        return view($this->view . '.edit', compact('owners', 'lots', 'invoice'));
     }
 
     /**
@@ -160,19 +163,102 @@ class InvoicesController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getOwnerLots(Request $request)
     {
-        if (! $request->has('owner_id'))
+        if (!$request->has('owner_id'))
             return response()->json(['status' => false]);
 
         $owner = Owner::find($request->owner_id);
-        if (! $owner)
+        if (!$owner)
             return response()->json(['status' => false]);
 
         $lots = $owner->ownedLots;
         return response()->json([
             'status' => true,
-            'view' => (string) view($this->view.'.partials.lot_select', compact('lots'))
+            'view' => (string)view($this->view . '.partials.lot_select', compact('lots'))
         ]);
+    }
+
+    public function getPDF($id)
+    {
+        $invoice = Invoice::find($id);
+
+//        return view('admin.reports.pdf', compact('invoice'));
+
+        $pdf = \App::make('snappy.pdf.wrapper');
+        $pdf->loadView('admin.reports.pdf', $invoice);
+
+        $file_name = @$invoice->owner->owner_name . '-' . $invoice->id . '.pdf';
+
+        return $pdf->download($file_name);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function recordPayment(Request $request)
+    {
+        $this->validate($request, [
+            'invoice_id' => 'required|exists:invoices,invoice_id',
+            'owner_id' => 'required|exists:owners,owner_id',
+            'payment_date' => 'required|date',
+            'amount' => 'required|numeric',
+            'method' => 'required',
+        ]);
+
+        try {
+            $request['payment_date'] = Carbon::parse($request->payment_date);
+
+            InvoicePayment::create($request->except('_token'));
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Invoice Payment added successfully'
+            ]);
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Error while saving invoice payment.'
+            ]);
+        }
+    }
+
+
+    public function sendMailPayment(Request $request)
+    {
+        $this->validate($request, [
+            'payment_id' => 'required|exists:invoice_payments,invoice_payment_id',
+            'invoice_id' => 'required|exists:invoices,invoice_id',
+            'email_to' => 'required|email',
+            'from_email' => 'required|email',
+        ]);
+
+        $payment = InvoicePayment::find($request->payment_id);
+        $invoice = Invoice::find($request->invoice_id);
+
+        try {
+
+            if ($request->has('delivery')) {
+                Notification::send($invoice, new \App\Notifications\InvoicePaid($payment, $request->message));
+            }
+
+            Notification::send($payment, new \App\Notifications\InvoicePaid($payment, $request->message));
+
+            return response()->json([
+                'success' => true,
+                'message' => 'The Recipient has been Sent.'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error while sending Recipient.'
+            ]);
+        }
     }
 }
