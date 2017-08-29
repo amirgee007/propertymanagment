@@ -55,7 +55,7 @@
         $(document).ready(function () {
             var date = new Date();
             var t = $('#meter-reading-table').DataTable({
-                "paging":   false,
+
                 "columns": [
                     null,
                     null,
