@@ -5,7 +5,7 @@
                 Meter Types
 
                 <div class="pull-right">
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Create New Meter</button>
+                    <button type="button" class="btn btn-info" id="meter-type-modal-btn">Create New Meter</button>
                 </div>
             </h4>
         </div>

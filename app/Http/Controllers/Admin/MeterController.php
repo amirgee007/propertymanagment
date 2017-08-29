@@ -28,26 +28,12 @@ class MeterController extends Controller
 
         $type = MeterType::create($request->meterType);
 
-        $meterRate = array_merge($request->meter_rate , ['meter_type_id' => $type->id  , 'meter_number' => $type->meter_code]);
-        $meterRate = MeterRate::create($meterRate);
-
         $tax = !is_null($type->tax_amount)?$type->tax_amount:'N/A' ;
         $typeHtml = "<tr id=\"m-type-{$type->id}\">
                         <td>{$type->meter_name}</td>
                         <td>{$type->meter_code}</td>
                         <td>{$type->minimum_charges}</td>
                         <td>{$tax}</td>
-                        <td>
-                            <button data-url='".route('meter.type.edit' , [$type->id])."'  class='btn btn-default edit-meter-type'>edit</button>
-                            <button data-url='".route('meter.type.delete' , [$type->id])."' class=\"btn btn-danger delete-meter-type\">delete</button>
-                        </td>
-                    </tr>";
-
-        $rateHtml = "<tr id=\"m-rate-{$meterRate->id}\">
-                        <td>{$meterRate->id}</td>
-                        <td>{$meterRate->from}</td>
-                        <td>{$meterRate->to}</td>
-                        <td>{$meterRate->rate}</td>
                         <td>
                             <button data-url='".route('meter.type.edit' , [$type->id])."'  class='btn btn-default edit-meter-type'>edit</button>
                             <button data-url='".route('meter.type.delete' , [$type->id])."' class=\"btn btn-danger delete-meter-type\">delete</button>
@@ -61,7 +47,7 @@ class MeterController extends Controller
         return response()->json([
             'status' => true,
             'meterType' => $typeHtml,
-            'meterRate' => $rateHtml,
+            'type' => $type
         ]);
     }
 
@@ -114,7 +100,7 @@ class MeterController extends Controller
     public function meterRateUpdate(Request $request , $id) {
 
         $meterRate = MeterRate::findOrFail($id);
-        $meterRate->update($request->meter_rate);
+        $meterRate->update($request->all());
 
         $typeHtml = "
                         <td>{$meterRate->id}</td>
@@ -133,11 +119,6 @@ class MeterController extends Controller
         ]);
     }
 
-
-
-
-
-
     public function deleteMeterRate($id) {
         $type = MeterRate::findOrFail($id);
         $type->delete();
@@ -146,4 +127,35 @@ class MeterController extends Controller
             'id' => 'm-rate-'.$id
         ]);
     }
+
+    public function meterRateIndex() {
+        $meterRates = MeterRate::all();
+
+        return view('admin.meter-rate.index' , compact('meterRates'));
+    }
+
+    public function meterRateCreate(Request $request) {
+
+        $meterRate = MeterRate::create($request->all());
+
+        $rateHtml = "<tr id=\"m-rate-{$meterRate->id}\">
+                        <td>{$meterRate->id}</td>
+                        <td>{$meterRate->from}</td>
+                        <td>{$meterRate->to}</td>
+                        <td>{$meterRate->rate}</td>
+                        <td>
+                            <button data-url='".route('meter.rate.edit' , [$meterRate->id])."'  class='btn btn-default edit-meter-type'>edit</button>
+                            <button data-url='".route('meter.rate.delete' , [$meterRate->id])."' class=\"btn btn-danger delete-meter-type\">delete</button>
+                        </td>
+                    </tr>";
+
+        return response()->json([
+            'status' => true,
+            'meterRate' => $rateHtml,
+            'rate' => $meterRate
+        ]);
+
+    }
+
+
 }

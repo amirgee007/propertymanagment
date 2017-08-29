@@ -4,7 +4,7 @@
             <h4 class="no-margin">
                 Meter Rates
                 <div class="pull-right">
-                    <button type="button" class="btn btn-info" id="meter-rate-modal-btn">Create New Meter Rate</button>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#create-meter-rate-modal">Create New Meter Rate</button>
                 </div>
             </h4>
         </div>
@@ -12,10 +12,10 @@
             <div class="col-lg-12">
                 <br>
                 <div class="table-responsive">
-                    <table id="meter-rate-table" class="table">
+                    <table class="table">
                         <thead>
                         <tr>
-                            <th>Meter ID</th>
+                            <th>NO</th>
                             <th>Form</th>
                             <th>to</th>
                             <th>rate</th>

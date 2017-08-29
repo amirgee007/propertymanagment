@@ -86,7 +86,8 @@
             </a>
             <ul>
                 {{--<li><a href="{{route('meter.create')}}">Create Meter Type<span class="label label-success pull-right"></span></a></li>--}}
-                <li><a href="{{route('meter.index')}}">Manage Meter<span class="label label-warning pull-right"></span></a></li>
+{{--                <li><a href="{{route('meter.rate.index')}}">Manage Rate<span class="label label-warning pull-right"></span></a></li>--}}
+                <li><a href="{{route('meter.index')}}">Meter Type<span class="label label-warning pull-right"></span></a></li>
                 <li><a href="{{route('meter.assignment.index')}}">Assign Meter<span class="label label-danger pull-right"></span></a></li>
                 <li><a href="{{route('meter.reading.index')}}">Manage Meter Reading<span class="label label-danger pull-right"></span></a></li>
                 {{--<li><a href="{{route('meter.reading.create')}}">Manage Meter Reading<span class="label label-danger pull-right"></span></a></li>--}}
