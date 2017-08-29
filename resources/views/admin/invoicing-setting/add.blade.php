@@ -56,19 +56,19 @@
                                                                             <div class="form-group">
                                                                                 <label class="col-sm-4 control-label">Invoice creation day</label>
                                                                                 <div class="col-sm-7">
-                                                                                    <input type="text" class="form-control input-sm" value="{{$general->invoice_creation_day}}"   name="general[invoice_creation_day]">
+                                                                                    <input type="text" class="form-control input-sm" value="{{@$general->invoice_creation_day}}"   name="general[invoice_creation_day]">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label class="col-sm-4 control-label">Invoice due date</label>
                                                                                 <div class="col-sm-7">
-                                                                                    <input type="text" class="form-control input-sm" value="{{$general->invoice_due_date}}"   name="general[invoice_due_date]">
+                                                                                    <input type="text" class="form-control input-sm" value="{{@$general->invoice_due_date}}"   name="general[invoice_due_date]">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label class="col-sm-4 control-label">Interest rate</label>
                                                                                 <div class="col-sm-7">
-                                                                                    <input type="text" class="form-control input-sm" value="{{$general->interest_rate}}"   name="general[interest_rate]">
+                                                                                    <input type="text" class="form-control input-sm" value="{{@$general->interest_rate}}"   name="general[interest_rate]">
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -92,26 +92,26 @@
                                                                             <div class="form-group">
                                                                                 <label class="col-sm-4 control-label">Invoice repeat month</label>
                                                                                 <div class="col-sm-7">
-                                                                                    <input type="text" class="form-control input-sm" value="{{$utility->invoice_repeat_month}}"   name=" utilitySettings[invoice_repeat_month]">
+                                                                                    <input type="text" class="form-control input-sm" value="{{@$utility->invoice_repeat_month}}"   name=" utilitySettings[invoice_repeat_month]">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label class="col-sm-4 control-label">Billing start date</label>
                                                                                 <div class="col-sm-7">
-                                                                                    <input type="text" class="form-control datepicker input-sm" data-date-format="mm/dd/yyyy" value="{{$utility->billing_start_date}}"   name=" utilitySettings[billing_start_date]">
+                                                                                    <input type="text" class="form-control datepicker input-sm" data-date-format="mm/dd/yyyy" value="{{@$utility->billing_start_date}}"   name=" utilitySettings[billing_start_date]">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label class="col-sm-4 control-label">Billing ending</label>
                                                                                 <div class="col-sm-7">
-                                                                                    {!! Form::select('utilitySettings[billing_ending]',array('never' => 'Never', 'on_specific_date' => 'On specific date','after_number_of_billing' => 'After number of billing') , $utility->billing_ending, ['class' => 'form-control input-sm']) !!}
+                                                                                    {!! Form::select('utilitySettings[billing_ending]',array('never' => 'Never', 'on_specific_date' => 'On specific date','after_number_of_billing' => 'After number of billing') , @$utility->billing_ending, ['class' => 'form-control input-sm']) !!}
 
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label class="col-sm-4 control-label">Tax type</label>
                                                                                 <div class="col-sm-7">
-                                                                                    <input type="text" class="form-control input-sm" value="{{$utility->tax_type}}"   name=" utilitySettings[tax_type]">
+                                                                                    <input type="text" class="form-control input-sm" value="{{@$utility->tax_type}}"   name=" utilitySettings[tax_type]">
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -134,14 +134,14 @@
                                                                             <div class="form-group">
                                                                                 <label class="col-sm-3 control-label">Invoice repeat month</label>
                                                                                 <div class="col-sm-7">
-                                                                                    <input type="text" class="form-control input-sm" value="{{$maintenance->invoice_repeat_month}}"   name=" maintenanceServiceSettings[invoice_repeat_month]">
+                                                                                    <input type="text" class="form-control input-sm" value="{{@$maintenance->invoice_repeat_month}}"   name=" maintenanceServiceSettings[invoice_repeat_month]">
                                                                                 </div>
                                                                             </div>
 
                                                                             <div class="form-group">
                                                                                 <label class="col-sm-3 control-label">Fee charged</label>
                                                                                 <div class="col-sm-7">
-                                                                                    {!! Form::select('maintenanceServiceSettings[fee_charged]',array('property_size' => 'Property size', 'total_amount' => 'Total amount') , $maintenance->fee_charged, ['class' => 'form-control input-sm']) !!}
+                                                                                    {!! Form::select('maintenanceServiceSettings[fee_charged]',array('property_size' => 'Property size', 'total_amount' => 'Total amount') , @$maintenance->fee_charged, ['class' => 'form-control input-sm']) !!}
 
                                                                                 </div>
                                                                             </div>
@@ -149,19 +149,19 @@
                                                                             <div class="form-group">
                                                                                 <label class="col-sm-3 control-label">Charges per sqft</label>
                                                                                 <div class="col-sm-7">
-                                                                                    <input type="text" class="form-control input-sm" value="{{$maintenance->charges_per_sqft}}"   name=" maintenanceServiceSettings[charges_per_sqft]">
+                                                                                    <input type="text" class="form-control input-sm" value="{{@$maintenance->charges_per_sqft}}"   name=" maintenanceServiceSettings[charges_per_sqft]">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label class="col-sm-3 control-label">Billing ending</label>
                                                                                 <div class="col-sm-7">
-                                                                                    {!! Form::select('maintenanceServiceSettings[billing_ending]',array('never' => 'Never', 'on_specific_date' => 'On specific date','after_number_of_billing' => 'After number of billing') , $maintenance->billing_ending, ['class' => 'form-control input-sm']) !!}
+                                                                                    {!! Form::select('maintenanceServiceSettings[billing_ending]',array('never' => 'Never', 'on_specific_date' => 'On specific date','after_number_of_billing' => 'After number of billing') , @$maintenance->billing_ending, ['class' => 'form-control input-sm']) !!}
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label class="col-sm-3 control-label">Tax type</label>
                                                                                 <div class="col-sm-7">
-                                                                                    <input type="text" class="form-control input-sm" value="{{$maintenance->tax_type}}"   name=" maintenanceServiceSettings[tax_type]">
+                                                                                    <input type="text" class="form-control input-sm" value="{{@$maintenance->tax_type}}"   name=" maintenanceServiceSettings[tax_type]">
                                                                                 </div>
                                                                             </div>
                                                                          </div>

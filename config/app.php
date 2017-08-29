@@ -183,7 +183,7 @@ return [
         Laracasts\Flash\FlashServiceProvider::class,
 //        Barryvdh\Snappy\ServiceProvider::class,
         Barryvdh\Snappy\ServiceProvider::class,
-//        Collective\Html\HtmlServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
     ],
 
     /*
@@ -236,8 +236,8 @@ return [
         'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
 //        'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
 //        'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
-//        'Form' => Collective\Html\FormFacade::class,
-//        'Html' => Collective\Html\HtmlFacade::class,
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
 
     ],
 
