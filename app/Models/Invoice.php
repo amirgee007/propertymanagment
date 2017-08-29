@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -15,7 +16,15 @@ class Invoice extends Model
 
     protected $guarded = [];
 
-    protected $dates = [ 'date' ];
+    protected $dates = ['date'];
+
+    protected $appends = ['label_status', 'due_date'];
+
+    const PAID = 'paid';
+    const UNPAID = 'unpaid';
+    const PARTIAL = 'partial';
+    const OVERDUE = 'overdue';
+
 
     public function owner()
     {
@@ -28,4 +37,23 @@ class Invoice extends Model
     }
 
 
+    public function getLabelStatusAttribute()
+    {
+        if ($this->invoice_status == Invoice::PAID)
+            return '<span class="label label-success">Paid</span>';
+        else if ($this->invoice_status == Invoice::UNPAID)
+            return '<span class="label label-primary">Unpaid</span>';
+        else if ($this->invoice_status == Invoice::PARTIAL)
+            return '<span class="label label-warning">Partial</span>';
+        else if ($this->invoice_status == Invoice::OVERDUE)
+            return '<span class="label label-danger">Overdue</span>';
+        else
+            return '<span class="label">Nill</span>';
+    }
+
+    //ToDo: Find the Due Date from system Settings
+    public function getDueDateAttribute()
+    {
+        return Carbon::today()->addDays(10)->format('d-m-Y');
+    }
 }

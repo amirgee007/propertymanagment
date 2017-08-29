@@ -67,7 +67,9 @@
                                                 <td>{{ $owner->owner_id_card_no }}</td>
                                                 <td>{{ $owner->owner_phone1  }}</td>
                                                 <td>{{ $owner->email }}</td>
-                                                <td>{{ $owner->owner_type }}</td>
+                                                <td>
+                                                    <label class="label label-info">{{ ucwords($owner->owner_type) }}</label>
+                                                </td>
                                                 <td>{!! $owner->status !!}</td>
                                                 <td class="text-center">
                                                     <a href="{{ route('owner.show', $owner->owner_id) }}"

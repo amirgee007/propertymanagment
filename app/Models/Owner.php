@@ -38,6 +38,6 @@ class Owner extends Model
             return '<span class="label label-info">True</span>';
         }
 
-        return '<span class="label label-info">False</span>';
+        return '<span class="label label-danger">False</span>';
     }
 }
