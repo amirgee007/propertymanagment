@@ -73,8 +73,7 @@
                                                     <a href="#" class="btn btn-info btn-xs rounded add-payment"
                                                        data-toggle="tooltip" data-placement="top"
                                                        data-original-title="Record payment"
-                                                       data-invoice-id="{{ $invoice->invoice_id }}"
-                                                       data-url="{{ route('invoices.destroy', $invoice->invoice_id) }}">
+                                                       data-invoice-id="{{ $invoice->invoice_id }}">
                                                         <i class="fa fa-credit-card"></i>
                                                     </a>
 
@@ -176,7 +175,6 @@
                 });
             });
 
-
             $(document).on("click", ".add-payment", function (event) {
                 var invoice_id = $(this).attr('data-invoice-id');
 
@@ -212,7 +210,6 @@
                     dataType: "json"
                 });
             });
-
         });
     </script>
 @endsection

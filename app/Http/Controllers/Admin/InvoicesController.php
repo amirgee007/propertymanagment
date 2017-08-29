@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\InvoicePayment;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Notification;
 use Validator;
 use App\Models\Invoice;
 use App\Models\Lot;
@@ -76,8 +77,9 @@ class InvoicesController extends Controller
     public function show($id)
     {
         $invoice = Invoice::findOrFail($id);
+        $payments = $invoice->payments()->paginate(10);
 
-        return view($this->view . '.show', compact('invoice'));
+        return view($this->view . '.show', compact('invoice', 'payments'));
     }
 
     /**
@@ -223,6 +225,39 @@ class InvoicesController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Error while saving invoice payment.'
+            ]);
+        }
+    }
+
+
+    public function sendMailPayment(Request $request)
+    {
+        $this->validate($request, [
+            'payment_id' => 'required|exists:invoice_payments,invoice_payment_id',
+            'invoice_id' => 'required|exists:invoices,invoice_id',
+            'email_to' => 'required|email',
+            'from_email' => 'required|email',
+        ]);
+
+        $payment = InvoicePayment::find($request->payment_id);
+        $invoice = Invoice::find($request->invoice_id);
+
+        try {
+
+            if ($request->has('delivery')) {
+                Notification::send($invoice, new \App\Notifications\InvoicePaid($payment, $request->message));
+            }
+
+            Notification::send($payment, new \App\Notifications\InvoicePaid($payment, $request->message));
+
+            return response()->json([
+                'success' => true,
+                'message' => 'The Recipient has been Sent.'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error while sending Recipient.'
             ]);
         }
     }
