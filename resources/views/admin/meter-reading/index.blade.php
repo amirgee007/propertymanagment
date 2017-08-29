@@ -53,20 +53,27 @@
     <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function () {
-            var date = new Date();
-            var t = $('#meter-reading-table').DataTable({
 
-                "columns": [
-                    null,
-                    null,
-                    { "searchable": false },
-                    { "searchable": false },
-                    { "searchable": false },
-                    { "searchable": false },
-                    { "searchable": false },
-                    { "searchable": false }
-                ]
+            $('#meter-reading-search').keyup(function () {
+                delay(function(){
+                    val = $('#meter-reading-search').val();
+                    window.location.href = "{{url('/dashboard/meter/reading?search=')}}"+val;
+                }, 400 );
             });
+
+            var delay = (function(){
+                var timer = 0;
+                return function(callback, ms){
+                    clearTimeout (timer);
+                    timer = setTimeout(callback, ms);
+                };
+            })();
+
+            var date = new Date();
+//            var t = $('#meter-reading-table').DataTable({
+//                "paging":   false,
+//                'searching': false
+//            });
 
 
             $('#meter-reading-form').on('submit' , function (e) {

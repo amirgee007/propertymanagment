@@ -11,6 +11,11 @@
         <div class="panel-body no-padding">
             <div class="col-lg-12" style="padding: 5px">
                 <div class="table-responsive">
+                    <div id="meter-reading-table_filter" class="dataTables_filter">
+                        <label>Search:
+                            <input type="search" class="" value="{{$searchVal}}" placeholder="" id="meter-reading-search">
+                        </label>
+                    </div>
                     <table class="table" id="meter-reading-table">
                         <thead>
                         <tr>
@@ -51,11 +56,11 @@
                     </table>
                 </div>
             </div>
-            {{--<div class="col-lg-12">--}}
-                {{--<div class="pull-right">--}}
-                    {{--{{ $meters->links() }}--}}
-                {{--</div>--}}
-            {{--</div>--}}
+            <div class="col-lg-12">
+                <div class="pull-right">
+                    {{ $meters->links() }}
+                </div>
+            </div>
 
         </div>
     </div><!-- /.panel-body -->

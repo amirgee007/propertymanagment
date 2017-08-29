@@ -14,12 +14,20 @@ class MeterReadingController extends Controller
 {
     public function index() {
         $meterTypes = MeterType::get()->pluck('meter_name' , 'id')->toArray();
-        $meters = Meter::
-        with(['meterReadings' => function($q){
+        $meters = Meter::with(['meterReadings' => function($q){
             $q->orderBy('reading_date' , 'desc');
-        }])->get();
+        }]);
 
-        return view('admin.meter-reading.index' , compact('meters' , 'meterTypes'));
+        $searchVal = '';
+        if (\request()->has('search') && !empty(trim(\request()->search))) {
+            $meters = $meters->orWhere('id' , \request()->search)
+                ->orWhere('lot_id' , \request()->search);
+            $searchVal = \request()->search;
+        }
+
+        $meters = $meters->paginate(15);
+
+        return view('admin.meter-reading.index' , compact('meters' , 'meterTypes' , 'searchVal'));
     }
 
     public function create() {
