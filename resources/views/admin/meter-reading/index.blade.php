@@ -33,24 +33,7 @@
 
         <div class="body-content animated fadeIn">
             <div class="row">
-                {{--<div class="col-lg-12">--}}
-                    {{--<div class="panel rounded shadow">--}}
-                        {{--<div class="panel-heading" style="padding: 2%">--}}
-                            {{--<h4 class="no-margin">--}}
-                                {{--Search Meter--}}
-                                {{--<div class="pull-right">--}}
-                                    {{--<button type="button" class="btn btn-info" data-toggle="modal" data-target="#assign-meter-modal">Add Meter Reading</button>--}}
-                                {{--</div>--}}
-                            {{--</h4>--}}
-                            {{--<hr>--}}
-                                {{--@include('admin.meter-reading.partials.searchForm')--}}
-
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-                {{--meter type table --}}
                 @include('admin.meter-reading.partials.meter-reading-table')
-
             </div>
         </div>
         @include('admin.layouts.pagefooter')
@@ -71,19 +54,26 @@
     <script>
         $(document).ready(function () {
 
-            var t = $('#meter-reading-table').DataTable({
-                "paging":   false,
-                "columns": [
-                    null,
-                    null,
-                    { "searchable": false },
-                    { "searchable": false },
-                    { "searchable": false },
-                    { "searchable": false },
-                    { "searchable": false },
-                    { "searchable": false }
-                ]
+            $('#meter-reading-search').keyup(function () {
+                delay(function(){
+                    val = $('#meter-reading-search').val();
+                    window.location.href = "{{url('/dashboard/meter/reading?search=')}}"+val;
+                }, 400 );
             });
+
+            var delay = (function(){
+                var timer = 0;
+                return function(callback, ms){
+                    clearTimeout (timer);
+                    timer = setTimeout(callback, ms);
+                };
+            })();
+
+            var date = new Date();
+//            var t = $('#meter-reading-table').DataTable({
+//                "paging":   false,
+//                'searching': false
+//            });
 
 
             $('#meter-reading-form').on('submit' , function (e) {
@@ -98,11 +88,16 @@
 
                     },
                     success: function(data) {
-                        var data = data.meterReading;
-                        $('#meter-reading-modal').modal('hide');
-                        $('#las-re-d-td-'+data.meter_id).html(data.last_reading_date);
-                        $('#las-re-td-'+data.meter_id).html(data.last_reading);
                         toastr.success("SuccessFully added meter Reading");
+//                        var data = data.meterReading;
+                        $('#meter-reading-modal').modal('hide');
+//                        $('.las-dat-td-'+data.meter_id).html(data.lastReadingDate);
+//                        $('.cur-re-td-'+data.meter_id).html(data.currentReading);
+//                        $('.las-re-td-'+data.meter_id).html(data.lastReading);
+//                        $('.las-usa-td-'+data.meter_id).html(data.currentUsage);
+//                        $('.las-amo-td-'+data.meter_id).html(data.currentAmount);
+                        location.reload(true);
+
                     },
                     type: 'POST'
                 });
@@ -120,7 +115,9 @@
             });
 
             $('#reading-date').datepicker({
-                format: 'dd-mm-yyyy'
+                format: 'dd-mm-yyyy',
+                startDate : new Date(date.getFullYear(), date.getMonth(), 1),
+                endDate : new Date(date.getFullYear(), date.getMonth() + 1, 1)
             }).on('changeDate', function (e) {
                 $(this).datepicker('hide');
             });

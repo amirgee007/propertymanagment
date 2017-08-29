@@ -28,7 +28,7 @@ class CreateMeterReadingTable extends Migration
                 ->on('lots')->onDelete('cascade');
 
             $table->string('reading_number')->nullable();
-            $table->dateTime('last_reading_date')->nullable();
+            $table->date('reading_date')->nullable();
             $table->float('last_reading')->nullable();
             $table->timestamps();
 
