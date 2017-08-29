@@ -46,39 +46,39 @@
                                                 <div class="form-group">
                                                         <label for="tax" class="col-sm-5 text-right">Tax</label>
                                                         <div class="col-sm-7">
-                                                            <input id="tax" type="checkbox" class="switch" name="tax"  data-on-text="ON" value="1" @if($systemSetting->tax==1)checked @endif data-off-text="OFF" data-on-color="teal">
+                                                            <input id="tax" type="checkbox" class="switch" name="tax"  data-on-text="ON" value="1" @if(isset($systemSetting) ? $systemSetting->tax==1 : false)checked @endif data-off-text="OFF" data-on-color="teal">
                                                         </div>
                                                     </div>
                                                 <div class="form-group">
                                                     <label for="interest" class="col-sm-5 text-right">Interest</label>
                                                     <div class="col-sm-7">
-                                                        <input id="interest" type="checkbox" class="switch" name="interest" value="1" @if($systemSetting->interest==1)checked @endif data-on-text="ON" data-off-text="OFF" data-on-color="teal">
+                                                        <input id="interest" type="checkbox" class="switch" name="interest" value="1" @if(isset($systemSetting) ? $systemSetting->interest==1 : false)checked @endif data-on-text="ON" data-off-text="OFF" data-on-color="teal">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="client-access" class="col-sm-5 text-right">Client Access</label>
                                                     <div class="col-sm-7">
-                                                        <input id="client-access" type="checkbox" value="1" @if($systemSetting->client_access==1)checked @endif class="switch" name="client_access" data-on-text="ON" data-off-text="OFF" data-on-color="teal">
+                                                        <input id="client-access" type="checkbox" value="1" @if(isset($systemSetting) ? $systemSetting->client_access==1 : false)checked @endif class="switch" name="client_access" data-on-text="ON" data-off-text="OFF" data-on-color="teal">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="utility-module" class="col-sm-5 text-right">Utility Module</label>
                                                     <div class="col-sm-7">
-                                                        <input id="utility-module" type="checkbox" class="switch" name="utility_module" value="1" @if($systemSetting->utility_module==1)checked @endif data-on-text="ON" data-off-text="OFF" data-on-color="teal">
+                                                        <input id="utility-module" type="checkbox" class="switch" name="utility_module" value="1" @if(isset($systemSetting) ? $systemSetting->utility_module==1 : false)checked @endif data-on-text="ON" data-off-text="OFF" data-on-color="teal">
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="sinking-funds-module" class="col-sm-5 text-right">Sinking Funds Module</label>
                                                     <div class="col-sm-7">
-                                                        <input id="sinking-funds-module" type="checkbox" class="switch" name="sinking_funds_module" value="1" @if($systemSetting->sinking_funds_module==1)checked @endif data-on-text="ON" data-off-text="OFF" data-on-color="teal">
+                                                        <input id="sinking-funds-module" type="checkbox" class="switch" name="sinking_funds_module" value="1" @if(isset($systemSetting) ? $systemSetting->sinking_funds_module==1 : false)checked @endif data-on-text="ON" data-off-text="OFF" data-on-color="teal">
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="car-parks-module" class="col-sm-5 text-right">Car Parks Module</label>
                                                     <div class="col-sm-7">
-                                                        <input id="car-parks-module"   type="checkbox" class="switch" name="car_parks_module" value="1" @if($systemSetting->car_parks_module==1)checked @endif data-on-text="ON" data-off-text="OFF" data-on-color="teal">
+                                                        <input id="car-parks-module"   type="checkbox" class="switch" name="car_parks_module" value="1" @if(isset($systemSetting) ? $systemSetting->car_parks_module==1 : false)checked @endif data-on-text="ON" data-off-text="OFF" data-on-color="teal">
                                                     </div>
                                                 </div>
 
