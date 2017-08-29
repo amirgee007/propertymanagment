@@ -101,9 +101,17 @@
             </a>
             <ul>
                 <li class="@if(request()->is('/dashboard/system-setting/create')) active @endif"><a href="{{route('system-setting.create')}}">Create<span class="label label-success pull-right"></span></a></li>
-                {{--<li><a href="{{route('meter.index')}}">Manage Meter<span class="label label-warning pull-right"></span></a></li>--}}
-                {{--<li><a href="{{route('meter.assignment.index')}}">Assign Meter<span class="label label-danger pull-right"></span></a></li>--}}
-                {{--<li><a href="{{route('meter.reading.index')}}">Manage Meter Reading<span class="label label-danger pull-right"></span></a></li>--}}
+            </ul>
+        </li>
+
+        <li class="submenu @if(request()->is('/dashboard/invoicing-setting/*')) active @endif">
+            <a href="javascript:void(0);">
+                <span class="icon"><i class="fa fa-suitcase"></i></span>
+                <span class="text">Invoicing Setting</span>
+                <span class="arrow"></span>
+            </a>
+            <ul>
+                <li class="@if(request()->is('/dashboard/invoicing-setting/add')) active @endif"><a href="{{route('invoicing-setting.add')}}">Add<span class="label label-success pull-right"></span></a></li>
             </ul>
         </li>
 

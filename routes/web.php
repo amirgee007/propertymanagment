@@ -273,4 +273,13 @@ Route::prefix('/dashboard/system-setting')->namespace('Admin')->group(function (
         'uses' => 'SystemSettingController@edit'));
 });
 
+Route::prefix('/dashboard/invoicing-setting')->namespace('Admin')->group(function () {
+    Route::get('/add', array(
+        'as' => 'invoicing-setting.add',
+        'uses' => 'InvoicingSettingController@add'));
+
+    Route::post('/edit', array(
+        'as' => 'invoicing-setting.edit',
+        'uses' => 'InvoicingSettingController@edit'));
+});
 
