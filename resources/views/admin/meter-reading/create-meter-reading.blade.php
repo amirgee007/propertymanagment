@@ -100,7 +100,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Reading Date</label>
                                     <div class="col-sm-7">
-                                        <input class="form-control input-sm" id="reading-date" required name="last_reading_date">
+                                        <input class="form-control input-sm" id="reading-date" required name="reading_date">
                                     </div>
                                 </div><!-- /.form-group -->
 
@@ -136,11 +136,12 @@
 
     <script>
         $(document).ready(function () {
-
-
+            var date = new Date();
 
             $('#reading-date').datepicker({
-                format: 'dd-mm-yyyy'
+                format: 'dd-mm-yyyy',
+                startDate : new Date(date.getFullYear(), date.getMonth(), 1),
+                endDate : new Date(date.getFullYear(), date.getMonth() + 1, 1)
             }).on('changeDate', function (e) {
                 $(this).datepicker('hide');
             });

@@ -14,9 +14,10 @@ class MeterReadingController extends Controller
 {
     public function index() {
         $meterTypes = MeterType::get()->pluck('meter_name' , 'id')->toArray();
-        $meters = Meter::with(['meterReadings' => function($q){
-            $q->orderBy('last_reading_date' , 'desc');
-        }])->paginate(15);
+        $meters = Meter::
+        with(['meterReadings' => function($q){
+            $q->orderBy('reading_date' , 'desc');
+        }])->get();
 
         return view('admin.meter-reading.index' , compact('meters' , 'meterTypes'));
     }
@@ -40,11 +41,19 @@ class MeterReadingController extends Controller
 
         $meterReading = MeterReading::create($savableData);
 
+        $meter = $meterReading->meter;
+
         flash()->success('Reading taking Successfully of this '.$meterReading->meter_id.' Meter Id');
         if ($request->has('type') )
             return response()->json([
                 'status' => 'hurray',
-                'meterReading' => $meterReading
+//                'meterReading' => [
+//                    'lastReadingDate' => $meter->lastReadingDate(),
+//                    'currentReading' => $meter->currentReading(),
+//                    'lastReading' => $meter->lastReading(),
+//                    'currentUsage' => $meter->currentUsage(),
+//                    'currentAmount' => $meter->currentAmount(),
+//                ]
             ]);
 
         return back();

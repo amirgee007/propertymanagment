@@ -29,11 +29,11 @@
                             <tr id="m-reading-{{$meter->id}}">
                                 <td>{{$meter->id}}</td>
                                 <td>{{$meter->lot_id}}</td>
-                                <td id="las-re-d-td-{{$meter->id}}">{{!is_null($meter->meterReadings()->first())?$meter->meterReadings()->first()->last_reading_date:'N/A'}}</td>
-                                <td id="las-re-td-{{$meter->id}}">{{!is_null($meter->meterReadings()->first())?$meter->meterReadings()->first()->last_reading:'N/A'}}</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td class="las-dat-td-{{$meter->id}}">{{$meter->lastReadingDate()}}</td>
+                                <td class="cur-re-td-{{$meter->id}}">{{$meter->currentReading()}}</td>
+                                <td class="las-re-td-{{$meter->id}}">{{$meter->lastReading()}}</td>
+                                <td class="las-usa-td-{{$meter->id}}">{{$meter->currentUsage()}}</td>
+                                <td class="las-amo-td-{{$meter->id}}">{{$meter->currentAmount()}}</td>
                                 <td>
                                     <div class="dropdown">
                                         <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">...
@@ -51,11 +51,11 @@
                     </table>
                 </div>
             </div>
-            <div class="col-lg-12">
-                <div class="pull-right">
-                    {{ $meters->links() }}
-                </div>
-            </div>
+            {{--<div class="col-lg-12">--}}
+                {{--<div class="pull-right">--}}
+                    {{--{{ $meters->links() }}--}}
+                {{--</div>--}}
+            {{--</div>--}}
 
         </div>
     </div><!-- /.panel-body -->

@@ -50,8 +50,7 @@
         var t =$('#meter-rate-table').DataTable({
             "paging":   false,
             "searching": false,
-            'info': false,
-            "dom":''
+            'info': false
         });
 
 

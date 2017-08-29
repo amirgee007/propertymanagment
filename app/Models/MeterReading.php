@@ -11,7 +11,11 @@ class MeterReading extends Model
     protected $guarded = [];
 
 
-    public function setLastReadingDateAttribute($data) {
-        $this->attributes['last_reading_date'] = Carbon::parse($data)->toDateTimeString();
+    public function setReadingDateAttribute($data) {
+        $this->attributes['reading_date'] = Carbon::parse($data)->toDateTimeString();
+    }
+
+    public function meter() {
+        return $this->belongsTo(Meter::class);
     }
 }
