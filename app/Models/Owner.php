@@ -20,8 +20,11 @@ class Owner extends Model
         'owner_gender',
         'owner_address',
         'owner_phone1',
-        'owner_phone2'
+        'owner_phone2',
+        'email'
     ];
+
+    protected $appends = ['status'];
 
     public function ownedLots()
     {
@@ -29,4 +32,12 @@ class Owner extends Model
     }
 
 
+    public function getStatusAttribute()
+    {
+        if ($this->is_company === 1) {
+            return '<span class="label label-info">True</span>';
+        }
+
+        return '<span class="label label-danger">False</span>';
+    }
 }

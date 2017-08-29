@@ -21,6 +21,7 @@
             </div>
         </div>
 
+        @include('flash::error_message')
         @include('flash::message')
         <div class="body-content animated fadeIn">
             <div class="row">
@@ -67,6 +68,14 @@
                                         </div>
                                     </div><!-- /.form-group -->
 
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Email <span
+                                                    class="asterisk">*</span></label>
+                                        <div class="col-sm-7">
+                                            <input type="email" id="email" class="form-control input-sm"
+                                                   name="email">
+                                        </div>
+                                    </div><!-- /.form-group -->
 
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Date of Birth</label>

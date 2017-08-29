@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\InvoicePayment;
 use Carbon\Carbon;
 use Validator;
 use App\Models\Invoice;
@@ -192,5 +193,37 @@ class InvoicesController extends Controller
         $file_name = @$invoice->owner->owner_name . '-' . $invoice->id . '.pdf';
 
         return $pdf->download($file_name);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function recordPayment(Request $request)
+    {
+        $this->validate($request, [
+            'invoice_id' => 'required|exists:invoices,invoice_id',
+            'owner_id' => 'required|exists:owners,owner_id',
+            'payment_date' => 'required|date',
+            'amount' => 'required|numeric',
+            'method' => 'required',
+        ]);
+
+        try {
+            $request['payment_date'] = Carbon::parse($request->payment_date);
+
+            InvoicePayment::create($request->except('_token'));
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Invoice Payment added successfully'
+            ]);
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Error while saving invoice payment.'
+            ]);
+        }
     }
 }

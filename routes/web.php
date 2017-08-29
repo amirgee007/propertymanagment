@@ -61,8 +61,12 @@ Route::group(['middleware' => ['admin'], 'namespace' => 'Admin'], function () {
 
     Route::resource('invoices', 'InvoicesController');
 
-    Route::post('/invoices/owner/lots', 'InvoicesController@getOwnerLots')->name('filter.owner.lots');
-    Route::get('/invoices/download/pdf/{invoice_id}', 'InvoicesController@getPDF')->name('invoices.pdf');
+    Route::group(['prefix' => 'invoices'], function () {
+        Route::post('/owner/lots', 'InvoicesController@getOwnerLots')->name('filter.owner.lots');
+        Route::get('/download/pdf/{invoice_id}', 'InvoicesController@getPDF')->name('invoices.pdf');
+        Route::post('/record/payment', 'InvoicesController@recordPayment')->name('invoices.record.payment');
+    });
+
 
     Route::post('/dashboard', array(
         'as' => 'post.dashboard',
@@ -103,69 +107,80 @@ Route::group(['middleware' => ['admin'], 'namespace' => 'Admin'], function () {
 
 ////////////////////////////////owner Routes///////////////////////////////////
 
-    Route::get('/dashboard/owner/add', array(
-        'as' => 'owner.add.new',
-        'uses' => 'OwnerController@viewProfile'));
+
+    Route::group(['prefix' => 'dashboard/owner'], function () {
+
+        Route::get('/index', array(
+            'as' => 'owner.index',
+            'uses' => 'OwnerController@index'));
+
+        Route::get('/add', array(
+            'as' => 'owner.add.new',
+            'uses' => 'OwnerController@viewProfile'));
 
 
-    Route::get('/dashboard/owner/show', array(
-        'as' => 'owner.show',
-        'uses' => 'OwnerController@show'));
+        Route::get('/show/{owner_id}', array(
+            'as' => 'owner.show',
+            'uses' => 'OwnerController@show'));
 
 
-    Route::get('/dashboard/owner/edit', array(
-        'as' => 'owner.edit',
-        'uses' => 'OwnerController@edit'));
+        Route::get('/edit/{owner_id}', array(
+            'as' => 'owner.edit',
+            'uses' => 'OwnerController@edit'));
+
+        Route::delete('/destroy/{owner_id}', array(
+            'as' => 'owner.destroy',
+            'uses' => 'OwnerController@destroy'));
+
+        Route::post('/store', array(
+            'as' => 'post.owner.store',
+            'uses' => 'OwnerController@store'));
 
 
-    Route::post('/dashboard/owner/store', array(
-        'as' => 'post.owner.store',
-        'uses' => 'OwnerController@store'));
+        Route::post('/update', array(
+            'as' => 'post.owner.update',
+            'uses' => 'OwnerController@update'));
+
+        Route::post('/verify', array(
+            'as' => 'post.owner.verify',
+            'uses' => 'OwnerController@verify'));
 
 
-    Route::post('/dashboard/owner/update', array(
-        'as' => 'post.owner.update',
-        'uses' => 'OwnerController@update'));
-
-    Route::post('/dashboard/owner/verify', array(
-        'as' => 'post.owner.verify',
-        'uses' => 'OwnerController@verify'));
+        Route::post('/car-park', array(
+            'as' => 'post.owner.assign.carpark',
+            'uses' => 'CarParkController@assignCarPark'));
 
 
-    Route::post('/dashboard/owner/car-park', array(
-        'as' => 'post.owner.assign.carpark',
-        'uses' => 'CarParkController@assignCarPark'));
+        Route::get('/assign-lot', array(
+            'as' => 'owner.assign.lot',
+            'uses' => 'LotController@assignLotShow'));
+
+        Route::post('/assign-lot/save', array(
+            'as' => 'post.owner.assign.lot',
+            'uses' => 'LotController@assignLotSave'));
 
 
-    Route::get('/dashboard/owner/assign-lot', array(
-        'as' => 'owner.assign.lot',
-        'uses' => 'LotController@assignLotShow'));
+        Route::get('/assign-lot/list', array(
+            'as' => 'owner.list.assign.lot',
+            'uses' => 'LotController@listOfAssignLot'));
 
-    Route::post('/dashboard/owner/assign-lot/save', array(
-        'as' => 'post.owner.assign.lot',
-        'uses' => 'LotController@assignLotSave'));
-
-
-    Route::get('/dashboard/owner/assign-lot/list', array(
-        'as' => 'owner.list.assign.lot',
-        'uses' => 'LotController@listOfAssignLot'));
-
-    Route::get('/dashboard/owner/assign-lot/ajaxCall', array(
-        'as' => 'owner.assign.lot.ajax',
-        'uses' => 'LotController@ajaxCall'));
+        Route::get('/assign-lot/ajaxCall', array(
+            'as' => 'owner.assign.lot.ajax',
+            'uses' => 'LotController@ajaxCall'));
 
 
-    Route::get('/dashboard/owner/sell-to-other', array(
-        'as' => 'owner.lot.sell.other',
-        'uses' => 'LotController@sellToOther'));
+        Route::get('/sell-to-other', array(
+            'as' => 'owner.lot.sell.other',
+            'uses' => 'LotController@sellToOther'));
 
-    Route::post('/dashboard/owner/sell-to-other', array(
-        'as' => 'post.owner.sell.to.others',
-        'uses' => 'LotController@sellToOtherStore'));
+        Route::post('/sell-to-other', array(
+            'as' => 'post.owner.sell.to.others',
+            'uses' => 'LotController@sellToOtherStore'));
 
-    Route::get('/dashboard/owner/check-owner-bills/ajaxCall', array(
-        'as' => 'owner.bills.check',
-        'uses' => 'LotController@checkOwnerBills'));
+        Route::get('/check-owner-bills/ajaxCall', array(
+            'as' => 'owner.bills.check',
+            'uses' => 'LotController@checkOwnerBills'));
+    });
 
 
 //////////////////////////////////////////////////Lots Management/////////

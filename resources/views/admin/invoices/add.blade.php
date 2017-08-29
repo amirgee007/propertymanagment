@@ -37,7 +37,9 @@
                                         <label class="col-sm-3 control-label">Owner<span
                                                     class="asterisk">*</span></label>
                                         <div class="col-sm-7">
-                                            <select id="select_owner" data-placeholder="Choose an Owner" class="form-control chosen-select mb-15" tabindex="2" name="owner_id" required>
+                                            <select id="select_owner" data-placeholder="Choose an Owner"
+                                                    class="form-control chosen-select mb-15" tabindex="2"
+                                                    name="owner_id" required>
                                                 <option value="">Choose an Owner</option>
                                                 @foreach($owners as $owner)
                                                     <option value="{{$owner->owner_id}}">{{$owner->owner_name}}</option>
@@ -55,7 +57,8 @@
                                         <label class="col-sm-3 control-label">Transaction Description<span
                                                     class="asterisk">*</span></label>
                                         <div class="col-sm-7">
-                                            <textarea class="form-control" name="invoice_trans_des" rows="5" required></textarea>
+                                            <textarea class="form-control" name="invoice_trans_des" rows="5"
+                                                      required></textarea>
                                         </div>
                                     </div><!-- /.form-group -->
 
@@ -104,6 +107,21 @@
                                         <div class="col-sm-7">
                                             <input type="number" class="form-control" name="invoice_amount">
                                             <label for="invoice_amount" class="error"></label>
+                                        </div>
+                                    </div><!-- /.form-group -->
+
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Status<span
+                                                    class="asterisk">*</span></label>
+                                        <div class="col-sm-7">
+                                            <select class="form-control" name="invoice_status" required>
+                                                <option value="">Choose Status</option>
+                                                <option value="paid">Paid</option>
+                                                <option value="unpaid">Unpaid</option>
+                                                <option value="partial">Partial</option>
+                                                <option value="overdue">Overdue</option>
+                                            </select>
+                                            <label for="invoice_status" class="error"></label>
                                         </div>
                                     </div><!-- /.form-group -->
 
