@@ -191,6 +191,10 @@ Route::group(['middleware' => ['admin'], 'namespace' => 'Admin'], function () {
         'as' => 'get.lot.list',
         'uses' => 'LotController@show'));
 
+    Route::get('/dashboard/lot/show/{id}', array(
+            'as' => 'get.lot.show',
+            'uses' => 'LotController@showLotsTable'));
+
     Route::post('/dashboard/lot/add/save-lot-type', array(
         'as' => 'post.lot.save.lotType',
         'uses' => 'LotController@saveLotType'));
@@ -198,6 +202,10 @@ Route::group(['middleware' => ['admin'], 'namespace' => 'Admin'], function () {
     Route::get('/dashboard/lot/delete{id}', array(
         'as' => 'lot.type.delete',
         'uses' => 'LotController@deleteLotType'));
+
+    Route::get('/dashboard/lot/manage', array(
+        'as' => 'get.lot.manage',
+        'uses' => 'LotController@getLotManage'));
 
 //////////////////////////////////////////////////
 

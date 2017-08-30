@@ -28,6 +28,7 @@ class MeterReadingController extends Controller
         $meters = $meters->paginate(15);
 
         return view('admin.meter-reading.index' , compact('meters' , 'meterTypes' , 'searchVal'));
+
     }
 
     public function create() {

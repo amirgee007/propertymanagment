@@ -63,9 +63,11 @@
                 <span class="arrow"></span>
             </a>
             <ul>
-                <li><a href="{{route('get.lot.list')}}">Add Lot Type<span class="label label-success pull-right"></span></a>
-                </li>
+                <li><a href="{{route('get.lot.list')}}">Add Lot Type<span class="label label-success pull-right"></span></a></li>
+            </ul>
 
+            <ul>
+                <li><a href="{{route('get.lot.manage')}}">Manage Lots<span class="label label-success pull-right"></span></a></li>
             </ul>
         </li>
 
