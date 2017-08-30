@@ -53,7 +53,7 @@
                                                     <div class="form-group">
                                                         <label for="lot_type_description" class="col-sm-3 control-label">Description</label>
                                                         <div class="col-sm-7">
-                                                            <input type="text" class="form-control input-sm" id="lot_type_description" name="lot_type_description" required>
+                                                            <textarea class="form-control input-sm" rows="4" id="lot_type_description" name="lot_type_description" required>Description</textarea>
                                                         </div>
                                                     </div>
 

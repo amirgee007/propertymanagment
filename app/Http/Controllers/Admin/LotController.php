@@ -21,14 +21,20 @@ class LotController extends Controller
         return view('admin.admin-lots.add', compact('lotTypes'));
     }
 
+    public function showLotsTable($lot_type_id)
+    {
+        $lots = Lot::where('lot_type_id' ,$lot_type_id)->get();
+        return view('admin.admin-lots.show', compact('lots'));
+    }
+
     public function deleteLotType($lot_type_id)
     {
-
         try {
 
             LotType::where('lot_type_id', $lot_type_id)->delete();
             Lot::where('lot_type_id', $lot_type_id)->delete();
-            flash('Successfully Deleted the LotType')->success();
+            OwnerLot::where('lot_type_id', $lot_type_id)->delete();
+            flash('Successfully Deleted the LotType Lots as well as Owner Lots')->success();
             return back();
 
         } catch (\Exception $ex) {
@@ -192,6 +198,31 @@ class LotController extends Controller
         $lots = Lot::where('lot_type_id', $request->id)->whereNotIn('lot_id', $assignedLotsIds)->pluck('lot_name', 'lot_id');
 
         return $lots;
+
+    }
+
+    public  function getLotManage(){
+
+
+        $lot_type = LotType::with(['lots' => function($q){
+            $q->orderBy('created_at' , 'desc');
+        }]);
+
+        $searchVal = '';
+        if (\request()->has('search') && !empty(trim(\request()->search))) {
+            $lot_type = $lot_type->orWhere('lot_type_id' , \request()->search)
+                ->orWhere('lot_type_name' , \request()->search)
+                ->orWhere('lot_type_description' , \request()->search)
+                ->orWhere('lot_type_code' , \request()->search)
+                ->orWhere('lot_type_size' , \request()->search)
+                ->orWhere('lot_type_qty' , \request()->search);
+            $searchVal = \request()->search;
+        }
+
+        $lot_type = $lot_type->paginate(15);
+
+        return view('admin.admin-lots.index' , compact('lot_type' , 'searchVal'));
+
 
     }
 
