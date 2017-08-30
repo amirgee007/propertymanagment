@@ -69,7 +69,7 @@
             </ul>
         </li>
 
-        @if(auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin') ||auth()->user()->hasRole('Manager'))
+        @if(auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin') ||auth()->user()->hasRole('Manager')||auth()->user()->hasRole('Owner'))
 
              <li class="submenu @if(request()->is('invoices/*', 'invoices')) active @endif">
             <a href="javascript:void(0);">

@@ -2,6 +2,10 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\AdminRole;
+use App\Http\Middleware\ManagerRole;
+use App\Http\Middleware\OwnerRole;
+use App\Http\Middleware\StaffRole;
 use App\Http\Middleware\SuperAdminRole;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -59,5 +63,9 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'admin' => \App\Http\Middleware\Admin::class,
         'SuperAdminRole'=>SuperAdminRole::class,
+        'AdminRole'=>AdminRole::class,
+        'ManagerRole'=>ManagerRole::class,
+        'StaffRole'=>StaffRole::class,
+        'OwnerRole'=>OwnerRole::class,
     ];
 }
