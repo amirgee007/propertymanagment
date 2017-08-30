@@ -44,9 +44,18 @@
                 <span class="arrow"></span>
             </a>
             <ul>
+                @if(auth()->user()->hasRole('Owner'))
+
+                        <li class="@if(request()->is('dashboard/owner/*', 'dashboard/owner')) active @endif">
+                            <a @if(auth()->user()->owner) href="{{ route('owner.edit', auth()->user()->owner->owner_id) }}" @else href="{{ route('owner.add.new') }}" @endif>Profile<span
+                                        class="label label-success pull-right"></span></a></li>
+
+                @else
                 <li class="@if(request()->is('dashboard/owner/*', 'dashboard/owner')) active @endif"><a
                             href="{{route('owner.index')}}">Manage Owners<span
                                 class="label label-success pull-right"></span></a></li>
+                @endif
+
                 <li><a href="{{route('owner.assign.lot')}}">Assign lot <span
                                 class="label label-danger pull-right"></span></a></li>
                 <li><a href="{{route('owner.list.assign.lot')}}">List of owned Lot No <span
@@ -56,6 +65,8 @@
             </ul>
         </li>
         @endif
+        @if(auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin') ||auth()->user()->hasRole('Manager')||auth()->user()->hasRole('staff'))
+
         <li class="submenu">
             <a href="javascript:void(0);">
                 <span class="icon"><i class="fa fa-suitcase"></i></span>
@@ -70,7 +81,7 @@
                 <li><a href="{{route('get.lot.manage')}}">Manage Lots<span class="label label-success pull-right"></span></a></li>
             </ul>
         </li>
-
+        @endif
         @if(auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin') ||auth()->user()->hasRole('Manager')||auth()->user()->hasRole('Owner'))
 
              <li class="submenu @if(request()->is('invoices/*', 'invoices')) active @endif">
@@ -91,11 +102,11 @@
 
 
 
-        @if(auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin'))
+        @if(auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Owner'))
             <li class="submenu">
                 <a href="javascript:void(0);">
                     <span class="icon"><i class="fa fa-suitcase"></i></span>
-                    <span class="text">Meter Setting</span>
+                    <span class="text">Meter management</span>
                     <span class="arrow"></span>
                 </a>
                 <ul>
