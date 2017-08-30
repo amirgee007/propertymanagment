@@ -8,6 +8,10 @@ use App\Http\Controllers\Controller;
 
 class SystemSettingController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('SuperAdminRole');
+    }
     public function create(){
         $systemSetting= SystemSetting::where('user_id',auth()->user()->id)->first();
         return view('admin.system-setting.create',compact('systemSetting'));

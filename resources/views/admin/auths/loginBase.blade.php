@@ -68,7 +68,7 @@
 
     <!-- Brand -->
     <div class="brand">
-        <img src="http://img.djavaui.com/?create=220x100,81B71A?f=ffffff" alt="brand logo"/>
+        <img src="{{url('\admin\images\bear.png')}}" alt="brand logo"/>
     </div>
     <!--/ Brand -->
 

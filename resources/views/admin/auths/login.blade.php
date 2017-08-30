@@ -1,4 +1,4 @@
-@extends('admin..auths.loginBase')
+@extends('admin.auths.loginBase')
 @section('title')
     Login Area
     @parent
