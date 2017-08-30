@@ -15,7 +15,6 @@ class InvoicingSettingController extends Controller
         $general= InvoicingSettingGeneral::where('user_id',auth()->user()->id)->first();
         $utility= InvoicingSettingUtility::where('user_id',auth()->user()->id)->first();
         $maintenance= InvoicingSettingMaintenanceService::where('user_id',auth()->user()->id)->first();
-
         return view('admin.invoicing-setting.add',compact('general','utility','maintenance'));
     }
 
