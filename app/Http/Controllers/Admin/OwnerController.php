@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Auth;
 
 class OwnerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('OwnerRole');
+    }
 
     public function index()
     {

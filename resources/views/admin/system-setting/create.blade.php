@@ -98,7 +98,7 @@
                 </div>
             </div>
         </div>
-        {{--@include('admin.layouts.pagefooter')--}}
+        @include('admin.layouts.pagefooter')
     </section>
 
 @endsection
