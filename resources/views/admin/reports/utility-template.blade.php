@@ -138,7 +138,7 @@
                     <span>Invoice No. :	</span>
                 </td>
                 <td>
-                    <span>{{$invoice->id}}</span>
+                    <span>{{$invoice->invoice_id}}</span>
                 </td>
             </tr>
             <tr>
@@ -154,7 +154,7 @@
                     <span>Payment Due:   </span>
                 </td>
                 <td>
-                    <span> </span>
+                    <span> {{$invoice->due_date}} </span>
                 </td>
             </tr>
 
@@ -172,7 +172,7 @@
             </tr>
             <tr>
                 <td>
-                    <table id="nested-table">
+                    <table id="nested-table" style="border-width: 0px; border-color: white">
                         <tr>
                             <td>
                                 <span>Meter No.         :	</span>
@@ -183,7 +183,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <span> Current reading as at  : 	</span>
+                                <span> Current reading as at: 	</span>
                             </td>
                             <td>
                                 <span>{{$invoice->meterReading->reading_date}}</span>
@@ -191,7 +191,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <span>Previous reading as at  :  </span>
+                                <span>Previous reading as at:  </span>
                             </td>
                             <td>
                                 <span> {{$invoice->meterReading->previousReading()->reading_date}}</span>
@@ -199,7 +199,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <span>Usage  :  </span>
+                                <span>Usage :  </span>
                             </td>
                             <td>
                             </td>
@@ -247,19 +247,19 @@
             </tr>
             <tr>
                 <td colspan="2" style="text-align: right"><b>GST (6%)</b></td>
-                <td>{{\App\PropertyManagement\Helper::gstCalculate( $invoice->meterReading->readingAmount() , 6)}}</td>
+                <td>{{$gst = \App\PropertyManagement\Helper::gstCalculate( $invoice->meterReading->readingAmount() , 6)}}</td>
             </tr>
             <tr>
                 <td colspan="2" style="text-align: right"><b>Outstanding Charges (+)</b></td>
-                <td>{{$invoice->meterReading->readingAmount() + \App\PropertyManagement\Helper::gstCalculate( $invoice->meterReading->readingAmount() , 6)}}</td>
+                <td>{{$tot = $invoice->meterReading->readingAmount() + $gst}}</td>
             </tr>
             <tr>
                 <td colspan="2" style="text-align: right"><b>Credit Balance (-)</b></td>
-                <td></td>
+                <td>{{ $cred = $invoice->paid_amount}}</td>
             </tr>
             <tr>
                 <td colspan="2" style="font-size: initial; text-align: right"><b>Total</b></td>
-                <td><b>4.24</b></td>
+                <td><b>{{$tot - $cred}}</b></td>
             </tr>
 
         </table>
@@ -275,6 +275,7 @@
     <section style="padding-left: 80%;">
         <table id="sum-table" style="width: 20%; float: left; ">
             <tr>
+
                 <td>
                     from
                 </td>
@@ -285,39 +286,20 @@
                     Rate(<span style="font-size: 7px">RM</span>)
                 </td>
             </tr>
+            @foreach($meter->meterType->meterRates as $meterRate)
             <tr>
                 <td>
-                    0
+                    {{$meterRate->from}}
                 </td>
                 <td>
-                    100
+                    {{$meterRate->to}}
                 </td>
                 <td>
-                    0.95
+                    {{$meterRate->rate}}
                 </td>
             </tr>
-            <tr>
-                <td>
-                    101
-                </td>
-                <td>
-                    300
-                </td>
-                <td>
-                    1.15
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    300
-                </td>
-                <td>
-                    above
-                </td>
-                <td>
-                    1.30
-                </td>
-            </tr>
+            @endforeach
+
 
 
         </table>
