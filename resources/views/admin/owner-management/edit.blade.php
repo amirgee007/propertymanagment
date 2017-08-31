@@ -130,6 +130,14 @@
                                                 </div>
                                             </div><!-- /.form-group -->
 
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Email <span
+                                                            class="asterisk">*</span></label>
+                                                <div class="col-sm-7">
+                                                    <input type="email" id="email" value="{{ $owner->email or 'null' }}" class="form-control input-sm"
+                                                           name="email">
+                                                </div>
+                                            </div><!-- /.form-group -->
 
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Date of Birth</label>

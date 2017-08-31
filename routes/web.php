@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\SuperAdminRoleMiddleware;
 use App\Models\LotType;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 
@@ -11,9 +12,10 @@ Route::get('/download', function () {
         'lotTypes' => $lotTypes,
     );
 
-    $pdf = PDF::loadView('admin/reports/pdf', compact('data' , 'invoice'));
+//    return view('admin/reports/invoice-template');
+    $pdf = PDF::loadView('admin/reports/invoice-template', compact('data' , 'invoice'));
 //    return $pdf->setOption('margin-top', 5)->stream();
-    return $pdf->download('invoice.pdf');
+    return $pdf->download('newl.pdf');
 
 });
 
@@ -58,6 +60,9 @@ Auth::routes();
 ////////////////////////////////////////////////////Admin Panel/////////////////////////
 
 Route::group(['middleware' => ['admin'], 'namespace' => 'Admin'], function () {
+    Route::get('test/wasim', function (){
+        return view('admin.reports.invoice-template');
+    });
 
     Route::resource('invoices', 'InvoicesController');
 
@@ -65,6 +70,7 @@ Route::group(['middleware' => ['admin'], 'namespace' => 'Admin'], function () {
         Route::post('/owner/lots', 'InvoicesController@getOwnerLots')->name('filter.owner.lots');
         Route::get('/download/pdf/{invoice_id}', 'InvoicesController@getPDF')->name('invoices.pdf');
         Route::post('/record/payment', 'InvoicesController@recordPayment')->name('invoices.record.payment');
+        Route::post('/send/payment/email', 'InvoicesController@sendMailPayment')->name('invoices.send.payment');
     });
 
 
@@ -189,6 +195,10 @@ Route::group(['middleware' => ['admin'], 'namespace' => 'Admin'], function () {
         'as' => 'get.lot.list',
         'uses' => 'LotController@show'));
 
+    Route::get('/dashboard/lot/show/{id}', array(
+            'as' => 'get.lot.show',
+            'uses' => 'LotController@showLotsTable'));
+
     Route::post('/dashboard/lot/add/save-lot-type', array(
         'as' => 'post.lot.save.lotType',
         'uses' => 'LotController@saveLotType'));
@@ -196,6 +206,10 @@ Route::group(['middleware' => ['admin'], 'namespace' => 'Admin'], function () {
     Route::get('/dashboard/lot/delete{id}', array(
         'as' => 'lot.type.delete',
         'uses' => 'LotController@deleteLotType'));
+
+    Route::get('/dashboard/lot/manage', array(
+        'as' => 'get.lot.manage',
+        'uses' => 'LotController@getLotManage'));
 
 //////////////////////////////////////////////////
 
@@ -323,5 +337,24 @@ Route::group(['middleware' => 'admin', 'namespace' => 'AdminAuth'], function () 
         'uses' => 'AuthController@logout'));
 });
 
+Route::prefix('/dashboard/system-setting')->namespace('Admin')->group( function () {
+    Route::get('/create', array(
+        'as' => 'system-setting.create',
+        'uses' => 'SystemSettingController@create'));
 
+    Route::post('/edit', array(
+        'as' => 'system-setting.edit',
+        'uses' => 'SystemSettingController@edit'));
+});
+
+
+Route::prefix('/dashboard/invoicing-setting')->namespace('Admin')->group(function () {
+    Route::get('/add', array(
+        'as' => 'invoicing-setting.add',
+        'uses' => 'InvoicingSettingController@add'));
+
+    Route::post('/edit', array(
+        'as' => 'invoicing-setting.edit',
+        'uses' => 'InvoicingSettingController@edit'));
+});
 

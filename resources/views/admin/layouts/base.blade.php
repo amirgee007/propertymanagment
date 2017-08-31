@@ -74,7 +74,6 @@
           rel="stylesheet">
     <link href="/admin/assets/global/plugins/bower_components/chosen_v1.2.0/chosen.min.css" rel="stylesheet">
 
-
     @yield('header_styles')
     <script>window.Laravel = <?php echo json_encode(['csrfToken' => csrf_token()]); ?></script>
 </head>

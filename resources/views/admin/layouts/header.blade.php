@@ -13,7 +13,7 @@
 
             <!-- Start brand -->
             <a class="navbar-brand" href="{{route('get.dashboard')}}">
-                <img class="logo" src="http://img.djavaui.com/?create=175x50,81B71A?f=ffffff" alt="brand logo"/>
+                <img class="logo" src="{{url('\admin\images\bear.png')}}" height="50px" width="170px" alt="brand logo"/>
             </a><!-- /.navbar-brand -->
             <!--/ End brand -->
 

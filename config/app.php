@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'E-Condo'),
 
     /*
     |--------------------------------------------------------------------------
@@ -184,7 +184,7 @@ return [
         Laracasts\Flash\FlashServiceProvider::class,
 //        Barryvdh\Snappy\ServiceProvider::class,
         Barryvdh\Snappy\ServiceProvider::class,
-
+        Collective\Html\HtmlServiceProvider::class,
     ],
 
     /*
@@ -237,7 +237,8 @@ return [
         'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
 //        'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
 //        'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
-        'Converter' => Anam\PhantomMagick\Facades\Converter::class
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
 
     ],
 

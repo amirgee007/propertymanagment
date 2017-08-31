@@ -5,10 +5,11 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 
 class Invoice extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, Notifiable;
 
     protected $table = 'invoices';
 
@@ -55,5 +56,20 @@ class Invoice extends Model
     public function getDueDateAttribute()
     {
         return Carbon::today()->addDays(10)->format('d-m-Y');
+    }
+
+
+    public function payments()
+    {
+        return $this->hasMany(InvoicePayment::class, 'invoice_id', 'invoice_id');
+    }
+
+    public function meterReading() {
+        return $this->hasOne(MeterReading::class, 'invoice_id' , 'invoice_id');
+    }
+
+    public function routeNotificationForMail()
+    {
+        return request()->from_email;
     }
 }

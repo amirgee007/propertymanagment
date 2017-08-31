@@ -33,6 +33,7 @@ class MeterReadingController extends Controller
         $meters = $meters->paginate(15);
 
         return view('admin.meter-reading.index' , compact('meters' , 'meterTypes' , 'searchVal'));
+
     }
 
     public function create() {
@@ -65,12 +66,18 @@ class MeterReadingController extends Controller
             'invoice_trans_des' => $meter->meterType->meter_name." bill",
             'invoice_quantity' => '1',
             'invoice_uom' => '',
+            'type' => 'utility',
+            'model_id' => $meter->id,
             'invoice_charge_rate' => 0,
             'invoice_amount' => $meter->currentAmount(),
             'invoice_status' => 'unpaid'
         ];
 
-        Invoice::create($invoiceData);
+        $invoice = Invoice::create($invoiceData);
+
+         $meterReading->update(['invoice_id' => $invoice->id]);
+
+        $meterReading->save();
 
         flash()->success('Reading taking Successfully of this '.$meterReading->meter_id.' Meter Id');
         if ($request->has('type') )

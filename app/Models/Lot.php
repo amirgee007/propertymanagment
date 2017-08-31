@@ -14,4 +14,8 @@ class Lot extends Model
         return $this->belongsToMany(Owner::class , 'owner_lots' , 'lot_type_id' , 'lot_id');
     }
 
+    public function lotType() {
+        return $this->hasOne(LotType::class, 'lot_type_id' , 'lot_type_id');
+    }
+
 }

@@ -51,6 +51,7 @@
                                         <tr>
                                             <th>Invoice ID</th>
                                             <th>Owner Name</th>
+                                            <th>Type</th>
                                             <th style="width: 25%">Description</th>
                                             <th>Date</th>
                                             <th>Due Date</th>
@@ -64,6 +65,7 @@
                                             <tr>
                                                 <td>{{ $invoice->invoice_id }}</td>
                                                 <td>{{ @$invoice->owner->owner_name }}</td>
+                                                <td>{{ $invoice->type }}</td>
                                                 <td>{{ str_limit($invoice->invoice_trans_des, 25) }}</td>
                                                 <td>{{ is_null($invoice->date) ? "" :  $invoice->date->format('d-m-Y')  }}</td>
                                                 <td>{{ $invoice->due_date }}</td>
@@ -73,8 +75,7 @@
                                                     <a href="#" class="btn btn-info btn-xs rounded add-payment"
                                                        data-toggle="tooltip" data-placement="top"
                                                        data-original-title="Record payment"
-                                                       data-invoice-id="{{ $invoice->invoice_id }}"
-                                                       data-url="{{ route('invoices.destroy', $invoice->invoice_id) }}">
+                                                       data-invoice-id="{{ $invoice->invoice_id }}">
                                                         <i class="fa fa-credit-card"></i>
                                                     </a>
 
@@ -176,7 +177,6 @@
                 });
             });
 
-
             $(document).on("click", ".add-payment", function (event) {
                 var invoice_id = $(this).attr('data-invoice-id');
 
@@ -212,7 +212,6 @@
                     dataType: "json"
                 });
             });
-
         });
     </script>
 @endsection
