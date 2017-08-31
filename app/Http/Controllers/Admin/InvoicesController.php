@@ -198,13 +198,12 @@ class InvoicesController extends Controller
 
         $sinkingFunds = SinkingFund::where('lot_id', $invoice->lot_id)->get();
 
-        return view('admin.reports.sinking-fund', compact('sinkingFunds' , 'invoice'));
 
         if ($invoice->type == Invoice::UTILITY){
+
             $meter = Meter::where('id' , $invoice->model_id)
                 ->with('lot.lotType', 'meterReadings' , 'meterType.meterRates')->first();
-            return view('admin.reports.utility-template', compact('meter' , 'invoice'));
-            //            $pdf->loadView('admin.reports.utility-template', $meter);
+                        $pdf->loadView('admin.reports.utility-template', compact('meter' , 'invoice'));
 
 
         } elseif ($invoice->type == Invoice::SINKING){
