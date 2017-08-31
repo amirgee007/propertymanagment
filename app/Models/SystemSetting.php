@@ -8,4 +8,10 @@ class SystemSetting extends Model
 {
     protected $table = 'system_settings';
     protected $guarded= [];
+
+
+    public function scopeByUser($query, $user_id)
+    {
+        return $query->where('user_id', $user_id);
+    }
 }

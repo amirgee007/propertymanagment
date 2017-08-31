@@ -9,5 +9,12 @@ class InvoicingSettingUtility extends Model
 {
     protected $table = 'invoicing_setting_utility';
     protected $guarded= [];
+
     protected $dates = ['billing_start_date'];
+
+
+    public function scopeByUser($query, $user_id)
+    {
+        return $query->where('user_id', $user_id);
+    }
 }
