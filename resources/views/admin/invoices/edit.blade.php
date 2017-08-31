@@ -35,10 +35,11 @@
                 <div class="col-md-12">
                     <div class="panel rounded shadow">
                         <div class="panel-body no-padding">
-                            <form class="form-horizontal form-bordered" action="{{ route('invoices.store') }}"
+                            <form class="form-horizontal form-bordered" action="{{ route('invoices.update', $invoice) }}"
                                   role="form" method="post">
                                 <div class="form-body">
                                     {{ csrf_field() }}
+                                    <input type="hidden" name="_method" value="put" />
 
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Owner<span

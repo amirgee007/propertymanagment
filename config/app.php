@@ -185,6 +185,7 @@ return [
 //        Barryvdh\Snappy\ServiceProvider::class,
         Barryvdh\Snappy\ServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        App\Providers\SettingServiceProvider::class,
     ],
 
     /*

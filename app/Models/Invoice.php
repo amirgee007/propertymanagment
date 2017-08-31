@@ -52,12 +52,10 @@ class Invoice extends Model
             return '<span class="label">Nill</span>';
     }
 
-    //ToDo: Find the Due Date from system Settings
     public function getDueDateAttribute()
     {
-        return Carbon::today()->addDays(10)->format('d-m-Y');
+        return config('invoice_due_date')->format('d-m-Y');
     }
-
 
     public function payments()
     {

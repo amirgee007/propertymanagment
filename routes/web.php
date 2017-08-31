@@ -73,6 +73,7 @@ Route::group(['middleware' => ['admin'], 'namespace' => 'Admin'], function () {
         Route::post('/send/payment/email', 'InvoicesController@sendMailPayment')->name('invoices.send.payment');
     });
 
+    Route::resource('sinking-funds', 'SinkingFundsController');
 
     Route::post('/dashboard', array(
         'as' => 'post.dashboard',

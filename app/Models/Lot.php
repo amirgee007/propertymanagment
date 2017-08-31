@@ -18,4 +18,8 @@ class Lot extends Model
         return $this->hasOne(LotType::class, 'lot_type_id' , 'lot_type_id');
     }
 
+    public function lot_type()
+    {
+        return $this->belongsTo(LotType::class, 'lot_type_id', 'lot_type_id');
+    }
 }
