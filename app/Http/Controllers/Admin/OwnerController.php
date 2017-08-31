@@ -88,6 +88,9 @@ class OwnerController extends Controller
         }
 
         flash('Successfully Created the Owner')->success();
+        if(auth()->user()->hasRole('Owner')){
+            return redirect()->route('owner.edit',$savableOwner->owner_id);
+        }
         return back();
     }
 

@@ -63,8 +63,10 @@
                                                         <td class="cur-re-td">{{$lot->lot_type_qty}}</td>
                                                         <td class="">
                                                             <a href="{{route('get.lot.show' ,$lot->lot_type_id)}}" class="btn btn-success btn-xs" data-toggle="tooltip" data-placement="top" data-original-title="View detail"><i class="fa fa-eye"></i></a>
-                                                            <a href="#" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
-                                                            <a onclick="return confirm('Are you sure you want to delete this record?')" href="{{ route('lot.type.delete', $lot->lot_type_id) }}"  class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                                                            @if(!auth()->user()->hasRole('Staff'))
+                                                                <a href="#" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                                                                <a onclick="return confirm('Are you sure you want to delete this record?')" href="{{ route('lot.type.delete', $lot->lot_type_id) }}"  class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                                                            @endif
                                                         </td>
                                                     </tr>
                                                 @endforeach

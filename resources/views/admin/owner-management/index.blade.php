@@ -83,13 +83,14 @@
                                                        data-toggle="tooltip" data-placement="top"
                                                        data-original-title="Edit"><i class="fa fa-pencil"></i>
                                                     </a>
-
+                                                    @if(!auth()->user()->hasRole('Staff'))
                                                     <a href="#" class="btn btn-danger btn-xs rounded delete-owner"
                                                        data-toggle="tooltip" data-placement="top" data-original-title="Delete Owner"
                                                        data-owner-id="{{ $owner->owner_id }}"
                                                        data-url="{{ route('owner.destroy', $owner->owner_id) }}">
                                                         <i class="fa fa-times"></i>
                                                     </a>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach

@@ -36,7 +36,6 @@
     {{--</a>--}}
     {{--</li>--}}
     <!--/ End navigation - my projects -->
-        @if(auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin') ||auth()->user()->hasRole('Manager')||auth()->user()->hasRole('Owner'))
             <li class="submenu @if(request()->is('dashboard/owner/*', 'dashboard/owner')) active @endif">
             <a href="javascript:void(0);">
                 <span class="icon"><i class="fa fa-suitcase"></i></span>
@@ -64,10 +63,9 @@
                                 class="label label-danger pull-right"></span></a></li>
             </ul>
         </li>
-        @endif
-        @if(auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin') ||auth()->user()->hasRole('Manager')||auth()->user()->hasRole('staff'))
 
-        <li class="submenu">
+        @if(!auth()->user()->hasRole('Owner'))
+            <li class="submenu">
             <a href="javascript:void(0);">
                 <span class="icon"><i class="fa fa-suitcase"></i></span>
                 <span class="text">Lots Management</span>
@@ -82,9 +80,8 @@
             </ul>
         </li>
         @endif
-        @if(auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin') ||auth()->user()->hasRole('Manager')||auth()->user()->hasRole('Owner'))
 
-             <li class="submenu @if(request()->is('invoices/*', 'invoices')) active @endif">
+        <li class="submenu @if(request()->is('invoices/*', 'invoices')) active @endif">
             <a href="javascript:void(0);">
                 <span class="icon"><i class="fa fa-suitcase"></i></span>
                 <span class="text">Invoicing</span>
@@ -98,12 +95,8 @@
                 <li><a href="#">Managements <span class="label label-danger pull-right"></span></a></li>
             </ul>
         </li>
-        @endif
 
-
-
-        @if(auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Owner'))
-            <li class="submenu">
+        <li class="submenu">
                 <a href="javascript:void(0);">
                     <span class="icon"><i class="fa fa-suitcase"></i></span>
                     <span class="text">Meter management</span>
@@ -121,35 +114,31 @@
                     {{--<li><a href="{{route('meter.reading.create')}}">Manage Meter Reading<span class="label label-danger pull-right"></span></a></li>--}}
                 </ul>
             </li>
-            <li class="submenu @if(request()->is('/dashboard/invoicing-setting/*')) active @endif">
+
+        @if(auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin'))
+
+        <li class="submenu @if(request()->is('/dashboard/invoicing-setting/*')) active @endif">
                 <a href="javascript:void(0);">
                     <span class="icon"><i class="fa fa-suitcase"></i></span>
-                    <span class="text">Invoicing Setting</span>
+                    <span class="text">Setting</span>
                     <span class="arrow"></span>
                 </a>
                 <ul>
-                    <li class="@if(request()->is('/dashboard/invoicing-setting/add')) active @endif"><a
-                                href="{{route('invoicing-setting.add')}}">Add<span
+                    @if(auth()->user()->hasRole('Super Admin'))
+                        <li class="@if(request()->is('/dashboard/system-setting/create')) active @endif"><a
+                                href="{{route('system-setting.create')}}">System Setting<span
                                     class="label label-success pull-right"></span></a></li>
-                </ul>
-            </li>
+                    @endif
+                    @if(auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin'))
 
-        @endif
-
-        @if(auth()->user()->hasRole('Super Admin'))
-            <li class="submenu @if(request()->is('/dashboard/system-setting/*')) active @endif">
-                <a href="javascript:void(0);">
-                    <span class="icon"><i class="fa fa-suitcase"></i></span>
-                    <span class="text">System Setting</span>
-                    <span class="arrow"></span>
-                </a>
-                <ul>
-                    <li class="@if(request()->is('/dashboard/system-setting/create')) active @endif"><a
-                                href="{{route('system-setting.create')}}">Create<span
+                        <li class="@if(request()->is('/dashboard/invoicing-setting/add')) active @endif"><a
+                                href="{{route('invoicing-setting.add')}}">Invoicing Setting<span
                                     class="label label-success pull-right"></span></a></li>
+                    @endif
                 </ul>
-            </li>
-        @endif
+        </li>
+            @endif
+
     </ul><!-- /.sidebar-menu -->
     <!--/ End left navigation - menu -->
 

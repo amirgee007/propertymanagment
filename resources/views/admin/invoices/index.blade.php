@@ -1,4 +1,4 @@
-@extends('admin.layouts.base')
+ @extends('admin.layouts.base')
 
 @section('title')
     List Assign Lot
@@ -77,17 +77,19 @@
                                                         <i class="fa fa-credit-card"></i>
                                                     </a>
 
-                                                    <a href="{{ route('invoices.pdf', $invoice->invoice_id) }}"
-                                                       class="btn btn-success btn-xs rounded"
-                                                       data-toggle="tooltip" data-placement="top"
-                                                       data-original-title="Download PDF"><i
-                                                                class="fa fa-file-pdf-o"></i>
-                                                    </a>
+
 
                                                     <a href="{{ route('invoices.show', $invoice) }}"
                                                        class="btn btn-success btn-xs rounded"
                                                        data-toggle="tooltip" data-placement="top"
                                                        data-original-title="View detail"><i class="fa fa-eye"></i>
+                                                    </a>
+                                                @if(!auth()->user()->hasRole('Staff'))
+                                                    <a href="{{ route('invoices.pdf', $invoice->invoice_id) }}"
+                                                       class="btn btn-success btn-xs rounded"
+                                                       data-toggle="tooltip" data-placement="top"
+                                                       data-original-title="Download PDF"><i
+                                                                class="fa fa-file-pdf-o"></i>
                                                     </a>
 
                                                     <a href="{{ route('invoices.edit', $invoice) }}"
@@ -103,6 +105,7 @@
                                                        data-url="{{ route('invoices.destroy', $invoice->invoice_id) }}">
                                                         <i class="fa fa-times"></i>
                                                     </a>
+                                                @endif
                                                 </td>
                                             </tr>
                                         @endforeach
