@@ -59,6 +59,9 @@ Auth::routes();
 ////////////////////////////////////////////////////Admin Panel/////////////////////////
 
 Route::group(['middleware' => ['admin'], 'namespace' => 'Admin'], function () {
+    Route::get('test/wasim', function (){
+        return view('admin.reports.invoice-template');
+    });
 
     Route::resource('invoices', 'InvoicesController');
 
