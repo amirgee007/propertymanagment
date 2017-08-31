@@ -88,7 +88,7 @@
             <div class="right-arrow"></div>
         </div>
         <div class="company-name2">
-            <span>RM{{$meter->currentAmount()}}</span>
+            <span>RM{{$invoice->meterReading->readingAmount()}}</span>
         </div>
     </section>
 
@@ -194,7 +194,14 @@
                                 <span>Previous reading as at  :  </span>
                             </td>
                             <td>
-                                <span> {{$meter->lot->lot_name}}</span>
+                                <span> {{$invoice->meterReading->previousReading()->reading_date}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>Usage  :  </span>
+                            </td>
+                            <td>
                             </td>
                         </tr>
 
@@ -203,20 +210,27 @@
                 <td>
                     <table id="nested-table">
                         <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><br></td>
+                        </tr>
+                        <tr>
                             <td>
-                                <span>123</span>
+                                <span>{{$invoice->meterReading->last_reading}}</span>
                             </td>
 
                         </tr>
                         <tr>
                             <td>
-                                <span> 123</span>
+                                <span> {{$invoice->meterReading->previousReading()->last_reading}}</span>
                             </td>
 
                         </tr>
                         <tr>
                             <td>
-                                <span>12</span>
+                                <span>{{$invoice->meterReading->unitUsage()}}</span>
                             </td>
 
                         </tr>
@@ -224,24 +238,24 @@
                     </table>
 
                 </td>
-                <td>2</td>
+                <td>{{$invoice->meterReading->readingAmount()}}</td>
 
             </tr>
             <tr>
                 <td colspan="2" style="text-align: right"><b>Total</b></td>
-                <td>4.24</td>
+                <td>{{$invoice->meterReading->readingAmount()}}</td>
             </tr>
             <tr>
                 <td colspan="2" style="text-align: right"><b>GST (6%)</b></td>
-                <td>4.24</td>
+                <td>{{\App\PropertyManagement\Helper::gstCalculate( $invoice->meterReading->readingAmount() , 6)}}</td>
             </tr>
             <tr>
                 <td colspan="2" style="text-align: right"><b>Outstanding Charges (+)</b></td>
-                <td>4.24</td>
+                <td>{{$invoice->meterReading->readingAmount() + \App\PropertyManagement\Helper::gstCalculate( $invoice->meterReading->readingAmount() , 6)}}</td>
             </tr>
             <tr>
                 <td colspan="2" style="text-align: right"><b>Credit Balance (-)</b></td>
-                <td>4.24</td>
+                <td></td>
             </tr>
             <tr>
                 <td colspan="2" style="font-size: initial; text-align: right"><b>Total</b></td>
