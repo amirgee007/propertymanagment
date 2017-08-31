@@ -75,9 +75,7 @@ class MeterReadingController extends Controller
 
         $invoice = Invoice::create($invoiceData);
 
-         $meterReading->update(['invoice_id' => $invoice->id]);
-
-        $meterReading->save();
+         $meterReading->update(['invoice_id' => $invoice->invoice_id]);
 
         flash()->success('Reading taking Successfully of this '.$meterReading->meter_id.' Meter Id');
         if ($request->has('type') )
@@ -128,8 +126,20 @@ class MeterReadingController extends Controller
 
     public function invoiceShowPage($id) {
 
+        $meter = Meter::where('id' , $id)
+            ->with('lot.lotType', 'meterReadings' , 'meterType.meterRates')->first();
+
+        $data = [];
+
+        foreach ($meter->meterType->meterRates as $meterRate) {
+
+        }
+
+
         return view('admin.reports.utility-template');
     }
+
+
 
 
 
