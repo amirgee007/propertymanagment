@@ -18,5 +18,16 @@ class Helper
         }
 
     }
+
+    public static function gstCalculate($val , $percentage) {
+        if ($val > 0){
+            return  (( ($val/100) * $percentage ) - $val ) + $val;
+        }else
+            return 0;
+    }
+
+
+
+
 }
 

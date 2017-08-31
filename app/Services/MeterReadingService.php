@@ -19,6 +19,7 @@ class MeterReadingService
      */
     public static function consumptionUnitAmount($meter_type , $meterRates , $totalUnit ) {
         $pricePerUnit =  static::pricePerUnit($meterRates);
+
         $amount = 0;
         foreach ($pricePerUnit as $item) {
             if (($totalUnit - $item['units']) > 0) {
@@ -29,21 +30,19 @@ class MeterReadingService
                 $totalUnit -= $totalUnit;
             }
         }
-
         if ($totalUnit > 0) {
             $amount += $totalUnit * $item['rate'];
             $totalUnit -= $totalUnit;
         }
-
         if (!is_null($meter_type->tax_amount) && $amount > 0) {
             $percentageAmount = ($amount / 100) * $meter_type->tax_amount;
             $amount += $percentageAmount;
         }
 
+
         if (!is_null($meter_type->minimum_charges) && $totalUnit <= 0) {
             $amount += $meter_type->minimum_charges;
         }
-
         return $amount;
     }
 
