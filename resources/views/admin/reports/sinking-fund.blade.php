@@ -179,16 +179,7 @@
             @foreach($sinkingFunds as $lot)
                 <tr>
                     <td>
-                        <table id="nested-table">
-                            <tr>
-                                <td>
-                                    <span>Lot {{ $lot->lot_name}}, </span>
-                                </td>
-                                <td>
-                                    <span>{{ $lot->lot_type_name }}</span>
-                                </td>
-                            </tr>
-                        </table>
+                        <span>Lot {{ $lot->lot_name}}, {{ $lot->lot_type_name }}</span>
                     </td>
                     <td>
                         <span>{{ number_format($lot->amount, 2) }}</span>
@@ -196,23 +187,23 @@
                 </tr>
             @endforeach
             <tr>
-                <td colspan="2" style="text-align: right"><b>Total</b></td>
+                <td colspan="1" style="text-align: right"><b>Total</b></td>
                 <td>{{ number_format($total, 2) }}</td>
             </tr>
             <tr>
-                <td colspan="2" style="text-align: right"><b>GST (6%)</b></td>
+                <td colspan="1" style="text-align: right"><b>GST (6%)</b></td>
                 <td>4.24</td>
             </tr>
             <tr>
-                <td colspan="2" style="text-align: right"><b>Outstanding Charges (+)</b></td>
+                <td colspan="1" style="text-align: right"><b>Outstanding Charges (+)</b></td>
                 <td>{{ number_format($out_standing, 2) }}</td>
             </tr>
             <tr>
-                <td colspan="2" style="text-align: right"><b>Credit Balance (-)</b></td>
+                <td colspan="1" style="text-align: right"><b>Credit Balance (-)</b></td>
                 <td>{{ number_format($invoice->paid_amount, 2) }}</td>
             </tr>
             <tr>
-                <td colspan="2" style="font-size: initial; text-align: right"><b>Total Payable</b></td>
+                <td colspan="1" style="font-size: initial; text-align: right"><b>Total Payable</b></td>
                 <td><b>{{ $amount_due }}</b></td>
             </tr>
 
