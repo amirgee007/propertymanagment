@@ -17,8 +17,13 @@ class InvoicesController extends Controller
 
     private $view;
 
+
     function __construct($view = 'admin.invoices')
     {
+//        $this->middleware('ManagerRole');
+        $this->middleware('OwnerRole');
+
+
         $this->view = $view;
     }
 
