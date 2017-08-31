@@ -12,7 +12,7 @@ Route::get('/download', function () {
         'lotTypes' => $lotTypes,
     );
 
-//    return view('admin/reports/invoice-template');
+    return view('admin/reports/invoice-template');
     $pdf = PDF::loadView('admin/reports/invoice-template', compact('data' , 'invoice'));
 //    return $pdf->setOption('margin-top', 5)->stream();
     return $pdf->download('newl.pdf');

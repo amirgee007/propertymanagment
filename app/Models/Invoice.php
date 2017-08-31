@@ -19,12 +19,21 @@ class Invoice extends Model
 
     protected $dates = ['date'];
 
-    protected $appends = ['label_status', 'due_date'];
+    protected $appends = [
+        'label_status', 'due_date', 'lot_type_name', 'lot_name',
+        'paid_amount'
+    ];
 
+    // Statuses
     const PAID = 'paid';
     const UNPAID = 'unpaid';
     const PARTIAL = 'partial';
     const OVERDUE = 'overdue';
+
+    // Types
+    const UTILITY = 'utility';
+    const SINKING = 'sinking';
+    const MAINTENANCE = 'maintenance';
 
 
     public function owner()
@@ -62,12 +71,28 @@ class Invoice extends Model
         return $this->hasMany(InvoicePayment::class, 'invoice_id', 'invoice_id');
     }
 
-    public function meterReading() {
-        return $this->hasOne(MeterReading::class, 'invoice_id' , 'invoice_id');
+    public function meterReading()
+    {
+        return $this->hasOne(MeterReading::class, 'invoice_id', 'invoice_id');
     }
 
     public function routeNotificationForMail()
     {
         return request()->from_email;
+    }
+
+    public function getLotNameAttribute()
+    {
+        return $this->lot ? $this->lot->lot_name : null;
+    }
+
+    public function getLotTypeNameAttribute()
+    {
+        return $this->lot ? $this->lot->lot_type->lot_type_name : null;
+    }
+
+    public function getPaidAmountAttribute()
+    {
+        return $this->payments()->sum('amount');
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\InvoicePayment;
 use App\Models\Meter;
+use App\Models\SinkingFund;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Notification;
 use Validator;
@@ -195,14 +196,23 @@ class InvoicesController extends Controller
         $pdf = \App::make('snappy.pdf.wrapper');
 //        return view('admin.reports.pdf', compact('invoice'));
 
-        if ($invoice->type == 'utility'){
+        $sinkingFunds = SinkingFund::where('lot_id', $invoice->lot_id)->get();
+
+        return view('admin.reports.sinking-fund', compact('sinkingFunds' , 'invoice'));
+
+        if ($invoice->type == Invoice::UTILITY){
             $meter = Meter::where('id' , $invoice->model_id)
                 ->with('lot.lotType', 'meterReadings' , 'meterType.meterRates')->first();
             return view('admin.reports.utility-template', compact('meter' , 'invoice'));
             //            $pdf->loadView('admin.reports.utility-template', $meter);
 
 
-        }else{
+        } elseif ($invoice->type == Invoice::SINKING){
+
+            $sinkingFunds = SinkingFund::where('lot_id', $invoice->lot_id)->get();
+
+            return view('admin.reports.sinking-fund', compact('sinkingFunds' , 'invoice'));
+        } else{
             $pdf->loadView('admin.reports.pdf', $invoice);
         }
 

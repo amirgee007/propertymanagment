@@ -171,7 +171,6 @@ return [
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
-        Anam\PhantomMagick\ConverterServiceProvider::class,
 
         /*
          * Application Service Providers...
