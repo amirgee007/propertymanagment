@@ -171,6 +171,7 @@ return [
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
+        Anam\PhantomMagick\ConverterServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -236,6 +237,7 @@ return [
         'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
 //        'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
 //        'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
+        'Converter' => Anam\PhantomMagick\Facades\Converter::class
 
     ],
 

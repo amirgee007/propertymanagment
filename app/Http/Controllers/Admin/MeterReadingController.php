@@ -3,20 +3,25 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Invoice;
 use App\Models\Lot;
 use App\Models\LotType;
 use App\Models\Meter;
 use App\Models\MeterReading;
 use App\Models\MeterType;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class MeterReadingController extends Controller
 {
     public function index() {
         $meterTypes = MeterType::get()->pluck('meter_name' , 'id')->toArray();
-        $meters = Meter::with(['meterReadings' => function($q){
-            $q->orderBy('reading_date' , 'desc');
-        }]);
+        $meters = Meter::whereHas('lot' , function ($q){
+            $q->whereHas('owner');
+        })
+            ->with(['meterReadings' => function($q){
+                $q->orderBy('reading_date' , 'desc');
+            }]);
 
         $searchVal = '';
         if (\request()->has('search') && !empty(trim(\request()->search))) {
@@ -51,6 +56,22 @@ class MeterReadingController extends Controller
 
         $meter = $meterReading->meter;
 
+        /////generate Invoice///////
+        $owner = $meter->owner();
+        $invoiceData = [
+            'owner_id' => $owner->owner_id,
+            'lot_id' => $meter->lot_id,
+            'date' => Carbon::now()->toDateString(),
+            'invoice_trans_des' => $meter->meterType->meter_name." bill",
+            'invoice_quantity' => '1',
+            'invoice_uom' => '',
+            'invoice_charge_rate' => 0,
+            'invoice_amount' => $meter->currentAmount(),
+            'invoice_status' => 'unpaid'
+        ];
+
+        Invoice::create($invoiceData);
+
         flash()->success('Reading taking Successfully of this '.$meterReading->meter_id.' Meter Id');
         if ($request->has('type') )
             return response()->json([
@@ -84,6 +105,23 @@ class MeterReadingController extends Controller
 
         return view('admin.meter-reading.partials.meter' , compact('meter'));
 
+    }
+
+    public function getInvoiceBill($id) {
+
+//        return view('admin.reports.utility-template');
+        $meter = Meter::findOrFail($id);
+
+        return \Converter::source(route('meter.reading.show-report' , [1]))
+            ->toPdf()
+            ->download('google.pdf');
+//        $pdf = \domPDF::loadView('admin.reports.utility-template' );
+
+    }
+
+    public function invoiceShowPage($id) {
+
+        return view('admin.reports.utility-template');
     }
 
 

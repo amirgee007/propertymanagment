@@ -45,7 +45,7 @@
                                             <span class="caret"></span></button>
                                         <ul class="dropdown-menu">
                                             <li><a href="javascript:void(0)" data-meter-id="{{$meter->id}}" data-lot-id="{{$meter->lot_id}}" class="meterReadingM">Add Reading</a></li>
-                                            <li><a href="javascript:void(0)" class="">Export Report</a></li>
+                                            <li><a href="{{route('meter.reading.generate-report' , [$meter->id])}}" target="_blank" class="">Export Report</a></li>
                                         </ul>
                                     </div>
 

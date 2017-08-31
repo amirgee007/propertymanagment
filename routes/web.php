@@ -6,12 +6,12 @@ use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 Route::get('/download', function () {
 
     $lotTypes = LotType::all();
-
+    $invoice = \App\Models\Invoice::first();
     $data = array(
         'lotTypes' => $lotTypes,
     );
 
-    $pdf = PDF::loadView('admin/reports/pdf', $data);
+    $pdf = PDF::loadView('admin/reports/pdf', compact('data' , 'invoice'));
 //    return $pdf->setOption('margin-top', 5)->stream();
     return $pdf->download('invoice.pdf');
 
@@ -294,6 +294,13 @@ Route::group(['middleware' => ['admin'], 'namespace' => 'Admin'], function () {
             'uses' => 'MeterReadingController@store'
         ]);
 
+        Route::get('/generate-report/{id}' ,[
+            'as' => 'meter.reading.generate-report',
+            'uses' => 'MeterReadingController@getInvoiceBill'
+        ]);
+
+
+
         Route::post('/get/lotTypeLots/' ,[
             'as' => 'meter.reading.lot-type',
             'uses' => 'MeterReadingController@getLotsFromLotType'
@@ -303,11 +310,11 @@ Route::group(['middleware' => ['admin'], 'namespace' => 'Admin'], function () {
             'as' => 'meter.reading.lot.meter',
             'uses' => 'MeterReadingController@getLotsMeters'
         ]);
+
     });
 
 
 });
-
 
 Route::group(['middleware' => 'admin', 'namespace' => 'AdminAuth'], function () {
 

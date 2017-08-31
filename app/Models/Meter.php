@@ -18,6 +18,15 @@ class Meter extends Model
         return $this->hasMany(MeterReading::class);
     }
 
+    public function lot() {
+        return $this->hasOne(Lot::class , 'lot_id' , 'lot_id');
+    }
+
+    public function owner() {
+        return $this->lot->owner()->first();
+
+    }
+
     public function lastReading() {
         $totalMeterReadings = $this->meterReadings()->orderBy('reading_date' , 'desc')->get()->toArray();
 
@@ -49,11 +58,14 @@ class Meter extends Model
         $currentReading = $this->currentReading();
         $lastReading = $this->lastReading();
         $totalUnits = '';
-        if (!is_string($lastReading))
+
+        if (!is_string($lastReading)){
+
             $totalUnits = $currentReading - $lastReading;
             if (!is_string($totalUnits) && $totalUnits <= 0 && !is_null($this->meterType->minimum_charges)) {
                 $totalUnits = "* 0 - Minimum Charges";
             }
+        }
         else
             $totalUnits = 'N/A';
 

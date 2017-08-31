@@ -41,33 +41,33 @@
         </div>
 
         <div>
-            <span id="number">{{ $invoice->invoice_id }}</span>
-            <span>{{ $invoice->date->format('d/m/Y') }}</span>
-            <span>8/15/2017</span>
-            <span>{{ $invoice->invoice_amount }}</span>
+            {{--<span id="number">{{ $invoice->invoice_id }}</span>--}}
+            {{--<span>{{ $invoice->date->format('d/m/Y') }}</span>--}}
+            {{--<span>8/15/2017</span>--}}
+            {{--<span>{{ $invoice->invoice_amount }}</span>--}}
         </div>
     </section>
 
     <section id="client-info">
-        <span>Bill To {{ auth()->user()->name }}</span>
-        <div>
-            <span class="bold">{{ $invoice->owner->owner_name }}</span>
-        </div>
+        {{--<span>Bill To {{ auth()->user()->name }}</span>--}}
+        {{--<div>--}}
+            {{--<span class="bold">{{ $invoice->owner->owner_name }}</span>--}}
+        {{--</div>--}}
 
-        <div>
-            <span>{{ $invoice->owner->owner_address }}</span>
-        </div>
+        {{--<div>--}}
+            {{--<span>{{ $invoice->owner->owner_address }}</span>--}}
+        {{--</div>--}}
 
-        <div>
-            <span>{{ @$invoice->owner->owner_phone1 }}</span>
-        </div>
+        {{--<div>--}}
+            {{--<span>{{ @$invoice->owner->owner_phone1 }}</span>--}}
+        {{--</div>--}}
     </section>
 
     <div class="clearfix"></div>
 
     <section id="invoice-title-number">
 
-        <span id="title">{{ @$invoice->owner->owner_name }} - Invoice</span>
+{{--        <span id="title">{{ @$invoice->owner->owner_name }} - Invoice</span>--}}
     </section>
 
     <div class="clearfix"></div>
