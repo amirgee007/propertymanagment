@@ -11,4 +11,8 @@ class Lot extends Model
     protected $primaryKey ='lot_id';
 
 
+    public function lot_type()
+    {
+        return $this->belongsTo(LotType::class, 'lot_type_id', 'lot_type_id');
+    }
 }

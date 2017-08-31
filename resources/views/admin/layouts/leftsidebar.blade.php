@@ -56,18 +56,22 @@
             </ul>
         </li>
         @endif
-        <li class="submenu">
+        <li class="submenu @if(request()->is('sinking-funds/*', 'sinking-funds', 'dashboard/lot/*')) active @endif">
             <a href="javascript:void(0);">
                 <span class="icon"><i class="fa fa-suitcase"></i></span>
                 <span class="text">Lots Management</span>
                 <span class="arrow"></span>
             </a>
             <ul>
-                <li><a href="{{route('get.lot.list')}}">Add Lot Type<span class="label label-success pull-right"></span></a></li>
+                <li class="@if(request()->is('dashboard/lot/add')) active @endif"><a href="{{route('get.lot.list')}}">Add Lot Type<span class="label label-success pull-right"></span></a></li>
             </ul>
 
             <ul>
-                <li><a href="{{route('get.lot.manage')}}">Manage Lots<span class="label label-success pull-right"></span></a></li>
+                <li class="@if(request()->is('dashboard/lot/manage')) active @endif"><a href="{{route('get.lot.manage')}}">Manage Lots<span class="label label-success pull-right"></span></a></li>
+            </ul>
+
+            <ul>
+                <li class="@if(request()->is('sinking-funds/*', 'sinking-funds')) active @endif"><a href="{{route('sinking-funds.index')}}">Manage Sinking Funds<span class="label label-success pull-right"></span></a></li>
             </ul>
         </li>
 
