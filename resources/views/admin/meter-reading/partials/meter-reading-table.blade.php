@@ -19,6 +19,7 @@
                     <table class="table" id="meter-reading-table">
                         <thead>
                         <tr>
+                            <th>Meter Type</th>
                             <th>Meter ID</th>
                             <th>Lot No</th>
                             <th>Last Reading Date</th>
@@ -32,6 +33,7 @@
                         <tbody id="meter-reading-tbody">
                         @foreach($meters as $meter)
                             <tr id="m-reading-{{$meter->id}}">
+                                <td>{{$meter->meterType->meter_name}}</td>
                                 <td>{{$meter->id}}</td>
                                 <td>{{$meter->lot_id}}</td>
                                 <td class="las-dat-td-{{$meter->id}}">{{$meter->lastReadingDate()}}</td>
