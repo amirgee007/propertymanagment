@@ -63,7 +63,10 @@ class Invoice extends Model
 
     public function getDueDateAttribute()
     {
-        return config('invoice_due_date')->format('d-m-Y');
+        if (config('invoice_due_date'))
+            return config('invoice_due_date')->format('d-m-Y');
+        else
+            return '';
     }
 
     public function payments()

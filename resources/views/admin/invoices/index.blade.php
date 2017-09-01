@@ -63,12 +63,19 @@
                                         <tbody>
                                         @foreach($invoices as $invoice)
                                             <tr>
+
                                                 <td>{{ $invoice->invoice_id }}</td>
                                                 <td>{{ @$invoice->owner->owner_name }}</td>
                                                 <td>{{ $invoice->type }}</td>
-                                                <td>{{ str_limit($invoice->invoice_trans_des, 25) }}</td>
-                                                <td>{{ is_null($invoice->date) ? "" :  $invoice->date->format('d-m-Y')  }}</td>
-                                                <td>{{ $invoice->due_date }}</td>
+                                                <td>
+                                                    {{ str_limit($invoice->invoice_trans_des, 25) }}
+                                                </td>
+                                                <td>
+                                                    {{ is_null($invoice->date) ? "" :  $invoice->date->format('d-m-Y')  }}
+                                                </td>
+                                                <td>
+                                                    {{ isset($invoice->due_date)?$invoice->due_date:'' }}
+                                                </td>
                                                 <td>{{ $invoice->invoice_amount }}</td>
                                                 <td>{!! $invoice->label_status !!}</td>
                                                 <td class="text-center">
