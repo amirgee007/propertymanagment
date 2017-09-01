@@ -8,8 +8,8 @@
                 <i class="online"></i>
             </a>
             <div class="media-body">
-                <h4 class="media-heading">Hello, <span>{{\Auth::user()->name}}</span></h4>
-                <small>Laravel Developer</small>
+                <h4 class="media-heading">Hello,</h4>
+                <small>{{ \Auth::user()->name }}</small>
             </div>
         </div>
     </div><!-- /.sidebar-content -->
@@ -38,23 +38,23 @@
     <!--/ End navigation - my projects -->
         @if(auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin') ||auth()->user()->hasRole('Manager')||auth()->user()->hasRole('Owner'))
             <li class="submenu @if(request()->is('dashboard/owner/*', 'dashboard/owner')) active @endif">
-            <a href="javascript:void(0);">
-                <span class="icon"><i class="fa fa-suitcase"></i></span>
-                <span class="text">Owner Management</span>
-                <span class="arrow"></span>
-            </a>
-            <ul>
-                <li class="@if(request()->is('dashboard/owner/*', 'dashboard/owner')) active @endif"><a
-                            href="{{route('owner.index')}}">Manage Owners<span
-                                class="label label-success pull-right"></span></a></li>
-                <li><a href="{{route('owner.assign.lot')}}">Assign lot <span
-                                class="label label-danger pull-right"></span></a></li>
-                <li><a href="{{route('owner.list.assign.lot')}}">List of owned Lot No <span
-                                class="label label-danger pull-right"></span></a></li>
-                <li><a href="{{route('owner.lot.sell.other')}}">Sell to Other <span
-                                class="label label-danger pull-right"></span></a></li>
-            </ul>
-        </li>
+                <a href="javascript:void(0);">
+                    <span class="icon"><i class="fa fa-suitcase"></i></span>
+                    <span class="text">Owner Management</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul>
+                    <li class="@if(request()->is('dashboard/owner/*', 'dashboard/owner')) active @endif"><a
+                                href="{{route('owner.index')}}">Manage Owners<span
+                                    class="label label-success pull-right"></span></a></li>
+                    <li><a href="{{route('owner.assign.lot')}}">Assign lot <span
+                                    class="label label-danger pull-right"></span></a></li>
+                    <li><a href="{{route('owner.list.assign.lot')}}">List of owned Lot No <span
+                                    class="label label-danger pull-right"></span></a></li>
+                    <li><a href="{{route('owner.lot.sell.other')}}">Sell to Other <span
+                                    class="label label-danger pull-right"></span></a></li>
+                </ul>
+            </li>
         @endif
         <li class="submenu @if(request()->is('sinking-funds/*', 'sinking-funds', 'dashboard/lot/*')) active @endif">
             <a href="javascript:void(0);">
@@ -63,34 +63,39 @@
                 <span class="arrow"></span>
             </a>
             <ul>
-                <li class="@if(request()->is('dashboard/lot/add')) active @endif"><a href="{{route('get.lot.list')}}">Add Lot Type<span class="label label-success pull-right"></span></a></li>
+                <li class="@if(request()->is('dashboard/lot/add')) active @endif"><a href="{{route('get.lot.list')}}">Add
+                        Lot Type<span class="label label-success pull-right"></span></a></li>
             </ul>
 
             <ul>
-                <li class="@if(request()->is('dashboard/lot/manage')) active @endif"><a href="{{route('get.lot.manage')}}">Manage Lots<span class="label label-success pull-right"></span></a></li>
+                <li class="@if(request()->is('dashboard/lot/manage')) active @endif"><a
+                            href="{{route('get.lot.manage')}}">Manage Lots<span
+                                class="label label-success pull-right"></span></a></li>
             </ul>
 
             <ul>
-                <li class="@if(request()->is('sinking-funds/*', 'sinking-funds')) active @endif"><a href="{{route('sinking-funds.index')}}">Manage Sinking Funds<span class="label label-success pull-right"></span></a></li>
+                <li class="@if(request()->is('sinking-funds/*', 'sinking-funds')) active @endif"><a
+                            href="{{route('sinking-funds.index')}}">Manage Sinking Funds<span
+                                class="label label-success pull-right"></span></a></li>
             </ul>
         </li>
 
         @if(auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin') ||auth()->user()->hasRole('Manager')||auth()->user()->hasRole('Owner'))
 
-             <li class="submenu @if(request()->is('invoices/*', 'invoices')) active @endif">
-            <a href="javascript:void(0);">
-                <span class="icon"><i class="fa fa-suitcase"></i></span>
-                <span class="text">Invoicing</span>
-                <span class="arrow"></span>
-            </a>
-            <ul>
-                <li><a href="#">Ownership Management <span class="label label-success pull-right"></span></a></li>
-                <li class="@if(request()->is('invoices/*', 'invoices')) active @endif"><a
-                            href="{{ route('invoices.index') }}">Invoicing <span
-                                class="label label-warning pull-right"></span></a></li>
-                <li><a href="#">Managements <span class="label label-danger pull-right"></span></a></li>
-            </ul>
-        </li>
+            <li class="submenu @if(request()->is('invoices/*', 'invoices')) active @endif">
+                <a href="javascript:void(0);">
+                    <span class="icon"><i class="fa fa-suitcase"></i></span>
+                    <span class="text">Invoice Management</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul>
+                    {{--<li><a href="#">Ownership Management <span class="label label-success pull-right"></span></a></li>--}}
+                    <li class="@if(request()->is('invoices/*', 'invoices')) active @endif"><a
+                                href="{{ route('invoices.index') }}">Invoicing<span
+                                    class="label label-warning pull-right"></span></a></li>
+                    {{--<li><a href="#">Managements <span class="label label-danger pull-right"></span></a></li>--}}
+                </ul>
+            </li>
         @endif
 
 
@@ -99,46 +104,34 @@
             <li class="submenu">
                 <a href="javascript:void(0);">
                     <span class="icon"><i class="fa fa-suitcase"></i></span>
-                    <span class="text">Meter Setting</span>
+                    <span class="text">Meter Management</span>
                     <span class="arrow"></span>
                 </a>
                 <ul>
-                    {{--<li><a href="{{route('meter.create')}}">Create Meter Type<span class="label label-success pull-right"></span></a></li>--}}
-                    {{--                <li><a href="{{route('meter.rate.index')}}">Manage Rate<span class="label label-warning pull-right"></span></a></li>--}}
                     <li><a href="{{route('meter.index')}}">Meter Type<span
                                     class="label label-warning pull-right"></span></a></li>
                     <li><a href="{{route('meter.assignment.index')}}">Assign Meter<span
                                     class="label label-danger pull-right"></span></a></li>
                     <li><a href="{{route('meter.reading.index')}}">Manage Meter Reading<span
                                     class="label label-danger pull-right"></span></a></li>
-                    {{--<li><a href="{{route('meter.reading.create')}}">Manage Meter Reading<span class="label label-danger pull-right"></span></a></li>--}}
                 </ul>
             </li>
-            <li class="submenu @if(request()->is('/dashboard/invoicing-setting/*')) active @endif">
+            <li class="submenu @if(request()->is('dashboard/invoicing-setting/*', 'dashboard/system-setting/*')) active @endif">
                 <a href="javascript:void(0);">
                     <span class="icon"><i class="fa fa-suitcase"></i></span>
-                    <span class="text">Invoicing Setting</span>
+                    <span class="text">Settings</span>
                     <span class="arrow"></span>
                 </a>
+                @if(auth()->user()->hasRole('Super Admin'))
+                    <ul>
+                        <li class="@if(request()->is('dashboard/system-setting/create')) active @endif"><a
+                                    href="{{route('system-setting.create')}}">System Setting<span
+                                        class="label label-success pull-right"></span></a></li>
+                    </ul>
+                @endif
                 <ul>
-                    <li class="@if(request()->is('/dashboard/invoicing-setting/add')) active @endif"><a
-                                href="{{route('invoicing-setting.add')}}">Add<span
-                                    class="label label-success pull-right"></span></a></li>
-                </ul>
-            </li>
-
-        @endif
-
-        @if(auth()->user()->hasRole('Super Admin'))
-            <li class="submenu @if(request()->is('/dashboard/system-setting/*')) active @endif">
-                <a href="javascript:void(0);">
-                    <span class="icon"><i class="fa fa-suitcase"></i></span>
-                    <span class="text">System Setting</span>
-                    <span class="arrow"></span>
-                </a>
-                <ul>
-                    <li class="@if(request()->is('/dashboard/system-setting/create')) active @endif"><a
-                                href="{{route('system-setting.create')}}">Create<span
+                    <li class="@if(request()->is('dashboard/invoicing-setting/add')) active @endif"><a
+                                href="{{route('invoicing-setting.add')}}">Invoicing Setting<span
                                     class="label label-success pull-right"></span></a></li>
                 </ul>
             </li>
