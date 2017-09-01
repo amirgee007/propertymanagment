@@ -126,7 +126,7 @@
                                                                                     <input type="text"
                                                                                            class="form-control datepicker input-sm"
                                                                                            data-date-format="dd/mm/yyyy"
-                                                                                           value="{{@$utility->billing_start_date->format('d/m/Y')}}"
+                                                                                           value="{{isset($utility->billing_start_date)?$utility->billing_start_date->format('d/m/Y'):''}}"
                                                                                            name=" utilitySettings[billing_start_date]">
                                                                                 </div>
                                                                             </div>
