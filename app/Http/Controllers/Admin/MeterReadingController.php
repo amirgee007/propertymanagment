@@ -68,7 +68,7 @@ class MeterReadingController extends Controller
             'type' => 'utility',
             'model_id' => $meter->id,
             'invoice_charge_rate' => 0,
-            'invoice_amount' => $meter->currentAmount(),
+            'invoice_amount' => ($meter->currentAmount() == 'N/A')?0:$meter->currentAmount(),
             'invoice_status' => 'unpaid'
         ];
 
