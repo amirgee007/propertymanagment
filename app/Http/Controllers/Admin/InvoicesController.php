@@ -167,6 +167,7 @@ class InvoicesController extends Controller
             'invoice_uom' => 'required|string',
             'invoice_charge_rate' => 'required|numeric',
             'invoice_amount' => 'required|numeric',
+            'type' => 'required',
         ]);
     }
 
@@ -194,32 +195,29 @@ class InvoicesController extends Controller
     {
         $invoice = Invoice::find($id);
         $pdf = \App::make('snappy.pdf.wrapper');
+
 //        return view('admin.reports.pdf', compact('invoice'));
 
-        $sinkingFunds = SinkingFund::where('lot_id', $invoice->lot_id)->get();
+        if ($invoice->type == Invoice::UTILITY) {
 
+            $meter = Meter::where('id', $invoice->model_id)
+                ->with('lot.lotType', 'meterReadings', 'meterType.meterRates')->first();
 
-        if ($invoice->type == Invoice::UTILITY){
+            $pdf->loadView('admin.reports.utility-template', compact('meter', 'invoice'));
 
-            $meter = Meter::where('id' , $invoice->model_id)
-                ->with('lot.lotType', 'meterReadings' , 'meterType.meterRates')->first();
-                        $pdf->loadView('admin.reports.utility-template', compact('meter' , 'invoice'));
-
-
-        } elseif ($invoice->type == Invoice::SINKING){
+        } elseif ($invoice->type == Invoice::SINKING) {
 
             $sinkingFunds = SinkingFund::where('lot_id', $invoice->lot_id)->get();
 
-            return view('admin.reports.sinking-fund', compact('sinkingFunds' , 'invoice'));
-        } else{
-            $pdf->loadView('admin.reports.pdf', $invoice);
+            $pdf->loadView('admin.reports.sinking-fund', compact('sinkingFunds', 'invoice'));
+        } else {
+            $pdf->loadView('admin.reports.pdf', compact('invoice'));
         }
 
-        $file_name = @$invoice->owner->owner_name . '-' . $invoice->id . '.pdf';
+        $file_name = 'INV' . $invoice->invoice_id . ' ' . @Carbon::parse($invoice->date)->format('M Y') . '.pdf';
 
         return $pdf->download($file_name);
     }
-
 
 
     /**

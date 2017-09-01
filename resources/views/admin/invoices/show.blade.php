@@ -103,6 +103,15 @@
                                     </div><!-- /.form-group -->
 
                                     <div class="form-group">
+                                        <label class="col-sm-3 control-label">Type</label>
+                                        <div class="col-sm-7">
+                                            <select class="form-control" disabled>
+                                                <option value="{{ $invoice->type }}">{{ $invoice->type ? ucwords($invoice->type) : 'Choose Status' }}</option>
+                                            </select>
+                                        </div>
+                                    </div><!-- /.form-group -->
+
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label">Status</label>
                                         <div class="col-sm-7">
                                             <select class="form-control" disabled>

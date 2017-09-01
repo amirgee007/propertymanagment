@@ -138,7 +138,7 @@
                     <span>Invoice No. :	</span>
                 </td>
                 <td>
-                    <span>{{$invoice->invoice_id}}</span>
+                    <span>INV-{{ $invoice->invoice_id }}</span>
                 </td>
             </tr>
             <tr>
@@ -155,6 +155,15 @@
                 </td>
                 <td>
                     <span> {{$invoice->due_date}} </span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <span>Status:   </span>
+                </td>
+                <td>
+                    <span> {{ ucwords($invoice->invoice_status) }} </span>
                 </td>
             </tr>
 

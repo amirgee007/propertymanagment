@@ -100,7 +100,7 @@
                                         <label class="col-sm-3 control-label">UOM<span
                                                     class="asterisk">*</span></label>
                                         <div class="col-sm-7">
-                                            <input type="text" value="{{ $invoice->invoice_uom }}" class="form-control" name="">
+                                            <input type="text" value="{{ $invoice->invoice_uom }}" class="form-control" name="invoice_uom">
                                             <label for="invoice_uom" class="error"></label>
                                         </div>
                                     </div><!-- /.form-group -->
@@ -121,6 +121,20 @@
                                         <div class="col-sm-7">
                                             <input type="number" value="{{ $invoice->invoice_amount }}" class="form-control" name="invoice_amount">
                                             <label for="invoice_amount" class="error"></label>
+                                        </div>
+                                    </div><!-- /.form-group -->
+
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Type<span
+                                                    class="asterisk">*</span></label>
+                                        <div class="col-sm-7">
+                                            <select class="form-control" name="type" required>
+                                                <option value="">Choose Type</option>
+                                                <option @if($invoice->type == 'utility') selected @endif value="utility">Utility</option>
+                                                <option @if($invoice->type == 'sinking') selected @endif value="sinking">Sinking</option>
+                                                <option @if($invoice->type == 'maintenance') selected @endif value="maintenance">Maintenance</option>
+                                            </select>
+                                            <label for="type" class="error"></label>
                                         </div>
                                     </div><!-- /.form-group -->
 

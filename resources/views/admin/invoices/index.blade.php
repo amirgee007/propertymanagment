@@ -63,10 +63,9 @@
                                         <tbody>
                                         @foreach($invoices as $invoice)
                                             <tr>
-
                                                 <td>{{ $invoice->invoice_id }}</td>
                                                 <td>{{ @$invoice->owner->owner_name }}</td>
-                                                <td>{{ $invoice->type }}</td>
+                                                <td>{{ ucwords($invoice->type) }}</td>
                                                 <td>
                                                     {{ str_limit($invoice->invoice_trans_des, 25) }}
                                                 </td>

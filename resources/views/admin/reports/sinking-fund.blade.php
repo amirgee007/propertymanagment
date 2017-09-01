@@ -18,6 +18,7 @@
             top: 0;
             font-size: 100%
         }
+
         h1 {
             font-size: 2.5rem
         }
@@ -41,6 +42,7 @@
         h6 {
             font-size: .875rem
         }
+
         p {
             font-size: 1.125rem;
             font-weight: 200;
@@ -54,6 +56,7 @@
             background: #FFFFFF;
             font-size: 13px;
         }
+
         #container {
             font: normal 13px/1.4em 'Open Sans', Sans-serif;
             width: 90%;
@@ -61,25 +64,30 @@
             margin-right: auto
 
         }
-        #table3,#table3 th,#table3 td {
+
+        #table3, #table3 th, #table3 td {
             border: 1px solid black;
         }
-        #sum-table,#sum-table th,#sum-table td {
+
+        #sum-table, #sum-table th, #sum-table td {
             border: 1px solid black;
             font-size: 9px;
         }
-        #nested-table,#nested-table th,#nested-table td {
+
+        #nested-table, #nested-table th, #nested-table td {
             border: 0px solid black;
         }
-        th, td{
+
+        th, td {
             padding: 7px;
         }
-        #ul-table td{
+
+        #ul-table td {
             padding: 2px;
         }
     </style>
 </head>
-<body >
+<body>
 
 @php
     $amount_due = $sinkingFunds->sum('amount') - $invoice->paid_amount;
@@ -95,7 +103,9 @@
             <div class="right-arrow"></div>
         </div>
         <div class="company-name2">
-            <span>RM{{ number_format($amount_due, 2) }}</span>
+            <span>
+                RM{{ number_format($amount_due, 2) }}
+            </span>
         </div>
     </section>
 
@@ -145,7 +155,7 @@
                     <span>Invoice No. :	</span>
                 </td>
                 <td>
-                    <span>{{ $invoice->invoice_id }}</span>
+                    <span>INV-{{ $invoice->invoice_id }}</span>
                 </td>
             </tr>
             <tr>
@@ -162,6 +172,14 @@
                 </td>
                 <td>
                     <span> {{ $invoice->due_date }} </span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>Status:   </span>
+                </td>
+                <td>
+                    <span> {{ ucwords($invoice->invoice_status) }} </span>
                 </td>
             </tr>
 
@@ -210,65 +228,14 @@
         </table>
 
     </section>
-    <section id="invoice-title-number" style="margin: 20px 5px 5px 0px" >
+    <section id="invoice-title-number" style="margin: 20px 5px 5px 0px">
 
         <span id="title" style="font-size: 9px;">Notes:</span>
-        <span id="title" style="font-size: 9px; float: right; padding-right: 30px">Charges rate Table:</span>
-
     </section>
 
-    <section style="padding-left: 80%;">
-        <table id="sum-table" style="width: 20%; float: left; ">
-            <tr>
-                <td>
-                    from
-                </td>
-                <td>
-                    To
-                </td>
-                <td>
-                    Rate(<span style="font-size: 7px">RM</span>)
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    0
-                </td>
-                <td>
-                    100
-                </td>
-                <td>
-                    0.95
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    101
-                </td>
-                <td>
-                    300
-                </td>
-                <td>
-                    1.15
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    300
-                </td>
-                <td>
-                    above
-                </td>
-                <td>
-                    1.30
-                </td>
-            </tr>
-
-
-        </table>
-    </section>
     <section style="    margin: -129px 10px;
    padding-top: 0%;
+      margin-top: 10px;
     width: 100%;
     float: left;">
         <ul style="font-size: 9px;">

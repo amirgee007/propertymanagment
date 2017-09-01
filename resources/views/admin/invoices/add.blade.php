@@ -111,6 +111,20 @@
                                     </div><!-- /.form-group -->
 
                                     <div class="form-group">
+                                        <label class="col-sm-3 control-label">Type<span
+                                                    class="asterisk">*</span></label>
+                                        <div class="col-sm-7">
+                                            <select class="form-control" name="type" required>
+                                                <option value="">Choose Type</option>
+                                                <option value="utility">Utility</option>
+                                                <option value="sinking">Sinking</option>
+                                                <option value="maintenance">Maintenance</option>
+                                            </select>
+                                            <label for="type" class="error"></label>
+                                        </div>
+                                    </div><!-- /.form-group -->
+
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label">Status<span
                                                     class="asterisk">*</span></label>
                                         <div class="col-sm-7">
