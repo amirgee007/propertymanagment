@@ -94,7 +94,7 @@
     #memo .company-name {
         background: #fca12b;
         background-size: 100px auto;
-        padding: 20px 0% 18px 8%;
+        padding: 3% 0% 18px 8%;
         position: absolute;
         margin-bottom: 15px;
         width: 65%;
@@ -109,7 +109,7 @@
         width: 35%;
         float: right;
     }
-    #memo .company-name2 span,#memo .company-name span {
+    #memo span{
         color: #000;
         display: inline-block;
         min-width: 20px;
