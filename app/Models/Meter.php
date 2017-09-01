@@ -23,7 +23,7 @@ class Meter extends Model
     }
 
     public function owner() {
-        return $this->lot->owner()->first();
+        return $this->lot->ownerLot->owner;
 
     }
 

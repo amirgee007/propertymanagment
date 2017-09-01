@@ -58,7 +58,7 @@ class MeterReading extends Model
             return MeterReadingService::consumptionUnitAmount($this->meter->meterType , $meterRates , $totalUnits);
 
         }else {
-            return 'N/A';
+            return 0;
         }
     }
 }

@@ -17,12 +17,11 @@ class MeterReadingController extends Controller
     public function index() {
         $meterTypes = MeterType::get()->pluck('meter_name' , 'id')->toArray();
         $meters = Meter::whereHas('lot' , function ($q){
-            $q->whereHas('owner');
-        })
-            ->with(['meterReadings' => function($q){
+            $q->whereHas('ownerLot');
+        })->
+            with(['meterReadings' => function($q){
                 $q->orderBy('reading_date' , 'desc');
             }]);
-
         $searchVal = '';
         if (\request()->has('search') && !empty(trim(\request()->search))) {
             $meters = $meters->orWhere('id' , \request()->search)
@@ -97,46 +96,47 @@ class MeterReadingController extends Controller
     public function getLotsFromLotType(Request $request) {
 
         $lotType = LotType::findOrFail($request->id);
-        $lots = $lotType->lots()->pluck('lot_name' , 'lot_id');
+        $lots = $lotType->lots()->whereHas('ownerLot')->pluck('lot_name' , 'lot_id');
 
         return view('admin.meter-reading.partials.lots' , compact('lots'));
     }
 
     public function getLotsMeters(Request $request) {
 
-        $meter = Meter::where('lot_id' , $request->id)
-            ->where('meter_type_id' , $request->meter_type_id)
-            ->get()->pluck('id' , 'id')->toArray();
+        $meter = Meter::where('lot_id' , $request->id)->whereHas('lot' , function ($q){
+            $q->whereHas('ownerLot');
+        })->where('meter_type_id' , $request->meter_type_id)
+        ->get()->pluck('id' , 'id')->toArray();
 
         return view('admin.meter-reading.partials.meter' , compact('meter'));
 
     }
 
     public function getInvoiceBill($id) {
-
-//        return view('admin.reports.utility-template');
-        $meter = Meter::findOrFail($id);
-
-        return \Converter::source(route('meter.reading.show-report' , [1]))
-            ->toPdf()
-            ->download('google.pdf');
-//        $pdf = \domPDF::loadView('admin.reports.utility-template' );
-
-    }
-
-    public function invoiceShowPage($id) {
-
-        $meter = Meter::where('id' , $id)
-            ->with('lot.lotType', 'meterReadings' , 'meterType.meterRates')->first();
+        $pdf = \App::make('snappy.pdf.wrapper');
+        $meterReadings = MeterReading::where('meter_id' , $id)->orderBy('reading_date' , 'asc')->get();
 
         $data = [];
 
-        foreach ($meter->meterType->meterRates as $meterRate) {
-
+        foreach ($meterReadings as $meterReading) {
+            if (is_null($meterReading->previousReading()))
+                continue;
+            $data[] = [
+                'month' => Carbon::parse($meterReading->reading_date)->format('F'),
+                'reading_date' => $meterReading->reading_date,
+                'previous' => $meterReading->previousReading()->last_reading,
+                'current' => $meterReading->last_reading,
+                'usage' => $meterReading->last_reading - $meterReading->previousReading()->last_reading,
+                'amount' => $meterReading->readingAmount()
+            ];
         }
 
+        $meter = $meterReading->meter;
+        $pdf->loadView('admin.reports.meter-annual-report' , compact('data' , 'meter'));
 
-        return view('admin.reports.utility-template');
+        $file_name = @$meter->owner()->owner_name . '-' . $meter->id . '.pdf';
+
+        return $pdf->download($file_name);
     }
 
 
