@@ -65,10 +65,10 @@
                     <div class="col-md-12">
                         <div class="panel rounded shadow">
                             <div class="panel-body no-padding">
-                                <form class="form-horizontal form-bordered" action=""
+                                <form class="form-horizontal form-bordered"
                                       role="form" id="meter-type-edit-form" method="put">
                                     {{csrf_field()}}
-                                    @include('admin.meter-management.partials.form')
+                                    @include('admin.meter-management.partials.sub-partials.meter-type-form')
                                 </form>
                             </div><!-- /.panel-body -->
                         </div><!-- /.panel -->

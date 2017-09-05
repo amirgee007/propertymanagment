@@ -69,7 +69,7 @@
                                         <label class="col-sm-3 control-label">Amount<span
                                                     class="asterisk">*</span></label>
                                         <div class="col-sm-7">
-                                            <input type="number" value="{{ $fund->amount }}" class="form-control" name="amount" required>
+                                            <input type="number" step=0.001 value="{{ $fund->amount }}" class="form-control" name="amount" required>
                                             <label for="amount" class="error"></label>
                                         </div>
                                     </div><!-- /.form-group -->

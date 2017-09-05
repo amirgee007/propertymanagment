@@ -259,7 +259,7 @@ Route::group(['middleware' => ['admin'], 'namespace' => 'Admin'], function () {
             'uses' => 'MeterController@meterRateEdit'
         ]);
 
-        Route::put('/rate/{id}/edit', [
+        Route::put('/rate/edit/{id}', [
             'as' => 'meter.type.rate.put',
             'uses' => 'MeterController@meterRateUpdate'
         ]);
