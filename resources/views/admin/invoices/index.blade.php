@@ -85,10 +85,10 @@
                                                         <i class="fa fa-credit-card"></i>
                                                     </a>
 
-                                                    <a href="{{ route('invoices.pdf', $invoice->invoice_id) }}"
+                                                    <a {{--href="{{ route('invoices.pdf', $invoice->invoice_id) }}"--}}
                                                        class="btn btn-success btn-xs rounded"
-                                                       data-toggle="tooltip" data-placement="top"
-                                                       data-original-title="Download PDF"><i
+                                                       data-placement="top"
+                                                       data-original-title="Download PDF" data-toggle="modal" data-target="#pdfmodal"><i
                                                                 class="fa fa-file-pdf-o"></i>
                                                     </a>
 
@@ -128,6 +128,7 @@
         </div>
 
         @include('admin.invoices.partials.form_modals')
+        @include('admin.invoices.partials._pdf_download_modal')
 
         @include('admin.layouts.pagefooter')
     </section>
