@@ -130,8 +130,8 @@
                                             <td>{{$lotType->lot_type_qty}}</td>
                                             <td>{{ isset($lotType->created_at) ? $lotType->created_at->diffForHumans() :  ''  }}</td>
                                             <td class="text-center">
-                                                <a href="#" class="btn btn-success btn-xs" data-toggle="tooltip" data-placement="top" data-original-title="View detail"><i class="fa fa-eye"></i></a>
-                                                <a href="#" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                                                <a href="{{route('get.lot.show' ,$lotType->lot_type_id)}}" class="btn btn-success btn-xs" data-toggle="tooltip" data-placement="top" data-original-title="View detail"><i class="fa fa-eye"></i></a>
+                                                <a href="{{route('get.lot.edit' ,$lotType->lot_type_id)}}" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                                                 <a onclick="return confirm('Are you sure you want to delete this record?')" href="{{ route('lot.type.delete', $lotType->lot_type_id) }}"  class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
                                             </td>
                                         </tr>

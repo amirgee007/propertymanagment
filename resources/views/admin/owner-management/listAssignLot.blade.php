@@ -52,7 +52,7 @@
                                                 <tr>
                                                     <th>{{$ownedLot->id}}</th>
                                                     {{--<th>{{$ownedLot->lot_id}}</th>--}}
-                                                    <th>{{\App\PropertyManagement\Helper::lotName($ownedLot)}}</th>
+                                                    <th>{{\App\PropertyManagement\Helper::lotName($ownedLot)}}  &nbsp&nbsp {{$current_owner->owner_name}}</th>
                                                     {{--<th>{{$ownedLot->lot_type_id}}</th>--}}
                                                     {{--<th>{{ isset($ownedLot->created_at) ? $ownedLot->created_at->diffForHumans() :  ''  }}</th>--}}
 
