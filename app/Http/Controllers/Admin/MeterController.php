@@ -64,7 +64,7 @@ class MeterController extends Controller
     public function meterTypeEdit($id) {
         $meterType = MeterType::findOrFail($id);
 
-        return view('admin.meter-management.partials.sub-partials.meter-type-form', compact('meterType') );
+        return response()->json(['meterType' => $meterType]);
     }
 
     public function meterTypeUpdate(Request $request , $id) {
