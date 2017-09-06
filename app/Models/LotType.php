@@ -14,4 +14,8 @@ class LotType extends Model
     {
         return $this->hasMany(Lot::class, 'lot_type_id', 'lot_type_id');
     }
+    public function charge()
+    {
+        return $this->hasOne(ConfigLotType::class,'lot_type_id','lot_type_id');
+    }
 }

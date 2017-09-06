@@ -134,8 +134,30 @@
                                                                                 <label class="col-sm-4 control-label">Billing
                                                                                     Ending</label>
                                                                                 <div class="col-sm-7">
-                                                                                    {!! Form::select('utilitySettings[billing_ending]',array('never' => 'Never', 'on_specific_date' => 'On specific date','after_number_of_billing' => 'After number of billing') , @$utility->billing_ending, ['class' => 'form-control input-sm']) !!}
+                                                                                    {!! Form::select('utilitySettings[billing_ending]',array('never' => 'Never', 'on_specific_date' => 'On specific date','after_number_of_billing' => 'After number of billing') , @$utility->billing_ending, ['class' => 'form-control input-sm' ,'id'=>'utility_billing_ending']) !!}
 
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group" id="utility_end_date_dev">
+                                                                                <label class="col-sm-4 control-label">Billing
+                                                                                    End Date</label>
+                                                                                <div class="col-sm-7">
+                                                                                        <input type="text"
+                                                                                               class="form-control datepicker input-sm"
+                                                                                               data-date-format="dd/mm/yyyy"
+                                                                                               value="{{isset($utility->billing_end_date)?$utility->billing_end_date->format('d/m/Y'):''}}"
+                                                                                               name=" utilitySettings[billing_end_date]"
+                                                                                                id="utility_billing_end_date">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group" id="utility_after_billing_day_dev">
+                                                                                <label class="col-sm-4 control-label">After
+                                                                                    Billing Day</label>
+                                                                                <div class="col-sm-7">
+                                                                                    <input type="number"
+                                                                                           class="form-control input-sm"
+                                                                                           value="{{@$utility->after_billing_day}}"
+                                                                                           name=" utilitySettings[after_billing_day]">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-group">
@@ -183,12 +205,26 @@
                                                                                 <label class="col-sm-3 control-label">Fee
                                                                                     Charged</label>
                                                                                 <div class="col-sm-7">
-                                                                                    {!! Form::select('maintenanceServiceSettings[fee_charged]',array('property_size' => 'Property size', 'total_amount' => 'Total amount') , @$maintenance->fee_charged, ['class' => 'form-control input-sm']) !!}
+                                                                                    {!! Form::select('maintenanceServiceSettings[fee_charged]',array('property_size' => 'Property size', 'total_amount' => 'Total amount') , @$maintenance->fee_charged, ['class' => 'form-control input-sm', 'id'=>'service_fee_charge']) !!}
 
                                                                                 </div>
                                                                             </div>
 
-                                                                            <div class="form-group">
+                                                                            <div id="services_lot_type_dev">
+                                                                                @foreach($lot_types as $lot_type)
+                                                                                    <div class="form-group">
+                                                                                        <label class="col-sm-3 control-label">{{$lot_type->lot_type_name}}</label>
+                                                                                        <div class="col-sm-7">
+                                                                                            <input type="number"
+                                                                                                   class="form-control input-sm"
+                                                                                                   value="{{@$lot_type->charge?$lot_type->charge->fee_charge:''}}"
+                                                                                                   name=" lotType[{{$lot_type->lot_type_id}}]">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                @endforeach
+                                                                            </div>
+
+                                                                            <div class="form-group" id="services_sqft_dev">
                                                                                 <label class="col-sm-3 control-label">Charges
                                                                                     Per Sqft</label>
                                                                                 <div class="col-sm-7">
@@ -202,9 +238,34 @@
                                                                                 <label class="col-sm-3 control-label">Billing
                                                                                     Ending</label>
                                                                                 <div class="col-sm-7">
-                                                                                    {!! Form::select('maintenanceServiceSettings[billing_ending]',array('never' => 'Never', 'on_specific_date' => 'On specific date','after_number_of_billing' => 'After number of billing') , @$maintenance->billing_ending, ['class' => 'form-control input-sm']) !!}
+                                                                                    {!! Form::select('maintenanceServiceSettings[billing_ending]',array('never' => 'Never', 'on_specific_date' => 'On specific date','after_number_of_billing' => 'After number of billing') , @$maintenance->billing_ending, ['class' => 'form-control input-sm','id'=>'service_billing_ending']) !!}
                                                                                 </div>
                                                                             </div>
+
+                                                                            <div class="form-group" id="service_end_date_dev">
+                                                                                <label class="col-sm-3 control-label">Billing
+                                                                                    End Date</label>
+                                                                                <div class="col-sm-7">
+                                                                                    <input type="text"
+                                                                                           class="form-control datepicker input-sm"
+                                                                                           data-date-format="dd/mm/yyyy"
+                                                                                           value="{{isset($maintenance->billing_start_date)?$maintenance->billing_start_date->format('d/m/Y'):''}}"
+                                                                                           name=" maintenanceServiceSettings[billing_end_date]"
+                                                                                           id="service_billing_end_date">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group" id="service_after_billing_day_dev">
+                                                                                <label class="col-sm-3 control-label">After
+                                                                                    Billing Day</label>
+                                                                                <div class="col-sm-7">
+                                                                                    <input type="number"
+                                                                                           class="form-control input-sm"
+                                                                                           value="{{@$maintenance->after_billing_day}}"
+                                                                                           name=" maintenanceServiceSettings[after_billing_day]">
+                                                                                </div>
+                                                                            </div>
+
+
                                                                             <div class="form-group">
                                                                                 <label class="col-sm-3 control-label">Tax
                                                                                     Type</label>
@@ -251,6 +312,80 @@
         $(document).ready(function () {
             $('.datepicker').datepicker({
 //                startDate: '-3d'
+            });
+
+        });
+
+        $(function() {
+            if($('#utility_billing_ending').val() == 'never'){
+                $('#utility_end_date_dev').hide();
+                $('#utility_after_billing_day_dev').hide();
+            }
+            if($('#utility_billing_ending').val() == 'on_specific_date'){
+                $('#utility_after_billing_day_dev').hide();
+            }
+            if($('#utility_billing_ending').val() == 'after_number_of_billing'){
+                $('#utility_end_date_dev').hide();
+            }
+            $('#utility_billing_ending').change(function(){
+                if($('#utility_billing_ending').val() == 'never'){
+                    $('#utility_end_date_dev').hide();
+                    $('#utility_after_billing_day_dev').hide();
+                }
+                if($('#utility_billing_ending').val() == 'on_specific_date'){
+                    $('#utility_after_billing_day_dev').hide();
+                    $('#utility_end_date_dev').show();
+
+                }
+                if($('#utility_billing_ending').val() == 'after_number_of_billing'){
+                    $('#utility_end_date_dev').hide();
+                    $('#utility_after_billing_day_dev').show();
+                }
+            });
+        });
+        $(function() {
+            if($('#service_billing_ending').val() == 'never'){
+                $('#service_end_date_dev').hide();
+                $('#service_after_billing_day_dev').hide();
+            }
+            if($('#service_billing_ending').val() == 'on_specific_date'){
+                $('#service_after_billing_day_dev').hide();
+            }
+            if($('#service_billing_ending').val() == 'after_number_of_billing'){
+                $('#service_end_date_dev').hide();
+            }
+            $('#service_billing_ending').change(function(){
+                if($('#service_billing_ending').val() == 'never'){
+                    $('#service_end_date_dev').hide();
+                    $('#service_after_billing_day_dev').hide();
+                }
+                if($('#service_billing_ending').val() == 'on_specific_date'){
+                    $('#service_after_billing_day_dev').hide();
+                    $('#service_end_date_dev').show();
+
+                }
+                if($('#service_billing_ending').val() == 'after_number_of_billing'){
+                    $('#service_end_date_dev').hide();
+                    $('#service_after_billing_day_dev').show();
+                }
+            });
+        });
+        $(function() {
+            if($('#service_fee_charge').val() == 'property_size'){
+                $('#services_lot_type_dev').hide();
+            }
+            if($('#service_fee_charge').val() == 'total_amount'){
+                $('#services_sqft_dev').hide();
+            }
+            $('#service_fee_charge').change(function(){
+                if($('#service_fee_charge').val() == 'property_size'){
+                    $('#services_lot_type_dev').hide();
+                    $('#services_sqft_dev').show();
+                }
+                if($('#service_fee_charge').val() == 'total_amount'){
+                    $('#services_lot_type_dev').show();
+                    $('#services_sqft_dev').hide();
+                }
             });
         });
     </script>
