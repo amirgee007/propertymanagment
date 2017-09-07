@@ -200,6 +200,14 @@ Route::group(['middleware' => ['admin'], 'namespace' => 'Admin'], function () {
             'as' => 'get.lot.show',
             'uses' => 'LotController@showLotsTable'));
 
+    Route::get('/dashboard/lot/edit/{id}', array(
+        'as' => 'get.lot.edit',
+        'uses' => 'LotController@edit'));
+
+    Route::post('/dashboard/lot/update/{id}', array(
+        'as' => 'get.lot.update',
+        'uses' => 'LotController@update'));
+
     Route::post('/dashboard/lot/add/save-lot-type', array(
         'as' => 'post.lot.save.lotType',
         'uses' => 'LotController@saveLotType'));

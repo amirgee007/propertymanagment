@@ -27,6 +27,47 @@ class LotController extends Controller
         return view('admin.admin-lots.show', compact('lots'));
     }
 
+    public function edit($id) {
+        $lotType = LotType::findOrFail($id);
+        return view('admin.admin-lots.edit', compact('lotType'));
+    }
+
+    public function update(Request $request , $id)
+    {
+        $lotType = LotType::findOrFail($id);
+
+        $lots = Lot::where('lot_type_id' ,$id)->orderBy('lot_id' , 'desc')->get();
+
+        if ($request->has('lot_type_qty') && $request->get('lot_type_qty') !=  $lotType->lot_type_qty ){
+            if (($Dqty = ($lotType->lot_type_qty - $request->get('lot_type_qty'))) > 0 ) {
+
+                $count = 0;
+                foreach ($lots as $lot){
+                    $lot->delete();
+                    $count++;
+                    if ($count == $Dqty)
+                        break;
+                }
+
+            }elseif (($Aqty = ($request->get('lot_type_qty') - $lotType->lot_type_qty))  > 0 ) {
+                $addition = count($lots);
+                for ($i = 1 + $addition ;$i <= $Aqty + $addition; $i++) {
+                    Lot::create([
+                        'lot_type_id' => $lotType->lot_type_id,
+                        'lot_name' => $lotType->lot_type_code.$i,
+                    ]);
+                }
+            }
+        }
+
+        $lotType->update($request->all());
+
+        flash('SuccessFully updated')->success();
+
+        return redirect()->route('get.lot.manage');
+
+    }
+
     public function deleteLotType($lot_type_id)
     {
         try {
@@ -91,7 +132,7 @@ class LotController extends Controller
         else
             $ownedLots = [];
 
-        return view('admin.owner-management.listAssignLot', compact('ownedLots'));
+        return view('admin.owner-management.listAssignLot', compact('ownedLots' , 'current_owner'));
 
     }
 

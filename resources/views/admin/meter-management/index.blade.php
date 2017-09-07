@@ -117,7 +117,15 @@
                 success: function(data) {
                     form = $('#meter-type-edit-form');
                     form.attr('action' , url);
-                    form.html(data);
+
+                    $('#form-meter-name').val(data.meterType.meter_name);
+                    $('#edit-meter-code').val(data.meterType.meter_code);
+                    $('#edit-meter-min-charges').val(data.meterType.minimum_charges);
+                    if (data.meterType.tax_amount != null) {
+                        $('#edit-checkbox-type-rounded1').prop('checked', true);
+                        $('#edit-meter-tax-amount').val(data.meterType.tax_amount);
+                    }
+
                     $('#edit-meter-modal').modal('show');
                 },
                 type: 'GET'

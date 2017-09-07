@@ -1,9 +1,8 @@
 
-
 <div class="form-group">
     <label class="col-sm-3 control-label">Meter Name</label>
     <div class="col-sm-7">
-        <input type="text" id="form-meter-name" class="form-control input-sm" value="{{isset($meterType->meter_name)?$meterType->meter_name:''}}" required name="meterType[meter_name]">
+        <input type="text" class="form-control input-sm" id="form-meter-name" value="{{isset($meterType->meter_name)?$meterType->meter_name:''}}" required name="meterType[meter_name]">
     </div>
 </div><!-- /.form-group -->
 {{--<div class="form-group">--}}
@@ -17,7 +16,7 @@
     <label class="col-sm-3 control-label">Meter Code</label>
     <div class="col-sm-7">
         <input type="text"
-               id="form-meter-code"
+               id="edit-meter-code"
                class="form-control input-sm" readonly
                value="{{isset($meterType->meter_code)?$meterType->meter_code:$randomNumber}}"
                name="meterType[meter_code]">
@@ -27,8 +26,9 @@
 <div class="form-group">
     <label class="col-sm-3 control-label">Minimum Charges</label>
     <div class="col-sm-7">
-        <input type="number" class="form-control input-sm" required
-               id="form-meter-min-charges"
+        <input type="number"
+               id="edit-meter-min-charges"
+               class="form-control input-sm" required
                value="{{isset($meterType->minimum_charges)?$meterType->minimum_charges:''}}"
                name="meterType[minimum_charges]">
     </div>
@@ -50,7 +50,11 @@
     <div class="form-group">
         <label class="col-sm-3 control-label">tax amount</label>
         <div class="col-sm-7">
-            <input type="number" id="form-meter-tax-amount" placeholder="Tax amount should be in percentage" class="form-control input-sm" value="{{isset($meterType->tax_amount)?$meterType->tax_amount:''}}" name="meterType[tax_amount]">
+            <input type="number" id="edit-meter-tax-amount"
+                   placeholder="Tax amount should be in percentage"
+                   class="form-control input-sm"
+                   value="{{isset($meterType->tax_amount)?$meterType->tax_amount:''}}"
+                   name="meterType[tax_amount]">
         </div>
     </div>
 </div>

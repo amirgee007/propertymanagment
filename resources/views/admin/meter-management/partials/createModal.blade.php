@@ -68,7 +68,7 @@
                                 <form class="form-horizontal form-bordered"
                                       role="form" id="meter-type-edit-form" method="put">
                                     {{csrf_field()}}
-                                    @include('admin.meter-management.partials.sub-partials.meter-type-form')
+                                    @include('admin.meter-management.partials.sub-partials.edit-meter-type')
                                 </form>
                             </div><!-- /.panel-body -->
                         </div><!-- /.panel -->
