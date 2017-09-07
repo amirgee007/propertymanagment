@@ -40,4 +40,11 @@ class Owner extends Model
 
         return '<span class="label label-danger">False</span>';
     }
+
+
+    public function carParks()
+    {
+        return $this->hasMany(OwnerCarPark::class, 'owner_id', 'owner_id');
+    }
+
 }

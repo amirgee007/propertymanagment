@@ -352,6 +352,52 @@
                                             </div>
                                         </div>
                                     </form>
+
+
+                                    <div class="body-content animated fadeIn">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="panel rounded shadow no-overflow">
+                                                    <div class="panel-heading">
+                                                        <div class="pull-left">
+                                                            <h3 class="panel-title">Owner Lots</h3>
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <br>
+                                                        <div class="col-xs-12">
+                                                            <table class="table table-responsive table-striped table-theme">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th># Id</th>
+                                                                    <th>Lot Type Name</th>
+                                                                    <th>Lot Name</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                @forelse($ownedLots = \App\PropertyManagement\Helper::getOwnerLots($owner) as $ownedLot)
+                                                                    <tr>
+                                                                        <td>{{ $ownedLot->lot_id }}</td>
+                                                                        <td>{{ @$ownedLot->lotType->lot_type_name }}</td>
+                                                                        <td>{{ $ownedLot->lot_name }}</td>
+                                                                    </tr>
+                                                                @empty
+                                                                    <tr>
+                                                                        <td colspan="3" style="text-align: center">No lots found</td>
+                                                                    </tr>
+                                                                @endforelse
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div class="text-center">
+                                                            {{ count($ownedLots) ? $ownedLots->links() : null }}
+                                                        </div>
+                                                    </div><!-- /.panel-body -->
+                                                </div><!-- /.panel -->
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="tab-pane fade" id="carpark-tab">
@@ -396,6 +442,51 @@
 
                                     </form>
 
+
+                                    <div class="body-content animated fadeIn">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="panel rounded shadow no-overflow">
+                                                    <div class="panel-heading">
+                                                        <div class="pull-left">
+                                                            <h3 class="panel-title">Owner Car Parks</h3>
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <br>
+                                                        <div class="col-xs-12">
+                                                            <table class="table table-responsive table-striped table-theme">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th># Id</th>
+                                                                    <th>Car Park No.</th>
+                                                                    <th>Area Text</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                @forelse($carParks = \App\PropertyManagement\Helper::getOwnerCarParks($owner) as $carPark)
+                                                                    <tr>
+                                                                        <td>{{ $carPark->owner_car_park_id }}</td>
+                                                                        <td>{{ $carPark->car_park_no }}</td>
+                                                                        <td>{{ $carPark->loc_area_text }}</td>
+                                                                    </tr>
+                                                                @empty
+                                                                    <tr>
+                                                                        <td colspan="3" style="text-align: center">No car parks found</td>
+                                                                    </tr>
+                                                                @endforelse
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div class="text-center">
+                                                            {{ count($carParks) ? $carParks->links() : null }}
+                                                        </div>
+                                                    </div><!-- /.panel-body -->
+                                                </div><!-- /.panel -->
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="tab-pane fade" id="meter-tab">
