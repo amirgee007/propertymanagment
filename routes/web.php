@@ -125,6 +125,10 @@ Route::group(['middleware' => ['admin'], 'namespace' => 'Admin'], function () {
             'as' => 'owner.add.new',
             'uses' => 'OwnerController@viewProfile'));
 
+        Route::get('/card-check', array(
+            'as' => 'owner.add.card.check',
+            'uses' => 'OwnerController@cardCheck'));
+
 
         Route::get('/show/{owner_id}', array(
             'as' => 'owner.show',

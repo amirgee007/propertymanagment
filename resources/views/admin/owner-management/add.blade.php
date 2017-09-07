@@ -56,8 +56,12 @@
                                         <label class="col-sm-3 control-label">Identity Card No. <span
                                                     class="asterisk">*</span></label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control input-sm" name="owner_id_card_no"
+                                            <span id="valid-card" hidden style="color: green; font-weight: 100;font-size:smaller ">unique card number </span>
+                                            <span id="invalid-card" style="color: red; font-weight: 100;font-size:smaller">please enter unique card number</span>
+                                            <input id="input_card_no" type="text" class="form-control input-sm" name="owner_id_card_no"
+                                                   data-url="{{route('owner.add.card.check')}}" data-id="owner_id_card_no"
                                                    required>
+
                                         </div>
                                     </div><!-- /.form-group -->
 
@@ -72,7 +76,11 @@
                                         <label class="col-sm-3 control-label">Email <span
                                                     class="asterisk">*</span></label>
                                         <div class="col-sm-7">
+                                            <span id="valid-email" hidden style="color: green; font-weight: 100;font-size:smaller ">Unique Email</span>
+                                            <span id="invalid-email" style="color: red; font-weight: 100;font-size:smaller">Please enter unique Email</span>
+
                                             <input type="email" id="email" class="form-control input-sm"
+                                                   data-url="{{route('owner.add.card.check')}}" data-id="email"
                                                    name="email">
                                         </div>
                                     </div><!-- /.form-group -->
@@ -213,6 +221,69 @@
 @section('footer_scripts')
     <!-- START @PAGE LEVEL PLUGINS -->
     <script>
+        $(function() {
+            $("#input_card_no").keypress(function(){
+                $('#valid-card').hide();
+                $('#invalid-card').hide();
+            });
+            $("#email").keypress(function(){
+                $('#valid-email').hide();
+                $('#invalid-email').hide();
+            });
+            $('#valid-card').hide();
+            $('#invalid-card').hide();
+
+            $('#valid-email').hide();
+            $('#invalid-email').hide();
+            $("#input_card_no").blur(function(){
+                var url = $(this).data('url');
+                var key = $(this).data('id');
+                var value = $(this).val();
+                $.ajax({
+                    url: url,
+                    data:{
+                        value:value,
+                        key:key,
+                    },
+                    type: 'GET',
+                    headers: {'X-XSRF-TOKEN': '{{\Illuminate\Support\Facades\Crypt::encrypt(csrf_token())}}'},
+                    success: function(data){
+                        if(data=='no_match'){
+                            $('#invalid-card').hide();
+                            $('#valid-card').show();
+                        }if(data=='match'){
+                            $('#valid-card').hide();
+                            $('#invalid-card').show();
+                        }
+                    }
+                });
+
+            });
+            $("#email").blur(function(){
+                var url = $(this).data('url');
+                var key = $(this).data('id');
+                var value = $(this).val();
+                $.ajax({
+                    url: url,
+                    data:{
+                        value:value,
+                        key:key,
+                    },
+                    type: 'GET',
+                    headers: {'X-XSRF-TOKEN': '{{\Illuminate\Support\Facades\Crypt::encrypt(csrf_token())}}'},
+                    success: function(data){
+                        if(data=='no_match'){
+                            $('#invalid-email').hide();
+                            $('#valid-email').show();
+                        }if(data=='match'){
+                            $('#valid-email').hide();
+                            $('#invalid-email').show();
+                        }
+                    }
+                });
+
+            });
+        });
 
         function toggle(className, obj) {
             var $input = $(obj);

@@ -30,6 +30,16 @@ class OwnerController extends Controller
         return view('admin.owner-management.add');
     }
 
+    public function cardCheck(Request $request)
+    {
+        $data = Owner::where($request->key,$request->value)->first();
+        if($data){
+            return 'match';
+        }else{
+            return 'no_match';
+        }
+    }
+
 
     public function show($id)
     {
