@@ -85,10 +85,10 @@
                                                         <i class="fa fa-credit-card"></i>
                                                     </a>
 
-                                                    <a {{--href="{{ route('invoices.pdf', $invoice->invoice_id) }}"--}}
-                                                       class="btn btn-success btn-xs rounded"
-                                                       data-placement="top"
-                                                       data-original-title="Download PDF" data-toggle="modal" data-target="#pdfmodal"><i
+                                                    <a data-url="{{ route('invoices.pdf', $invoice->invoice_id) }}"
+                                                       class="btn btn-success btn-xs rounded pdf_download_popup"
+                                                       title="Download PDF"
+                                                       data-toggle="modal" data-target="#pdfmodal"><i
                                                                 class="fa fa-file-pdf-o"></i>
                                                     </a>
 
@@ -137,6 +137,14 @@
 
 @section('footer_scripts')
     <script>
+        $(document).on("click", ".pdf_download_popup", function () {
+            var pdf_link = $(this).data('url');
+            $("#pdf-download-footer #pdf-download-link-btn").attr("href", pdf_link);
+            // As pointed out in comments,
+            // it is superfluous to have to manually call the modal.
+            // $('#addBookDialog').modal('show');
+        });
+
         $('.date').datepicker({
             format: 'dd-mm-yyyy'
         }).on('changeDate', function (e) {
