@@ -12,5 +12,10 @@ class MeterType extends Model
         return $this->hasMany(MeterRate::class);
     }
 
+    public function setTaxAmountAttribute($value) {
+        $this->attributes['tax_amount'] = rtrim($value,"%");
+
+    }
+
 
 }

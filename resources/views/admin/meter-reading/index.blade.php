@@ -89,13 +89,7 @@
                     },
                     success: function(data) {
                         toastr.success("SuccessFully added meter Reading");
-//                        var data = data.meterReading;
                         $('#meter-reading-modal').modal('hide');
-//                        $('.las-dat-td-'+data.meter_id).html(data.lastReadingDate);
-//                        $('.cur-re-td-'+data.meter_id).html(data.currentReading);
-//                        $('.las-re-td-'+data.meter_id).html(data.lastReading);
-//                        $('.las-usa-td-'+data.meter_id).html(data.currentUsage);
-//                        $('.las-amo-td-'+data.meter_id).html(data.currentAmount);
                         location.reload(true);
 
                     },
@@ -109,6 +103,7 @@
                 $('#meter-reading-form')[0].reset();
                 const meter_id = meter.attr('data-meter-id');
                 const lot_id = meter.attr('data-lot-id');
+
                 $('#lot-field-id').val(lot_id);
                 $('#meter-field-id').val(meter_id);
                 $('#meter-reading-modal').modal('show');

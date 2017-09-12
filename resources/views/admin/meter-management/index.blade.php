@@ -47,6 +47,34 @@
 <script>
     $(document).ready(function () {
 
+        $('.form-meter-tax').keyup(function(e) {
+            var num = $(this).val();
+            if (e.which!=8) {
+                num = sortNumber(num);
+                if(isNaN(num)||num<0 ||num>100) {
+                    alert("Only Enter Number Between 0-100");
+                    $(this).val(sortNumber(num.substr(0,num.length-1)) + "%");
+                }
+                else
+                    $(this).val(sortNumber(num)+"%");
+            }
+            else {
+                if(num < 2)
+                    $(this).val("");
+                else
+                    $(this).val(sortNumber(num.substr(0,num.length-1)) + "%");
+            }
+        });
+
+        function sortNumber(n){
+            var newNumber="";
+            for(var i = 0; i<n.length; i++)
+                if(n[i] != "%")
+                    newNumber += n[i];
+            return newNumber;
+        }
+
+
         var t =$('#meter-rate-table').DataTable({
             "paging":   false,
             "searching": false,
@@ -57,6 +85,7 @@
 
         $('#meter-type-modal-btn').on('click', function () {
             $('#meter-form')[0].reset();
+            $("#form-meter-code").val(Math.floor(Math.random() * 999) + 1 );
             $('#myModal').modal('show');
         });
 
@@ -116,14 +145,18 @@
                 },
                 success: function(data) {
                     form = $('#meter-type-edit-form');
+                    form[0].reset();
                     form.attr('action' , url);
-
-                    $('#form-meter-name').val(data.meterType.meter_name);
+                    console.log(data);
+                    $('#edit-meter-name').val(data.meterType.meter_name);
                     $('#edit-meter-code').val(data.meterType.meter_code);
                     $('#edit-meter-min-charges').val(data.meterType.minimum_charges);
                     if (data.meterType.tax_amount != null) {
-                        $('#edit-checkbox-type-rounded1').prop('checked', true);
+                        $('#edit-checkbox-type-rounded1').attr('checked', 'checked');
                         $('#edit-meter-tax-amount').val(data.meterType.tax_amount);
+                        $('.tax-value').show();
+                    }else {
+                        $('.tax-value').hide();
                     }
 
                     $('#edit-meter-modal').modal('show');
@@ -208,6 +241,7 @@
                 },
                 success: function(data) {
                     if (data.status) {
+
                         $('#meter-type-tbody').append(data.meterType);
                         $('#meter-rate-tbody').append(data.meterRate);
                         $('#myModal').modal('hide');
@@ -252,6 +286,8 @@
                 type: 'POST'
             });
         });
+
+
 
 
     });

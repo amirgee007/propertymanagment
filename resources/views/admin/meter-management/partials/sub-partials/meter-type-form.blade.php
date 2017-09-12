@@ -19,7 +19,7 @@
         <input type="text"
                id="form-meter-code"
                class="form-control input-sm" readonly
-               value="{{isset($meterType->meter_code)?$meterType->meter_code:$randomNumber}}"
+               value=""
                name="meterType[meter_code]">
     </div>
 </div><!-- /.form-group -->
@@ -37,7 +37,7 @@
 <div class="form-group">
     <label class="col-sm-3 control-label">is Taxable</label>
     <div class="col-sm-7">
-        <div class="ckbox ckbox-theme rounded">
+        <div class="">
             <input id="checkbox-type-rounded1"
                    type="checkbox"
                    {{!isset($meterType->tax_amount)?:is_null($meterType->tax_amount)?:'checked="checked"'}}
@@ -50,12 +50,14 @@
     <div class="form-group">
         <label class="col-sm-3 control-label">tax amount</label>
         <div class="col-sm-7">
-            <input type="number" id="form-meter-tax-amount" placeholder="Tax amount should be in percentage" class="form-control input-sm" value="{{isset($meterType->tax_amount)?$meterType->tax_amount:''}}" name="meterType[tax_amount]">
+            <input type="text" id="form-meter-tax-amount" placeholder="Tax amount should be in percentage" class="form-control form-meter-tax input-sm" value="{{isset($meterType->tax_amount)?$meterType->tax_amount:''}}" name="meterType[tax_amount]">
         </div>
     </div>
 </div>
 
 <script>
+
+
     function toggle(className, obj) {
         var $input = $(obj);
         if ($input.prop('checked')) {

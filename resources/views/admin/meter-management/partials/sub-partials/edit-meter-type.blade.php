@@ -2,7 +2,7 @@
 <div class="form-group">
     <label class="col-sm-3 control-label">Meter Name</label>
     <div class="col-sm-7">
-        <input type="text" class="form-control input-sm" id="form-meter-name" value="{{isset($meterType->meter_name)?$meterType->meter_name:''}}" required name="meterType[meter_name]">
+        <input type="text" class="form-control input-sm" id="edit-meter-name" value="{{isset($meterType->meter_name)?$meterType->meter_name:''}}" required name="meterType[meter_name]">
     </div>
 </div><!-- /.form-group -->
 {{--<div class="form-group">--}}
@@ -37,10 +37,9 @@
 <div class="form-group">
     <label class="col-sm-3 control-label">is Taxable</label>
     <div class="col-sm-7">
-        <div class="ckbox ckbox-theme rounded">
-            <input id="checkbox-type-rounded1"
+        <div class="">
+            <input id="edit-checkbox-type-rounded1"
                    type="checkbox"
-                   {{!isset($meterType->tax_amount)?:is_null($meterType->tax_amount)?:'checked="checked"'}}
                    onclick="toggle('.tax-value', this)" >
             <label for="checkbox-type-rounded1"></label>
         </div>
@@ -50,11 +49,7 @@
     <div class="form-group">
         <label class="col-sm-3 control-label">tax amount</label>
         <div class="col-sm-7">
-            <input type="number" id="edit-meter-tax-amount"
-                   placeholder="Tax amount should be in percentage"
-                   class="form-control input-sm"
-                   value="{{isset($meterType->tax_amount)?$meterType->tax_amount:''}}"
-                   name="meterType[tax_amount]">
+            <input type="text" id="form-meter-tax-amount" placeholder="Tax amount should be in percentage" class="form-control form-meter-tax input-sm" value="{{isset($meterType->tax_amount)?$meterType->tax_amount:''}}" name="meterType[tax_amount]">
         </div>
     </div>
 </div>

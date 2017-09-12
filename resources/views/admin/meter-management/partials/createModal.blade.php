@@ -135,7 +135,7 @@
                                     {{csrf_field()}}
 
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Lot Type</label>
+                                        <label class="col-sm-3 control-label">Meter Type</label>
                                         <div class="col-sm-7">
                                             <select name="meter_type_id" id="meter_type_select_box" class="form-control">
                                                 <option value="">Choose Meter Type</option>

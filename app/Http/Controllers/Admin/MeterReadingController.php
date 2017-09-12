@@ -9,6 +9,7 @@ use App\Models\LotType;
 use App\Models\Meter;
 use App\Models\MeterReading;
 use App\Models\MeterType;
+use App\Models\OwnerLot;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -16,12 +17,9 @@ class MeterReadingController extends Controller
 {
     public function index() {
         $meterTypes = MeterType::get()->pluck('meter_name' , 'id')->toArray();
-        $meters = Meter::whereHas('lot' , function ($q){
-            $q->whereHas('ownerLot');
-        })->
-            with(['meterReadings' => function($q){
-                $q->orderBy('reading_date' , 'desc');
-            }]);
+        $meterOwners = OwnerLot::distinct()->get()->pluck('lot_id' , 'lot_id')->toArray();
+
+        $meters = Meter::whereIn('lot_id' , $meterOwners);
         $searchVal = '';
         if (\request()->has('search') && !empty(trim(\request()->search))) {
             $meters = $meters->orWhere('id' , \request()->search)
@@ -95,18 +93,20 @@ class MeterReadingController extends Controller
 
     public function getLotsFromLotType(Request $request) {
 
+        $meterOwners = OwnerLot::distinct()->get()->pluck('lot_id' , 'lot_id')->toArray();
+
         $lotType = LotType::findOrFail($request->id);
-        $lots = $lotType->lots()->whereHas('ownerLot')->pluck('lot_name' , 'lot_id');
+        $lots = $lotType->lots()->whereIn('lot_id' , $meterOwners)->pluck('lot_name' , 'lot_id');
 
         return view('admin.meter-reading.partials.lots' , compact('lots'));
     }
 
     public function getLotsMeters(Request $request) {
 
-        $meter = Meter::where('lot_id' , $request->id)->whereHas('lot' , function ($q){
-            $q->whereHas('ownerLot');
-        })->where('meter_type_id' , $request->meter_type_id)
-        ->get()->pluck('id' , 'id')->toArray();
+        $meterOwners = OwnerLot::distinct()->get()->pluck('lot_id' , 'lot_id')->toArray();
+
+        $meter = Meter::where('lot_id' , $request->id)->where('meter_type_id' , $request->meter_type_id)
+            ->whereIn('lot_id' , $meterOwners)->get()->pluck('id' , 'id')->toArray();
 
         return view('admin.meter-reading.partials.meter' , compact('meter'));
 

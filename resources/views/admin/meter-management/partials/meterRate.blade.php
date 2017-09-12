@@ -15,7 +15,7 @@
                     <table id="meter-rate-table" class="table">
                         <thead>
                         <tr>
-                            <th>Meter ID</th>
+                            <th>Meter Type Name</th>
                             <th>Form</th>
                             <th>to</th>
                             <th>rate</th>
@@ -25,7 +25,7 @@
                         <tbody id="meter-rate-tbody">
                         @foreach($meterRates as $meterRate)
                             <tr id="m-rate-{{$meterRate->id}}">
-                                <td>{{$meterRate->id}}</td>
+                                <td>{{$meterRate->meterType->meter_name}}</td>
                                 <td>{{$meterRate->from}}</td>
                                 <td>{{$meterRate->to}}</td>
                                 <td>{{$meterRate->rate}}</td>

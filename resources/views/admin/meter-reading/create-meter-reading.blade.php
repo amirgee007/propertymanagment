@@ -100,7 +100,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Reading Date</label>
                                     <div class="col-sm-7">
-                                        <input class="form-control input-sm" id="reading-date" required name="reading_date">
+                                        <input type="text" value="{{Carbon\Carbon::now()->format('d-m-Y')}}" class="form-control input-sm" id="reading-date" required name="reading_date">
                                     </div>
                                 </div><!-- /.form-group -->
 
@@ -162,7 +162,9 @@
 
                     },
                     success: function(data) {
+
                         $('#lot-pos').html(data);
+                        $('.select-s').select2();
                         $('#lot-dev').css('display' , 'block');
                     },
                     type: 'post'
