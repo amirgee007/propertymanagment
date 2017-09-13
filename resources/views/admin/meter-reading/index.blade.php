@@ -97,16 +97,37 @@
                 });
             });
 
+            $(document).on('click' , '#previous-reading-btn' , function () {
+                $('#previous-reading-div').css({display: "none"});
+                $('.reading-modal-from').css({display: "block"});
+            });
 
-            $('.meterReadingM').on('click' , function () {
+            $(document).on('click' ,'.meterReadingM' , function () {
                 var meter = $(this);
                 $('#meter-reading-form')[0].reset();
                 const meter_id = meter.attr('data-meter-id');
                 const lot_id = meter.attr('data-lot-id');
 
-                $('#lot-field-id').val(lot_id);
-                $('#meter-field-id').val(meter_id);
-                $('#meter-reading-modal').modal('show');
+                $.ajax({
+                    url: '{{url('/dashboard/meter/reading/previous-readings')}}/'+meter_id,
+                    headers: { 'X-XSRF-TOKEN' : '{{\Illuminate\Support\Facades\Crypt::encrypt(csrf_token())}}' },
+                    error: function() {
+
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        $('#meter-previous-reading-div').html(data);
+                        $('#previous-reading-div').css({display: "block"});
+                        $('.reading-modal-from').css({display: "none"});
+                        $('#lot-field-id').val(lot_id);
+                        $('#meter-field-id').val(meter_id);
+                        $('#meter-reading-modal').modal('show');
+                    },
+                    type: 'GET'
+                });
+
+
+
             });
 
             $('#reading-date').datepicker({

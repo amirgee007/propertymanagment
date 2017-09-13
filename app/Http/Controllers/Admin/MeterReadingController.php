@@ -130,13 +130,35 @@ class MeterReadingController extends Controller
                 'amount' => $meterReading->readingAmount()
             ];
         }
-
-        $meter = $meterReading->meter;
+        $meter = isset($meterReading)?$meterReading->meter:[];
         $pdf->loadView('admin.reports.meter-annual-report' , compact('data' , 'meter'));
 
         $file_name = @$meter->owner()->owner_name . '-' . $meter->id . '.pdf';
 
         return $pdf->download($file_name);
+    }
+
+    public function previousReadings($id) {
+        $meterReadings = MeterReading::where('meter_id' , $id)->orderBy('reading_date' , 'asc')->get();
+
+        $data = [];
+
+        foreach ($meterReadings as $meterReading) {
+            if (is_null($meterReading->previousReading()))
+                continue;
+            $data[] = [
+                'month' => Carbon::parse($meterReading->reading_date)->format('F'),
+                'reading_date' => $meterReading->reading_date,
+                'previous' => $meterReading->previousReading()->last_reading,
+                'current' => $meterReading->last_reading,
+                'usage' => $meterReading->last_reading - $meterReading->previousReading()->last_reading,
+                'amount' => $meterReading->readingAmount()
+            ];
+        }
+        $meter = isset($meterReading)?$meterReading->meter:[];
+
+        return view('admin.meter-reading.partials.meterAnualReading' , compact('data' , 'meter'));
+
     }
 
 

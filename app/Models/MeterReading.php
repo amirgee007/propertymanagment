@@ -52,13 +52,13 @@ class MeterReading extends Model
         $currentReading = $this->last_reading;
         $lastReading = $this->previousReading();
 
-        if (!is_null($lastReading)) {
+        if (is_null($lastReading)) {
+            $totalUnits = $currentReading;
+        }else {
             $totalUnits = $currentReading - $lastReading->last_reading;
-
+        }
             return MeterReadingService::consumptionUnitAmount($this->meter->meterType , $meterRates , $totalUnits);
 
-        }else {
-            return 0;
-        }
+
     }
 }

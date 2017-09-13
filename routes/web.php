@@ -326,6 +326,11 @@ Route::group(['middleware' => ['admin'], 'namespace' => 'Admin'], function () {
             'uses' => 'MeterReadingController@getInvoiceBill'
         ]);
 
+        Route::get('/previous-readings/{id}' ,[
+            'as' => 'meter.reading.previous',
+            'uses' => 'MeterReadingController@previousReadings'
+        ]);
+
 
 
         Route::post('/get/lotTypeLots/' ,[
