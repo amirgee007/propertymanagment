@@ -36,6 +36,23 @@
     {{--</a>--}}
     {{--</li>--}}
     <!--/ End navigation - my projects -->
+
+        @if(auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin'))
+            <li class="submenu @if(request()->is('users/*', 'users')) active @endif">
+                <a href="javascript:void(0);">
+                    <span class="icon"><i class="fa fa-suitcase"></i></span>
+                    <span class="text">User Management</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul>
+                    <li class="@if(request()->is('users/*', 'users')) active @endif"><a
+                                href="{{route('users.index')}}">Manage Users
+                            <span class="label label-success pull-right"></span></a>
+                    </li>
+                </ul>
+            </li>
+        @endif
+        
         @if(auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin') ||auth()->user()->hasRole('Manager')||auth()->user()->hasRole('Owner'))
             <li class="submenu @if(request()->is('dashboard/owner/*', 'dashboard/owner')) active @endif">
                 <a href="javascript:void(0);">
@@ -56,6 +73,7 @@
                 </ul>
             </li>
         @endif
+
         <li class="submenu @if(request()->is('sinking-funds/*', 'sinking-funds', 'dashboard/lot/*')) active @endif">
             <a href="javascript:void(0);">
                 <span class="icon"><i class="fa fa-suitcase"></i></span>

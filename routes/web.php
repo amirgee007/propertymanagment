@@ -78,6 +78,7 @@ Route::group(['middleware' => ['admin'], 'namespace' => 'Admin'], function () {
 
     Route::resource('sinking-funds', 'SinkingFundsController');
     Route::resource('tax-types', 'TaxTypeController');
+    Route::resource('users', 'UsersController');
 
     Route::post('/dashboard', array(
         'as' => 'post.dashboard',

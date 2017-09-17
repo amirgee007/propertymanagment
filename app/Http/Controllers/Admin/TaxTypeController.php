@@ -20,7 +20,7 @@ class TaxTypeController extends Controller
      */
     public function index()
     {
-        $taxTypes = TaxType::paginate(15);
+        $taxTypes = TaxType::paginate(10);
 
         return view('admin.tax-types.index', compact('taxTypes'));
     }
