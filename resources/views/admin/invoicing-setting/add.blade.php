@@ -110,6 +110,21 @@
                                                                         <div class="modal-body">
 
                                                                             <div class="form-group">
+                                                                                <label class="col-sm-4 control-label">Tax Type</label>
+                                                                                <div class="col-sm-7">
+                                                                                    <select data-placeholder="Choose an type"
+                                                                                            class="form-control input-sm chosen-select mb-15" tabindex="2"
+                                                                                            name="utilitySettings[tax_type_id]">
+                                                                                        <option value="">Choose an Type</option>
+                                                                                        @foreach($taxTypes as $taxType)
+                                                                                            <option @if($taxType->id == $utility->tax_type_id) selected @endif value="{{ $taxType->id }}">{{ $taxType->name }}</option>
+                                                                                        @endforeach
+                                                                                    </select>
+                                                                                    <label for="utilitySettings[tax_type_id]" class="error"></label>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group">
                                                                                 <label class="col-sm-4 control-label">Invoice
                                                                                     Repeat Month</label>
                                                                                 <div class="col-sm-7">
@@ -160,16 +175,6 @@
                                                                                            name=" utilitySettings[after_billing_day]">
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="form-group">
-                                                                                <label class="col-sm-4 control-label">Tax
-                                                                                    Type</label>
-                                                                                <div class="col-sm-7">
-                                                                                    <input type="text"
-                                                                                           class="form-control input-sm"
-                                                                                           value="{{@$utility->tax_type}}"
-                                                                                           name=" utilitySettings[tax_type]">
-                                                                                </div>
-                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div><!-- /.modal-dialog -->
@@ -189,6 +194,21 @@
                                                                                 Maintenance/Service settings</h4>
                                                                         </div>
                                                                         <div class="modal-body">
+
+                                                                            <div class="form-group">
+                                                                                <label class="col-sm-3 control-label">Tax Type</label>
+                                                                                <div class="col-sm-7">
+                                                                                    <select data-placeholder="Choose an type"
+                                                                                            class="form-control input-sm chosen-select mb-15" tabindex="2"
+                                                                                            name="maintenanceServiceSettings[tax_type_id]">
+                                                                                        <option value="">Choose an Type</option>
+                                                                                        @foreach($taxTypes as $taxType)
+                                                                                            <option @if($taxType->id == $maintenance->tax_type_id) selected @endif value="{{ $taxType->id }}">{{ $taxType->name }}</option>
+                                                                                        @endforeach
+                                                                                    </select>
+                                                                                    <label for="maintenanceServiceSettings[tax_type_id]" class="error"></label>
+                                                                                </div>
+                                                                            </div>
 
                                                                             <div class="form-group">
                                                                                 <label class="col-sm-3 control-label">Invoice
@@ -265,17 +285,6 @@
                                                                                 </div>
                                                                             </div>
 
-
-                                                                            <div class="form-group">
-                                                                                <label class="col-sm-3 control-label">Tax
-                                                                                    Type</label>
-                                                                                <div class="col-sm-7">
-                                                                                    <input type="text"
-                                                                                           class="form-control input-sm"
-                                                                                           value="{{@$maintenance->tax_type}}"
-                                                                                           name=" maintenanceServiceSettings[tax_type]">
-                                                                                </div>
-                                                                            </div>
                                                                         </div>
 
                                                                     </div>

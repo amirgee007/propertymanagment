@@ -116,7 +116,7 @@
                                     class="label label-danger pull-right"></span></a></li>
                 </ul>
             </li>
-            <li class="submenu @if(request()->is('dashboard/invoicing-setting/*', 'dashboard/system-setting/*')) active @endif">
+            <li class="submenu @if(request()->is('dashboard/invoicing-setting/*', 'dashboard/system-setting/*', 'tax-types/*', 'tax-types')) active @endif">
                 <a href="javascript:void(0);">
                     <span class="icon"><i class="fa fa-suitcase"></i></span>
                     <span class="text">Settings</span>
@@ -132,6 +132,11 @@
                 <ul>
                     <li class="@if(request()->is('dashboard/invoicing-setting/add')) active @endif"><a
                                 href="{{route('invoicing-setting.add')}}">Invoicing Setting<span
+                                    class="label label-success pull-right"></span></a></li>
+                </ul>
+                <ul>
+                    <li class="@if(request()->is('tax-types', 'tax-types/*')) active @endif"><a
+                                href="{{route('tax-types.index')}}">Tax Types<span
                                     class="label label-success pull-right"></span></a></li>
                 </ul>
             </li>

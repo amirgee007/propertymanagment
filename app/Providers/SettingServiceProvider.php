@@ -41,12 +41,12 @@ class SettingServiceProvider extends ServiceProvider
                 'fee_charged' => @$setting_maintenance->fee_charged ? $setting_maintenance->fee_charged : null,
                 'charges_per_sqft' => @$setting_maintenance->charges_per_sqft ? $setting_maintenance->charges_per_sqft : null,
                 'billing_ending' => @$setting_maintenance->billing_ending ? $setting_maintenance->billing_ending : null,
-                'tax_type' => @$setting_maintenance->tax_type ? $setting_maintenance->tax_type : null,
+                'maintenance_tax_type_id' => @$setting_maintenance->tax_type_id ? $setting_maintenance->tax_type_id : null,
 
                 'utility_invoice_repeat_month' => @$setting_utility->invoice_repeat_month ? $setting_utility->invoice_repeat_month : null,
                 'billing_start_date' => @$setting_utility->billing_start_date ? $setting_utility->billing_start_date : null,
                 'utility_billing_ending' => @$setting_utility->billing_ending ? $setting_utility->billing_ending : null,
-                'utility_tax_type' => @$setting_utility->tax_type ? $setting_utility->tax_type : null,
+                'utility_tax_type_id' => @$setting_utility->tax_type_id ? $setting_utility->tax_type_id : null,
             ]);
         }catch (\Exception $ex) {
             Log::error('SettingsServiceProvider' , $ex->getTrace());

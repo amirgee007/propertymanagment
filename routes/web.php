@@ -18,7 +18,6 @@ Route::get('/download', function () {
     return $pdf->download('newl.pdf');
 
 });
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,6 +28,10 @@ Route::get('/download', function () {
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/phpinfo', function (){
+    return phpinfo();
+});
 
 Route::get('/', 'AdminAuth\AuthController@showLoginForm')->name('login');
 
@@ -74,6 +77,7 @@ Route::group(['middleware' => ['admin'], 'namespace' => 'Admin'], function () {
     });
 
     Route::resource('sinking-funds', 'SinkingFundsController');
+    Route::resource('tax-types', 'TaxTypeController');
 
     Route::post('/dashboard', array(
         'as' => 'post.dashboard',

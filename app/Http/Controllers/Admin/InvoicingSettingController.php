@@ -7,6 +7,7 @@ use App\Models\InvoicingSettingGeneral;
 use App\Models\InvoicingSettingMaintenanceService;
 use App\Models\InvoicingSettingUtility;
 use App\Models\LotType;
+use App\Models\TaxType;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -17,12 +18,14 @@ class InvoicingSettingController extends Controller
     {
         $this->middleware('AdminRole');
     }
+
     public function add(){
         $lot_types  = LotType::all();
+        $taxTypes = TaxType::all();
         $general= InvoicingSettingGeneral::where('user_id',auth()->user()->id)->first();
         $utility= InvoicingSettingUtility::where('user_id',auth()->user()->id)->first();
         $maintenance= InvoicingSettingMaintenanceService::where('user_id',auth()->user()->id)->first();
-        return view('admin.invoicing-setting.add',compact('general','utility','maintenance','lot_types'));
+        return view('admin.invoicing-setting.add',compact('general','utility','maintenance','lot_types', 'taxTypes'));
     }
 
     public function edit(Request $request){
