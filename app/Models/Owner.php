@@ -47,4 +47,8 @@ class Owner extends Model
         return $this->hasMany(OwnerCarPark::class, 'owner_id', 'owner_id');
     }
 
+    public function company()
+    {
+        return $this->hasOne(Company::class, 'owner_id', 'owner_id');
+    }
 }

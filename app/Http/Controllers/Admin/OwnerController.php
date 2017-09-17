@@ -51,7 +51,7 @@ class OwnerController extends Controller
             redirect()->route('owner.add.new');
         }
 
-        $company = count($owner->companies) ? $owner->companies->first() : '';
+        $company = $owner->company;
 
         //$ob = (Owner::first()->owner_dob);
         //dd(Carbon::parse($ob)->diffInYears(Carbon::now()));
@@ -76,7 +76,7 @@ class OwnerController extends Controller
         $savableOwner->owner_address = isset($request->owner_address) ? $request->owner_address : '';
         $savableOwner->owner_phone1 = isset($request->owner_phone1) ? $request->owner_phone1 : '';
         $savableOwner->owner_phone2 = isset($request->owner_phone2) ? $request->owner_phone2 : '';
-        $savableOwner->is_company = isset($request->is_company) ? $request->is_company : false;
+        $savableOwner->is_company = isset($request->is_company) ? true : false;
         $savableOwner->user_id = (Auth::user()) ? Auth::user()->id : '0';
         $savableOwner->save();
         $ownerId = $savableOwner->id;
@@ -85,8 +85,8 @@ class OwnerController extends Controller
         if (isset($request->is_company)) {
 
             $savableCompany = new Company();
-            $savableCompany->comp_name = !is_null($ownerId) ? $ownerId : '';
-            $savableCompany->owner_id = isset($request->comp_name) ? $request->comp_name : '';
+            $savableCompany->comp_name = isset($request->comp_name) ? $request->comp_name : '';
+            $savableCompany->owner_id = !is_null($ownerId) ? $ownerId : 0;
             $savableCompany->comp_address = isset($request->comp_address) ? $request->comp_address : '';
             $savableCompany->comp_reg_no = isset($request->comp_reg_no) ? $request->comp_reg_no : '';
             $savableCompany->comp_telephone_no = isset($request->comp_telephone_no) ? $request->comp_telephone_no : '';
@@ -110,7 +110,7 @@ class OwnerController extends Controller
             return redirect('/dashboard/owner/add');
         }
 
-        $company = isset($owner->companies) ? $owner->companies->first() : '';
+        $company = $owner->company;
 
         $lots = Lot::all();
         $lotType = LotType::all();
@@ -134,7 +134,7 @@ class OwnerController extends Controller
         $savableOwner->owner_address = isset($request->owner_address) ? $request->owner_address : '';
         $savableOwner->owner_phone1 = isset($request->owner_phone1) ? $request->owner_phone1 : '';
         $savableOwner->owner_phone2 = isset($request->owner_phone2) ? $request->owner_phone2 : '';
-        $savableOwner->is_company = isset($request->is_company) ? $request->is_company : false;
+        $savableOwner->is_company = isset($request->is_company) ? true : false;
         $savableOwner->user_id = (Auth::user()) ? Auth::user()->id : '0';
         $savableOwner->save();
         $ownerId = $savableOwner->owner_id;
@@ -144,8 +144,8 @@ class OwnerController extends Controller
 
             $savableCompany = Company::where('comp_id', $request->company_id)->first();
 
-            $savableCompany->comp_name = !is_null($ownerId) ? $ownerId : '';
-            $savableCompany->owner_id = isset($request->comp_name) ? $request->comp_name : '';
+            $savableCompany->comp_name = isset($request->comp_name) ? $request->comp_name : '';
+            $savableCompany->owner_id = !is_null($ownerId) ? $ownerId : 0;
             $savableCompany->comp_address = isset($request->comp_address) ? $request->comp_address : '';
             $savableCompany->comp_reg_no = isset($request->comp_reg_no) ? $request->comp_reg_no : '';
             $savableCompany->comp_telephone_no = isset($request->comp_telephone_no) ? $request->comp_telephone_no : '';
