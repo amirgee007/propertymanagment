@@ -21,7 +21,7 @@ class InvoicingSettingController extends Controller
 
     public function add(){
         $lot_types  = LotType::all();
-        $taxTypes = TaxType::all();
+        $taxTypes = TaxType::isActive()->get();
         $general= InvoicingSettingGeneral::where('user_id',auth()->user()->id)->first();
         $utility= InvoicingSettingUtility::where('user_id',auth()->user()->id)->first();
         $maintenance= InvoicingSettingMaintenanceService::where('user_id',auth()->user()->id)->first();

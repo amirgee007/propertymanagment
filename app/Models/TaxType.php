@@ -13,8 +13,13 @@ class TaxType extends Model
     public function getLabelStatusAttribute()
     {
         if ($this->status == true)
-            return '<span class="label label-success">True</span>';
+            return '<span class="label label-success">Active</span>';
         else
-            return '<span class="label label-danger">False</span>';
+            return '<span class="label label-danger">InActive</span>';
+    }
+
+    public function scopeIsActive($query)
+    {
+        $query->where('status', true);
     }
 }
