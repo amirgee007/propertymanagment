@@ -117,7 +117,7 @@
                                                                                             name="utilitySettings[tax_type_id]">
                                                                                         <option value="">Choose an Type</option>
                                                                                         @foreach($taxTypes as $taxType)
-                                                                                            <option @if($taxType->id == $utility->tax_type_id) selected @endif value="{{ $taxType->id }}">{{ $taxType->name }}</option>
+                                                                                            <option @if($taxType->id == @$utility->tax_type_id) selected @endif value="{{ $taxType->id }}">{{ $taxType->name }}</option>
                                                                                         @endforeach
                                                                                     </select>
                                                                                     <label for="utilitySettings[tax_type_id]" class="error"></label>
@@ -203,7 +203,7 @@
                                                                                             name="maintenanceServiceSettings[tax_type_id]">
                                                                                         <option value="">Choose an Type</option>
                                                                                         @foreach($taxTypes as $taxType)
-                                                                                            <option @if($taxType->id == $maintenance->tax_type_id) selected @endif value="{{ $taxType->id }}">{{ $taxType->name }}</option>
+                                                                                            <option @if($taxType->id == @$maintenance->tax_type_id) selected @endif value="{{ $taxType->id }}">{{ $taxType->name }}</option>
                                                                                         @endforeach
                                                                                     </select>
                                                                                     <label for="maintenanceServiceSettings[tax_type_id]" class="error"></label>
