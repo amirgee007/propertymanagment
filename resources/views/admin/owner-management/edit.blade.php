@@ -554,11 +554,7 @@
                                         <div class="panel rounded shadow">
                                             <div class="panel-heading" style="padding: 2%">
                                                 <h4 class="no-margin">
-                                                    Assigned Meters
-
-                                                    <div class="pull-right">
-                                                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#assign-meter-modal">Assign New Meter</button>
-                                                    </div>
+                                                    Owner Meters
                                                 </h4>
                                             </div>
                                             <div class="panel-body no-padding">
