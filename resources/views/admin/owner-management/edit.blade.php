@@ -567,7 +567,6 @@
                                                                 <th>Meter Type</th>
                                                                 <th>Lot Type</th>
                                                                 <th>lot Name</th>
-                                                                <th>Action</th>
                                                             </tr>
                                                             </thead>
                                                             <tbody id="meter-tbody">
@@ -577,9 +576,6 @@
                                                                     <td>{{ isset($meter->meterType) ? @$meter->meterType->meter_name : null }}</td>
                                                                     <td>{{ isset($meter->lot->lotType) ? @$meter->lot->lotType->lot_type_name : null }}</td>
                                                                     <td>{{ isset($meter->lot) ? @$meter->lot->lot_name: null}}</td>
-                                                                    <td>
-                                                                        <button data-url="{{route('meter.assignment.delete' , [$meter->id])}}" class="btn btn-danger meter-delete">Delete</button>
-                                                                    </td>
                                                                 </tr>
                                                             @endforeach
                                                             </tbody>
