@@ -77,14 +77,7 @@ class MeterReadingController extends Controller
         flash()->success('Reading taking Successfully of this '.$meterReading->meter_id.' Meter Id');
         if ($request->has('type') )
             return response()->json([
-                'status' => 'hurray',
-//                'meterReading' => [
-//                    'lastReadingDate' => $meter->lastReadingDate(),
-//                    'currentReading' => $meter->currentReading(),
-//                    'lastReading' => $meter->lastReading(),
-//                    'currentUsage' => $meter->currentUsage(),
-//                    'currentAmount' => $meter->currentAmount(),
-//                ]
+                'status' => 'hurray'
             ]);
 
         return back();
