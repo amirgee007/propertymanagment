@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Company;
 use App\Models\Lot;
 use App\Models\LotType;
+use App\Models\Meter;
 use App\Models\Owner;
 use App\User;
 use Illuminate\Http\Request;
@@ -105,6 +106,7 @@ class OwnerController extends Controller
     {
         $owner = Owner::find($id);
 
+
         if (is_null($owner)) {
             flash('First Add owners Info')->warning();
             return redirect('/dashboard/owner/add');
@@ -114,9 +116,10 @@ class OwnerController extends Controller
 
         $lots = Lot::all();
         $lotType = LotType::all();
+        $ownerLots = $owner->ownedLots->pluck('lot_id')->toArray();
+        $meters = Meter::whereIn('lot_id' , $ownerLots)->get();
 
-        return view('admin.owner-management.edit', compact('lotType','lots','company', 'owner'));
-
+        return view('admin.owner-management.edit', compact('lotType','lots','company', 'owner' , 'meters'));
     }
 
     public function update(Request $request)
