@@ -36,7 +36,14 @@ class InvoicesController extends Controller
      */
     public function index()
     {
-        $invoices = Invoice::paginate(10);
+        $user = auth()->user();
+
+        if ($user->hasRole('Owner')) {
+            $owner_ids = Owner::where('user_id', $user->id)->pluck('owner_id');
+            $invoices = Invoice::whereIn('owner_id', $owner_ids)->paginate(10);
+        } else {
+            $invoices = Invoice::paginate(10);
+        }
 
         return view($this->view . '.index', compact('invoices'));
     }
