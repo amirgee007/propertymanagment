@@ -10,7 +10,10 @@ use Illuminate\Support\Facades\Log;
 
 class Helper
 {
-
+    /**
+     * @param $ownedLot
+     * @return bool
+     */
     public static function lotName($ownedLot)
     {
         try {
@@ -21,6 +24,11 @@ class Helper
 
     }
 
+    /**
+     * @param $val
+     * @param $percentage
+     * @return float|int
+     */
     public static function gstCalculate($val, $percentage)
     {
         if ($val > 0) {
@@ -29,7 +37,10 @@ class Helper
             return 0;
     }
 
-
+    /**
+     * @param Owner $owner
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Support\Collection
+     */
     public static function getOwnerLots(Owner $owner)
     {
         $ownerLots = collect();
@@ -42,10 +53,14 @@ class Helper
         return $ownerLots;
     }
 
+    /**
+     * @param Owner $owner
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Support\Collection
+     */
     public static function getOwnerCarParks(Owner $owner)
     {
         $carParks = collect();
-        if(count($owner->carParks))
+        if (count($owner->carParks))
             $carParks = $owner->carParks()->paginate(10);
 
         return $carParks;

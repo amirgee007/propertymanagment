@@ -191,6 +191,10 @@ class InvoicesController extends Controller
         ]);
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function getPDF($id)
     {
         $invoice = Invoice::find($id);
@@ -252,7 +256,10 @@ class InvoicesController extends Controller
         }
     }
 
-
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function sendMailPayment(Request $request)
     {
         $this->validate($request, [
