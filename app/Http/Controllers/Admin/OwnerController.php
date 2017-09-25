@@ -21,7 +21,13 @@ class OwnerController extends Controller
 
     public function index()
     {
-        $owners = Owner::paginate(10);
+        $user = auth()->user();
+
+        if ($user->hasRole('Owner')) {
+            $owners = Owner::where('user_id', $user->id)->paginate(10);
+        } else {
+            $owners = Owner::paginate(10);
+        }
 
         return view('admin.owner-management.index', compact('owners'));
     }
@@ -33,10 +39,10 @@ class OwnerController extends Controller
 
     public function cardCheck(Request $request)
     {
-        $data = Owner::where($request->key,$request->value)->first();
-        if($data){
+        $data = Owner::where($request->key, $request->value)->first();
+        if ($data) {
             return 'match';
-        }else{
+        } else {
             return 'no_match';
         }
     }
@@ -117,13 +123,20 @@ class OwnerController extends Controller
         $lots = Lot::all();
         $lotType = LotType::all();
         $ownerLots = $owner->ownedLots->pluck('lot_id')->toArray();
-        $meters = Meter::whereIn('lot_id' , $ownerLots)->get();
+        $meters = Meter::whereIn('lot_id', $ownerLots)->get();
 
-        return view('admin.owner-management.edit', compact('lotType','lots','company', 'owner' , 'meters'));
+        return view('admin.owner-management.edit', compact('lotType', 'lots', 'company', 'owner', 'meters'));
     }
 
     public function update(Request $request)
     {
+        $user = auth()->user();
+
+        if ($user->hasRole('Owner')) {
+            flash("You don't have access to this feature.")->error();
+            return back();
+        }
+
         $this->formValidation($request);
 
         $ownerId = null;
@@ -188,6 +201,13 @@ class OwnerController extends Controller
      */
     public function destroy($id)
     {
+        $user = auth()->user();
+
+        if ($user->hasRole('Owner')) {
+            flash("You don't have access to this feature.")->error();
+            return back();
+        }
+
         $owner = Owner::find($id);
 
         if (!$owner) {
