@@ -31,6 +31,10 @@ class Owner extends Model
         return $this->hasMany(OwnerLot::class, 'lot_owner_id', 'owner_id');
     }
 
+    public function ownerLots() {
+        return $this->belongsToMany(Lot::class , 'owner_lots' , 'lot_owner_id' , 'lot_id');
+    }
+
 
     public function getStatusAttribute()
     {

@@ -26,7 +26,9 @@
                 <div class="col-md-12">
                     <div class="panel rounded shadow">
                         <div class="panel-body no-padding">
-                            <form class="form-horizontal form-bordered" action="#"
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <form class="form-horizontal form-bordered" action="#"
                                   role="form" id="sample-validation-2" method="post">
                                 <div class="form-body">
                                     <div class="form-group form-group-divider">
@@ -47,6 +49,15 @@
                                                 @foreach($owners as $value)
                                                     <option value="{{$value->owner_id}}">{{$value->owner_name}}</option>
                                                 @endforeach
+                                            </select>
+                                        </div>
+                                    </div><!-- /.form-group -->
+
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Owner Lots</label>
+                                        <div class="col-sm-7">
+                                            <select class="form-control" id="owner_lot" name="owner_lots[]" disabled multiple>
+
                                             </select>
                                         </div>
                                     </div><!-- /.form-group -->
@@ -75,7 +86,8 @@
                                     <div class="col-lg-12 hidden" id="form_div">
                                         <form class="form-horizontal form-bordered"
                                               action="{{route('post.owner.sell.to.others')}}"
-                                              role="form" id="sample-validation-2" method="post">
+                                              role="form" id="owner-sell-form" method="post">
+                                            <input type="hidden" id="sell-lots" name="sell-lots" value="">
                                             <div class="form-body">
                                                 <div class="form-group form-group-divider">
                                                     <div class="form-inner">
@@ -258,6 +270,9 @@
                                 </div>
 
                             </form>
+                                </div>
+
+                            </div>
                         </div><!-- /.panel-body -->
                     </div><!-- /.panel -->
                 </div>
@@ -273,7 +288,7 @@
 @section('footer_scripts')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
-
+    
     <script>
 
         function toggle(className, obj) {
@@ -290,6 +305,7 @@
 
 
         $(document).ready(function () {
+
 
             $('#dp1').datepicker({
                 format: 'dd-mm-yyyy',
@@ -312,6 +328,7 @@
                     cache: false,
                     success: function (data) {
                         $('#pending_bills').html('');
+                        $('#owner_lot').html('');
                         if (data.owner_bills.length > 0) {
                             $('#bills_table_div').removeClass('hidden');
                             $.each(data.owner_bills, function (i, val) {
@@ -328,17 +345,38 @@
                             });
                             toastr.error("Please Check your unpaid bills!", "Sell Lot");
                         } else {
-                            console.log(data);
-                            $('#form_div').removeClass('hidden');
-                            $('#owner_id').val($('#owner_name').val());
-                            toastr.success("You have paid all bills!", "Sell Lot");
+                            if (data.owner_lots.length !== 0) {
+                                $('#form_div').removeClass('hidden');
+                                $('#owner_id').val($('#owner_name').val());
+                                ownerLotsOptions(data.owner_lots);
+                                toastr.success("You have paid all bills!", "Sell Lot");
+                            }else {
+                                $('#form_div').addClass('hidden');
+                                toastr.error("This Owner did not have any lot" , "Warning Message");
+                            }
                         }
                     }
                 });
             }
         });
 
+        function ownerLotsOptions(lots) {
+            $.each(lots , function ($i , val) {
+                $('#owner_lot').append(" <option value='"+val.lot_id+"' selected>"+val.lot_name+"</option> ");
+            });
+
+            $('#owner_lot').removeAttr('disabled');
+        }
+        
         $('#owner_name').select2();
+
+        $('#owner_lot').select2();
+
+        $('#owner-sell-form').on('submit' , function (e) {
+            e.preventDefault();
+            $('#sell-lots').val($('#owner_lot').val());
+            $('#owner-sell-form').submit();
+        });
 
     </script>
 
