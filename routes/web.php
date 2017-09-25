@@ -221,7 +221,11 @@ Route::group(['middleware' => ['admin'], 'namespace' => 'Admin'], function () {
         'as' => 'post.lot.save.lotType',
         'uses' => 'LotController@saveLotType'));
 
-    Route::get('/dashboard/lot/delete{id}', array(
+    Route::delete('/dashboard/single-lot/delete/{id}', array(
+        'as' => 'lot.lot.delete',
+        'uses' => 'LotController@deleteLot'));
+
+    Route::get('/dashboard/lot/delete/{id}', array(
         'as' => 'lot.type.delete',
         'uses' => 'LotController@deleteLotType'));
 

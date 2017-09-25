@@ -27,6 +27,13 @@ class LotController extends Controller
         return view('admin.admin-lots.show', compact('lots'));
     }
 
+    public function deleteLot($lot_id) {
+        Lot::where('lot_id' , $lot_id)->delete();
+        OwnerLot::where('lot_type_id', $lot_id)->delete();
+
+        return response()->json(['status' => true , 'id' => $lot_id]);
+    }
+
     public function edit($id) {
         $lotType = LotType::findOrFail($id);
         return view('admin.admin-lots.edit', compact('lotType'));
