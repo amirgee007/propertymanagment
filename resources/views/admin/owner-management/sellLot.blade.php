@@ -28,7 +28,8 @@
                         <div class="panel-body no-padding">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <form class="form-horizontal form-bordered" action="#"
+                                    <form class="form-horizontal form-bordered"
+                                          action="{{route('post.owner.sell.to.others')}}"
                                   role="form" id="sample-validation-2" method="post">
                                 <div class="form-body">
                                     <div class="form-group form-group-divider">
@@ -84,9 +85,8 @@
                                     </div>
 
                                     <div class="col-lg-12 hidden" id="form_div">
-                                        <form class="form-horizontal form-bordered"
-                                              action="{{route('post.owner.sell.to.others')}}"
-                                              role="form" id="owner-sell-form" method="post">
+                                        <div class="form-horizontal form-bordered"
+                                               id="owner-sell-form">
                                             <input type="hidden" id="sell-lots" name="sell-lots" value="">
                                             <div class="form-body">
                                                 <div class="form-group form-group-divider">
@@ -260,11 +260,11 @@
 
                                             <div class="form-footer">
                                                 <div class="col-sm-offset-3">
-                                                    <button type="submit" class="btn btn-theme">Save Owner</button>
+                                                    <button type="submit" id="submit-form" class="btn btn-theme">Save Owner</button>
                                                 </div>
                                             </div>
 
-                                        </form>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -291,6 +291,10 @@
     
     <script>
 
+
+
+
+
         function toggle(className, obj) {
             var $input = $(obj);
             if ($input.prop('checked')) {
@@ -305,12 +309,16 @@
 
 
         $(document).ready(function () {
-
-
             $('#dp1').datepicker({
                 format: 'dd-mm-yyyy',
             }).on('changeDate', function (e) {
                 $(this).datepicker('hide');
+            });
+
+            $(document).on('submit' , '#sample-validation-2' , function (e) {
+//                e.preventDefault();
+                $('#submit-form').attr('disabled' , 'disabled');
+//                $('#sample-validation-2').submit();
             });
 
         });
@@ -372,11 +380,7 @@
 
         $('#owner_lot').select2();
 
-        $('#owner-sell-form').on('submit' , function (e) {
-            e.preventDefault();
-            $('#sell-lots').val($('#owner_lot').val());
-            $('#owner-sell-form').submit();
-        });
+
 
     </script>
 
