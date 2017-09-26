@@ -27,6 +27,13 @@ class LotController extends Controller
         return view('admin.admin-lots.show', compact('lots'));
     }
 
+    public function deleteLot($lot_id) {
+        Lot::where('lot_id' , $lot_id)->delete();
+        OwnerLot::where('lot_type_id', $lot_id)->delete();
+
+        return response()->json(['status' => true , 'id' => $lot_id]);
+    }
+
     public function edit($id) {
         $lotType = LotType::findOrFail($id);
         return view('admin.admin-lots.edit', compact('lotType'));
@@ -145,7 +152,8 @@ class LotController extends Controller
 
     public function sellToOtherStore(Request $request)
     {
-        $lots = OwnerLot::where('lot_owner_id', $request->old_owner_id)->get();
+        $lots = OwnerLot::where('lot_owner_id', $request->old_owner_id)
+            ->whereIn('lot_id' , $request->owner_lots)->get();
 
         $savableOwner = new Owner();
         $savableOwner->owner_type = isset($request->owner_type) ? $request->owner_type : '';
@@ -192,11 +200,13 @@ class LotController extends Controller
             ->with('owner', 'lot')
             ->get();
 
-        $owner_lots = OwnerLot::where('lot_owner_id', $request->id)
-            ->get();
+        $owner_lots = Owner::where('owner_id', $request->id)
+            ->first()->ownerLots;
+
 
         return response()->json([
-            'owner_bills' => $owner_bills
+            'owner_bills' => $owner_bills,
+            'owner_lots' => $owner_lots
         ]);
     }
 

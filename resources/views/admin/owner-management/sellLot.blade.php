@@ -26,7 +26,10 @@
                 <div class="col-md-12">
                     <div class="panel rounded shadow">
                         <div class="panel-body no-padding">
-                            <form class="form-horizontal form-bordered" action="#"
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <form class="form-horizontal form-bordered"
+                                          action="{{route('post.owner.sell.to.others')}}"
                                   role="form" id="sample-validation-2" method="post">
                                 <div class="form-body">
                                     <div class="form-group form-group-divider">
@@ -47,6 +50,15 @@
                                                 @foreach($owners as $value)
                                                     <option value="{{$value->owner_id}}">{{$value->owner_name}}</option>
                                                 @endforeach
+                                            </select>
+                                        </div>
+                                    </div><!-- /.form-group -->
+
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Owner Lots</label>
+                                        <div class="col-sm-7">
+                                            <select class="form-control" id="owner_lot" name="owner_lots[]" disabled multiple>
+
                                             </select>
                                         </div>
                                     </div><!-- /.form-group -->
@@ -73,9 +85,9 @@
                                     </div>
 
                                     <div class="col-lg-12 hidden" id="form_div">
-                                        <form class="form-horizontal form-bordered"
-                                              action="{{route('post.owner.sell.to.others')}}"
-                                              role="form" id="sample-validation-2" method="post">
+                                        <div class="form-horizontal form-bordered"
+                                               id="owner-sell-form">
+                                            <input type="hidden" id="sell-lots" name="sell-lots" value="">
                                             <div class="form-body">
                                                 <div class="form-group form-group-divider">
                                                     <div class="form-inner">
@@ -248,16 +260,19 @@
 
                                             <div class="form-footer">
                                                 <div class="col-sm-offset-3">
-                                                    <button type="submit" class="btn btn-theme">Save Owner</button>
+                                                    <button type="submit" id="submit-form" class="btn btn-theme">Save Owner</button>
                                                 </div>
                                             </div>
 
-                                        </form>
+                                        </div>
                                     </div>
 
                                 </div>
 
                             </form>
+                                </div>
+
+                            </div>
                         </div><!-- /.panel-body -->
                     </div><!-- /.panel -->
                 </div>
@@ -273,8 +288,12 @@
 @section('footer_scripts')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
-
+    
     <script>
+
+
+
+
 
         function toggle(className, obj) {
             var $input = $(obj);
@@ -290,11 +309,16 @@
 
 
         $(document).ready(function () {
-
             $('#dp1').datepicker({
                 format: 'dd-mm-yyyy',
             }).on('changeDate', function (e) {
                 $(this).datepicker('hide');
+            });
+
+            $(document).on('submit' , '#sample-validation-2' , function (e) {
+//                e.preventDefault();
+                $('#submit-form').attr('disabled' , 'disabled');
+//                $('#sample-validation-2').submit();
             });
 
         });
@@ -312,6 +336,7 @@
                     cache: false,
                     success: function (data) {
                         $('#pending_bills').html('');
+                        $('#owner_lot').html('');
                         if (data.owner_bills.length > 0) {
                             $('#bills_table_div').removeClass('hidden');
                             $.each(data.owner_bills, function (i, val) {
@@ -328,17 +353,34 @@
                             });
                             toastr.error("Please Check your unpaid bills!", "Sell Lot");
                         } else {
-                            console.log(data);
-                            $('#form_div').removeClass('hidden');
-                            $('#owner_id').val($('#owner_name').val());
-                            toastr.success("You have paid all bills!", "Sell Lot");
+                            if (data.owner_lots.length !== 0) {
+                                $('#form_div').removeClass('hidden');
+                                $('#owner_id').val($('#owner_name').val());
+                                ownerLotsOptions(data.owner_lots);
+                                toastr.success("You have paid all bills!", "Sell Lot");
+                            }else {
+                                $('#form_div').addClass('hidden');
+                                toastr.error("This Owner did not have any lot" , "Warning Message");
+                            }
                         }
                     }
                 });
             }
         });
 
+        function ownerLotsOptions(lots) {
+            $.each(lots , function ($i , val) {
+                $('#owner_lot').append(" <option value='"+val.lot_id+"' selected>"+val.lot_name+"</option> ");
+            });
+
+            $('#owner_lot').removeAttr('disabled');
+        }
+        
         $('#owner_name').select2();
+
+        $('#owner_lot').select2();
+
+
 
     </script>
 
