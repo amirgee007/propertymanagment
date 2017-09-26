@@ -50,7 +50,7 @@ class ScheduleInvoice extends Command
             $this->info('-----');
             $this->info('Record Processing');
             $invoice_data[] = [
-                'owner_id' => $fund->lot->ownerLot->lot_owner_id,
+                'owner_id' => $fund->lot->ownerWithLot->lot_owner_id,
                 'lot_id' => $fund->lot->lot_id,
                 'date' => $fund->date,
                 'invoice_trans_des' => $fund->description,
