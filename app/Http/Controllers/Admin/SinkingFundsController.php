@@ -29,7 +29,7 @@ class SinkingFundsController extends Controller
      */
     public function create()
     {
-        $lots = Lot::has('ownerLot')->get();
+        $lots = Lot::has('ownerWithLot')->get();
 
         return view('admin.sinking-funds.add', compact('lots'));
     }
@@ -65,7 +65,7 @@ class SinkingFundsController extends Controller
     {
         $fund = SinkingFund::findOrFail($id);
 
-        $lots = Lot::has('ownerLot')->get();
+        $lots = Lot::has('ownerWithLot')->get();
 
         return view('admin.sinking-funds.show', compact('lots', 'fund'));
     }
@@ -80,7 +80,7 @@ class SinkingFundsController extends Controller
     {
         $fund = SinkingFund::findOrFail($id);
 
-        $lots = Lot::has('ownerLot')->get();
+        $lots = Lot::has('ownerWithLot')->get();
 
         return view('admin.sinking-funds.edit', compact('lots', 'fund'));
     }

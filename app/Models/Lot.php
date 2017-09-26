@@ -22,4 +22,8 @@ class Lot extends Model
     {
         return $this->belongsTo(LotType::class, 'lot_type_id', 'lot_type_id');
     }
+
+    public function ownerWithLot() {
+        return $this->belongsTo(OwnerLot::class , 'lot_id' , 'lot_id');
+    }
 }
