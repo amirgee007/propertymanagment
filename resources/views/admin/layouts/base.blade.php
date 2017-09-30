@@ -51,6 +51,11 @@
     <link href="/admin/assets/global/plugins/bower_components/horizontal-chart/build/css/horizBarChart.css"
           rel="stylesheet">
 
+    <link href="/admin/assets/global/plugins/bower_components/datatables/css/datatables.responsive.css" rel="stylesheet">
+    <link href="/admin/assets/global/plugins/bower_components/datatables/css/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="/admin/assets/global/plugins/bower_components/fuelux/dist/css/fuelux.min.css" rel="stylesheet">
+
+
     <link href="/admin/assets/admin/css/reset.css" rel="stylesheet">
     <link href="/admin/assets/admin/css/layout.css" rel="stylesheet">
     <link href="/admin/assets/admin/css/components.css" rel="stylesheet">
@@ -181,6 +186,13 @@
 <script src="/admin/assets/global/plugins/bower_components/waypoints/lib/jquery.waypoints.min.js"></script>
 <script src="/admin/assets/global/plugins/bower_components/counter-up/jquery.counterup.min.js"></script>
 
+
+<script src="/admin/assets/global/plugins/bower_components/datatables/js/jquery.dataTables.min.js"></script>
+<script src="/admin/assets/global/plugins/bower_components/datatables/js/dataTables.bootstrap.js"></script>
+<script src="/admin/assets/global/plugins/bower_components/datatables/js/datatables.responsive.js"></script>
+<script src="/admin/assets/global/plugins/bower_components/fuelux/dist/js/fuelux.min.js"></script>
+
+
 <script src="/admin/assets/admin/js/apps.js"></script>
 <!--<script src="/admin/assets/admin/js/pages/project-management/blankon.project.management.dashboard.js"></script>-->
 <script src="/admin/assets/admin/js/demo.js"></script>
@@ -191,6 +203,7 @@
 <script src="/admin/assets/global/plugins/bower_components/moment/min/moment.min.js"></script>
 <script src="/admin/assets/global/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
 <script src="/admin/assets/global/plugins/bower_components/chosen_v1.2.0/chosen.jquery.min.js"></script>
+
 
 <script>
     $(document).ready(function () {

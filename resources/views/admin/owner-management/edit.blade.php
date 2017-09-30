@@ -159,7 +159,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Owner Address</label>
                                                 <div class="col-sm-7">
-                                                    <input type="text" value="{{$owner->owner_address or 'null'}}" class="form-control input-sm" name="owner_address">
+                                                    <textarea class="form-control input-sm" name="owner_address">{{$owner->owner_address or 'null'}}</textarea>
                                                 </div>
                                             </div><!-- /.form-group -->
 

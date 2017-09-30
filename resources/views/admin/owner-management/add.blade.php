@@ -56,8 +56,8 @@
                                         <label class="col-sm-3 control-label">Identity Card No. <span
                                                     class="asterisk">*</span></label>
                                         <div class="col-sm-7">
-                                            <span id="valid-card" hidden style="color: green; font-weight: 100;font-size:smaller ">unique card number </span>
-                                            <span id="invalid-card" style="color: red; font-weight: 100;font-size:smaller">please enter unique card number</span>
+                                            <span id="valid-card" hidden style="color: green; font-weight: 100;font-size:smaller ">IC is available</span>
+                                            <span id="invalid-card" style="color: red; font-weight: 100;font-size:smaller">IC already exist</span>
                                             <input id="input_card_no" type="text" class="form-control input-sm" name="owner_id_card_no"
                                                    data-url="{{route('owner.add.card.check')}}" data-id="owner_id_card_no"
                                                    required>
@@ -76,8 +76,8 @@
                                         <label class="col-sm-3 control-label">Email <span
                                                     class="asterisk">*</span></label>
                                         <div class="col-sm-7">
-                                            <span id="valid-email" hidden style="color: green; font-weight: 100;font-size:smaller ">Unique Email</span>
-                                            <span id="invalid-email" style="color: red; font-weight: 100;font-size:smaller">Please enter unique Email</span>
+                                            <span id="valid-email" hidden style="color: green; font-weight: 100;font-size:smaller ">Email is available</span>
+                                            <span id="invalid-email" style="color: red; font-weight: 100;font-size:smaller">Email already exist</span>
 
                                             <input type="email" id="email" class="form-control input-sm"
                                                    data-url="{{route('owner.add.card.check')}}" data-id="email"
@@ -105,7 +105,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Owner Address</label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control input-sm" name="owner_address">
+                                            <textarea class="form-control input-sm" name="owner_address">{{ old('owner_address') }}</textarea>
                                         </div>
                                     </div><!-- /.form-group -->
 

@@ -43,136 +43,135 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="panel-body">
-                            <div class="container">
-                                <br>
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-theme">
-                                        <thead>
+                            <div class="table-responsive col-xs-12">
+                                <table id="owner-management-table" class="table table-striped table-theme">
+                                    <thead>
+                                    <tr>
+                                        <th>Owner ID</th>
+                                        <th>Owner Name</th>
+                                        <th>IC No.</th>
+                                        <th>Phone1</th>
+                                        <th>Email</th>
+                                        <th>Type</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($owners as $owner)
                                         <tr>
-                                            <th>Owner ID</th>
-                                            <th>Owner Name</th>
-                                            <th>IC No.</th>
-                                            <th>Phone1</th>
-                                            <th>Email</th>
-                                            <th>Type</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
+                                            <td>{{ $owner->owner_id }}</td>
+                                            <td>{{ $owner->owner_name }}</td>
+                                            <td>{{ $owner->owner_id_card_no }}</td>
+                                            <td>{{ $owner->owner_phone1  }}</td>
+                                            <td>{{ $owner->email }}</td>
+                                            <td>
+                                                <label class="label label-info">{{ ucwords($owner->owner_type) }}</label>
+                                            </td>
+                                            <td>{!! $owner->status !!}</td>
+                                            <td class="text-center">
+                                                <a href="{{ route('owner.show', $owner->owner_id) }}"
+                                                   class="btn btn-success btn-xs rounded"
+                                                   data-toggle="tooltip" data-placement="top"
+                                                   data-original-title="View detail"><i class="fa fa-eye"></i>
+                                                </a>
+
+                                                <a href="{{ route('owner.edit', $owner->owner_id) }}"
+                                                   class="btn btn-primary btn-xs rounded"
+                                                   data-toggle="tooltip" data-placement="top"
+                                                   data-original-title="Edit"><i class="fa fa-pencil"></i>
+                                                </a>
+
+                                                <a href="#" class="btn btn-danger btn-xs rounded delete-owner"
+                                                   data-toggle="tooltip" data-placement="top"
+                                                   data-original-title="Delete Owner"
+                                                   data-owner-id="{{ $owner->owner_id }}"
+                                                   data-url="{{ route('owner.destroy', $owner->owner_id) }}">
+                                                    <i class="fa fa-times"></i>
+                                                </a>
+                                            </td>
                                         </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($owners as $owner)
-                                            <tr>
-                                                <td>{{ $owner->owner_id }}</td>
-                                                <td>{{ $owner->owner_name }}</td>
-                                                <td>{{ $owner->owner_id_card_no }}</td>
-                                                <td>{{ $owner->owner_phone1  }}</td>
-                                                <td>{{ $owner->email }}</td>
-                                                <td>
-                                                    <label class="label label-info">{{ ucwords($owner->owner_type) }}</label>
-                                                </td>
-                                                <td>{!! $owner->status !!}</td>
-                                                <td class="text-center">
-                                                    <a href="{{ route('owner.show', $owner->owner_id) }}"
-                                                       class="btn btn-success btn-xs rounded"
-                                                       data-toggle="tooltip" data-placement="top"
-                                                       data-original-title="View detail"><i class="fa fa-eye"></i>
-                                                    </a>
-
-                                                    <a href="{{ route('owner.edit', $owner->owner_id) }}"
-                                                       class="btn btn-primary btn-xs rounded"
-                                                       data-toggle="tooltip" data-placement="top"
-                                                       data-original-title="Edit"><i class="fa fa-pencil"></i>
-                                                    </a>
-
-                                                    <a href="#" class="btn btn-danger btn-xs rounded delete-owner"
-                                                       data-toggle="tooltip" data-placement="top" data-original-title="Delete Owner"
-                                                       data-owner-id="{{ $owner->owner_id }}"
-                                                       data-url="{{ route('owner.destroy', $owner->owner_id) }}">
-                                                        <i class="fa fa-times"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="text-center">
-                                    {{ $owners->links() }}
-                                </div>
+                                    @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div><!-- /.panel-body -->
                     </div><!-- /.panel -->
                 </div>
             </div>
-        </div>
-
-        <!-- Modal -->
-        <div id="delete-owner-modal" class="modal fade" role="dialog">
-            <div class="modal-dialog modal-danger">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title"></h4>
+            <!-- Modal -->
+            <div id="delete-owner-modal" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-danger">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title"></h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure! you want to delete this owner ?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <a href="javascript:void(0);" class="btn btn-danger" id="delete-owner">Delete</a>
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        <p>Are you sure! you want to delete this owner ?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <a href="javascript:void(0);" class="btn btn-danger" id="delete-owner">Delete</a>
-                    </div>
-                </div>
-            </div><!-- /.modal-dialog -->
+                </div><!-- /.modal-dialog -->
+            </div>
         </div>
 
         @include('admin.layouts.pagefooter')
     </section>
-
 @endsection
 
 @section('footer_scripts')
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
 
-            $(document).on("click", ".delete-owner", function(event){
+            $(document).on("click", ".delete-owner", function (event) {
                 $('#delete-owner').attr('data-url', $(this).attr('data-url'));
 
                 var owner_id = $(this).attr('data-owner-id');
-                $('.modal-title').html('Owner ID: '+ owner_id);
+                $('.modal-title').html('Owner ID: ' + owner_id);
                 $('#delete-owner-modal').modal();
             });
 
-            $(document).on("click", "#delete-owner", function(event){
+            $(document).on("click", "#delete-owner", function (event) {
                 event.preventDefault();
                 var button = $(this);
                 $.ajax({
                     type: "DELETE",
                     cache: false,
-                    headers:{'X-CSRF-TOKEN': Laravel.csrfToken},
+                    headers: {'X-CSRF-TOKEN': Laravel.csrfToken},
                     url: button.attr('data-url'),
-                    beforeSend: function(){
+                    beforeSend: function () {
                         button.attr('disabled', true);
                     },
-                    success: function(json){
-                        if(json.status == 'success'){
-                            $(button).html('<i class="fa fa-check"></i> '+json.message).attr('disabled', 'disabled');
+                    success: function (json) {
+                        if (json.status == 'success') {
+                            $(button).html('<i class="fa fa-check"></i> ' + json.message).attr('disabled', 'disabled');
                             setTimeout(function () {
                                 location.reload();
                             }, 2000);
-                        } else if (json.status == 'error'){
-                            $(button).html('<i class="fa fa-check"></i> '+json.message).attr('disabled', 'disabled');
+                        } else if (json.status == 'error') {
+                            $(button).html('<i class="fa fa-check"></i> ' + json.message).attr('disabled', 'disabled');
                             setTimeout(function () {
                                 location.reload();
                             }, 2000);
                         }
                     },
-                    error : function(json){
+                    error: function (json) {
 
                     },
                     dataType: "json"
                 });
             });
 
+        });
+
+        $('#owner-management-table').DataTable({
+            "paging": true,
+            "searching": true,
+            'info': true
         });
     </script>
 @endsection

@@ -61,14 +61,14 @@
                     <span class="arrow"></span>
                 </a>
                 <ul>
-                    <li class="@if(request()->is('dashboard/owner/*', 'dashboard/owner')) active @endif"><a
+                    <li class="@if(request()->is('dashboard/owner/index', 'dashboard/owner/add', 'dashboard/owner/edit/*', 'dashboard/owner/show/*')) active @endif"><a
                                 href="{{route('owner.index')}}">Manage Owners<span
                                     class="label label-success pull-right"></span></a></li>
-                    <li><a href="{{route('owner.assign.lot')}}">Assign lot <span
+                    <li class="@if(request()->is('dashboard/owner/assign-lot')) active @endif"><a href="{{route('owner.assign.lot')}}">Assign lot <span
                                     class="label label-danger pull-right"></span></a></li>
-                    <li><a href="{{route('owner.list.assign.lot')}}">List of owned Lot No <span
+                    <li class="@if(request()->is('dashboard/owner/assign-lot/list')) active @endif"><a href="{{route('owner.list.assign.lot')}}">List of owned Lot No <span
                                     class="label label-danger pull-right"></span></a></li>
-                    <li><a href="{{route('owner.lot.sell.other')}}">Sell to Other <span
+                    <li class="@if(request()->is('dashboard/owner/sell-to-other')) active @endif"><a href="{{route('owner.lot.sell.other')}}">Sell to Other <span
                                     class="label label-danger pull-right"></span></a></li>
                 </ul>
             </li>
@@ -119,18 +119,18 @@
 
 
         @if(auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin'))
-            <li class="submenu">
+            <li class="submenu @if(request()->is('dashboard/meter/*', 'dashboard/meter')) active @endif">
                 <a href="javascript:void(0);">
                     <span class="icon"><i class="fa fa-suitcase"></i></span>
                     <span class="text">Meter Management</span>
                     <span class="arrow"></span>
                 </a>
                 <ul>
-                    <li><a href="{{route('meter.index')}}">Meter Type<span
+                    <li class="@if(request()->is('dashboard/meter')) active @endif"><a href="{{route('meter.index')}}">Meter Type<span
                                     class="label label-warning pull-right"></span></a></li>
-                    <li><a href="{{route('meter.assignment.index')}}">Assign Meter<span
+                    <li class="@if(request()->is('dashboard/meter/assignment')) active @endif"><a href="{{route('meter.assignment.index')}}">Assign Meter<span
                                     class="label label-danger pull-right"></span></a></li>
-                    <li><a href="{{route('meter.reading.index')}}">Manage Meter Reading<span
+                    <li class="@if(request()->is('dashboard/meter/reading', 'dashboard/meter/reading/create')) active @endif"><a href="{{route('meter.reading.index')}}">Manage Meter Reading<span
                                     class="label label-danger pull-right"></span></a></li>
                 </ul>
             </li>
