@@ -5,6 +5,10 @@
     @parent
 @stop
 
+@section('header_styles')
+    <link href="{{ asset('/css/modal_center.css') }}" rel="stylesheet" type="text/css"/>
+@endsection
+
 @section('content')
     <section id="page-content">
         <div class="header-content">

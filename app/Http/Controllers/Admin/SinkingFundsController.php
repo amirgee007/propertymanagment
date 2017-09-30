@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Invoice;
 use App\Models\Lot;
 use App\Models\SinkingFund;
 use Carbon\Carbon;
@@ -45,7 +46,9 @@ class SinkingFundsController extends Controller
         $this->formValidate($request);
 
         try {
-            SinkingFund::create($request->except('_token'));
+            $fund = SinkingFund::create($request->except('_token'));
+
+            Invoice::generateFromSinkingFund($fund);
 
             flash('Fund created successfully.')->success();
             return redirect()->route('sinking-funds.index');

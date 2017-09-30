@@ -80,26 +80,6 @@
     <link href="/admin/assets/global/plugins/bower_components/chosen_v1.2.0/chosen.min.css" rel="stylesheet">
 
     @yield('header_styles')
-    <style>
-        .modal {
-            text-align: center;
-            padding: 0!important;
-        }
-
-        .modal:before {
-            content: '';
-            display: inline-block;
-            height: 100%;
-            vertical-align: middle;
-            margin-right: -4px;
-        }
-
-        .modal-dialog {
-            display: inline-block;
-            text-align: left;
-            vertical-align: middle;
-        }
-    </style>
     <script>window.Laravel = <?php echo json_encode(['csrfToken' => csrf_token()]); ?></script>
 </head>
 

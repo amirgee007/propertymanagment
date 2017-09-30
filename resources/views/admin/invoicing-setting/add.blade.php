@@ -251,7 +251,9 @@
                                                                                     <input type="text"
                                                                                            class="form-control input-sm"
                                                                                            value="{{@$maintenance->charges_per_sqft}}"
-                                                                                           name=" maintenanceServiceSettings[charges_per_sqft]">
+                                                                                           readonly="readonly"
+                                                                                           disabled
+                                                                                           {{--name=" maintenanceServiceSettings[charges_per_sqft]"--}}>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-group">

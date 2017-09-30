@@ -10,6 +10,8 @@
           rel="stylesheet">
     <link href="/admin/assets/global/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.css"
           rel="stylesheet">
+
+    <link href="{{ asset('/css/modal_center.css') }}" rel="stylesheet" type="text/css"/>
 @endsection
 
 @section('content')
