@@ -117,14 +117,13 @@ class MeterReadingController extends Controller
         $data = [];
 
         foreach ($meterReadings as $meterReading) {
-            if (is_null($meterReading->previousReading()))
-                continue;
+            $previousReading = is_null($meterReading->previousReading())?0:$meterReading->previousReading()->last_reading;
             $data[] = [
                 'month' => Carbon::parse($meterReading->reading_date)->format('F'),
                 'reading_date' => $meterReading->reading_date,
-                'previous' => $meterReading->previousReading()->last_reading,
+                'previous' => $previousReading,
                 'current' => $meterReading->last_reading,
-                'usage' => $meterReading->last_reading - $meterReading->previousReading()->last_reading,
+                'usage' => $meterReading->last_reading - $previousReading,
                 'amount' => $meterReading->readingAmount()
             ];
         }
@@ -142,14 +141,13 @@ class MeterReadingController extends Controller
         $data = [];
 
         foreach ($meterReadings as $meterReading) {
-            if (is_null($meterReading->previousReading()))
-                continue;
+            $previousReading = is_null($meterReading->previousReading())?0:$meterReading->previousReading()->last_reading;
             $data[] = [
                 'month' => Carbon::parse($meterReading->reading_date)->format('F'),
                 'reading_date' => $meterReading->reading_date,
-                'previous' => $meterReading->previousReading()->last_reading,
+                'previous' => $previousReading,
                 'current' => $meterReading->last_reading,
-                'usage' => $meterReading->last_reading - $meterReading->previousReading()->last_reading,
+                'usage' => $meterReading->last_reading - $previousReading,
                 'amount' => $meterReading->readingAmount()
             ];
         }

@@ -89,6 +89,7 @@
         </div>
         <div class="company-name2">
             <span>RM{{$invoice->meterReading->readingAmount()}}</span>
+
         </div>
     </section>
 
@@ -157,7 +158,6 @@
                     <span> {{$invoice->due_date}} </span>
                 </td>
             </tr>
-
             <tr>
                 <td>
                     <span>Status:   </span>
@@ -181,7 +181,7 @@
             </tr>
             <tr>
                 <td>
-                    <table id="nested-table" style="border-width: 0px; border-color: white">
+                    <table id="nested-table" border="0" style="border-width: 0px; border-color: white">
                         <tr>
                             <td>
                                 <span>Meter No.         :	</span>
@@ -203,7 +203,7 @@
                                 <span>Previous reading as at:  </span>
                             </td>
                             <td>
-                                <span> {{$invoice->meterReading->previousReading()->reading_date}}</span>
+                                <span> {{$invoice->meterReading->previousReadingAt()}}</span>
                             </td>
                         </tr>
                         <tr>
@@ -216,14 +216,10 @@
                     </table>
                 </td>
                 <td>
-                    <table id="nested-table">
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td><br></td>
-                        </tr>
+                    <table border="0" id="nested-table">
+
+                        <br>
+                        <br>
                         <tr>
                             <td>
                                 <span>{{$invoice->meterReading->last_reading}}</span>
@@ -232,7 +228,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <span> {{$invoice->meterReading->previousReading()->last_reading}}</span>
+                                <span> {{$invoice->meterReading->previousReadingUnits()}}</span>
                             </td>
 
                         </tr>
@@ -275,7 +271,7 @@
     </section>
     <section id="invoice-title-number" style="margin: 20px 5px 5px 0px" >
 
-        <span id="title" style="font-size: 9px;">Notes:</span>
+        <span id="title" style="font-size: 9px;">Notes:</span><br>
         <span id="title" style="font-size: 9px; float: right; padding-right: 30px">Charges rate Table:</span>
 
     </section>

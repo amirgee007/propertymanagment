@@ -39,11 +39,28 @@ class MeterReading extends Model
         return $returnPrevious;
     }
 
-    public function unitUsage() {
-        if (!is_null($this->previousReading()))
-            return ($this->last_reading - $this->previousReading()->last_reading);
+    public function previousReadingUnits() {
+        $ReadingObj = $this->previousReading();
+        if (is_null($ReadingObj))
+            $reading = 0;
         else
-            return "N/A";
+            $reading = $ReadingObj->last_reading;
+
+        return $reading;
+    }
+
+    public function previousReadingAt() {
+        $ReadingObj = $this->previousReading();
+        if (is_null($ReadingObj))
+            $reading = "N/A";
+        else
+            $reading = $ReadingObj->reading_date;
+
+        return $reading;
+    }
+
+    public function unitUsage() {
+        return ($this->last_reading - $this->previousReadingUnits());
     }
 
 

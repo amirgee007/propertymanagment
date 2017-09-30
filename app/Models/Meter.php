@@ -65,8 +65,10 @@ class Meter extends Model
             if (!is_string($totalUnits) && $totalUnits <= 0 && !is_null($this->meterType->minimum_charges)) {
                 $totalUnits = "* 0 - Minimum Charges";
             }
-        }
-        else
+
+        } elseif($this->meterReadings->count() == 1) {
+            $totalUnits = $currentReading;
+        } else
             $totalUnits = 'N/A';
 
         return $totalUnits;
@@ -77,8 +79,8 @@ class Meter extends Model
         $currentReading = $this->currentReading();
         $lastReading = $this->lastReading();
 
-        if (!is_string($lastReading)) {
-            $totalUnits = $currentReading - $lastReading;
+        if (!is_string($lastReading) or $this->meterReadings->count() == 1) {
+            $totalUnits = $currentReading - (!is_string($lastReading)?$lastReading:0);
 
             return MeterReadingService::consumptionUnitAmount($this->meterType , $meterRates , $totalUnits);
 
