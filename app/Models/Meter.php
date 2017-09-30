@@ -65,8 +65,8 @@ class Meter extends Model
             if (!is_string($totalUnits) && $totalUnits <= 0 && !is_null($this->meterType->minimum_charges)) {
                 $totalUnits = "* 0 - Minimum Charges";
             }
-        }
-        if ($this->meterReadings->count() == 1) {
+
+        } elseif($this->meterReadings->count() == 1) {
             $totalUnits = $currentReading;
         } else
             $totalUnits = 'N/A';
