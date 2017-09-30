@@ -491,7 +491,8 @@
 
                                 <div class="tab-pane fade" id="meter-tab">
                                     <h4>Meter Data</h4>
-                                    <form class="form-horizontal form-bordered" action="{{route('post.owner.assign.carpark')}}"
+                                    @if($owner->ownerLots->count() > 0)
+                                        <form class="form-horizontal form-bordered" action="{{route('post.owner.assign.carpark')}}"
                                           role="form" id="sample-validation-2" method="post">
                                         <div class="form-body">
                                             <div class="form-group form-group-divider">
@@ -549,7 +550,8 @@
                                         </div>
 
                                     </form>
-
+                                    @endif
+                        {{-------------------owner Lots lists--------------}}
                                     <div class="col-md-12">
                                         <div class="panel rounded shadow">
                                             <div class="panel-heading" style="padding: 2%">

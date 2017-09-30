@@ -110,8 +110,7 @@ class OwnerController extends Controller
 
     public function edit($id)
     {
-        $owner = Owner::find($id);
-
+        $owner = Owner::with('ownerLots')->find($id);
 
         if (is_null($owner)) {
             flash('First Add owners Info')->warning();

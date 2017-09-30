@@ -42,10 +42,12 @@
                             </div>
                             <div class="clearfix"></div>
                         </div>
-                        <div class="panel-body">
-                            <div class="container">
-                                <br>
+                        <div class="panel-body no-padding">
+                            <div class="col-lg-12" style="padding: 5px">
                                 <div class="table-responsive">
+                                    <div id="meter-reading-table_filter" class="dataTables_filter">
+
+                                    </div>
                                     <table class="table table-striped table-theme">
                                         <thead>
                                         <tr>
@@ -96,11 +98,14 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="text-center">
-                                    {{ $owners->links() }}
-                                </div>
                             </div>
-                        </div><!-- /.panel-body -->
+                            <div class="col-lg-12">
+                            <div class="pull-right">
+                                {{ $owners->links() }}
+                            </div>
+                        </div>
+                        </div>
+
                     </div><!-- /.panel -->
                 </div>
             </div>
