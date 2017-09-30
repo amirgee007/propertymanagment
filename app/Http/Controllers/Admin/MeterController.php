@@ -55,9 +55,11 @@ class MeterController extends Controller
     public function deleteMeterType($id) {
         $type = MeterType::findOrFail($id);
         $type->delete();
+        $meterTypes = MeterType::get()->pluck('meter_name' , 'id');
         return response()->json([
             'status' => true,
-            'id' => 'm-type-'.$id
+            'id' => 'm-type-'.$id,
+            'meterTypes' => $meterTypes
         ]);
     }
 
