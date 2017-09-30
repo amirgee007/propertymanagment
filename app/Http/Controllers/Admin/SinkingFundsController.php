@@ -17,7 +17,7 @@ class SinkingFundsController extends Controller
      */
     public function index()
     {
-        $sinkingFunds = SinkingFund::paginate(10);
+        $sinkingFunds = SinkingFund::all();
 
         return view('admin.sinking-funds.index', compact('sinkingFunds'));
     }

@@ -100,26 +100,27 @@
                 </div>
             </div>
         </div>
-        <!-- Modal -->
-        <div id="delete-owner-modal" class="modal fade" role="dialog">
-            <div class="modal-dialog modal-danger">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title"></h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>Are you sure! you want to delete this owner ?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <a href="javascript:void(0);" class="btn btn-danger" id="delete-owner">Delete</a>
-                    </div>
-                </div>
-            </div><!-- /.modal-dialog -->
-        </div>
         @include('admin.layouts.pagefooter')
     </section>
+
+    <!-- Modal -->
+    <div id="delete-owner-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-danger">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure! you want to delete this owner ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <a href="javascript:void(0);" class="btn btn-danger" id="delete-owner">Delete</a>
+                </div>
+            </div>
+        </div><!-- /.modal-dialog -->
+    </div>
 @endsection
 
 @section('footer_scripts')

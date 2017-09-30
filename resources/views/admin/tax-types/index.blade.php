@@ -36,54 +36,50 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="panel-body">
-                            <div class="container">
-                                <br>
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-theme">
-                                        <thead>
+                            <div class="table-responsive col-xs-12">
+                                <table id="tax-types-table" class="table table-striped table-theme">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Rate %</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($taxTypes as $taxType)
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Rate %</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
+                                            <td>{{ $taxType->id }}</td>
+                                            <td>{{ ucwords($taxType->name) }}</td>
+                                            <td>{{ $taxType->rate }} %</td>
+                                            <td>{!! $taxType->label_status !!}</td>
+                                            <td class="text-center">
+                                                <a href="{{ route('tax-types.edit', $taxType) }}"
+                                                   class="btn btn-primary btn-xs rounded"
+                                                   data-toggle="tooltip" data-placement="top"
+                                                   data-original-title="Edit"><i class="fa fa-pencil"></i>
+                                                </a>
+                                            </td>
                                         </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($taxTypes as $taxType)
-                                            <tr>
-                                                <td>{{ $taxType->id }}</td>
-                                                <td>{{ ucwords($taxType->name) }}</td>
-                                                <td>{{ $taxType->rate }} %</td>
-                                                <td>{!! $taxType->label_status !!}</td>
-                                                <td class="text-center">
-                                                    <a href="{{ route('tax-types.edit', $taxType) }}"
-                                                       class="btn btn-primary btn-xs rounded"
-                                                       data-toggle="tooltip" data-placement="top"
-                                                       data-original-title="Edit"><i class="fa fa-pencil"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="text-center">
-                                    {{ $taxTypes->links() }}
-                                </div>
+                                    @endforeach
+                                    </tbody>
+                                </table>
                             </div>
-                        </div><!-- /.panel-body -->
+                        </div>
                     </div><!-- /.panel -->
                 </div>
             </div>
         </div>
 
         @include('admin.layouts.pagefooter')
-
     </section>
 
 @endsection
 
 @section('footer_scripts')
+    <script>
+        $('#tax-types-table').DataTable();
+    </script>
 @endsection
 
