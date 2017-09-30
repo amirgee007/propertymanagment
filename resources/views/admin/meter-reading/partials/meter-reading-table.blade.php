@@ -21,7 +21,7 @@
                         <tr>
                             <th>Meter Type</th>
                             <th>Meter ID</th>
-                            <th>Lot No</th>
+                            <th>Lot Number</th>
                             <th>Last Reading Date</th>
                             <th>Current Readings</th>
                             <th>Previous Readings</th>
@@ -35,7 +35,7 @@
                             <tr id="m-reading-{{$meter->id}}">
                                 <td>{{$meter->meterType->meter_name}}</td>
                                 <td>{{$meter->id}}</td>
-                                <td>{{$meter->lot_id}}</td>
+                                <td>{{is_null($meter->lot) ?:$meter->lot->lot_name}}</td>
                                 <td class="las-dat-td-{{$meter->id}}">{{$meter->lastReadingDate()}}</td>
                                 <td class="cur-re-td-{{$meter->id}}">{{$meter->currentReading()}}</td>
                                 <td class="las-re-td-{{$meter->id}}">{{$meter->lastReading()}}</td>
