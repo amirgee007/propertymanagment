@@ -4,7 +4,6 @@ namespace App;
 
 use App\Models\Owner;
 use App\Models\Role;
-use function foo\func;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;

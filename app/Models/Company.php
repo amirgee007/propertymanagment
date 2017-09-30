@@ -8,6 +8,8 @@ class Company extends Model
 {
     protected $table = 'companies';
 
+    protected $primaryKey = 'comp_id';
+
     protected $fillable = [
         'comp_id',
         'owner_id',

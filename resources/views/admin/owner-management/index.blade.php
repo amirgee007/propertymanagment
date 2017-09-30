@@ -53,7 +53,7 @@
                                         <th>Phone1</th>
                                         <th>Email</th>
                                         <th>Type</th>
-                                        <th>Status</th>
+                                        <th>Company</th>
                                         <th>Actions</th>
                                     </tr>
                                     </thead>

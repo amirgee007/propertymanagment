@@ -21,20 +21,19 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @param  \Illuminate\Console\Scheduling\Schedule $schedule
      * @return void
      */
     protected function schedule(Schedule $schedule)
     {
-        $invoice_setting = InvoicingSettingGeneral::all()->first();
-
         $due_date = null;
-        if ($invoice_setting) {
-            $due_date = $invoice_setting->due_date;
-        }
+        try {
+            $invoice_setting = InvoicingSettingGeneral::all()->first();
+            $due_date = @$invoice_setting->due_date;
+        } catch (\Exception $e) {}
 
         $schedule->command('invoice:sinking-funds')
-            ->daily()->when(function() use ($due_date){
+            ->daily()->when(function () use ($due_date) {
                 return Carbon::today() == $due_date;
             });
 

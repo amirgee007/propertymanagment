@@ -161,6 +161,9 @@ Route::group(['middleware' => ['admin'], 'namespace' => 'Admin'], function () {
             'as' => 'post.owner.verify',
             'uses' => 'OwnerController@verify'));
 
+        Route::post('/company/update', array(
+            'as' => 'owner.company.update',
+            'uses' => 'OwnerController@updateOwnerCompany'));
 
         Route::post('/car-park', array(
             'as' => 'post.owner.assign.carpark',

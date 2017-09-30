@@ -37,16 +37,24 @@
                                         <i class="fa fa-user"></i>
                                         <div>
                                             <span class="text-strong">Profile Tab</span>
-                                            <span>1</span>
                                         </div>
                                     </a>
                                 </li>
+                                @if(! is_null($company))
+                                    <li>
+                                        <a href="#company-tab" data-toggle="tab">
+                                            <i class="fa fa-building-o"></i>
+                                            <div>
+                                                <span class="text-strong">Company Tab</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                @endif
                                 <li>
                                     <a href="#login-tab" data-toggle="tab">
                                         <i class="fa fa-file-text"></i>
                                         <div>
                                             <span class="text-strong">Login Tab</span>
-                                            <span>2</span>
                                         </div>
                                     </a>
                                 </li>
@@ -55,7 +63,6 @@
                                         <i class="fa fa-credit-card"></i>
                                         <div>
                                             <span class="text-strong">Lot Tab</span>
-                                            <span>3</span>
                                         </div>
                                     </a>
                                 </li>
@@ -64,7 +71,6 @@
                                         <i class="fa fa-check-circle"></i>
                                         <div>
                                             <span class="text-strong">Carpark Tab</span>
-                                            <span>4</span>
                                         </div>
                                     </a>
                                 </li>
@@ -74,7 +80,6 @@
                                         <i class="fa fa-check-circle"></i>
                                         <div>
                                             <span class="text-strong">Meter Tab</span>
-                                            <span>5</span>
                                         </div>
                                     </a>
                                 </li>
@@ -101,6 +106,8 @@
                                             {{csrf_field()}}
 
                                             <input type="hidden" name="owner_id" value="{{$owner->owner_id or 'null'}}" >
+                                            <input type="hidden" name="is_company" value="{{ is_null($company) ? 0 : 1 }}" >
+
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Owner Type</label>
                                                 <div class="col-sm-7">
@@ -176,79 +183,6 @@
                                                     <input type="text" value="{{$owner->owner_phone2 or 'null'}}" class="form-control input-sm" name="owner_phone2">
                                                 </div>
                                             </div><!-- /.form-group -->
-
-
-                                            {{--//////////////////////////////////Comany Infomration//////////////////////////////////////////--}}
-                                            @if($owner->is_company)
-
-                                                <div class="form-group form-group-divider">
-                                                    <div class="form-inner">
-                                                        <h4 class="no-margin"><span
-                                                                    class="label label-danger label-circle">2</span>
-                                                            Company Information</h4>
-                                                    </div>
-                                                </div><!-- /.form-group -->
-
-
-                                                        <input type="hidden" name="company_id" value="{{$company->comp_id}}">
-
-                                                <div class="form-group">
-                                                    <label class="col-sm-3 control-label">Company Name <span
-                                                                class="asterisk"></span></label>
-                                                    <div class="col-sm-7">
-                                                        <input type="text" class="form-control input-sm" value="{{$company->comp_name}}" >
-
-                                                    </div>
-                                                </div><!-- /.form-group -->
-
-                                                <div class="form-group">
-                                                    <label class="col-sm-3 control-label">Company Address</label>
-                                                    <div class="col-sm-7">
-                                                        <input type="text" class="form-control input-sm" value="{{$company->comp_address}}" >
-
-                                                    </div>
-                                                </div><!-- /.form-group -->
-
-
-                                                <div class="form-group">
-                                                    <label class="col-sm-3 control-label">Company Registration Number</label>
-                                                    <div class="col-sm-7">
-                                                        <input type="text" class="form-control input-sm" value="{{$company->comp_reg_no}}" >
-
-                                                    </div>
-                                                </div><!-- /.form-group -->
-
-                                                <div class="form-group">
-                                                    <label class="col-sm-3 control-label">Company Telephone No.</label>
-                                                    <div class="col-sm-7">
-                                                        <input type="text" class="form-control input-sm" value="{{$company->comp_telephone_no}}" >
-
-                                                    </div>
-                                                </div><!-- /.form-group -->
-
-                                                <div class="form-group">
-                                                    <label class="col-sm-3 control-label">Company Fax No.</label>
-                                                    <div class="col-sm-7">
-                                                        <input type="text" class="form-control input-sm" value="{{$company->comp_fax_no}}" >
-
-                                                    </div>
-                                                </div><!-- /.form-group -->
-
-                                                <div class="form-group">
-                                                    <label class="col-sm-3 control-label">Contact Person</label>
-                                                    <div class="col-sm-7">
-                                                        <input type="text" class="form-control input-sm" value="{{$company->comp_contact_person}}" >
-
-                                                    </div>
-                                                </div><!-- /.form-group -->
-
-                                                <div class="form-group">
-                                                    <label class="col-sm-3 control-label">Contact</label>
-                                                    <div class="col-sm-7">
-                                                        <input type="text" class="form-control input-sm" value="{{$company->comp_contact_no}}" >
-                                                    </div>
-                                                </div>
-                                            @endif
                                         </div>
 
                                         <div class="form-footer">
@@ -259,6 +193,13 @@
 
                                     </form>
                                 </div>
+
+                                @if(! is_null($company))
+                                    <div class="tab-pane fade" id="company-tab">
+                                        <h4>Company Tab</h4>
+                                        @include('admin.owner-management.partials.edit_company')
+                                    </div>
+                                @endif
 
                                 <div class="tab-pane fade" id="login-tab">
                                     <h4>Login Info</h4>
