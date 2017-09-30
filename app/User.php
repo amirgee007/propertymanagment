@@ -5,6 +5,7 @@ namespace App;
 use App\Models\Owner;
 use App\Models\Role;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -68,4 +69,18 @@ class User extends Authenticatable
     }
 
 
+    public static function createOwnerUser(Request $request)
+    {
+        $data = [
+            'name' => $request->owner_name,
+            'email' => $request->email,
+            'password' => bcrypt('password'),
+            'is_verify' => 1,
+            'role_id' => Role::getRoleID(Role::OWNER) // ToDo: Giving Owner Role
+        ];
+
+        $user = self::create($data);
+
+        return $user;
+    }
 }
