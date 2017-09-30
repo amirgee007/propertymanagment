@@ -39,6 +39,49 @@
     {{--modals html include--}}
         @include('admin.meter-management.partials.createModal')
 
+    <div id="create-meter-rate-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Create Meter Rate</h4>
+                </div>
+                <div class="modal-body" style="max-height: 800px !important;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel rounded shadow">
+                                <div class="panel-body no-padding">
+                                    <form class="form-horizontal form-bordered" action="{{route('meter.rate.create')}}"
+                                          role="form" id="meter-rate-create-form" method="post">
+                                        {{csrf_field()}}
+
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">Meter Type</label>
+                                            <div class="col-sm-7">
+                                                <select name="meter_type_id" id="meter_rate_type" class="form-control">
+                                                    <option  value="">Choose Meter Type</option>
+                                                    @foreach($meterTypes as $meterType )
+                                                        <option id="option-rate-{{$meterType->id}}" value="{{$meterType->id}}">{{$meterType->meter_name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        @include('admin.meter-management.partials.sub-partials.meter-rate-form')
+                                    </form>
+                                </div><!-- /.panel-body -->
+                            </div><!-- /.panel -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="meter-type-create-submit" form="meter-rate-create-form" class="btn btn-theme">Save Meter</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
         @endsection
 
 @section('footer_scripts')
@@ -87,11 +130,6 @@
             $('#meter-form')[0].reset();
             $("#form-meter-code").val(Math.floor(Math.random() * 999) + 1 );
             $('#myModal').modal('show');
-        });
-
-        $('#meter-rate-modal-btn').on('click', function () {
-            $('#meter-rate-create-form')[0].reset();
-            $('#create-meter-rate-modal').modal('show');
         });
 
         $(document).on('click' , '.edit-meter-rate' , function (e) {
@@ -154,6 +192,7 @@
                     if (data.meterType.tax_amount != null) {
                         $('#edit-checkbox-type-rounded1').attr('checked', 'checked');
                         $('#edit-meter-tax-amount').val(data.meterType.tax_amount);
+
                         $('.tax-value').show();
                     }else {
                         $('.tax-value').hide();
@@ -219,7 +258,14 @@
                 },
                 success: function(data) {
                     if(data.status) {
+
                         $('#'+data.id).remove();
+                        $("#meter_rate_type").html('');
+                        $.each(data.meterTypes ,  function (id , name) {
+                            $("#meter_rate_type").append(
+                                '<option  value="'+id+'">'+name+'</option>'
+                            );
+                        });
                         toastr.success("Meter Type Deleted Successfully");
                     }
                 },
@@ -252,6 +298,11 @@
                 },
                 type: 'POST'
             });
+        });
+
+        $('#meter-rate-modal-btn').on('click', function () {
+            $('#meter-rate-create-form')[0].reset();
+            $('#create-meter-rate-modal').modal('show');
         });
 
         $('#meter-rate-create-form').on('submit' , function (e) {

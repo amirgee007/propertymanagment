@@ -49,7 +49,7 @@
     <div class="form-group">
         <label class="col-sm-3 control-label">tax amount</label>
         <div class="col-sm-7">
-            <input type="text" id="form-meter-tax-amount" placeholder="Tax amount should be in percentage" class="form-control form-meter-tax input-sm" value="{{isset($meterType->tax_amount)?$meterType->tax_amount:''}}" name="meterType[tax_amount]">
+            <input type="text" id="edit-meter-tax-amount" placeholder="Tax amount should be in percentage" class="form-control form-meter-tax input-sm" value="" name="meterType[tax_amount]">
         </div>
     </div>
 </div>

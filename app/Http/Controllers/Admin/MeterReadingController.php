@@ -21,12 +21,17 @@ class MeterReadingController extends Controller
 
         $meters = Meter::whereIn('lot_id' , $meterOwners);
         $searchVal = '';
+
         if (\request()->has('search') && !empty(trim(\request()->search))) {
-            $meters = $meters->orWhere('id' , \request()->search)
-                ->orWhere('lot_id' , \request()->search);
+
+            $meters = $meters->where(function($q) {
+                $q->orWhere('id' , \request()->search)
+                    ->orWhereHas('lot' , function($q){
+                        $q->where('lot_name' ,"like", "%".\request()->search."%");
+                    });
+            });
             $searchVal = \request()->search;
         }
-
         $meters = $meters->paginate(15);
 
         return view('admin.meter-reading.index' , compact('meters' , 'meterTypes' , 'searchVal'));

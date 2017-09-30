@@ -13,6 +13,7 @@ class MeterType extends Model
     }
 
     public function setTaxAmountAttribute($value) {
+        if (!is_null($value))
         $this->attributes['tax_amount'] = rtrim($value,"%");
 
     }

@@ -95,7 +95,13 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </div><!-- /.panel-body -->
+                            <div class="col-lg-12">
+                            <div class="pull-right">
+                                {{ $owners->links() }}
+                            </div>
+                        </div>
+                        </div>
+
                     </div><!-- /.panel -->
                 </div>
             </div>
