@@ -12,6 +12,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class OwnerController extends Controller
 {
@@ -28,9 +29,9 @@ class OwnerController extends Controller
         $user = auth()->user();
 
         if ($user->hasRole('Owner')) {
-            $owners = Owner::where('user_id', $user->id)->paginate(10);
+            $owners = Owner::where('user_id', $user->id)->get();
         } else {
-            $owners = Owner::paginate(10);
+            $owners = Owner::all();
         }
 
         return view('admin.owner-management.index', compact('owners'));
@@ -50,8 +51,13 @@ class OwnerController extends Controller
      */
     public function cardCheck(Request $request)
     {
+        $user = null;
         $data = Owner::where($request->key, $request->value)->first();
-        if ($data) {
+        if($request->key == 'email'){
+            $user = User::where($request->key, $request->value)->first();
+        }
+
+        if ($data || $user) {
             return 'match';
         } else {
             return 'no_match';
@@ -89,19 +95,30 @@ class OwnerController extends Controller
     {
         $this->formValidation($request);
 
-        $ownerId = null;
-        $savableOwner = new Owner();
-        $savableOwner = $this->saveOwnerData($request, $savableOwner);
-        $ownerId = $savableOwner->owner_id;
+        DB::beginTransaction();
+        try {
+            $user = User::createOwnerUser($request); // creating new owner user
 
-        if (isset($request->is_company)) {
+            $request->merge(['user_id' => $user->id]);
+            $ownerId = null;
+            $savableOwner = new Owner();
+            $savableOwner = $this->saveOwnerData($request, $savableOwner);
+            $ownerId = $savableOwner->owner_id;
 
-            $savableCompany = new Company();
-            $this->saveCompanyData($request, $savableCompany, $ownerId);
+            if (isset($request->is_company)) {
+
+                $savableCompany = new Company();
+                $this->saveCompanyData($request, $savableCompany, $ownerId);
+            }
+
+            DB::commit();
+            flash('Successfully Created new Owner')->success();
+            return redirect()->route('owner.index');
+        } catch (\Exception $e) {
+            DB::rollback();
+            flash('Oops, something went wrong while adding new owner.')->error();
+            return back();
         }
-
-        flash('Successfully Created the Owner')->success();
-        return back();
     }
 
     /**
@@ -118,13 +135,17 @@ class OwnerController extends Controller
         }
 
         $company = $owner->company;
+
         $assignedLots = OwnerLot::orderBy('lot_id')->get()->pluck('lot_id' , 'lot_id')->toArray();
         $lots = Lot::whereNotIn('lot_id' , $assignedLots)->get();
+        $user = $owner->user;
+
         $lotType = LotType::all();
         $ownerLots = $owner->ownedLots->pluck('lot_id')->toArray();
         $meters = Meter::whereIn('lot_id', $ownerLots)->get();
 
-        return view('admin.owner-management.edit', compact('lotType', 'lots', 'company', 'owner', 'meters'));
+        return view('admin.owner-management.edit', compact('lotType',
+            'lots', 'company', 'owner', 'meters', 'user'));
     }
 
     public function ownerLotDelete($id) {
@@ -169,13 +190,17 @@ class OwnerController extends Controller
      */
     public function verify(Request $request)
     {
-
         $email = $request->email;
         $pass = $request->password;
 
-        $user = User::where('email', $email)->first();
+        $owner = Owner::where('owner_id', $request->owner_id)->first();
+        if(! $owner){
+            flash('Owner not found')->error();
+            return back();
+        }
 
-        if (!is_null($user)) {
+        $user = User::where('email', $email)->where('id', $owner->user_id)->first();
+        if (! is_null($user)) {
             $user->update(['password' => bcrypt($pass)]);
 
             flash('Successfully Updated the password')->success();
@@ -206,6 +231,8 @@ class OwnerController extends Controller
                 'message' => 'Owner not found.'
             ]);
         } else {
+            $owner->company()->delete();
+            $owner->user()->delete();
             $owner->delete();
             return response()->json([
                 'status' => 'success',
@@ -262,7 +289,8 @@ class OwnerController extends Controller
         $savableOwner->owner_phone1 = isset($request->owner_phone1) ? $request->owner_phone1 : '';
         $savableOwner->owner_phone2 = isset($request->owner_phone2) ? $request->owner_phone2 : '';
         $savableOwner->is_company = isset($request->is_company) ? 1 : 0;
-        $savableOwner->user_id = (Auth::user()) ? Auth::user()->id : '0';
+        if (is_null($savableOwner->user))
+            $savableOwner->user_id = $request->user_id;
         $savableOwner->save();
 
         return $savableOwner;

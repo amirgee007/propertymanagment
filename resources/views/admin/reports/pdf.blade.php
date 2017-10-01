@@ -89,12 +89,11 @@
 @endphp
 <div id="container">
     <section id="memo">
-        <div class="company-name">
-            <span>Invoice</span>
-            <div class="right-arrow"></div>
-        </div>
         <div class="company-name2">
             <span>RM{{ number_format($amount_due, 2) }}</span>
+        </div>
+        <div class="company-name">
+            <span>INVOICE</span>
         </div>
     </section>
 

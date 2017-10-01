@@ -213,21 +213,21 @@
                                                         Information</h4>
                                                 </div>
                                             </div>
-                                            {{csrf_field()}}
+                                            {{ csrf_field() }}
 
-                                            <input type="hidden" name="owner_id" value="{{$owner->owner_id or 'null'}}" >
+                                            <input type="hidden" name="owner_id" value="{{ $owner->owner_id or 'null' }}" >
 
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label">Email. <span
+                                                <label class="col-sm-3 control-label">Email <span
                                                             class="asterisk">*</span></label>
                                                 <div class="col-sm-7">
-                                                    <input type="text" value="{{\Auth::user()->email}}" class="form-control input-sm" name="email"
+                                                    <input type="text" value="{{ $user->email }}" class="form-control input-sm" name="email"
                                                            required>
                                                 </div>
                                             </div><!-- /.form-group -->
 
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label">Pssword. <span
+                                                <label class="col-sm-3 control-label">Password <span
                                                             class="asterisk">*</span></label>
                                                 <div class="col-sm-7">
                                                     <input type="password" value="" class="form-control input-sm" name="password"
@@ -675,14 +675,12 @@
 
                     },
                     success: function(data) {
+                        if(data.status) {
 
-//                        console.log(data);
-////                        if(data.status) {
-//
-//                            $('#lot-id-'+data.id).remove();
+                            $('#lot-id-'+data.id).remove();
                             toastr.success("Owner Lot Deleted Successfully");
-                            location.reload();
-////                        }
+//                            location.reload();
+                        }
                     },
                     type: 'DELETE'
                 });

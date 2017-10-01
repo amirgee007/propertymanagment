@@ -13,7 +13,7 @@ Route::get('/download', function () {
     );
 
     return view('admin/reports/invoice-template');
-    $pdf = PDF::loadView('admin/reports/invoice-template', compact('data' , 'invoice'));
+    $pdf = PDF::loadView('admin/reports/invoice-template', compact('data', 'invoice'));
 //    return $pdf->setOption('margin-top', 5)->stream();
     return $pdf->download('newl.pdf');
 
@@ -29,7 +29,7 @@ Route::get('/download', function () {
 |
 */
 
-Route::get('/phpinfo', function (){
+Route::get('/phpinfo', function () {
     return phpinfo();
 });
 
@@ -63,7 +63,7 @@ Auth::routes();
 ////////////////////////////////////////////////////Admin Panel/////////////////////////
 
 Route::group(['middleware' => ['admin'], 'namespace' => 'Admin'], function () {
-    Route::get('test/wasim', function (){
+    Route::get('test/wasim', function () {
         return view('admin.reports.invoice-template');
     });
 
@@ -213,8 +213,8 @@ Route::group(['middleware' => ['admin'], 'namespace' => 'Admin'], function () {
         'uses' => 'LotController@show'));
 
     Route::get('/dashboard/lot/show/{id}', array(
-            'as' => 'get.lot.show',
-            'uses' => 'LotController@showLotsTable'));
+        'as' => 'get.lot.show',
+        'uses' => 'LotController@showLotsTable'));
 
     Route::get('/dashboard/lot/edit/{id}', array(
         'as' => 'get.lot.edit',
@@ -327,34 +327,33 @@ Route::group(['middleware' => ['admin'], 'namespace' => 'Admin'], function () {
             'uses' => 'MeterReadingController@index'
         ]);
 
-        Route::get('/create' ,[
+        Route::get('/create', [
             'as' => 'meter.reading.create',
             'uses' => 'MeterReadingController@create'
         ]);
 
-        Route::post('/create' ,[
+        Route::post('/create', [
             'as' => 'meter.reading.store',
             'uses' => 'MeterReadingController@store'
         ]);
 
-        Route::get('/generate-report/{id}' ,[
+        Route::get('/generate-report/{id}', [
             'as' => 'meter.reading.generate-report',
             'uses' => 'MeterReadingController@getInvoiceBill'
         ]);
 
-        Route::get('/previous-readings/{id}' ,[
+        Route::get('/previous-readings/{id}', [
             'as' => 'meter.reading.previous',
             'uses' => 'MeterReadingController@previousReadings'
         ]);
 
 
-
-        Route::post('/get/lotTypeLots/' ,[
+        Route::post('/get/lotTypeLots/', [
             'as' => 'meter.reading.lot-type',
             'uses' => 'MeterReadingController@getLotsFromLotType'
         ]);
 
-        Route::post('/get/lot/meters' ,[
+        Route::post('/get/lot/meters', [
             'as' => 'meter.reading.lot.meter',
             'uses' => 'MeterReadingController@getLotsMeters'
         ]);
@@ -371,7 +370,7 @@ Route::group(['middleware' => 'admin', 'namespace' => 'AdminAuth'], function () 
         'uses' => 'AuthController@logout'));
 });
 
-Route::prefix('/dashboard/system-setting')->namespace('Admin')->group( function () {
+Route::prefix('/dashboard/system-setting')->middleware('auth')->namespace('Admin')->group(function () {
     Route::get('/create', array(
         'as' => 'system-setting.create',
         'uses' => 'SystemSettingController@create'));
@@ -382,7 +381,7 @@ Route::prefix('/dashboard/system-setting')->namespace('Admin')->group( function 
 });
 
 
-Route::prefix('/dashboard/invoicing-setting')->namespace('Admin')->group(function () {
+Route::prefix('/dashboard/invoicing-setting')->middleware('auth')->namespace('Admin')->group(function () {
     Route::get('/add', array(
         'as' => 'invoicing-setting.add',
         'uses' => 'InvoicingSettingController@add'));

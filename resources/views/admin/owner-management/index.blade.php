@@ -10,6 +10,7 @@
           rel="stylesheet">
     <link href="/admin/assets/global/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.css"
           rel="stylesheet">
+    <link href="{{ asset('/css/modal_center.css') }}" rel="stylesheet" type="text/css"/>
 @endsection
 
 @section('content')
@@ -95,38 +96,32 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col-lg-12">
-                            <div class="pull-right">
-                                {{ $owners->links() }}
-                            </div>
                         </div>
-                        </div>
-
                     </div><!-- /.panel -->
                 </div>
             </div>
-            <!-- Modal -->
-            <div id="delete-owner-modal" class="modal fade" role="dialog">
-                <div class="modal-dialog modal-danger">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            <h4 class="modal-title"></h4>
-                        </div>
-                        <div class="modal-body">
-                            <p>Are you sure! you want to delete this owner ?</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <a href="javascript:void(0);" class="btn btn-danger" id="delete-owner">Delete</a>
-                        </div>
-                    </div>
-                </div><!-- /.modal-dialog -->
-            </div>
         </div>
-
         @include('admin.layouts.pagefooter')
     </section>
+
+    <!-- Modal -->
+    <div id="delete-owner-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-danger">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure! you want to delete this owner ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <a href="javascript:void(0);" class="btn btn-danger" id="delete-owner">Delete</a>
+                </div>
+            </div>
+        </div><!-- /.modal-dialog -->
+    </div>
 @endsection
 
 @section('footer_scripts')
@@ -174,11 +169,7 @@
 
         });
 
-        $('#owner-management-table').DataTable({
-            "paging": true,
-            "searching": true,
-            'info': true
-        });
+        $('#owner-management-table').DataTable();
     </script>
 @endsection
 

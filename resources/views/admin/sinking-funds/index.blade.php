@@ -10,6 +10,8 @@
           rel="stylesheet">
     <link href="/admin/assets/global/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.css"
           rel="stylesheet">
+
+    <link href="{{ asset('/css/modal_center.css') }}" rel="stylesheet" type="text/css"/>
 @endsection
 
 @section('content')
@@ -25,6 +27,7 @@
         </div>
 
         @include('flash::message')
+
         <div class="body-content animated fadeIn">
             <div class="row">
                 <div class="col-md-12">
@@ -42,88 +45,81 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="panel-body">
-                            <div class="container">
-                                <br>
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-theme">
-                                        <thead>
+                            <div class="table-responsive col-xs-12">
+                                <table id="sinking-funds-table" class="table table-striped table-theme">
+                                    <thead>
+                                    <tr>
+                                        <th>Sinking Fund ID</th>
+                                        <th>Lot Name</th>
+                                        <th>Lot Type Name</th>
+                                        <th style="width: 25%">Description</th>
+                                        <th>Date</th>
+                                        <th>Amount</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($sinkingFunds as $fund)
                                         <tr>
-                                            <th>Sinking Fund ID</th>
-                                            <th>Lot Name</th>
-                                            <th>Lot Type Name</th>
-                                            <th style="width: 25%">Description</th>
-                                            <th>Date</th>
-                                            <th>Amount</th>
-                                            <th>Actions</th>
+                                            <td>{{ $fund->id }}</td>
+                                            <td>{{ $fund->lot_name }}</td>
+                                            <td>{{ $fund->lot_type_name }}</td>
+                                            <td>{{ str_limit($fund->description, 25) }}</td>
+                                            <td>{{ is_null($fund->date) ? "" :  $fund->date->format('d-m-Y')  }}</td>
+                                            <td>{{ $fund->amount }}</td>
+                                            <td class="text-center">
+                                                <a href="{{ route('sinking-funds.show', $fund) }}"
+                                                   class="btn btn-success btn-xs rounded"
+                                                   data-toggle="tooltip" data-placement="top"
+                                                   data-original-title="View detail"><i class="fa fa-eye"></i>
+                                                </a>
+
+                                                <a href="{{ route('sinking-funds.edit', $fund) }}"
+                                                   class="btn btn-primary btn-xs rounded"
+                                                   data-toggle="tooltip" data-placement="top"
+                                                   data-original-title="Edit"><i class="fa fa-pencil"></i>
+                                                </a>
+
+                                                <a href="#" class="btn btn-danger btn-xs rounded delete-sinking_fund"
+                                                   data-toggle="tooltip" data-placement="top"
+                                                   data-original-title="Delete"
+                                                   data-sinking-fund-id="{{ $fund->id }}"
+                                                   data-url="{{ route('sinking-funds.destroy', $fund->id) }}">
+                                                    <i class="fa fa-times"></i>
+                                                </a>
+                                            </td>
                                         </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($sinkingFunds as $fund)
-                                            <tr>
-                                                <td>{{ $fund->id }}</td>
-                                                <td>{{ $fund->lot_name }}</td>
-                                                <td>{{ $fund->lot_type_name }}</td>
-                                                <td>{{ str_limit($fund->description, 25) }}</td>
-                                                <td>{{ is_null($fund->date) ? "" :  $fund->date->format('d-m-Y')  }}</td>
-                                                <td>{{ $fund->amount }}</td>
-                                                <td class="text-center">
-                                                    <a href="{{ route('sinking-funds.show', $fund) }}"
-                                                       class="btn btn-success btn-xs rounded"
-                                                       data-toggle="tooltip" data-placement="top"
-                                                       data-original-title="View detail"><i class="fa fa-eye"></i>
-                                                    </a>
-
-                                                    <a href="{{ route('sinking-funds.edit', $fund) }}"
-                                                       class="btn btn-primary btn-xs rounded"
-                                                       data-toggle="tooltip" data-placement="top"
-                                                       data-original-title="Edit"><i class="fa fa-pencil"></i>
-                                                    </a>
-
-                                                    <a href="#" class="btn btn-danger btn-xs rounded delete-sinking_fund"
-                                                       data-toggle="tooltip" data-placement="top"
-                                                       data-original-title="Delete"
-                                                       data-sinking-fund-id="{{ $fund->id }}"
-                                                       data-url="{{ route('sinking-funds.destroy', $fund->id) }}">
-                                                        <i class="fa fa-times"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="text-center">
-                                    {{ $sinkingFunds->links() }}
-                                </div>
+                                    @endforeach
+                                    </tbody>
+                                </table>
                             </div>
-                        </div><!-- /.panel-body -->
+                        </div>
                     </div><!-- /.panel -->
                 </div>
             </div>
         </div>
 
-
-        <!-- Modal -->
-        <div id="delete-sinking_fund-modal" class="modal fade" role="dialog">
-            <div class="modal-dialog modal-danger">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title"></h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>Are you sure! you want to delete this Sinking Fund ?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <a href="javascript:void(0);" class="btn btn-danger" id="delete-sinking_fund">Delete</a>
-                    </div>
-                </div>
-            </div><!-- /.modal-dialog -->
-        </div>
-
         @include('admin.layouts.pagefooter')
     </section>
+
+    <!-- Modal -->
+    <div id="delete-sinking_fund-modal" tabindex="-1" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-danger">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure! you want to delete this Sinking Fund ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <a href="javascript:void(0);" class="btn btn-danger" id="delete-sinking_fund">Delete</a>
+                </div>
+            </div>
+        </div><!-- /.modal-dialog -->
+    </div>
 
 @endsection
 
@@ -173,6 +169,8 @@
                     dataType: "json"
                 });
             });
+
+            $('#sinking-funds-table').DataTable();
         });
     </script>
 @endsection

@@ -73,8 +73,9 @@
                                                                                     Due Date</label>
                                                                                 <div class="col-sm-7">
                                                                                     <input type="text"
-                                                                                           class="form-control input-sm"
-                                                                                           value="{{@$general->invoice_due_date}}"
+                                                                                           class="form-control datepicker input-sm"
+                                                                                           data-date-format="dd-mm-yyyy"
+                                                                                           value="{{isset($general->invoice_due_date) ? \Carbon\Carbon::parse($general->invoice_due_date)->format('d-m-Y') : ''}}"
                                                                                            name="general[invoice_due_date]">
                                                                                 </div>
                                                                             </div>
@@ -140,8 +141,8 @@
                                                                                 <div class="col-sm-7">
                                                                                     <input type="text"
                                                                                            class="form-control datepicker input-sm"
-                                                                                           data-date-format="dd/mm/yyyy"
-                                                                                           value="{{isset($utility->billing_start_date)?$utility->billing_start_date->format('d/m/Y'):''}}"
+                                                                                           data-date-format="dd-mm-yyyy"
+                                                                                           value="{{isset($utility->billing_start_date)?$utility->billing_start_date->format('d-m-Y'):''}}"
                                                                                            name=" utilitySettings[billing_start_date]">
                                                                                 </div>
                                                                             </div>
@@ -251,7 +252,9 @@
                                                                                     <input type="text"
                                                                                            class="form-control input-sm"
                                                                                            value="{{@$maintenance->charges_per_sqft}}"
-                                                                                           name=" maintenanceServiceSettings[charges_per_sqft]">
+                                                                                           readonly="readonly"
+                                                                                           disabled
+                                                                                           {{--name=" maintenanceServiceSettings[charges_per_sqft]"--}}>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-group">

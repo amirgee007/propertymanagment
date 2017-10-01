@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Owner extends Model
@@ -54,5 +55,10 @@ class Owner extends Model
     public function company()
     {
         return $this->hasOne(Company::class, 'owner_id', 'owner_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

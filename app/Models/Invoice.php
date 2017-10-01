@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
@@ -97,5 +96,21 @@ class Invoice extends Model
     public function getPaidAmountAttribute()
     {
         return $this->payments()->sum('amount');
+    }
+
+    public static function generateFromSinkingFund($fund)
+    {
+        return self::create([
+            'owner_id' => $fund->lot->ownerWithLot->lot_owner_id,
+            'lot_id' => $fund->lot->lot_id,
+            'date' => $fund->date,
+            'invoice_trans_des' => $fund->description,
+            'invoice_quantity' => 1, // ToDo: setting default to 1, change this accordingly
+            'invoice_uom' => ' ',
+            'invoice_charge_rate' => 0,
+            'invoice_amount' => $fund->amount,
+            'invoice_status' => Invoice::UNPAID,
+            'type' => Invoice::SINKING,
+        ]);
     }
 }
