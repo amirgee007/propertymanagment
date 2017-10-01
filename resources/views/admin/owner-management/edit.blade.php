@@ -407,14 +407,18 @@
                                                                     <th># Id</th>
                                                                     <th>Car Park No.</th>
                                                                     <th>Area Text</th>
+                                                                    <th>Action</th>
                                                                 </tr>
                                                                 </thead>
-                                                                <tbody>
+                                                                <tbody id="car-park-tbody">
                                                                 @forelse($carParks = \App\PropertyManagement\Helper::getOwnerCarParks($owner) as $carPark)
-                                                                    <tr>
+                                                                    <tr id="car-park-id-{{$carPark->owner_car_park_id}}">
                                                                         <td>{{ $carPark->owner_car_park_id }}</td>
                                                                         <td>{{ $carPark->car_park_no }}</td>
                                                                         <td>{{ $carPark->loc_area_text }}</td>
+                                                                        <td>
+                                                                            <button type="button" data-url="{{route('delete.owner.assign.carpark' , $carPark->owner_car_park_id)}}" class="btn btn-danger car-park-delete">Delete</button>
+                                                                        </td>
                                                                     </tr>
                                                                 @empty
                                                                     <tr>
@@ -567,6 +571,25 @@
             </div>
         </div>
     </div>
+
+    <div id="delete-car-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header bg-danger ">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="delete-modal-title">Car Park Delete Confirmation</h4>
+                </div>
+                <div class="modal-body" id="delete-modal-body">
+                    <h5><strong> The record will be permanently removed from the system. Are you sure you want to delete? </strong></h5>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" id="delete-car-btn" data-url="">Confirm</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('footer_scripts')
@@ -643,6 +666,14 @@
                         if(response.status == 'saved'){
                             toastr.success("Car Park Assigned to Owner" , "Assign Car");
                             $("#owner-car-park").trigger('reset'); //jquery
+                            $("#car-park-tbody").append('<tr id="car-park-id-'+response.ownerCarPark.owner_car_park_id+'">\n' +
+                                '    <td>'+response.ownerCarPark.owner_car_park_id+'</td>\n' +
+                                '    <td>'+response.ownerCarPark.car_park_no+'</td>\n' +
+                                '    <td>'+response.ownerCarPark.loc_area_text+'</td>\n' +
+                                '    <td>\n' +
+                                '        <button type="button" data-url="'+response.delete_url+'" class="btn btn-danger car-park-delete">Delete</button>\n' +
+                                '    </td>\n' +
+                                '</tr>');
 
                         }else{
                             toastr.error("Some Thing went wrong", "Not Saved");
@@ -654,6 +685,35 @@
 
             });
 
+            $(document).on('click' , '.car-park-delete' , function (e) {
+                var url = $(this).attr('data-url');
+
+                $('#delete-car-btn').attr('data-url' , url);
+                $('#delete-car-modal').modal('show');
+            });
+
+            $('#delete-car-btn').on('click', function () {
+                const url = $('#delete-car-btn').attr('data-url');
+                $('#delete-car-modal').modal('hide');
+                $.ajax({
+                    url: url,
+                    headers: { 'X-XSRF-TOKEN' : '{{\Illuminate\Support\Facades\Crypt::encrypt(csrf_token())}}' },
+                    error: function() {
+
+                    },
+                    success: function(data) {
+                        if(data.status) {
+                            $('#car-park-id-'+data.id).remove();
+                            toastr.success("Owner Car park Deleted Successfully");
+//                            location.reload();
+                        }
+                    },
+                    type: 'DELETE'
+                });
+            });
+
+
+
             $('#lot_name_id').select2();
             $('#lot_type_id').select2();
 
@@ -663,6 +723,7 @@
                 $('#delete-lot-btn').attr('data-url' , url);
                 $('#delete-lot-modal').modal('show');
             });
+
 
             $('#delete-lot-btn').on('click', function () {
                 const url = $('#delete-lot-btn').attr('data-url');

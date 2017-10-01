@@ -44,7 +44,8 @@
                                                     {{csrf_field()}}
 
                                                     <div class="form-group">
-                                                        <label for="lot_type_name" class="col-sm-3 control-label">Name</label>
+                                                        <label for="lot_type_name" class="col-sm-3 control-label">Name<span
+                                                                    class="asterisk">*</span></label>
                                                         <div class="col-sm-7">
                                                             <input type="text" class="form-control input-sm" id="lot_type_name" name="lot_type_name" required>
                                                         </div>
@@ -58,21 +59,24 @@
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label for="lot_type_code" class="col-sm-3 control-label">Code</label>
+                                                        <label for="lot_type_code" class="col-sm-3 control-label">Code<span
+                                                                    class="asterisk">*</span></label>
                                                         <div class="col-sm-7">
                                                             <input type="text" class="form-control input-sm" id="lot_type_code" name="lot_type_code" maxlength="2" required>
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label for="lot_type_size" class="col-sm-3 control-label">Size</label>
+                                                        <label for="lot_type_size" class="col-sm-3 control-label">Size<span
+                                                                    class="asterisk">*</span></label>
                                                         <div class="col-sm-7">
                                                             <input type="text" class="form-control input-sm" id="lot_type_size" name="lot_type_size" required>
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label for="lot_type_qty" class="col-sm-3 control-label">Quantity</label>
+                                                        <label for="lot_type_qty" class="col-sm-3 control-label">Quantity<span
+                                                                    class="asterisk">*</span></label>
                                                         <div class="col-sm-7">
                                                             <input type="number" class="form-control input-sm" id="lot_type_qty" name="lot_type_qty" required>
                                                         </div>
@@ -132,7 +136,7 @@
                                             <td class="text-center">
                                                 <a href="{{route('get.lot.show' ,$lotType->lot_type_id)}}" class="btn btn-success btn-xs" data-toggle="tooltip" data-placement="top" data-original-title="View detail"><i class="fa fa-eye"></i></a>
                                                 <a href="{{route('get.lot.edit' ,$lotType->lot_type_id)}}" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
-                                                <a onclick="return confirm('Are you sure you want to delete this record?')" href="{{ route('lot.type.delete', $lotType->lot_type_id) }}"  class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                                                <button  class="btn btn-danger btn-xs delete-lot" data-url="{{ route('lot.type.delete', $lotType->lot_type_id) }}" data-original-title="Delete"><i class="fa fa-times"></i></button>
                                             </td>
                                         </tr>
                                         @endforeach
@@ -152,14 +156,55 @@
         @include('admin.layouts.pagefooter')
     </section>
 
+    <div id="delete-lot-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header bg-danger ">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="delete-modal-title">Lot Delete Confirmation</h4>
+                </div>
+                <div class="modal-body" id="delete-modal-body">
+                    <h5><strong> The record will be permanently removed from the system. Are you sure you want to delete? </strong></h5>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-danger" href="" id="delete-lot-btn" >Confirm</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('footer_scripts')
 
+    <style>
+        .uneditable-input{
+            border-color: rgba(126, 239, 104, 0.8);
+            border-color: darkgrey;
+        }
+    </style>
     <script>
         $(document).ready(function () {
 
+            $('input').blur(function(event) {
+                nwe = event.target.checkValidity();
+                if (nwe)
+                $(event.target).css("border-color", "darkgrey");
+            }).bind('invalid', function(event) {
+                console.log('invalid');
+                $(event.target).css("border-color", "red");
+            });
 
+            $('.table-theme').DataTable();
+
+
+            $('.delete-lot').on('click' , function (e) {
+                var url = $(this).attr('data-url');
+
+                $('#delete-lot-btn').attr('href' , url);
+                $('#delete-lot-modal').modal('show');
+            });
         });
     </script>
 
