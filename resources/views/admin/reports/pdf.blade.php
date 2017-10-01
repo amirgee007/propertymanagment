@@ -93,11 +93,10 @@
             <span>RM{{ number_format($amount_due, 2) }}</span>
         </div>
         <div class="company-name">
-            <span>Invoice</span>
+            <span>INVOICE</span>
         </div>
     </section>
 
-    <br><br><br><br><br><br><br><br>
     <section style="float: left">
         <table style="margin: 20px">
             <tr>

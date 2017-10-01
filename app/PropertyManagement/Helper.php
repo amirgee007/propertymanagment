@@ -65,5 +65,28 @@ class Helper
 
         return $carParks;
     }
+
+
+    public static function generateSinkingPdfData($invoice, $sinkingFunds)
+    {
+        $data = [];
+        $data['out_standing'] = $sinkingFunds->sum('amount') - $invoice->paid_amount;
+        $data['total'] = $sinkingFunds->sum('amount');
+        $data['credit_balance'] = $invoice->paid_amount;
+        $data['gst'] = null;
+
+        if(config('system.tax')){
+            $data['gst'] = self::gstCalculate($data['total'], 6);
+        }
+        $data['amount_due'] = $data['out_standing'] + $data['gst'];
+
+        $data['owner_name'] = @$invoice->owner->owner_name;
+
+        $data['sinking_funds'] = $sinkingFunds;
+
+        $data['invoice'] = $invoice;
+
+        return $data;
+    }
 }
 

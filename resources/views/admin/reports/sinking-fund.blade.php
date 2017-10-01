@@ -90,22 +90,24 @@
 <body>
 
 @php
-    $amount_due = $sinkingFunds->sum('amount') - $invoice->paid_amount;
+    $out_standing = $sinkingFunds->sum('amount') - $invoice->paid_amount;
     $total = $sinkingFunds->sum('amount');
-
-    $out_standing = \App\PropertyManagement\Helper::gstCalculate($total, 6);
-
+    $credit_balance = $invoice->paid_amount;
+    $gst = null;
+    if(config('system.tax')){
+        $gst = \App\PropertyManagement\Helper::gstCalculate($total, 6);
+    }
+    $amount_due = $out_standing + $gst;
 @endphp
+
 <div id="container">
+
     <section id="memo">
-        <div class="company-name">
-            <span>Invoice</span>
-            <div class="right-arrow"></div>
-        </div>
         <div class="company-name2">
-            <span>
-                RM{{ number_format($amount_due, 2) }}
-            </span>
+            <span>RM{{ number_format($amount_due, 2) }}</span>
+        </div>
+        <div class="company-name">
+            <span>INVOICE</span>
         </div>
     </section>
 
@@ -116,7 +118,7 @@
                     <span>Bill To:</span>
                 </td>
                 <td>
-                    <span>{{ @$invoice->owner()->owner_name }}	</span>
+                    <span>{{ @$invoice->owner->owner_name }}	</span>
                 </td>
             </tr>
             <tr>
@@ -210,7 +212,7 @@
             </tr>
             <tr>
                 <td colspan="1" style="text-align: right"><b>GST (6%)</b></td>
-                <td>4.24</td>
+                <td>{{ number_format($gst, 2) }}</td>
             </tr>
             <tr>
                 <td colspan="1" style="text-align: right"><b>Outstanding Charges (+)</b></td>
@@ -218,18 +220,17 @@
             </tr>
             <tr>
                 <td colspan="1" style="text-align: right"><b>Credit Balance (-)</b></td>
-                <td>{{ number_format($invoice->paid_amount, 2) }}</td>
+                <td>{{ number_format($credit_balance, 2) }}</td>
             </tr>
-            <tr>
+            <tr id="total-payable">
                 <td colspan="1" style="font-size: initial; text-align: right"><b>Total Payable</b></td>
-                <td><b>{{ $amount_due }}</b></td>
+                <td><b>{{ number_format($amount_due, 2) }}</b></td>
             </tr>
 
         </table>
 
     </section>
     <section id="invoice-title-number" style="margin: 20px 5px 5px 0px">
-
         <span id="title" style="font-size: 9px;">Notes:</span>
     </section>
 
@@ -267,6 +268,7 @@
             <li>Please ignore this invoice if you have paid within last few days.</li>
         </ul>
     </section>
+
 </div>
 
 

@@ -3,6 +3,7 @@
 namespace App\Http\ViewComposer;
 
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Factory as View;
 use App\Models\InvoicingSettingGeneral;
 use App\Models\InvoicingSettingMaintenanceService;
@@ -49,7 +50,7 @@ class SystemSettingData
 
             config([
 
-                'invoice' => [
+                'system' => [
                     'tax' => @$system_setting->tax == 1 ? true : false,
                     'interest' => @$system_setting->interest == 1 ? true : false,
                     'client_access' => @$system_setting->client_access == 1 ? true : false,

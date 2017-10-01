@@ -30,6 +30,11 @@ class InvoicingSettingController extends Controller
 
     public function edit(Request $request){
         $general = $request->general;
+
+        if(array_key_exists('invoice_due_date', $general)){
+            $general['invoice_due_date'] = Carbon::parse($general['invoice_due_date'])->toDateString();
+        }
+
         $utility = $request->utilitySettings;
         $maintenance = $request->maintenanceServiceSettings;
 

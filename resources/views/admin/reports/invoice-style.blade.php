@@ -1,7 +1,36 @@
 <style>
-    /*! Invoice Templates @author: Invoicebus @email: info@invoicebus.com @web: https://invoicebus.com @version: 1.0.0 @updated: 2015-03-09 09:03:07 @license: Invoicebus */
+    /*! Invoice Templates
+
+    @author
+
+    : Invoicebus
+
+    @email
+
+    : info
+
+    @invoicebus
+
+    .com
+
+    @web
+
+    : https://invoicebus.com
+
+    @version
+
+    : 1.0.0
+
+    @updated
+
+    : 2015-03-09 09:03:07
+
+    @license
+
+    : Invoicebus */
     /* Reset styles */
     @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,700&subset=cyrillic,cyrillic-ext,latin,greek-ext,greek,latin-ext,vietnamese");
+
     html, body, div, span, applet, object, iframe,
     h1, h2, h3, h4, h5, h6, p, blockquote, pre,
     a, abbr, acronym, address, big, cite, code,
@@ -45,6 +74,7 @@
     q, blockquote {
         quotes: none;
     }
+
     q:before, q:after, blockquote:before, blockquote:after {
         content: "";
         content: none;
@@ -91,6 +121,10 @@
         padding: 50px 40px;
     }
 
+    #memo {
+        margin-bottom: 10%;
+    }
+
     #memo .company-name {
         background: #fca12b;
         background-size: 100px auto;
@@ -98,15 +132,18 @@
         position: absolute;
         width: 55%;
         float: left;
-    } #memo .company-name2 {
-      background: rgb(221, 132, 16);
-      background-size: 100px auto;
-      padding: 3%;
-      position: absolute;
-      width: 84%;
-      float: right;
     }
-    #memo span{
+
+    #memo .company-name2 {
+        background: rgb(221, 132, 16);
+        background-size: 100px auto;
+        padding: 3%;
+        position: absolute;
+        width: 84%;
+        float: right;
+    }
+
+    #memo span {
         color: #000;
         display: inline-block;
         min-width: 20px;
@@ -114,12 +151,18 @@
         line-height: 1em;
     }
 
-    .company-name2 span{
+    .company-name2 span {
         float: right;
+        margin-right: 6%;
     }
+
     #memo:after {
         content: '';
         display: block;
         clear: both;
+    }
+
+    #total-payable {
+        font-size: 16px;
     }
 </style>
