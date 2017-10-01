@@ -82,10 +82,14 @@
 <body >
 
 @php
-    $amount_due = $invoice->invoice_amount - $invoice->paid_amount;
-    $total = $invoice->paid_amount;
-
-    $out_standing = \App\PropertyManagement\Helper::gstCalculate($total, 6);
+    $out_standing = $invoice->invoice_amount - $invoice->paid_amount;
+    $total = $invoice->invoice_amount;
+    $credit_balance = $invoice->paid_amount;
+    $gst = null;
+    if(config('system.tax')){
+        $gst = \App\PropertyManagement\Helper::gstCalculate($total, 6);
+    }
+    $amount_due = $out_standing + $gst;
 @endphp
 <div id="container">
     <section id="memo">
@@ -104,7 +108,7 @@
                     <span>Bill To:</span>
                 </td>
                 <td>
-                    <span>{{ @$invoice->owner()->owner_name }}	</span>
+                    <span>{{ @$invoice->owner->owner_name }}	</span>
                 </td>
             </tr>
             <tr>
@@ -199,7 +203,7 @@
             </tr>
             <tr>
                 <td colspan="1" style="text-align: right"><b>GST (6%)</b></td>
-                <td>4.24</td>
+                <td>{{ number_format($gst, 2) }}</td>
             </tr>
             <tr>
                 <td colspan="1" style="text-align: right"><b>Outstanding Charges (+)</b></td>
@@ -207,11 +211,11 @@
             </tr>
             <tr>
                 <td colspan="1" style="text-align: right"><b>Credit Balance (-)</b></td>
-                <td>{{ number_format($invoice->paid_amount, 2) }}</td>
+                <td>{{ number_format($credit_balance, 2) }}</td>
             </tr>
-            <tr>
+            <tr id="total-payable">
                 <td colspan="1" style="font-size: initial; text-align: right"><b>Total Payable</b></td>
-                <td><b>{{ $amount_due }}</b></td>
+                <td><b>{{ number_format($amount_due, 2) }}</b></td>
             </tr>
 
         </table>

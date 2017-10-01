@@ -153,7 +153,6 @@
 
     .company-name2 span {
         float: right;
-        margin-right: 6%;
     }
 
     #memo:after {
