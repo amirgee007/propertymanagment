@@ -66,14 +66,17 @@
                                         </div>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="#carpark-tab" data-toggle="tab">
-                                        <i class="fa fa-check-circle"></i>
-                                        <div>
-                                            <span class="text-strong">Carpark Tab</span>
-                                        </div>
-                                    </a>
-                                </li>
+
+                                @if(config('system.car_parks_module'))
+                                    <li>
+                                        <a href="#carpark-tab" data-toggle="tab">
+                                            <i class="fa fa-check-circle"></i>
+                                            <div>
+                                                <span class="text-strong">Carpark Tab</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                @endif
 
                                 <li>
                                     <a href="#meter-tab" data-toggle="tab">

@@ -91,11 +91,13 @@
                                 class="label label-success pull-right"></span></a></li>
             </ul>
 
-            <ul>
-                <li class="@if(request()->is('sinking-funds/*', 'sinking-funds')) active @endif"><a
-                            href="{{route('sinking-funds.index')}}">Manage Sinking Funds<span
-                                class="label label-success pull-right"></span></a></li>
-            </ul>
+            @if(config('system.sinking_funds_module'))
+                <ul>
+                    <li class="@if(request()->is('sinking-funds/*', 'sinking-funds')) active @endif"><a
+                                href="{{route('sinking-funds.index')}}">Manage Sinking Funds<span
+                                    class="label label-success pull-right"></span></a></li>
+                </ul>
+            @endif
         </li>
 
         @if(auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin') ||auth()->user()->hasRole('Manager')||auth()->user()->hasRole('Owner'))
@@ -118,7 +120,7 @@
 
 
 
-        @if(auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin'))
+        @if((auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin')) && config('system.utility_module'))
             <li class="submenu @if(request()->is('dashboard/meter/*', 'dashboard/meter')) active @endif">
                 <a href="javascript:void(0);">
                     <span class="icon"><i class="fa fa-suitcase"></i></span>
