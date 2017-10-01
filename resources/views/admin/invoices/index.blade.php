@@ -121,13 +121,10 @@
                 </div>
             </div>
         </div>
-
-        @include('admin.invoices.partials.form_modals')
-        @include('admin.invoices.partials._pdf_download_modal')
-
         @include('admin.layouts.pagefooter')
     </section>
-
+    @include('admin.invoices.partials.form_modals')
+    @include('admin.invoices.partials._pdf_download_modal')
 @endsection
 
 @section('footer_scripts')

@@ -8,14 +8,14 @@ use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 
-class ScheduleInvoice extends Command
+class SinkingFundInvoice extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'invoice:sinking-funds';
+    protected $signature = 'generate:sinking-fund-invoice';
 
     /**
      * The console command description.
@@ -64,7 +64,7 @@ class ScheduleInvoice extends Command
                     'updated_at' => Carbon::now(),
                     'type' => Invoice::SINKING,
                 ];
-                $this->info('Record Processed '.$count);
+                $this->info('Record Processed ' . $count);
                 $this->info('-----');
             }
 
@@ -72,7 +72,7 @@ class ScheduleInvoice extends Command
 
             $this->info('Sinking invoices generated successfully.');
         } catch (\Exception $e) {
-            Log::error('Oops, Error while creating Sinking recurring invoices.'. $e->getMessage());
+            Log::error('Oops, Error while creating Sinking recurring invoices.' . $e->getMessage());
             $this->info('Oops, Error while creating Sinking recurring invoices.');
         }
     }
