@@ -100,7 +100,7 @@
                     <span>Bill To:</span>
                 </td>
                 <td>
-                    <span>{{$meter->owner()->owner_name}}	</span>
+                    <span>{{$meter->owner->owner_name}}	</span>
                 </td>
             </tr>
             <tr>

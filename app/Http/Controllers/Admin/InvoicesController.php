@@ -40,9 +40,9 @@ class InvoicesController extends Controller
 
         if ($user->hasRole('Owner')) {
             $owner_ids = Owner::where('user_id', $user->id)->pluck('owner_id');
-            $invoices = Invoice::whereIn('owner_id', $owner_ids)->paginate(10);
+            $invoices = Invoice::whereIn('owner_id', $owner_ids)->get();
         } else {
-            $invoices = Invoice::paginate(10);
+            $invoices = Invoice::all();
         }
 
         return view($this->view . '.index', compact('invoices'));
