@@ -7,6 +7,7 @@ use App\Models\Lot;
 use App\Models\LotType;
 use App\Models\Meter;
 use App\Models\Owner;
+use App\Models\OwnerLot;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -126,7 +127,6 @@ class OwnerController extends Controller
      */
     public function edit($id)
     {
-
         $owner = Owner::with('ownerLots')->find($id);
 
         if (is_null($owner)) {
@@ -135,15 +135,30 @@ class OwnerController extends Controller
         }
 
         $company = $owner->company;
+
+        $assignedLots = OwnerLot::orderBy('lot_id')->get()->pluck('lot_id' , 'lot_id')->toArray();
+        $lots = Lot::whereNotIn('lot_id' , $assignedLots)->get();
         $user = $owner->user;
 
-        $lots = Lot::all();
         $lotType = LotType::all();
         $ownerLots = $owner->ownedLots->pluck('lot_id')->toArray();
         $meters = Meter::whereIn('lot_id', $ownerLots)->get();
 
         return view('admin.owner-management.edit', compact('lotType',
             'lots', 'company', 'owner', 'meters', 'user'));
+    }
+
+    public function ownerLotDelete($id) {
+
+        $ownerLot = OwnerLot::where('lot_id' , $id)->where('lot_owner_id' , \request()->owner_id)->first();
+
+        $ownerLot->delete();
+
+        return \response()->json([
+            'id' => $id,
+            'status' => true
+        ]);
+
     }
 
     /**

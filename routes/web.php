@@ -144,6 +144,10 @@ Route::group(['middleware' => ['admin'], 'namespace' => 'Admin'], function () {
             'as' => 'owner.edit',
             'uses' => 'OwnerController@edit'));
 
+        Route::delete('/ownerLot/{id}', array(
+            'as' => 'owner.ownerLot.destroy',
+            'uses' => 'OwnerController@ownerLotDelete'));
+
         Route::delete('/destroy/{owner_id}', array(
             'as' => 'owner.destroy',
             'uses' => 'OwnerController@destroy'));
