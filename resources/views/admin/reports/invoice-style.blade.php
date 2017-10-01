@@ -94,20 +94,17 @@
     #memo .company-name {
         background: #fca12b;
         background-size: 100px auto;
-        padding: 3% 0% 18px 8%;
+        padding: 3%;
         position: absolute;
-        margin-bottom: 15px;
-        width: 65%;
+        width: 55%;
         float: left;
     } #memo .company-name2 {
-              /*margin-right: -5%;*/
-        background: rgb(221, 132, 16);
-        background-size: 100px auto;
-        padding: 3% 0% 18px 8%;
-        position: relative;
-        margin-bottom: 15px;
-        width: 35%;
-        float: right;
+      background: rgb(221, 132, 16);
+      background-size: 100px auto;
+      padding: 3%;
+      position: absolute;
+      width: 84%;
+      float: right;
     }
     #memo span{
         color: #000;
@@ -116,197 +113,13 @@
         font-size: 36px;
         line-height: 1em;
     }
+
+    .company-name2 span{
+        float: right;
+    }
     #memo:after {
         content: '';
         display: block;
         clear: both;
-    }
-
-    /*#invoice-info > div {*/
-        /*float: left;*/
-    /*}*/
-    /*#invoice-info > div > span {*/
-        /*display: block;*/
-        /*min-width: 20px;*/
-        /*min-height: 18px;*/
-        /*margin-bottom: 3px;*/
-    /*}*/
-    /*#invoice-info > div:last-child {*/
-        /*margin-left: 20px;*/
-    /*}*/
-    /*#invoice-info:after {*/
-        /*content: '';*/
-        /*display: block;*/
-        /*clear: both;*/
-    /*}*/
-
-    /*#client-info {*/
-        /*float: right;*/
-        /*margin: 5px 20px 0 0;*/
-        /*min-width: 220px;*/
-        /*text-align: right;*/
-    /*}*/
-    /*#client-info > div {*/
-        /*margin-bottom: 3px;*/
-        /*min-width: 20px;*/
-    /*}*/
-    /*#client-info span {*/
-        /*display: block;*/
-        /*min-width: 20px;*/
-    /*}*/
-
-    /*#invoice-title-number {*/
-        /*text-align: center;*/
-        /*margin: 20px 0;*/
-    /*}*/
-    /*#invoice-title-number span {*/
-        /*display: inline-block;*/
-        /*min-width: 20px;*/
-    /*}*/
-    /*#invoice-title-number #title {*/
-        /*margin-right: 15px;*/
-        /*text-align: right;*/
-        /*font-size: 20px;*/
-        /*font-weight: bold;*/
-    /*}*/
-    /*#invoice-title-number #number {*/
-        /*font-size: 15px;*/
-        /*text-align: left;*/
-    /*}*/
-
-    /*table {*/
-        /*table-layout: fixed;*/
-    /*}*/
-    /*table th, table td {*/
-        /*vertical-align: top;*/
-        /*word-break: keep-all;*/
-        /*word-wrap: break-word;*/
-    /*}*/
-
-    /*#items {*/
-        /*margin: 20px 0 35px 0;*/
-    /*}*/
-    /*#items .first-cell, #items table th:first-child, #items table td:first-child {*/
-        /*width: 18px;*/
-        /*text-align: right;*/
-    /*}*/
-    /*#items table {*/
-        /*border-collapse: separate;*/
-        /*width: 100%;*/
-    /*}*/
-    /*#items table th {*/
-        /*padding: 12px 10px;*/
-        /*text-align: right;*/
-        /*background: #E6E7E7;*/
-        /*border-bottom: 4px solid #487774;*/
-    /*}*/
-    /*#items table th:nth-child(2) {*/
-        /*width: 30%;*/
-        /*text-align: left;*/
-    /*}*/
-    /*#items table th:last-child {*/
-        /*text-align: right;*/
-        /*padding-right: 20px !important;*/
-    /*}*/
-    /*#items table td {*/
-        /*padding: 15px 10px;*/
-        /*text-align: right;*/
-        /*border-right: 1px solid #CCCCCF;*/
-    /*}*/
-    /*#items table td:first-child {*/
-        /*text-align: left;*/
-        /*border-right: 0 !important;*/
-    /*}*/
-    /*#items table td:nth-child(2) {*/
-        /*text-align: left;*/
-    /*}*/
-    /*#items table td:last-child {*/
-        /*border-right: 0 !important;*/
-        /*padding-right: 20px !important;*/
-    /*}*/
-
-    /*.currency {*/
-        /*border-bottom: 4px solid #487774;*/
-        /*padding: 0 20px;*/
-    /*}*/
-    /*.currency span {*/
-        /*font-size: 11px;*/
-        /*font-style: italic;*/
-        /*color: #8b8b8b;*/
-        /*display: inline-block;*/
-        /*min-width: 20px;*/
-    /*}*/
-
-    /*#sums {*/
-        /*float: right;*/
-        /*background: #8BA09E url("../img/left-arrow.png") -17px bottom no-repeat;*/
-        /*background-size: auto 100px;*/
-        /*color: white;*/
-    /*}*/
-    /*#sums table tr th, #sums table tr td {*/
-        /*min-width: 100px;*/
-        /*padding: 8px 20px 8px 35px;*/
-        /*text-align: right;*/
-        /*font-weight: 600;*/
-    /*}*/
-    /*#sums table tr th {*/
-        /*text-align: left;*/
-        /*padding-right: 25px;*/
-    /*}*/
-    /*#sums table tr.amount-total th {*/
-        /*text-transform: uppercase;*/
-    /*}*/
-    /*#sums table tr.amount-total th, #sums table tr.amount-total td {*/
-        /*font-size: 16px;*/
-        /*font-weight: bold;*/
-    /*}*/
-    /*#sums table tr:last-child th {*/
-        /*text-transform: uppercase;*/
-    /*}*/
-    /*#sums table tr:last-child th, #sums table tr:last-child td {*/
-        /*font-size: 16px;*/
-        /*font-weight: bold;*/
-        /*padding-top: 20px !important;*/
-        /*padding-bottom: 40px !important;*/
-    /*}*/
-
-    /*#terms {*/
-        /*margin: 50px 20px 10px 20px;*/
-    /*}*/
-    /*#terms > span {*/
-        /*display: inline-block;*/
-        /*min-width: 20px;*/
-        /*font-weight: bold;*/
-    /*}*/
-    /*#terms > div {*/
-        /*margin-top: 10px;*/
-        /*min-height: 50px;*/
-        /*min-width: 50px;*/
-    /*}*/
-
-    /*.payment-info {*/
-        /*margin: 0 20px;*/
-    /*}*/
-    /*.payment-info div {*/
-        /*font-size: 12px;*/
-        /*color: #8b8b8b;*/
-        /*display: inline-block;*/
-        /*min-width: 20px;*/
-    /*}*/
-
-    /*.ib_bottom_row_commands {*/
-        /*margin: 10px 0 0 20px !important;*/
-    /*}*/
-
-    /*.ibcl_tax_value:before {*/
-        /*color: white !important;*/
-    /*}*/
-
-    /**
-    * If the printed invoice is not looking as expected you may tune up
-    * the print styles (you can use !important to override styles)
-    */
-    @media print {
-        /* Here goes your print styles */
     }
 </style>
