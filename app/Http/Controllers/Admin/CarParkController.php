@@ -12,13 +12,31 @@ class CarParkController extends Controller
     public function assignCarPark(Request $request)
     {
         try {
-            OwnerCarPark::firstOrCreate($request->except('_token'));
-            $response = ['status' => 'saved'];
+            $carPark = OwnerCarPark::create($request->except('_token'));
+
+            $response = [
+                'status' => 'saved',
+                'ownerCarPark' => $carPark,
+                'delete_url' => route('delete.owner.assign.carpark' , $carPark)
+            ];
 
         } catch (\Exception $ex) {
             $response = ['status' => 'error'];
         }
-        return response()->json($response);
+        return response()->json(
+            $response);
+
+    }
+
+    public function delete($id) {
+        $carPark = OwnerCarPark::where('owner_car_park_id' , $id)->first();
+
+        $carPark->delete();
+
+        return response()->json([
+            'id' => $id,
+            'status' => true
+        ]);
 
     }
 }

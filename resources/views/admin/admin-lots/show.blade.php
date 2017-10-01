@@ -96,6 +96,7 @@
     <script>
         $(document).ready(function () {
 
+            $('.table-theme').DataTable();
             $('.delete-meter-rate').on('click' , function (e) {
                 var url = $(this).attr('data-url');
 

@@ -173,6 +173,10 @@ Route::group(['middleware' => ['admin'], 'namespace' => 'Admin'], function () {
             'as' => 'post.owner.assign.carpark',
             'uses' => 'CarParkController@assignCarPark'));
 
+        Route::delete('/car-park/{id}', array(
+            'as' => 'delete.owner.assign.carpark',
+            'uses' => 'CarParkController@delete'));
+
 
         Route::get('/assign-lot', array(
             'as' => 'owner.assign.lot',
