@@ -264,7 +264,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Lot Type</label>
                                                 <div class="col-sm-7">
-                                                    <select class="form-control" name="lot_type_id" required>
+                                                    <select class="form-control" style="width: 100%" id="lot_type_id" name="lot_type_id" required>
                                                         <option value="">Choose type</option>
                                                         @foreach($lotType as $lotTp)
                                                             <option value="{{$lotTp->lot_type_id}}">{{$lotTp->lot_type_name}}</option>
@@ -277,7 +277,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Lot Name </label>
                                                 <div class="col-sm-7">
-                                                    <select class="form-control" name="lot_id" required>
+                                                    <select class="form-control" style="width: 100%" id="lot_name_id" name="lot_id[]" multiple required>
                                                         <option value="">Choose Name</option>
                                                         @foreach($lots as $lot)
                                                             <option value="{{$lot->lot_id}}">{{$lot->lot_name}}</option>
@@ -289,7 +289,7 @@
 
                                         <div class="form-footer">
                                             <div class="col-sm-offset-3">
-                                                <button type="submit" class="btn btn-theme" id="assign-lot-btn">Save</button>
+                                                <button type="submit" class="btn btn-theme" form="owner-assign-lot" id="assign-lot-btn">Save</button>
                                             </div>
                                         </div>
                                     </form>
@@ -314,14 +314,18 @@
                                                                     <th># Id</th>
                                                                     <th>Lot Type Name</th>
                                                                     <th>Lot Name</th>
+                                                                    <th>Action</th>
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
                                                                 @forelse($ownedLots = \App\PropertyManagement\Helper::getOwnerLots($owner) as $ownedLot)
-                                                                    <tr>
+                                                                    <tr id="lot-id-{{$ownedLot->lot_id}}">
                                                                         <td>{{ $ownedLot->lot_id }}</td>
                                                                         <td>{{ @$ownedLot->lotType->lot_type_name }}</td>
                                                                         <td>{{ $ownedLot->lot_name }}</td>
+                                                                        <td>
+                                                                            <button type="button" data-url="{{route('owner.ownerLot.destroy' , $ownedLot->lot_id)}}" class="btn btn-danger delete-lots">Unassign</button>
+                                                                        </td>
                                                                     </tr>
                                                                 @empty
                                                                     <tr>
@@ -543,9 +547,32 @@
         @include('admin.layouts.pagefooter')
     </section>
 
+
+
+    <div id="delete-lot-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header bg-danger ">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="delete-modal-title">Lot Delete Confirmation</h4>
+                </div>
+                <div class="modal-body" id="delete-modal-body">
+                    <h5><strong> The record will be permanently removed from the system. Are you sure you want to delete? </strong></h5>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" id="delete-lot-btn" data-url="">Confirm</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('footer_scripts')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
     <script>
 
         toastr.success("welcome to Edit Owner Page.", "Thanks");
@@ -565,6 +592,7 @@
 
         $(document).ready(function () {
 
+            var owner_id = '{{$owner->owner_id}}';
             $('#dp1').datepicker({
                 format: 'dd-mm-yyyy',
             }).on('changeDate', function (e) {
@@ -572,32 +600,32 @@
             });
 
 
-            $('#owner-assign-lot').on('submit' , function (e) {
+            {{--$('#owner-assign-lot').on('submit' , function (e) {--}}
 
-                e.preventDefault();
-                form = $(this);
-                var action = form.attr('action');
-                $.ajax({
-                    url: action,
-                    data: form.serialize(),
-                    headers: { 'X-XSRF-TOKEN' : '{{\Illuminate\Support\Facades\Crypt::encrypt(csrf_token())}}' },
-                    error: function() {
+                {{--e.preventDefault();--}}
+                {{--form = $(this);--}}
+                {{--var action = form.attr('action');--}}
+                {{--$.ajax({--}}
+                    {{--url: action,--}}
+                    {{--data: form.serialize(),--}}
+                    {{--headers: { 'X-XSRF-TOKEN' : '{{\Illuminate\Support\Facades\Crypt::encrypt(csrf_token())}}' },--}}
+                    {{--error: function() {--}}
 
-                    },
-                    success: function(response) {
-                        if(response.status == 'saved'){
-                            toastr.success("Lot Assigned to Owner" , "Asign Lot");
-                            $("#owner-assign-lot").trigger('reset'); //jquery
+                    {{--},--}}
+                    {{--success: function(response) {--}}
+                        {{--if(response.status == 'saved'){--}}
+                            {{--toastr.success("Lot Assigned to Owner" , "Asign Lot");--}}
+                            {{--$("#owner-assign-lot").trigger('reset'); //jquery--}}
 
-                        }else{
-                            toastr.error("Some Thing went wrong", "Not Saved");
-                        }
-                    },
+                        {{--}else{--}}
+                            {{--toastr.error("Some Thing went wrong", "Not Saved");--}}
+                        {{--}--}}
+                    {{--},--}}
 
-                    type: 'POST'
-                });
+                    {{--type: 'POST'--}}
+                {{--});--}}
 
-            });
+            {{--});--}}
 
             $('#owner-car-park').on('submit' , function (e) {
 
@@ -626,8 +654,39 @@
 
             });
 
+            $('#lot_name_id').select2();
+            $('#lot_type_id').select2();
 
+            $('.delete-lots').on('click' , function (e) {
+                var url = $(this).attr('data-url');
 
+                $('#delete-lot-btn').attr('data-url' , url);
+                $('#delete-lot-modal').modal('show');
+            });
+
+            $('#delete-lot-btn').on('click', function () {
+                const url = $('#delete-lot-btn').attr('data-url');
+                $('#delete-lot-modal').modal('hide');
+                $.ajax({
+                    url: url,
+                    data: {'owner_id' : owner_id} ,
+                    headers: { 'X-XSRF-TOKEN' : '{{\Illuminate\Support\Facades\Crypt::encrypt(csrf_token())}}' },
+                    error: function() {
+
+                    },
+                    success: function(data) {
+
+//                        console.log(data);
+////                        if(data.status) {
+//
+//                            $('#lot-id-'+data.id).remove();
+                            toastr.success("Owner Lot Deleted Successfully");
+                            location.reload();
+////                        }
+                    },
+                    type: 'DELETE'
+                });
+            });
 
 
         });

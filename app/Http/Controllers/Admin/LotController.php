@@ -233,19 +233,22 @@ class LotController extends Controller
             $lot_detail = array(
                 'lot_id' => $lot_id,
                 'lot_type_id' => $data['lot_type_id'],
-                'lot_owner_id' => $data['lot_owner_id']
+                'lot_owner_id' => $data['owner_id']
             );
 
             $isSaved = new OwnerLot($lot_detail);
             $isSaved->save();
         }
 
-        if ($isSaved) {
-            $response = ['status' => 'saved'];
-        } else {
-            $response = ['status' => 'error'];
-        }
-        return response()->json($response);
+        flash('Successfully lots Assigned to Owner')->success();
+        return back();
+//        if ($isSaved) {
+//            $response = ['status' => 'saved'];
+//        } else {
+//            $response = ['status' => 'error'];
+//        }
+//
+//        return response()->json($response);
 
     }
 
