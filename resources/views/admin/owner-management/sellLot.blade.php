@@ -63,6 +63,15 @@
                                         </div>
                                     </div><!-- /.form-group -->
 
+                                    <div class="form-group hidden" id="owner-choice-div" style="padding-left: 20%" >
+
+                                        <p>
+                                            Existing owner <input type="radio" class="radio-inline owner-choice" name="owner-choice" value="existing">
+                                            New owner <input type="radio" class="radio-inline owner-choice" name="owner-choice" value="new">
+                                        </p>
+                                    </div><!-- /.form-group -->
+
+
                                     <div class="col-lg-12 hidden" id="bills_table_div">
                                         <div class="table-responsive">
                                             <table class="table">
@@ -84,6 +93,25 @@
                                         <div class="col-lg-12"><br></div>
                                     </div>
 
+                                    <div class="col-lg-12 hidden" id="existing-owners">
+                                        <div class="form-group" >
+                                                <label class="col-sm-3 control-label">Owner Name <span
+                                                            class="asterisk">*</span></label>
+                                                <div class="col-sm-7">
+                                                    <select class="form-control" id="choosen-owner" name="choosen-owner">
+                                                        <option value="Choose type">Choose type</option>
+                                                        @foreach($owners as $value)
+                                                            <option value="{{$value->owner_id}}">{{$value->owner_name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                        </div>
+                                        <div class="form-footer">
+                                            <div class="col-sm-offset-3">
+                                                <button type="submit" id="submit-form" form="sample-validation-2" class="btn btn-theme">Save Owner</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="col-lg-12 hidden" id="form_div">
                                         <div class="form-horizontal form-bordered"
                                                id="owner-sell-form">
@@ -118,7 +146,7 @@
                                                     <div class="col-sm-7">
                                                         <input type="text" class="form-control input-sm"
                                                                name="owner_id_card_no"
-                                                               required>
+                                                               >
                                                     </div>
                                                 </div><!-- /.form-group -->
 
@@ -354,12 +382,14 @@
                             toastr.error("Please Check your unpaid bills!", "Sell Lot");
                         } else {
                             if (data.owner_lots.length !== 0) {
-                                $('#form_div').removeClass('hidden');
+                                $('#owner-choice-div').removeClass('hidden');
                                 $('#owner_id').val($('#owner_name').val());
                                 ownerLotsOptions(data.owner_lots);
                                 toastr.success("You have paid all bills!", "Sell Lot");
                             }else {
                                 $('#form_div').addClass('hidden');
+                                $('#owner-choice-div').addClass('hidden');
+                                $('#existing-owners').addClass('hidden');
                                 toastr.error("This Owner did not have any lot" , "Warning Message");
                             }
                         }
@@ -381,6 +411,20 @@
         $('#owner_lot').select2();
 
 
+        $('.owner-choice').on('change' , function () {
+            key = $(this).val();
+            existingOrNew(key);
+        });
+
+        function existingOrNew(key) {
+            if (key == 'new') {
+                $('#form_div').removeClass('hidden');
+                $('#existing-owners').addClass('hidden');
+            }else {
+                $('#existing-owners').removeClass('hidden');
+                $('#form_div').addClass('hidden');
+            }
+        }
 
     </script>
 
