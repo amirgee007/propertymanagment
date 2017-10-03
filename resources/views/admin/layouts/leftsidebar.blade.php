@@ -4,7 +4,7 @@
     <div class="sidebar-content">
         <div class="media">
             <a class="pull-left has-notif avatar" href="#">
-                <img src="{{url('/')}}/admin/images/user.png" alt="admin">
+                <img src="{{ url('/admin/images/user.png') }}" alt="admin">
                 <i class="online"></i>
             </a>
             <div class="media-body">
@@ -16,7 +16,7 @@
     <!--/ End left navigation -  profile shortcut -->
 
     <!-- Start left navigation - menu -->
-    <ul class="sidebar-menu">
+    <ul class="sidebar-menu niceScroll">
 
         <!-- Start navigation - dashboard -->
         <li class="active">
@@ -29,13 +29,13 @@
         <!--/ End navigation - dashboard -->
 
         <!-- Start navigation - my projects -->
-    {{--<li>--}}
-    {{--<a href="#">--}}
-    {{--<span class="icon"><i class="fa fa-black-tie"></i></span>--}}
-    {{--<span class="text">All E-Condo Features</span>--}}
-    {{--</a>--}}
-    {{--</li>--}}
-    <!--/ End navigation - my projects -->
+        {{--<li>--}}
+        {{--<a href="#">--}}
+        {{--<span class="icon"><i class="fa fa-black-tie"></i></span>--}}
+        {{--<span class="text">All E-Condo Features</span>--}}
+        {{--</a>--}}
+        {{--</li>--}}
+        <!--/ End navigation - my projects -->
 
         @if(auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin'))
             <li class="submenu @if(request()->is('users/*', 'users')) active @endif">
@@ -101,7 +101,6 @@
         </li>
 
         @if(auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin') ||auth()->user()->hasRole('Manager')||auth()->user()->hasRole('Owner'))
-
             <li class="submenu @if(request()->is('invoices/*', 'invoices')) active @endif">
                 <a href="javascript:void(0);">
                     <span class="icon"><i class="fa fa-suitcase"></i></span>
@@ -118,8 +117,7 @@
             </li>
         @endif
 
-
-
+        {{--Meter Mangments Utilities , only nodule for Super Admin, Admin and Super Admin can show hide this feature Access--}}
         @if((auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin')) && config('system.utility_module'))
             <li class="submenu @if(request()->is('dashboard/meter/*', 'dashboard/meter')) active @endif">
                 <a href="javascript:void(0);">
@@ -136,6 +134,10 @@
                                     class="label label-danger pull-right"></span></a></li>
                 </ul>
             </li>
+        @endif
+
+        {{--System Setting , only nodule for Super Admin Access--}}
+        @if(auth()->user()->hasRole('Super Admin'))
             <li class="submenu @if(request()->is('dashboard/invoicing-setting/*', 'dashboard/system-setting/*', 'tax-types/*', 'tax-types')) active @endif">
                 <a href="javascript:void(0);">
                     <span class="icon"><i class="fa fa-suitcase"></i></span>
@@ -161,6 +163,7 @@
                 </ul>
             </li>
         @endif
+
     </ul><!-- /.sidebar-menu -->
     <!--/ End left navigation - menu -->
 
