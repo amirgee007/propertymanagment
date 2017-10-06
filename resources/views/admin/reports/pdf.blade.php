@@ -87,7 +87,7 @@
     $credit_balance = $invoice->paid_amount;
     $gst = null;
     if(config('system.tax')){
-        $gst = \App\PropertyManagement\Helper::gstCalculate($total, 6);
+        $gst = \App\PropertyManagement\Helper::gstCalculate($total, config('utility.gst'));
     }
     $amount_due = $out_standing + $gst;
 @endphp
@@ -202,7 +202,7 @@
                 <td>{{ number_format($total, 2) }}</td>
             </tr>
             <tr>
-                <td colspan="1" style="text-align: right"><b>GST (6%)</b></td>
+                <td colspan="1" style="text-align: right"><b>GST ({{ config('utility.gst') }}%)</b></td>
                 <td>{{ number_format($gst, 2) }}</td>
             </tr>
             <tr>

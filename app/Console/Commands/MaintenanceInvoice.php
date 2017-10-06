@@ -45,19 +45,19 @@ class MaintenanceInvoice extends Command
     {
         $maintenance = InvoicingSettingMaintenanceService::all()->first();
 
-        if($maintenance){
+        if ($maintenance) {
             switch ($maintenance->billing_ending) {
                 case 'never':
                     return $this->generateInvoice();
                     break;
                 case 'on_specific_date':
                     $ending_date = Carbon::parse($maintenance->billing_end_date);
-                    if($ending_date > Carbon::today() ){
+                    if ($ending_date > Carbon::today()) {
                         return $this->generateInvoice();
                     }
                     break;
                 case 'after_number_of_billing':
-                    if(Carbon::today()->day > $maintenance->after_billing_day){
+                    if (Carbon::today()->day > $maintenance->after_billing_day) {
                         return $this->generateInvoice();
                     }
                     break;

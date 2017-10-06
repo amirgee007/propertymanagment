@@ -250,8 +250,8 @@
                 <td>{{$invoice->meterReading->readingAmount()}}</td>
             </tr>
             <tr>
-                <td colspan="2" style="text-align: right"><b>GST (6%)</b></td>
-                <td>{{$gst = \App\PropertyManagement\Helper::gstCalculate( $invoice->meterReading->readingAmount() , 6)}}</td>
+                <td colspan="2" style="text-align: right"><b>GST ({{config('utility.gst')}}%)</b></td>
+                <td>{{$gst = \App\PropertyManagement\Helper::gstCalculate( $invoice->meterReading->readingAmount() , config('utility.gst'))}}</td>
             </tr>
             <tr>
                 <td colspan="2" style="text-align: right"><b>Outstanding Charges (+)</b></td>

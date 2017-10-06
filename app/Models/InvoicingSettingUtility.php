@@ -17,4 +17,9 @@ class InvoicingSettingUtility extends Model
     {
         return $query->where('user_id', $user_id);
     }
+
+    public function taxType()
+    {
+        return $this->belongsTo(TaxType::class, 'tax_type_id', 'id');
+    }
 }

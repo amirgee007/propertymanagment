@@ -395,3 +395,5 @@ Route::prefix('/dashboard/invoicing-setting')->middleware('auth')->namespace('Ad
         'uses' => 'InvoicingSettingController@edit'));
 });
 
+Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+

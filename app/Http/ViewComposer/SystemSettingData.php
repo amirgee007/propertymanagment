@@ -78,6 +78,7 @@ class SystemSettingData
                     'billing_start_date' => @$setting_utility->billing_start_date ? $setting_utility->billing_start_date : null,
                     'billing_ending' => @$setting_utility->billing_ending ? $setting_utility->billing_ending : null,
                     'tax_type_id' => @$setting_utility->tax_type_id ? $setting_utility->tax_type_id : null,
+                    'gst' => @$setting_utility->taxType ? $setting_utility->taxType->rate : 0,
                 ]
 
             ]);
