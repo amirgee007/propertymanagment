@@ -31,22 +31,18 @@ class InvoicingSettingController extends Controller
     public function edit(Request $request){
         $general = $request->general;
 
-        if(array_key_exists('invoice_due_date', $general)){
-            $general['invoice_due_date'] = Carbon::parse($general['invoice_due_date'])->toDateString();
-        }
-
         $utility = $request->utilitySettings;
         $maintenance = $request->maintenanceServiceSettings;
 
 
             if ($utility['billing_start_date']){
-                $utility['billing_start_date'] = Carbon::createFromFormat('d/m/Y', $utility['billing_start_date']);
+                $utility['billing_start_date'] = Carbon::createFromFormat('d-m-Y', $utility['billing_start_date']);
             }
             if ($utility['billing_end_date']){
-                $utility['billing_end_date'] = Carbon::createFromFormat('d/m/Y', $utility['billing_end_date']);
+                $utility['billing_end_date'] = Carbon::createFromFormat('d-m-Y', $utility['billing_end_date']);
             }
             if ($maintenance['billing_end_date']){
-                $maintenance['billing_end_date'] = Carbon::createFromFormat('d/m/Y', $maintenance['billing_end_date']);
+                $maintenance['billing_end_date'] = Carbon::createFromFormat('d-m-Y', $maintenance['billing_end_date']);
             }
 
             $general['user_id'] = $utility['user_id'] = $maintenance['user_id'] = auth()->user()->id;

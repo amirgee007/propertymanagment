@@ -232,7 +232,7 @@ class OwnerController extends Controller
             ]);
         } else {
             $owner->company()->delete();
-            $owner->user()->delete();
+//            $owner->user()->delete();
             $owner->delete();
             return response()->json([
                 'status' => 'success',

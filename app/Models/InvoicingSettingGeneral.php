@@ -19,6 +19,8 @@ class InvoicingSettingGeneral extends Model
 
     public function getDueDateAttribute()
     {
-        return $this->invoice_due_date ? Carbon::parse($this->invoice_due_date) : null;
+        return $this->invoice_due_date
+            ? Carbon::today()->startOfMonth()->addDays($this->invoice_due_date - 1)
+            : null;
     }
 }
