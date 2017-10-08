@@ -80,43 +80,46 @@ class MaintenanceInvoice extends Command
                 return false;
             }
 
-            $lot_types = ConfigLotType::all();
-            $lot_type_ids = $lot_types->pluck('lot_type_id');
+            $lot_type_ids = ConfigLotType::all()->pluck('lot_type_id');
 
             $invoice_data = [];
             $count = 0;
-            if ($maintenance->fee_charged == InvoicingSettingMaintenanceService::PROPERTY_SIZE) {
-                $owner_lots = OwnerLot::whereIn('lot_type_id', $lot_type_ids)->get();
+            $owner_lots = OwnerLot::whereIn('lot_type_id', $lot_type_ids)->get();
 
-                foreach ($owner_lots as $owner_lot) {
-                    $count++;
-                    $this->info('-----');
-                    $this->info('Record Processing');
+            foreach ($owner_lots as $owner_lot) {
+                $count++;
+                $this->info('-----');
+                $this->info('Record Processing');
 
+                if ($maintenance->fee_charged == InvoicingSettingMaintenanceService::PROPERTY_SIZE) {
+                    $amount = @ConfigLotType::where('lot_type_id', $owner_lot->lot_type_id)->first()->charging_rate;
+                } else {
                     $amount = @ConfigLotType::where('lot_type_id', $owner_lot->lot_type_id)->first()->fee_charge;
-                    $invoice_data[] = [
-                        'owner_id' => $owner_lot->lot_owner_id,
-                        'lot_id' => $owner_lot->lot_id,
-                        'date' => $maintenance->created_at,
-                        'invoice_trans_des' => @$owner_lot->lot->lot_name,
-                        'invoice_quantity' => 1, // ToDo: setting default to 1, change this accordingly
-                        'invoice_uom' => ' ',
-                        'invoice_charge_rate' => 0,
-                        'invoice_amount' => is_null($amount) ? 0 : $amount,
-                        'invoice_status' => Invoice::UNPAID,
-                        'created_at' => Carbon::now(),
-                        'updated_at' => Carbon::now(),
-                        'type' => Invoice::MAINTENANCE,
-                    ];
-
-                    $this->info('Record Processed ' . $count);
-                    $this->info('-----');
                 }
+
+                $invoice_data[] = [
+                    'owner_id' => $owner_lot->lot_owner_id,
+                    'lot_id' => $owner_lot->lot_id,
+                    'date' => $maintenance->created_at,
+                    'invoice_trans_des' => @$owner_lot->lot->lot_name,
+                    'invoice_quantity' => 1, // ToDo: setting default to 1, change this accordingly
+                    'invoice_uom' => ' ',
+                    'invoice_charge_rate' => 0,
+                    'invoice_amount' => is_null($amount) ? 0 : $amount,
+                    'invoice_status' => Invoice::UNPAID,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                    'type' => Invoice::MAINTENANCE,
+                ];
+
+                $this->info('Record Processed ' . $count);
+                $this->info('-----');
             }
 
             Invoice::insert($invoice_data);
 
             $this->info('Maintenance invoice generated successfully.');
+
         } catch (\Exception $e) {
             Log::error('Oops, Error while creating maintenance recurring invoices.' . $e->getMessage());
             $this->info('Oops, Error while creating maintenance recurring invoices.');

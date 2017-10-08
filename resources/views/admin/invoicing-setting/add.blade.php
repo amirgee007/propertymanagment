@@ -233,12 +233,28 @@
                                                                             <div id="services_lot_type_dev">
                                                                                 @foreach($lot_types as $lot_type)
                                                                                     <div class="form-group">
-                                                                                        <label class="col-sm-3 control-label">{{$lot_type->lot_type_name}}</label>
+                                                                                        <label class="col-sm-3 control-label">Type {{$lot_type->lot_type_name}}:</label>
                                                                                         <div class="col-sm-7">
                                                                                             <input type="number"
                                                                                                    class="form-control input-sm"
                                                                                                    value="{{@$lot_type->charge?$lot_type->charge->fee_charge:''}}"
-                                                                                                   name=" lotType[{{$lot_type->lot_type_id}}]">
+                                                                                                   name="lotType[{{$lot_type->lot_type_id}}]"
+                                                                                                    placeholder="Fee Charge">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                @endforeach
+                                                                            </div>
+
+                                                                            <div id="charge_rate_lot_type_dev">
+                                                                                @foreach($lot_types as $lot_type)
+                                                                                    <div class="form-group">
+                                                                                        <label class="col-sm-3 control-label">Type {{$lot_type->lot_type_name}}:</label>
+                                                                                        <div class="col-sm-7">
+                                                                                            <input type="number"
+                                                                                                   class="form-control input-sm"
+                                                                                                   value="{{@$lot_type->charge?$lot_type->charge->charging_rate:''}}"
+                                                                                                   name="lotType[{{$lot_type->lot_type_id}}]"
+                                                                                                    placeholder="Charging Rate">
                                                                                         </div>
                                                                                     </div>
                                                                                 @endforeach
@@ -384,18 +400,22 @@
         $(function() {
             if($('#service_fee_charge').val() == 'property_size'){
                 $('#services_lot_type_dev').hide();
+                $('#charge_rate_lot_type_dev').show();
             }
             if($('#service_fee_charge').val() == 'total_amount'){
                 $('#services_sqft_dev').hide();
+                $('#charge_rate_lot_type_dev').hide();
             }
             $('#service_fee_charge').change(function(){
                 if($('#service_fee_charge').val() == 'property_size'){
                     $('#services_lot_type_dev').hide();
                     $('#services_sqft_dev').show();
+                    $('#charge_rate_lot_type_dev').show();
                 }
                 if($('#service_fee_charge').val() == 'total_amount'){
                     $('#services_lot_type_dev').show();
                     $('#services_sqft_dev').hide();
+                    $('#charge_rate_lot_type_dev').hide();
                 }
             });
         });
