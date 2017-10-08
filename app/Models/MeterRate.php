@@ -10,7 +10,16 @@ class MeterRate extends Model
 
     protected $guarded = [];
 
-    public function meterType() {
-        return $this->hasOne(MeterType::class , 'id' , 'meter_type_id');
+    protected $appends = ['meter_type_name'];
+
+    public function meterType()
+    {
+        return $this->hasOne(MeterType::class, 'id', 'meter_type_id');
+    }
+
+
+    public function getMeterTypeNameAttribute()
+    {
+        return is_null($this->meterType) ? 'N/A' : $this->meterType->meter_name;
     }
 }

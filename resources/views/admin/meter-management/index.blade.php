@@ -128,6 +128,7 @@
 
         $('#meter-type-modal-btn').on('click', function () {
             $('#meter-form')[0].reset();
+            $('.tax-value').hide();
             $("#form-meter-code").val(Math.floor(Math.random() * 999) + 1 );
             $('#myModal').modal('show');
         });
@@ -189,12 +190,12 @@
                     $('#edit-meter-name').val(data.meterType.meter_name);
                     $('#edit-meter-code').val(data.meterType.meter_code);
                     $('#edit-meter-min-charges').val(data.meterType.minimum_charges);
-                    if (data.meterType.tax_amount != null) {
+                    if (data.meterType.is_taxable === 1) {
                         $('#edit-checkbox-type-rounded1').attr('checked', 'checked');
                         $('#edit-meter-tax-amount').val(data.meterType.tax_amount);
-
                         $('.tax-value').show();
                     }else {
+                        $('#edit-checkbox-type-rounded1').removeAttr('checked');
                         $('.tax-value').hide();
                     }
 
@@ -319,7 +320,7 @@
                 success: function(data) {
                     if (data.status) {
                         var rowNode = t.row.add([
-                            data.rate.id,
+                            data.rate.meter_type_name,
                             data.rate.from,
                             data.rate.to,
                             data.rate.rate,

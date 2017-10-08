@@ -35,11 +35,12 @@
 </div><!-- /.form-group -->
 
 <div class="form-group">
-    <label class="col-sm-3 control-label">is Taxable</label>
+    <label class="col-sm-3 control-label">Is Taxable</label>
     <div class="col-sm-7">
         <div class="">
             <input id="checkbox-type-rounded1"
                    type="checkbox"
+                   name="meterType[is_taxable]"
                    {{!isset($meterType->tax_amount)?:is_null($meterType->tax_amount)?:'checked="checked"'}}
                    onclick="toggle('.tax-value', this)" >
             <label for="checkbox-type-rounded1"></label>
@@ -48,7 +49,7 @@
 </div><!-- /.form-group -->
 <div class="tax-value"  style="{{!isset($meterType->tax_amount)?'display: none':is_null($meterType->tax_amount)?:''}}">
     <div class="form-group">
-        <label class="col-sm-3 control-label">tax amount</label>
+        <label class="col-sm-3 control-label">Tax amount</label>
         <div class="col-sm-7">
             <input type="text" id="form-meter-tax-amount" placeholder="Tax amount should be in percentage" class="form-control form-meter-tax input-sm" value="{{isset($meterType->tax_amount)?$meterType->tax_amount:''}}" name="meterType[tax_amount]">
         </div>
@@ -56,8 +57,6 @@
 </div>
 
 <script>
-
-
     function toggle(className, obj) {
         var $input = $(obj);
         if ($input.prop('checked')) {
