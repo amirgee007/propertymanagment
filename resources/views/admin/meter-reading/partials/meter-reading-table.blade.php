@@ -10,13 +10,8 @@
         </div>
         <div class="panel-body no-padding">
             <div class="col-lg-12" style="padding: 5px">
-                <div class="table-responsive">
-                    <div id="meter-reading-table_filter" class="dataTables_filter">
-                        <label>Search:
-                            <input type="search" class="" value="{{$searchVal}}" placeholder="" id="meter-reading-search">
-                        </label>
-                    </div>
-                    <table class="table" id="meter-reading-table">
+                <div class="table-responsive col-xs-12">
+                    <table class="table table-striped table-theme" id="meter-reading-table">
                         <thead>
                         <tr>
                             <th>Meter Type</th>
@@ -43,14 +38,13 @@
                                 <td class="las-amo-td-{{$meter->id}}">{{$meter->currentAmount()}}</td>
                                 <td>
                                     <div class="dropdown">
-                                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">...
+                                        <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">...
                                             <span class="caret"></span></button>
-                                        <ul class="dropdown-menu">
+                                        <ul class="dropdown-menu dropdown-menu-right">
                                             <li><a href="javascript:void(0)" data-meter-id="{{$meter->id}}" data-lot-id="{{$meter->lot_id}}" class="meterReadingM">Add Reading</a></li>
                                             <li><a href="{{route('meter.reading.generate-report' , [$meter->id])}}" target="_blank" class="">Export Report</a></li>
                                         </ul>
                                     </div>
-
                                 </td>
                             </tr>
                         @endforeach
@@ -58,12 +52,6 @@
                     </table>
                 </div>
             </div>
-            <div class="col-lg-12">
-                <div class="pull-right">
-                    {{ $meters->links() }}
-                </div>
-            </div>
-
         </div>
     </div><!-- /.panel-body -->
 </div><!-- /.panel -->

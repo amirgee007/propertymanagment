@@ -11,19 +11,30 @@ use Illuminate\Http\Request;
 
 class MeterAssignmentController extends Controller
 {
-    public function index() {
-        $meters = MeterAssignment::with('meterType' , 'lotType')->get();
+    public function index()
+    {
+        $meters = MeterAssignment::with('meterType', 'lotType')->get();
 
-        $meterTypes = MeterType::get()->pluck('meter_name' ,'id' )->toArray();
 
-        $lotTypes = LotType::get()->pluck('lot_type_name', 'lot_type_id')->toArray();
+        $meterTypes = MeterType::all()->pluck('meter_name', 'id')->toArray();
 
-        return view('admin.meter-assignment.index' ,
-            compact('meterTypes' , 'lotTypes' , 'meters'));
+        $lotTypes = LotType::all()->pluck('lot_type_name', 'lot_type_id')->toArray();
+
+        return view('admin.meter-assignment.index',
+            compact('meterTypes', 'lotTypes', 'meters'));
 
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
+        if (MeterAssignment::where('meter_type_id', $request->meter_type_id)
+            ->where('lot_type_id', $request->lot_type_id)->exists()
+        ) {
+            return response()->json([
+                'status' => false,
+                'message' => "Meter can't assigned."
+            ]);
+        }
 
         $meter = MeterAssignment::create($request->all());
 
@@ -35,7 +46,7 @@ class MeterAssignmentController extends Controller
                 'meter_type_id' => $meter->meter_type_id,
                 'lot_id' => $lot->lot_id,
             ];
-            for ($i = 1;$i <= $meter->quantity ; $i++) {
+            for ($i = 1; $i <= $meter->quantity; $i++) {
                 Meter::create($data);
             }
         }
@@ -45,7 +56,7 @@ class MeterAssignmentController extends Controller
                                 <td>{$meter->lotType->lot_type_name}</td>
                                 <td>{$meter->quantity}</td>
                                 <td>
-                                    <button data-url='".route('meter.assignment.delete' , [$meter->id])."' class=\"btn btn-danger meter-delete\">Delete</button>
+                                    <button data-url='" . route('meter.assignment.delete', [$meter->id]) . "' class=\"btn btn-danger meter-delete\">Delete</button>
                                 </td>
                             </tr>";
 
@@ -56,7 +67,8 @@ class MeterAssignmentController extends Controller
         ]);
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         $meter = MeterAssignment::findOrFail($id);
         $meter->delete();
 
@@ -65,9 +77,6 @@ class MeterAssignmentController extends Controller
             'status' => true
         ]);
     }
-
-
-
 
 
 }

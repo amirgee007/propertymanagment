@@ -12,14 +12,14 @@
         <div class="panel-body no-padding">
             <div class="col-lg-12">
                 <br>
-                <div class="table-responsive">
-                    <table class="table">
+                <div class="table-responsive col-xs-12">
+                    <table id="meter-type-table" class="table table-striped table-theme">
                         <thead>
                         <tr>
                             <th>Meter name</th>
                             <th>Meter Code</th>
                             <th>Minimum charges</th>
-                            <th>Tax Amount</th>
+                            <th>Tax Rate</th>
                             <th>Action</th>
                         </tr>
                         </thead>

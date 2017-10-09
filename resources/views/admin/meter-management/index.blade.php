@@ -85,8 +85,6 @@
         @endsection
 
 @section('footer_scripts')
-    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-
 <script>
     $(document).ready(function () {
 
@@ -118,13 +116,9 @@
         }
 
 
-        var t =$('#meter-rate-table').DataTable({
-            "paging":   false,
-            "searching": false,
-            'info': false
-        });
+        var t = $('#meter-rate-table').DataTable();
 
-
+        $('#meter-type-table').DataTable();
 
         $('#meter-type-modal-btn').on('click', function () {
             $('#meter-form')[0].reset();
@@ -338,10 +332,6 @@
                 type: 'POST'
             });
         });
-
-
-
-
     });
 </script>
 

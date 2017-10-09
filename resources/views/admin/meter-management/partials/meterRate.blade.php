@@ -11,14 +11,14 @@
         <div class="panel-body no-padding">
             <div class="col-lg-12">
                 <br>
-                <div class="table-responsive">
-                    <table id="meter-rate-table" class="table">
+                <div class="table-responsive col-xs-12">
+                    <table id="meter-rate-table" class="table table-striped table-theme">
                         <thead>
                         <tr>
                             <th>Meter Type Name</th>
                             <th>Form</th>
-                            <th>to</th>
-                            <th>rate</th>
+                            <th>To</th>
+                            <th>Rate</th>
                             <th>Action</th>
                         </tr>
                         </thead>

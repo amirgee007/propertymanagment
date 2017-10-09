@@ -5,15 +5,15 @@
                 Assigned Meters
 
                 <div class="pull-right">
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#assign-meter-modal">Assign New Meter</button>
+                    <button type="button" class="btn btn-info" data-toggle="modal" onclick="document.getElementById('meter-assign-form').reset();" data-target="#assign-meter-modal">Assign New Meter</button>
                 </div>
             </h4>
         </div>
         <div class="panel-body no-padding">
             <div class="col-lg-12">
                 <br>
-                <div class="table-responsive">
-                    <table class="table">
+                <div class="table-responsive col-xs-12">
+                    <table id="meter-assignment-table" class="table table-striped table-theme">
                         <thead>
                         <tr>
                             <th>Meter Type</th>

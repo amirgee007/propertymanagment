@@ -44,6 +44,8 @@
     <script>
         $(document).ready(function () {
 
+            $('#meter-assignment-table').DataTable();
+
             $(document).on('click' , '.meter-delete' , function () {
                 const url = $(this).attr('data-url');
 
@@ -82,13 +84,16 @@
                     data: form.serialize(),
                     headers: { 'X-XSRF-TOKEN' : '{{\Illuminate\Support\Facades\Crypt::encrypt(csrf_token())}}' },
                     error: function() {
-
+                        toastr.warning('Oops! Something went wrong.');
                     },
                     success: function(data) {
                         if (data.status) {
                             $('#meter-tbody').append(data.html);
                             $('#assign-meter-modal').modal('hide');
                             toastr.success("Meter Assign Successfully");
+                        } else {
+                            $('#assign-meter-modal').modal('hide');
+                            toastr.error(data.message, 'Duplicate');
                         }
                     },
                     type: 'POST'
