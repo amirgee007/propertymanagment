@@ -27,11 +27,11 @@ class Owner extends Model
 
     public function getStatusAttribute()
     {
-        if ($this->is_company === 1) {
+        if ($this->is_company == 1) {
             return '<span class="label label-info">True</span>';
+        } else {
+            return '<span class="label label-danger">False</span>';
         }
-
-        return '<span class="label label-danger">False</span>';
     }
 
 
