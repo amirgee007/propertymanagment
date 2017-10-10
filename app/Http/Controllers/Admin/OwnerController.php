@@ -116,7 +116,7 @@ class OwnerController extends Controller
             return redirect()->route('owner.index');
         } catch (\Exception $e) {
             DB::rollback();
-            flash('Oops, something went wrong while adding new owner.')->error();
+            flash('Oops, something went wrong while adding new owner.'. $e->getMessage())->error();
             return back();
         }
     }
