@@ -21,6 +21,7 @@
             </div>
         </div>
 
+        {{--@include('flash::error_message')--}}
         @include('flash::message')
         <div class="body-content animated fadeIn">
 
@@ -140,12 +141,17 @@
                                                 </div>
                                             </div><!-- /.form-group -->
 
-                                            <div class="form-group">
+                                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                                 <label class="col-sm-3 control-label">Email <span
                                                             class="asterisk">*</span></label>
                                                 <div class="col-sm-7">
                                                     <input type="email" id="email" value="{{ $owner->email or 'null' }}" class="form-control input-sm"
                                                            name="email">
+                                                    @if ($errors->has('email'))
+                                                        <span class="help-block">
+                                                            <strong>{{ $errors->first('email') }}</strong>
+                                                        </span>
+                                                    @endif
                                                 </div>
                                             </div><!-- /.form-group -->
 
@@ -220,12 +226,17 @@
 
                                             <input type="hidden" name="owner_id" value="{{ $owner->owner_id or 'null' }}" >
 
-                                            <div class="form-group">
+                                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                                 <label class="col-sm-3 control-label">Email <span
                                                             class="asterisk">*</span></label>
                                                 <div class="col-sm-7">
                                                     <input type="text" value="{{ $user->email }}" class="form-control input-sm" name="email"
                                                            required>
+                                                    @if ($errors->has('email'))
+                                                        <span class="help-block">
+                                                            <strong>{{ $errors->first('email') }}</strong>
+                                                        </span>
+                                                    @endif
                                                 </div>
                                             </div><!-- /.form-group -->
 

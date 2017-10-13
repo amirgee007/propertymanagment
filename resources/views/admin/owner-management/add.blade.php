@@ -52,7 +52,7 @@
                                         </div>
                                     </div><!-- /.form-group -->
 
-                                    <div class="form-group">
+                                    <div class="ic-class form-group{{ $errors->has('owner_id_card_no') ? ' has-error' : '' }}">
                                         <label class="col-sm-3 control-label">Identity Card No. <span
                                                     class="asterisk">*</span></label>
                                         <div class="col-sm-7">
@@ -61,6 +61,11 @@
                                                    required>
                                             <span id="valid-card" hidden style="color: green; font-weight: 100;font-size:smaller ">IC is available</span>
                                             <span id="invalid-card" style="color: red; font-weight: 100;font-size:smaller">IC already exist</span>
+                                            @if ($errors->has('owner_id_card_no'))
+                                                <span class="help-block ic-validate">
+                                                    <strong>{{ $errors->first('owner_id_card_no') }}</strong>
+                                                </span>
+                                            @endif
                                         </div>
                                     </div><!-- /.form-group -->
 
@@ -71,15 +76,20 @@
                                         </div>
                                     </div><!-- /.form-group -->
 
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Email <span
-                                                    class="asterisk">*</span></label>
+                                    <div class="email form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                        <label class="col-sm-3 control-label">Email <span class="asterisk">*</span></label>
                                         <div class="col-sm-7">
                                             <input type="email" id="email" class="form-control input-sm"
                                                    data-url="{{route('owner.add.card.check')}}" data-id="email"
+                                                   value="{{ old('email') }}"
                                                    name="email">
                                             <span id="valid-email" hidden style="color: green; font-weight: 100;font-size:smaller ">Email is available</span>
                                             <span id="invalid-email" style="color: red; font-weight: 100;font-size:smaller">Email already exist</span>
+                                            @if ($errors->has('email'))
+                                                <span class="help-block email-validate">
+                                                    <strong>{{ $errors->first('email') }}</strong>
+                                                </span>
+                                            @endif
                                         </div>
                                     </div><!-- /.form-group -->
 
@@ -223,11 +233,14 @@
             $("#input_card_no").keypress(function(){
                 $('#valid-card').hide();
                 $('#invalid-card').hide();
+                $('.ic-validate').hide();
             });
             $("#email").keypress(function(){
                 $('#valid-email').hide();
                 $('#invalid-email').hide();
+                $('.email-validate').hide();
             });
+
             $('#valid-card').hide();
             $('#invalid-card').hide();
 
@@ -237,6 +250,7 @@
                 var url = $(this).data('url');
                 var key = $(this).data('id');
                 var value = $(this).val();
+                var icClass = $('.ic-class');
                 if (value === '') {
                     $('#valid-card').hide();
                     $('#invalid-card').hide();
@@ -253,9 +267,15 @@
                             if(data=='no_match'){
                                 $('#invalid-card').hide();
                                 $('#valid-card').show();
+                                $('.ic-validate').hide();
+                                $(icClass).removeClass('has-error');
+                                $(icClass).addClass('has-success');
                             }if(data=='match'){
                                 $('#valid-card').hide();
                                 $('#invalid-card').show();
+                                $('.ic-validate').show();
+                                $(icClass).addClass('has-error');
+                                $(icClass).removeClass('has-success');
                             }
                         }
                     });
@@ -266,6 +286,7 @@
                 var url = $(this).data('url');
                 var key = $(this).data('id');
                 var value = $(this).val();
+                var emailClass = $('.email');
                 if (value === '') {
                     $('#valid-email').hide();
                     $('#invalid-email').hide();
@@ -278,13 +299,19 @@
                         },
                         type: 'GET',
                         headers: {'X-XSRF-TOKEN': '{{\Illuminate\Support\Facades\Crypt::encrypt(csrf_token())}}'},
-                        success: function(data){
-                            if(data=='no_match'){
+                        success: function(data) {
+                            if(data=='no_match') {
                                 $('#invalid-email').hide();
                                 $('#valid-email').show();
-                            }if(data=='match'){
+                                $('.email-validate').hide();
+                                $(emailClass).removeClass('has-error');
+                                $(emailClass).addClass('has-success');
+                            }if(data=='match') {
                                 $('#valid-email').hide();
                                 $('#invalid-email').show();
+                                $('.email-validate').show();
+                                $(emailClass).addClass('has-error');
+                                $(emailClass).removeClass('has-success');
                             }
                         }
                     });

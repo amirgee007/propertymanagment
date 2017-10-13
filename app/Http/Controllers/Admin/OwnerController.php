@@ -53,7 +53,7 @@ class OwnerController extends Controller
     {
         $user = null;
         $data = Owner::where($request->key, $request->value)->first();
-        if($request->key == 'email'){
+        if ($request->key == 'email') {
             $user = User::where($request->key, $request->value)->first();
         }
 
@@ -116,7 +116,7 @@ class OwnerController extends Controller
             return redirect()->route('owner.index');
         } catch (\Exception $e) {
             DB::rollback();
-            flash('Oops, something went wrong while adding new owner.'. $e->getMessage())->error();
+            flash('Oops, something went wrong while adding new owner.' . $e->getMessage())->error();
             return back();
         }
     }
@@ -136,8 +136,8 @@ class OwnerController extends Controller
 
         $company = $owner->company;
 
-        $assignedLots = OwnerLot::orderBy('lot_id')->get()->pluck('lot_id' , 'lot_id')->toArray();
-        $lots = Lot::whereNotIn('lot_id' , $assignedLots)->get();
+        $assignedLots = OwnerLot::orderBy('lot_id')->get()->pluck('lot_id', 'lot_id')->toArray();
+        $lots = Lot::whereNotIn('lot_id', $assignedLots)->get();
         $user = $owner->user;
 
         $lotType = LotType::all();
@@ -148,9 +148,10 @@ class OwnerController extends Controller
             'lots', 'company', 'owner', 'meters', 'user'));
     }
 
-    public function ownerLotDelete($id) {
+    public function ownerLotDelete($id)
+    {
 
-        $ownerLot = OwnerLot::where('lot_id' , $id)->where('lot_owner_id' , \request()->owner_id)->first();
+        $ownerLot = OwnerLot::where('lot_id', $id)->where('lot_owner_id', \request()->owner_id)->first();
 
         $ownerLot->delete();
 
@@ -173,7 +174,6 @@ class OwnerController extends Controller
             flash("You don't have access to this feature.")->error();
             return back();
         }
-
         $this->formValidation($request);
 
         $ownerId = null;
@@ -194,13 +194,13 @@ class OwnerController extends Controller
         $pass = $request->password;
 
         $owner = Owner::where('owner_id', $request->owner_id)->first();
-        if(! $owner){
+        if (!$owner) {
             flash('Owner not found')->error();
             return back();
         }
 
         $user = User::where('email', $email)->where('id', $owner->user_id)->first();
-        if (! is_null($user)) {
+        if (!is_null($user)) {
             $user->update(['password' => bcrypt($pass)]);
 
             flash('Successfully Updated the password')->success();
@@ -246,10 +246,13 @@ class OwnerController extends Controller
      */
     private function formValidation(Request $request)
     {
-        $email_rule = isset($request->owner_id) ? ',' . $request->owner_id . ',owner_id' : '';
+        $user = @Owner::find($request->owner_id)->user;
+        $owner_email_rule = isset($request->owner_id) ? ',' . $request->owner_id . ',owner_id' : null;
+        $user_email_rule = isset($user->id) ? ',' . $user->id . ',id' : null;
 
         $this->validate($request, [
-            'email' => 'required|email|unique:owners,email' . $email_rule . '|regex:/^[^@\\s]+@([^@\\s]+\\.)+[^@\\s]+$/i',
+            'email' => "required|email|unique:owners,email{$owner_email_rule}|unique:users,email{$user_email_rule}",
+            'owner_id_card_no' => 'required|unique:owners'
         ]);
     }
 

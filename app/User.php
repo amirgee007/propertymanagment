@@ -72,7 +72,7 @@ class User extends Authenticatable
     public static function createOwnerUser(Request $request)
     {
         $data = [
-            'name' => $request->owner_name,
+            'name' => $request->has('owner_name') ? $request->owner_name : 'Nill',
             'email' => $request->email,
             'password' => bcrypt('password'),
             'is_verify' => 1,
