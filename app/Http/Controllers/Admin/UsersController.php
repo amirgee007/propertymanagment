@@ -148,7 +148,7 @@ class UsersController extends Controller
                 'message' => 'User not found.'
             ]);
         } else {
-            $user->delete();
+            $user->forceDelete();
             return response()->json([
                 'status' => 'success',
                 'message' => 'User deleted successfully.'
