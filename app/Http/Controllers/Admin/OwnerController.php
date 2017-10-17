@@ -251,7 +251,7 @@ class OwnerController extends Controller
         $user_email_rule = isset($user->id) ? ',' . $user->id . ',id' : null;
 
         $this->validate($request, [
-            'email' => "required|email|unique:owners,email{$owner_email_rule}|unique:users,email{$user_email_rule},deleted_at,NULL",
+            'email' => "required|email|unique:owners,email{$owner_email_rule}|unique:users,email{$user_email_rule},NULL,deleted_at",
             'owner_id_card_no' => 'required|unique:owners'
         ]);
     }
