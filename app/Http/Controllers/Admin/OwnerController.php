@@ -230,15 +230,22 @@ class OwnerController extends Controller
                 'status' => 'error',
                 'message' => 'Owner not found.'
             ]);
-        } else {
-            $owner->company()->delete();
-//            $owner->user()->delete();
-            $owner->delete();
+        }
+
+        if (count($owner->ownedLots)) {
             return response()->json([
-                'status' => 'success',
-                'message' => 'Owner deleted successfully.'
+                'status' => 'error',
+                'message' => "Sorry, this owner have assigned lot so it can't be deleted."
             ]);
         }
+
+        $owner->company()->delete();
+//            $owner->user()->delete();
+        $owner->delete();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Owner deleted successfully.'
+        ]);
     }
 
     /**

@@ -113,7 +113,7 @@
                     <h4 class="modal-title"></h4>
                 </div>
                 <div class="modal-body">
-                    <p>Are you sure! you want to delete this owner ?</p>
+                    <strong>Are you sure! you want to delete this owner ?</strong>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -122,6 +122,20 @@
             </div>
         </div><!-- /.modal-dialog -->
     </div>
+
+    <script id="delete-success-alert" type="text/template">
+        <div class="alert alert-success">
+                <strong>Success!</strong>
+                <p class="delete-message"></p>
+        </div>
+    </script>
+
+    <script id="delete-error-alert" type="text/template">
+        <div class="alert alert-danger">
+                <strong>Error!</strong>
+                <p class="delete-message"></p>
+        </div>
+    </script>
 @endsection
 
 @section('footer_scripts')
@@ -149,12 +163,16 @@
                     },
                     success: function (json) {
                         if (json.status == 'success') {
-                            $(button).html('<i class="fa fa-check"></i> ' + json.message).attr('disabled', 'disabled');
+                            $('.modal-body').append($('#delete-success-alert').html());
+                            $('.delete-message').text(json.message);
+                            $(button).prop('disabled', true);
                             setTimeout(function () {
                                 location.reload();
                             }, 2000);
                         } else if (json.status == 'error') {
-                            $(button).html('<i class="fa fa-check"></i> ' + json.message).attr('disabled', 'disabled');
+                            $('.modal-body').append($('#delete-error-alert').html());
+                            $('.delete-message').text(json.message);
+                            $(button).prop('disabled', true);
                             setTimeout(function () {
                                 location.reload();
                             }, 2000);
