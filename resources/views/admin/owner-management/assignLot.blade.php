@@ -129,31 +129,31 @@
                     }
                 });
             });
-            $('#owner-assign-lot').on('submit', function (e) {
-                e.preventDefault();
-                form = $(this);
-                var action = form.attr('action');
-                $.ajax({
-                    url: action,
-                    data: form.serialize(),
-                    headers: {'X-XSRF-TOKEN': '{{\Illuminate\Support\Facades\Crypt::encrypt(csrf_token())}}'},
-                    error: function () {
+            {{--$('#owner-assign-lot').on('submit', function (e) {--}}
+                {{--e.preventDefault();--}}
+                {{--form = $(this);--}}
+                {{--var action = form.attr('action');--}}
+                {{--$.ajax({--}}
+                    {{--url: action,--}}
+                    {{--data: form.serialize(),--}}
+                    {{--headers: {'X-XSRF-TOKEN': '{{\Illuminate\Support\Facades\Crypt::encrypt(csrf_token())}}'},--}}
+                    {{--error: function () {--}}
 
-                    },
-                    success: function (response) {
-                        if (response.status == 'saved') {
-                            toastr.success("Lot Assigned to Owner", "Asign Lot");
-                            window.location.reload(); //jquery
+                    {{--},--}}
+                    {{--success: function (response) {--}}
+                        {{--if (response.status == 'saved') {--}}
+                            {{--toastr.success("Lot Assigned to Owner", "Asign Lot");--}}
+                            {{--window.location.reload(); //jquery--}}
 
-                        } else {
-                            toastr.error("Some Thing went wrong", "Not Saved");
-                        }
-                    },
+                        {{--} else {--}}
+                            {{--toastr.error("Some Thing went wrong", "Not Saved");--}}
+                        {{--}--}}
+                    {{--},--}}
 
-                    type: 'POST'
-                });
+                    {{--type: 'POST'--}}
+                {{--});--}}
 
-            });
+            {{--});--}}
 
 
         });

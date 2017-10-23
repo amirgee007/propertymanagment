@@ -228,12 +228,13 @@ class LotController extends Controller
 
     public function assignLotSave(Request $request)
     {
+
         $data = $request->except('_token');
         foreach ($data['lot_id'] as $lot_id) {
             $lot_detail = array(
                 'lot_id' => $lot_id,
                 'lot_type_id' => $data['lot_type_id'],
-                'lot_owner_id' => $data['owner_id']
+                'lot_owner_id' => $data['lot_owner_id']
             );
 
             $isSaved = new OwnerLot($lot_detail);
@@ -249,7 +250,6 @@ class LotController extends Controller
 //        }
 //
 //        return response()->json($response);
-
     }
 
     public function ajaxCall(Request $request)
