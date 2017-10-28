@@ -19,7 +19,7 @@
                 </ol>
             </div>
         </div>
-
+        @include('flash::error_message')
         @include('flash::message')
         <div class="body-content animated fadeIn">
             <div class="row">

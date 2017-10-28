@@ -152,30 +152,22 @@ class LotController extends Controller
 
     public function sellToOtherStore(Request $request)
     {
+        $this->validate($request, [
+            'old_owner_id' => 'required',
+            'owner_lots' => 'required',
+        ]);
 
         $lots = OwnerLot::where('lot_owner_id', $request->old_owner_id)
             ->whereIn('lot_id' , $request->owner_lots)->get();
 
-        if ($request->get('owner-choice') == 'new')
-        {
+        if ($request->get('owner-choice') == 'new') {
             $savableOwner = new Owner();
-            $savableOwner->owner_type = isset($request->owner_type) ? $request->owner_type : '';
-            $savableOwner->owner_id_card_no = isset($request->owner_id_card_no) ? $request->owner_id_card_no : '';
-            $savableOwner->owner_name = isset($request->owner_name) ? $request->owner_name : '';
-            $savableOwner->owner_dob = isset($request->owner_dob) ? $request->owner_dob : '';
-            $savableOwner->owner_gender = isset($request->owner_gender) ? $request->owner_gender : '';
-            $savableOwner->owner_address = isset($request->owner_address) ? $request->owner_address : '';
-            $savableOwner->owner_phone1 = isset($request->owner_phone1) ? $request->owner_phone1 : '';
-            $savableOwner->owner_phone2 = isset($request->owner_phone2) ? $request->owner_phone2 : '';
-            $savableOwner->is_company = isset($request->is_company) ? $request->is_company : false;
-            $savableOwner->user_id = (Auth::user()) ? Auth::user()->id : '0';
-            $savableOwner->save();
-        }
-        else {
+            $savableOwner = Owner::saveOwnerData($request, $savableOwner);
+        } else {
             $savableOwner = Owner::findOrFail($request->get('choosen-owner'));
         }
 
-        if ($lots) {
+        if (count($lots)) {
             foreach ($lots as $lot) {
                 $lot->update(['lot_owner_id' => $savableOwner->owner_id]);
             }
@@ -183,17 +175,9 @@ class LotController extends Controller
 
         if (isset($request->is_company) && ($request->get('owner-choice') == 'new')) {
 
+            $ownerId = !is_null($savableOwner->owner_id) ? $savableOwner->owner_id : null;
             $savableCompany = new Company();
-            $savableCompany->comp_name = !is_null($savableOwner->owner_id) ? $savableOwner->owner_id : '';
-            $savableCompany->owner_id = isset($request->comp_name) ? $request->comp_name : '';
-            $savableCompany->comp_address = isset($request->comp_address) ? $request->comp_address : '';
-            $savableCompany->comp_reg_no = isset($request->comp_reg_no) ? $request->comp_reg_no : '';
-            $savableCompany->comp_telephone_no = isset($request->comp_telephone_no) ? $request->comp_telephone_no : '';
-            $savableCompany->comp_fax_no = isset($request->comp_fax_no) ? $request->comp_fax_no : '';
-            $savableCompany->comp_contact_person = isset($request->comp_contact_person) ? $request->comp_contact_person : '';
-            $savableCompany->comp_contact_no = isset($request->comp_contact_no) ? $request->comp_contact_no : '';
-            $savableCompany->comp_contact_no = isset($request->comp_contact_no) ? $request->comp_contact_no : '';
-            $savableCompany->save();
+            $savableCompany = Company::saveCompanyData($request, $savableCompany, $ownerId);
         }
 
         flash('Successfully Sell lots to the Owner')->success();

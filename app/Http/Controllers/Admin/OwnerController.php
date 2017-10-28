@@ -100,15 +100,15 @@ class OwnerController extends Controller
             $user = User::createOwnerUser($request); // creating new owner user
 
             $request->merge(['user_id' => $user->id]);
-            $ownerId = null;
+
             $savableOwner = new Owner();
-            $savableOwner = $this->saveOwnerData($request, $savableOwner);
-            $ownerId = $savableOwner->owner_id;
+            $savableOwner = Owner::saveOwnerData($request, $savableOwner);
+            $ownerId = !is_null($savableOwner->owner_id) ? $savableOwner->owner_id : null;
 
             if (isset($request->is_company)) {
 
                 $savableCompany = new Company();
-                $this->saveCompanyData($request, $savableCompany, $ownerId);
+                $savableCompany = Company::saveCompanyData($request, $savableCompany, $ownerId);
             }
 
             DB::commit();
@@ -178,7 +178,7 @@ class OwnerController extends Controller
 
         $ownerId = null;
         $savableOwner = Owner::where('owner_id', $request->owner_id)->first();
-        $this->saveOwnerData($request, $savableOwner);
+        Owner::saveOwnerData($request, $savableOwner);
 
         flash('Successfully Updated the Owner')->success();
         return back();
@@ -268,43 +268,43 @@ class OwnerController extends Controller
      * @param $savableCompany
      * @param $ownerId
      */
-    private function saveCompanyData(Request $request, $savableCompany, $ownerId)
-    {
-        $savableCompany->comp_name = isset($request->comp_name) ? $request->comp_name : '';
-        $savableCompany->owner_id = !is_null($ownerId) ? $ownerId : 0;
-        $savableCompany->comp_address = isset($request->comp_address) ? $request->comp_address : '';
-        $savableCompany->comp_reg_no = isset($request->comp_reg_no) ? $request->comp_reg_no : '';
-        $savableCompany->comp_telephone_no = isset($request->comp_telephone_no) ? $request->comp_telephone_no : '';
-        $savableCompany->comp_fax_no = isset($request->comp_fax_no) ? $request->comp_fax_no : '';
-        $savableCompany->comp_contact_person = isset($request->comp_contact_person) ? $request->comp_contact_person : '';
-        $savableCompany->comp_contact_no = isset($request->comp_contact_no) ? $request->comp_contact_no : '';
-        $savableCompany->comp_contact_no = isset($request->comp_contact_no) ? $request->comp_contact_no : '';
-        $savableCompany->save();
-    }
+//    private function saveCompanyData(Request $request, $savableCompany, $ownerId)
+//    {
+//        $savableCompany->comp_name = isset($request->comp_name) ? $request->comp_name : '';
+//        $savableCompany->owner_id = !is_null($ownerId) ? $ownerId : 0;
+//        $savableCompany->comp_address = isset($request->comp_address) ? $request->comp_address : '';
+//        $savableCompany->comp_reg_no = isset($request->comp_reg_no) ? $request->comp_reg_no : '';
+//        $savableCompany->comp_telephone_no = isset($request->comp_telephone_no) ? $request->comp_telephone_no : '';
+//        $savableCompany->comp_fax_no = isset($request->comp_fax_no) ? $request->comp_fax_no : '';
+//        $savableCompany->comp_contact_person = isset($request->comp_contact_person) ? $request->comp_contact_person : '';
+//        $savableCompany->comp_contact_no = isset($request->comp_contact_no) ? $request->comp_contact_no : '';
+//        $savableCompany->comp_contact_no = isset($request->comp_contact_no) ? $request->comp_contact_no : '';
+//        $savableCompany->save();
+//    }
 
     /**
      * @param Request $request
      * @param $savableOwner
      * @return mixed
      */
-    private function saveOwnerData(Request $request, $savableOwner)
-    {
-        $savableOwner->owner_type = isset($request->owner_type) ? $request->owner_type : '';
-        $savableOwner->owner_id_card_no = isset($request->owner_id_card_no) ? $request->owner_id_card_no : '';
-        $savableOwner->owner_name = isset($request->owner_name) ? $request->owner_name : '';
-        $savableOwner->email = isset($request->email) ? $request->email : null;
-        $savableOwner->owner_dob = isset($request->owner_dob) ? $request->owner_dob : '';
-        $savableOwner->owner_gender = isset($request->owner_gender) ? $request->owner_gender : '';
-        $savableOwner->owner_address = isset($request->owner_address) ? $request->owner_address : '';
-        $savableOwner->owner_phone1 = isset($request->owner_phone1) ? $request->owner_phone1 : '';
-        $savableOwner->owner_phone2 = isset($request->owner_phone2) ? $request->owner_phone2 : '';
-        $savableOwner->is_company = isset($request->is_company) ? 1 : 0;
-        if (is_null($savableOwner->user))
-            $savableOwner->user_id = $request->user_id;
-        $savableOwner->save();
-
-        return $savableOwner;
-    }
+//    private function saveOwnerData(Request $request, $savableOwner)
+//    {
+//        $savableOwner->owner_type = isset($request->owner_type) ? $request->owner_type : '';
+//        $savableOwner->owner_id_card_no = isset($request->owner_id_card_no) ? $request->owner_id_card_no : '';
+//        $savableOwner->owner_name = isset($request->owner_name) ? $request->owner_name : '';
+//        $savableOwner->email = isset($request->email) ? $request->email : null;
+//        $savableOwner->owner_dob = isset($request->owner_dob) ? $request->owner_dob : '';
+//        $savableOwner->owner_gender = isset($request->owner_gender) ? $request->owner_gender : '';
+//        $savableOwner->owner_address = isset($request->owner_address) ? $request->owner_address : '';
+//        $savableOwner->owner_phone1 = isset($request->owner_phone1) ? $request->owner_phone1 : '';
+//        $savableOwner->owner_phone2 = isset($request->owner_phone2) ? $request->owner_phone2 : '';
+//        $savableOwner->is_company = isset($request->is_company) ? 1 : 0;
+//        if (is_null($savableOwner->user))
+//            $savableOwner->user_id = $request->user_id;
+//        $savableOwner->save();
+//
+//        return $savableOwner;
+//    }
 
     /**
      * @param Request $request
