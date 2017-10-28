@@ -68,10 +68,11 @@ class SinkingFundInvoice extends Command
                 $this->info('-----');
             }
 
-            Invoice::insert($invoice_data);
+            Invoice::query()->insert($invoice_data);
 
             $this->info('Sinking invoices generated successfully.');
         } catch (\Exception $e) {
+
             Log::error('Oops, Error while creating Sinking recurring invoices.' . $e->getMessage());
             $this->info('Oops, Error while creating Sinking recurring invoices.');
         }

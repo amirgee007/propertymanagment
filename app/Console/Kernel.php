@@ -37,7 +37,7 @@ class Kernel extends ConsoleKernel
         } catch (\Exception $e) {}
 
         $schedule->command('generate:sinking-fund-invoice')
-            ->daily()->when(function () use ($due_date) {
+            ->everyFiveMinutes()->when(function () use ($due_date) {
                 return Carbon::today() == $due_date;
             });
 
