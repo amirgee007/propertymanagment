@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Company;
 use App\Models\Lot;
 use App\Models\LotType;
@@ -10,8 +11,6 @@ use App\Models\Owner;
 use App\Models\OwnerLot;
 use App\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class OwnerController extends Controller
@@ -29,7 +28,7 @@ class OwnerController extends Controller
         $user = auth()->user();
 
         if ($user->hasRole('Owner')) {
-            $owners = Owner::where('user_id', $user->id)->get();
+            $owners = Owner::query()->where('user_id', $user->id)->get();
         } else {
             $owners = Owner::all();
         }
@@ -52,9 +51,9 @@ class OwnerController extends Controller
     public function cardCheck(Request $request)
     {
         $user = null;
-        $data = Owner::where($request->key, $request->value)->first();
+        $data = Owner::query()->where($request->key, $request->value)->first();
         if ($request->key == 'email') {
-            $user = User::where($request->key, $request->value)->first();
+            $user = User::query()->where($request->key, $request->value)->first();
         }
 
         if ($data || $user) {
@@ -70,7 +69,7 @@ class OwnerController extends Controller
      */
     public function show($id)
     {
-        $owner = Owner::find($id);
+        $owner = Owner::query()->find($id);
 
         if (is_null($owner)) {
 
@@ -136,13 +135,13 @@ class OwnerController extends Controller
 
         $company = $owner->company;
 
-        $assignedLots = OwnerLot::orderBy('lot_id')->get()->pluck('lot_id', 'lot_id')->toArray();
-        $lots = Lot::whereNotIn('lot_id', $assignedLots)->get();
+        $assignedLots = OwnerLot::query()->orderBy('lot_id')->get()->pluck('lot_id', 'lot_id')->toArray();
+        $lots = Lot::query()->whereNotIn('lot_id', $assignedLots)->get();
         $user = $owner->user;
 
         $lotType = LotType::all();
         $ownerLots = $owner->ownedLots->pluck('lot_id')->toArray();
-        $meters = Meter::whereIn('lot_id', $ownerLots)->get();
+        $meters = Meter::query()->whereIn('lot_id', $ownerLots)->get();
 
         return view('admin.owner-management.edit', compact('lotType',
             'lots', 'company', 'owner', 'meters', 'user'));
@@ -151,7 +150,7 @@ class OwnerController extends Controller
     public function ownerLotDelete($id)
     {
 
-        $ownerLot = OwnerLot::where('lot_id', $id)->where('lot_owner_id', \request()->owner_id)->first();
+        $ownerLot = OwnerLot::query()->where('lot_id', $id)->where('lot_owner_id', \request()->owner_id)->first();
 
         $ownerLot->delete();
 
@@ -174,10 +173,11 @@ class OwnerController extends Controller
             flash("You don't have access to this feature.")->error();
             return back();
         }
+
         $this->formValidation($request);
 
         $ownerId = null;
-        $savableOwner = Owner::where('owner_id', $request->owner_id)->first();
+        $savableOwner = Owner::query()->where('owner_id', $request->owner_id)->first();
         Owner::saveOwnerData($request, $savableOwner);
 
         flash('Successfully Updated the Owner')->success();
@@ -193,13 +193,13 @@ class OwnerController extends Controller
         $email = $request->email;
         $pass = $request->password;
 
-        $owner = Owner::where('owner_id', $request->owner_id)->first();
+        $owner = Owner::query()->where('owner_id', $request->owner_id)->first();
         if (!$owner) {
             flash('Owner not found')->error();
             return back();
         }
 
-        $user = User::where('email', $email)->where('id', $owner->user_id)->first();
+        $user = User::query()->where('email', $email)->where('id', $owner->user_id)->first();
         if (!is_null($user)) {
             $user->update(['password' => bcrypt($pass)]);
 
@@ -223,7 +223,7 @@ class OwnerController extends Controller
             return back();
         }
 
-        $owner = Owner::find($id);
+        $owner = Owner::query()->find($id);
 
         if (!$owner) {
             return response()->json([
@@ -240,8 +240,9 @@ class OwnerController extends Controller
         }
 
         $owner->company()->delete();
-//            $owner->user()->delete();
+        $owner->user()->delete();
         $owner->delete();
+
         return response()->json([
             'status' => 'success',
             'message' => 'Owner deleted successfully.'
@@ -253,13 +254,14 @@ class OwnerController extends Controller
      */
     private function formValidation(Request $request)
     {
-        $user = @Owner::find($request->owner_id)->user;
-        $owner_email_rule = isset($request->owner_id) ? ',' . $request->owner_id . ',owner_id' : null;
-        $user_email_rule = isset($user->id) ? ',' . $user->id . ',id' : null;
+        $user = @Owner::query()->find($request->owner_id)->user;
+
+        $owner_update_rule = isset($request->owner_id) ? ',' . $request->owner_id . ',owner_id' : null;
+        $user_email_rule = isset($user->id) ? '|unique:users,email,' . $user->id : null;
 
         $this->validate($request, [
-            'email' => "required|email|unique:owners,email{$owner_email_rule}|unique:users,email{$user_email_rule}",
-            'owner_id_card_no' => 'required|unique:owners'
+            'email' => "required|email|unique:owners,email{$owner_update_rule}{$user_email_rule}",
+            'owner_id_card_no' => "required|unique:owners,owner_id_card_no{$owner_update_rule}",
         ]);
     }
 
@@ -313,7 +315,7 @@ class OwnerController extends Controller
     public function updateOwnerCompany(Request $request)
     {
         if ($request->has('owner_id') && $request->has('company_id')) {
-            $company = Company::where('comp_id', $request->company_id)->firstOrFail();
+            $company = Company::query()->where('comp_id', $request->company_id)->firstOrFail();
             try {
                 $company->update($request->except('_token', 'owner_id', 'company_id'));
 
@@ -321,7 +323,8 @@ class OwnerController extends Controller
                 return back();
 
             } catch (\Exception $e) {
-                dd($e);
+                flash('Error! while updating the Company Info ' . $e->getMessage())->error();
+                return back();
             }
         }
 
