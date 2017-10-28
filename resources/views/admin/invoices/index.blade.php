@@ -1,7 +1,7 @@
 @extends('admin.layouts.base')
 
 @section('title')
-    List Assign Lot
+    List Invoices
     @parent
 @stop
 

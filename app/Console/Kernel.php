@@ -43,7 +43,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('command:test')
             ->everyMinute();
 
-        $schedule->command('generate:maintenance-invoice')->everyFiveMinutes();
+        $schedule->command('generate:maintenance-invoice')->daily();
 
         // $schedule->command('inspire')
         //          ->hourly();
