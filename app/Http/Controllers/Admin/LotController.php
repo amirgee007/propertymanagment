@@ -228,6 +228,11 @@ class LotController extends Controller
 
     public function assignLotSave(Request $request)
     {
+        $this->validate($request, [
+            'lot_id'            => 'required',
+            'lot_type_id'       => 'required',
+            'lot_owner_id'      => 'required'
+        ]);
 
         $data = $request->except('_token');
         foreach ($data['lot_id'] as $lot_id) {

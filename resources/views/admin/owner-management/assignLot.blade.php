@@ -39,20 +39,21 @@
                                     </div>
                                     {{csrf_field()}}
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Owner</label>
+                                        <label for="lot_owner_id" class="col-sm-3 control-label">Owner
+                                            <span class="asterisk">*</span></label>
                                         <div class="col-sm-7">
-                                            <select class="form-control" name="lot_owner_id" required>
+                                            <select id="lot_owner_id" class="form-control" name="lot_owner_id" required>
                                                 <option value="">Choose Owner</option>
                                                 @foreach($owners as $owner)
                                                     <option value="{{$owner->owner_id}}">{{$owner->owner_name}}</option>
                                                 @endforeach
                                             </select>
-                                            <label for="sv2_state" class="error"></label>
+                                            <label for="lot_owner_id" class="error"></label>
                                         </div>
                                     </div><!-- /.form-group -->
 
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Lot Type<span
+                                        <label for="lot_type_id" class="col-sm-3 control-label">Lot Type<span
                                                     class="asterisk">*</span></label>
                                         <div class="col-sm-7">
                                             <select class="form-control" name="lot_type_id" required id="lot_type_id">
@@ -65,7 +66,7 @@
 
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Lot Number<span
+                                        <label for="lot_id" class="col-sm-3 control-label">Lot Number<span
                                                     class="asterisk">*</span></label>
                                         <div class="col-sm-7">
 

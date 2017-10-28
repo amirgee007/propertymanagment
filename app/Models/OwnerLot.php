@@ -8,7 +8,9 @@ class OwnerLot extends Model
 {
     protected $table = 'owner_lots';
 
-    protected $guarded = [];
+    protected $fillable = [
+        'lot_id', 'lot_type_id', 'lot_owner_id'
+    ];
 
     public function lot()
     {
