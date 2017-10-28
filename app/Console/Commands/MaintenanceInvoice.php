@@ -43,7 +43,7 @@ class MaintenanceInvoice extends Command
      */
     public function handle()
     {
-        $maintenance = InvoicingSettingMaintenanceService::all()->first();
+        $maintenance = InvoicingSettingMaintenanceService::query()->first();
 
         if ($maintenance) {
             switch ($maintenance->billing_ending) {
@@ -73,9 +73,9 @@ class MaintenanceInvoice extends Command
     {
         try {
 
-            $maintenance = InvoicingSettingMaintenanceService::all()->first();
+            $maintenance = InvoicingSettingMaintenanceService::query()->first();
 
-            if (!$maintenance) {
+            if (! $maintenance) {
                 $this->info('No data found.');
                 return false;
             }
@@ -84,7 +84,7 @@ class MaintenanceInvoice extends Command
 
             $invoice_data = [];
             $count = 0;
-            $owner_lots = OwnerLot::whereIn('lot_type_id', $lot_type_ids)->get();
+            $owner_lots = OwnerLot::query()->whereIn('lot_type_id', $lot_type_ids)->get();
 
             foreach ($owner_lots as $owner_lot) {
                 $count++;
@@ -92,9 +92,9 @@ class MaintenanceInvoice extends Command
                 $this->info('Record Processing');
 
                 if ($maintenance->fee_charged == InvoicingSettingMaintenanceService::PROPERTY_SIZE) {
-                    $amount = @ConfigLotType::where('lot_type_id', $owner_lot->lot_type_id)->first()->charging_rate;
+                    $amount = @ConfigLotType::query()->where('lot_type_id', $owner_lot->lot_type_id)->first()->charging_rate;
                 } else {
-                    $amount = @ConfigLotType::where('lot_type_id', $owner_lot->lot_type_id)->first()->fee_charge;
+                    $amount = @ConfigLotType::query()->where('lot_type_id', $owner_lot->lot_type_id)->first()->fee_charge;
                 }
 
                 $invoice_data[] = [
@@ -116,11 +116,14 @@ class MaintenanceInvoice extends Command
                 $this->info('-----');
             }
 
-            Invoice::insert($invoice_data);
+            Invoice::query()->insert($invoice_data);
+
+            Log::info('Maintenance Recurring Invoice Command:Total '.$count.' Maintenance invoices generated successfully.');
 
             $this->info('Maintenance invoice generated successfully.');
 
         } catch (\Exception $e) {
+
             Log::error('Oops, Error while creating maintenance recurring invoices.' . $e->getMessage());
             $this->info('Oops, Error while creating maintenance recurring invoices.');
         }

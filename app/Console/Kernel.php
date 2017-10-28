@@ -3,7 +3,6 @@
 namespace App\Console;
 
 use App\Models\InvoicingSettingGeneral;
-use App\Models\InvoicingSettingMaintenanceService;
 use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -37,15 +36,14 @@ class Kernel extends ConsoleKernel
         } catch (\Exception $e) {}
 
         $schedule->command('generate:sinking-fund-invoice')
-            ->everyFiveMinutes()->when(function () use ($due_date) {
+            ->daily()->when(function () use ($due_date) {
                 return Carbon::today() == $due_date;
             });
 
         $schedule->command('command:test')
             ->everyMinute();
 
-
-        $schedule->command('generate:maintenance-invoice')->monthly();
+        $schedule->command('generate:maintenance-invoice')->everyFiveMinutes();
 
         // $schedule->command('inspire')
         //          ->hourly();

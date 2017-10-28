@@ -70,10 +70,11 @@ class SinkingFundInvoice extends Command
 
             Invoice::query()->insert($invoice_data);
 
+            Log::info('Sinking Fund Recurring Invoice Command:Total '.$count.' Sinking invoices generated successfully.');
             $this->info('Sinking invoices generated successfully.');
         } catch (\Exception $e) {
 
-            Log::error('Oops, Error while creating Sinking recurring invoices.' . $e->getMessage());
+            Log::error('Sinking Fund Recurring Invoice Command:Oops, Error while creating Sinking recurring invoices.' . $e->getMessage());
             $this->info('Oops, Error while creating Sinking recurring invoices.');
         }
     }
