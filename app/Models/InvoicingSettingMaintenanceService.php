@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class InvoicingSettingMaintenanceService extends Model
 {
     protected $table = 'invoicing_setting_maintenance_service';
-    protected $guarded= [];
+    protected $guarded = [];
     protected $dates = ['billing_end_date'];
 
     const PROPERTY_SIZE = 'property_size';
