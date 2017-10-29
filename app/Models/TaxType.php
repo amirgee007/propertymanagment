@@ -20,6 +20,6 @@ class TaxType extends Model
 
     public function scopeIsActive($query)
     {
-        $query->where('status', true);
+        return $query->where('status', true);
     }
 }

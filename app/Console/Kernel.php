@@ -3,7 +3,6 @@
 namespace App\Console;
 
 use App\Models\InvoicingSettingGeneral;
-use App\Models\InvoicingSettingMaintenanceService;
 use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -40,7 +39,9 @@ class Kernel extends ConsoleKernel
                 return Carbon::today() == $due_date;
             });
 
-        $schedule->command('generate:maintenance-invoice')->monthly();
+
+        $schedule->command('generate:maintenance-invoice')->daily();
+
 
         // $schedule->command('inspire')
         //          ->hourly();

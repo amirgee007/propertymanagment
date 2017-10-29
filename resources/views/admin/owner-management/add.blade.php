@@ -53,7 +53,7 @@
                                     </div><!-- /.form-group -->
 
                                     <div class="ic-class form-group{{ $errors->has('owner_id_card_no') ? ' has-error' : '' }}">
-                                        <label class="col-sm-3 control-label">Identity Card No. <span
+                                        <label for="input_card_no" class="col-sm-3 control-label">Identity Card No. <span
                                                     class="asterisk">*</span></label>
                                         <div class="col-sm-7">
                                             <input id="input_card_no" type="text" class="form-control input-sm" name="owner_id_card_no"

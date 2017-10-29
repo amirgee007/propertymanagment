@@ -21,7 +21,7 @@
             </div>
         </div>
 
-        {{--@include('flash::error_message')--}}
+        @include('flash::error_message')
         @include('flash::message')
         <div class="body-content animated fadeIn">
 
@@ -109,7 +109,7 @@
                                             </div>
                                             {{csrf_field()}}
 
-                                            <input type="hidden" name="owner_id" value="{{$owner->owner_id or 'null'}}" >
+                                            <input type="hidden" name="owner_id" value="{{$owner->owner_id or null}}" >
                                             <input type="hidden" name="is_company" value="{{ is_null($company) ? 0 : 1 }}" >
 
                                             <div class="form-group">
@@ -125,27 +125,32 @@
                                                 </div>
                                             </div><!-- /.form-group -->
 
-                                            <div class="form-group">
-                                                <label class="col-sm-3 control-label">Identity Card No. <span
+                                            <div class="form-group{{ $errors->has('owner_id_card_no') ? ' has-error' : '' }}">
+                                                <label for="owner_id_card_no" class="col-sm-3 control-label">Identity Card No. <span
                                                             class="asterisk">*</span></label>
                                                 <div class="col-sm-7">
-                                                    <input type="text" value="{{$owner->owner_id_card_no or 'null'}}" class="form-control input-sm" name="owner_id_card_no"
+                                                    <input id="owner_id_card_no" type="text" value="{{ $owner->owner_id_card_no or null }}" class="form-control input-sm" name="owner_id_card_no"
                                                            required>
+                                                    @if ($errors->has('owner_id_card_no'))
+                                                        <span class="help-block">
+                                                            <strong>{{ $errors->first('owner_id_card_no') }}</strong>
+                                                        </span>
+                                                    @endif
                                                 </div>
                                             </div><!-- /.form-group -->
 
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Owner Name</label>
                                                 <div class="col-sm-7">
-                                                    <input type="text" class="form-control input-sm" value="{{$owner->owner_name or 'null'}}" name="owner_name">
+                                                    <input type="text" class="form-control input-sm" value="{{$owner->owner_name or null}}" name="owner_name">
                                                 </div>
                                             </div><!-- /.form-group -->
 
                                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                                <label class="col-sm-3 control-label">Email <span
+                                                <label for="email" class="col-sm-3 control-label">Email <span
                                                             class="asterisk">*</span></label>
                                                 <div class="col-sm-7">
-                                                    <input type="email" id="email" value="{{ $owner->email or 'null' }}" class="form-control input-sm"
+                                                    <input type="email" id="email" value="{{ $owner->email or null }}" class="form-control input-sm"
                                                            name="email">
                                                     @if ($errors->has('email'))
                                                         <span class="help-block">
@@ -158,7 +163,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Date of Birth</label>
                                                 <div class="col-sm-7">
-                                                    <input type="text" class="form-control" name="owner_dob" value="{{$owner->owner_dob or 'null'}}" id="dp1">
+                                                    <input type="text" class="form-control" name="owner_dob" value="{{$owner->owner_dob or null}}" id="dp1">
                                                 </div>
                                             </div><!-- /.form-group -->
 
@@ -175,21 +180,21 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Owner Address</label>
                                                 <div class="col-sm-7">
-                                                    <textarea class="form-control input-sm" name="owner_address">{{$owner->owner_address or 'null'}}</textarea>
+                                                    <textarea class="form-control input-sm" name="owner_address">{{$owner->owner_address or null}}</textarea>
                                                 </div>
                                             </div><!-- /.form-group -->
 
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Phone 1</label>
                                                 <div class="col-sm-7">
-                                                    <input type="text" value="{{$owner->owner_phone1 or 'null'}}" class="form-control input-sm" name="owner_phone1">
+                                                    <input type="text" value="{{$owner->owner_phone1 or null}}" class="form-control input-sm" name="owner_phone1">
                                                 </div>
                                             </div><!-- /.form-group -->
 
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Phone 2</label>
                                                 <div class="col-sm-7">
-                                                    <input type="text" value="{{$owner->owner_phone2 or 'null'}}" class="form-control input-sm" name="owner_phone2">
+                                                    <input type="text" value="{{$owner->owner_phone2 or null}}" class="form-control input-sm" name="owner_phone2">
                                                 </div>
                                             </div><!-- /.form-group -->
                                         </div>
@@ -224,7 +229,7 @@
                                             </div>
                                             {{ csrf_field() }}
 
-                                            <input type="hidden" name="owner_id" value="{{ $owner->owner_id or 'null' }}" >
+                                            <input type="hidden" name="owner_id" value="{{ $owner->owner_id or null }}" >
 
                                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                                 <label class="col-sm-3 control-label">Email <span
@@ -273,7 +278,7 @@
                                             </div>
                                             {{csrf_field()}}
 
-                                            <input type="hidden" name="owner_id" value="{{$owner->owner_id or 'null'}}" >
+                                            <input type="hidden" name="owner_id" value="{{$owner->owner_id or null}}" >
 
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Lot Type</label>
@@ -372,7 +377,7 @@
                                                 </div>
                                             </div>
                                             {{csrf_field()}}
-                                            <input type="hidden" name="owner_id" value="{{$owner->owner_id or 'null'}}" >
+                                            <input type="hidden" name="owner_id" value="{{$owner->owner_id or null}}" >
                                                 <div class="form-group">
                                                     <label class="col-sm-3 control-label">Carpark no <span
                                                                 class="asterisk">*</span></label>
@@ -466,7 +471,7 @@
                                                 </div>
                                             </div>
                                             {{csrf_field()}}
-                                            <input type="hidden" name="owner_id" value="{{$owner->owner_id or 'null'}}" >
+                                            <input type="hidden" name="owner_id" value="{{$owner->owner_id or null}}" >
 
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Meter Type <span

@@ -238,7 +238,7 @@
                                                                                             <input type="number"
                                                                                                    class="form-control input-sm"
                                                                                                    value="{{@$lot_type->charge?$lot_type->charge->fee_charge:''}}"
-                                                                                                   name="lotType[{{$lot_type->lot_type_id}}]"
+                                                                                                   name="feeChargeLotType[{{$lot_type->lot_type_id}}]"
                                                                                                     placeholder="Fee Charge">
                                                                                         </div>
                                                                                     </div>
@@ -253,7 +253,7 @@
                                                                                             <input type="number"
                                                                                                    class="form-control input-sm"
                                                                                                    value="{{@$lot_type->charge?$lot_type->charge->charging_rate:''}}"
-                                                                                                   name="lotType[{{$lot_type->lot_type_id}}]"
+                                                                                                   name="chargeRateLotType[{{$lot_type->lot_type_id}}]"
                                                                                                     placeholder="Charging Rate">
                                                                                         </div>
                                                                                     </div>
@@ -287,8 +287,8 @@
                                                                                     <input type="text"
                                                                                            class="form-control datepicker input-sm"
                                                                                            data-date-format="dd-mm-yyyy"
-                                                                                           value="{{isset($maintenance->billing_start_date)?$maintenance->billing_start_date->format('d/m/Y'):''}}"
-                                                                                           name=" maintenanceServiceSettings[billing_end_date]"
+                                                                                           value="{{ isset($maintenance->billing_end_date) ? $maintenance->billing_end_date->format('d/m/Y') : '' }}"
+                                                                                           name="maintenanceServiceSettings[billing_end_date]"
                                                                                            id="service_billing_end_date">
                                                                                 </div>
                                                                             </div>
