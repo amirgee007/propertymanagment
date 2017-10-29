@@ -41,6 +41,11 @@ class OwnerController extends Controller
      */
     public function viewProfile()
     {
+        if (auth()->user()->hasRole('Owner')) {
+            flash("You don't have access to this feature.")->error();
+            return back();
+        }
+        
         return view('admin.owner-management.add');
     }
 
@@ -92,6 +97,11 @@ class OwnerController extends Controller
      */
     public function store(Request $request)
     {
+        if (auth()->user()->hasRole('Owner')) {
+            flash("You don't have access to this feature.")->error();
+            return back();
+        }
+
         $this->formValidation($request);
 
         DB::beginTransaction();
@@ -167,12 +177,10 @@ class OwnerController extends Controller
      */
     public function update(Request $request)
     {
-        $user = auth()->user();
-
-        if ($user->hasRole('Owner')) {
-            flash("You don't have access to this feature.")->error();
-            return back();
-        }
+//        if (auth()->user()->hasRole('Owner')) {
+//            flash("You don't have access to this feature.")->error();
+//            return back();
+//        }
 
         $this->formValidation($request);
 

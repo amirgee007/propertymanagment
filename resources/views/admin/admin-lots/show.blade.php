@@ -34,15 +34,17 @@
                                 <div class="clearfix"></div>
                             </div>
                             <div class="panel-body">
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-theme">
+                                <div class="table-responsive col-xs-12">
+                                    <table class="table table-striped table-theme" id="lots-table">
                                         <thead>
                                         <tr>
                                             <th class="border-right">ID</th>
                                             <th>Lot Type ID</th>
                                             <th>Lot Name</th>
                                             <th>Created At</th>
-                                            <th>Action</th>
+                                            @if(! auth()->user()->hasRole('Owner'))
+                                                <th>Action</th>
+                                            @endif
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -52,9 +54,11 @@
                                             <td>{{$lot->lot_type_id}}</td>
                                             <td>{{$lot->lot_name}}</td>
                                             <td>{{ isset($lot->created_at) ? $lot->created_at->diffForHumans() :  ''  }}</td>
-                                            <td>
-                                                <button data-url="{{route('lot.lot.delete' , [$lot->lot_id])}}" class="btn btn-danger delete-meter-rate">delete</button>
-                                            </td>
+                                            @if(! auth()->user()->hasRole('Owner'))
+                                                <td>
+                                                    <button data-url="{{route('lot.lot.delete' , [$lot->lot_id])}}" class="btn btn-danger delete-meter-rate">delete</button>
+                                                </td>
+                                            @endif
                                         </tr>
                                         @endforeach
                                         </tbody>
@@ -96,7 +100,7 @@
     <script>
         $(document).ready(function () {
 
-            $('.table-theme').DataTable();
+            $('#lots-table').DataTable();
             $('.delete-meter-rate').on('click' , function (e) {
                 var url = $(this).attr('data-url');
 

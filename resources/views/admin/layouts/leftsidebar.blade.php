@@ -63,13 +63,21 @@
                 <ul>
                     <li class="@if(request()->is('dashboard/owner/index', 'dashboard/owner/add', 'dashboard/owner/edit/*', 'dashboard/owner/show/*')) active @endif"><a
                                 href="{{route('owner.index')}}">Manage Owners<span
-                                    class="label label-success pull-right"></span></a></li>
-                    <li class="@if(request()->is('dashboard/owner/assign-lot')) active @endif"><a href="{{route('owner.assign.lot')}}">Assign lot <span
-                                    class="label label-danger pull-right"></span></a></li>
+                                    class="label label-success pull-right"></span></a>
+                    </li>
+                    @if(! auth()->user()->hasRole('Owner'))
+                        <li class="@if(request()->is('dashboard/owner/assign-lot')) active @endif"><a href="{{route('owner.assign.lot')}}">Assign lot <span
+                                        class="label label-danger pull-right"></span></a>
+                        </li>
+                    @endif
                     <li class="@if(request()->is('dashboard/owner/assign-lot/list')) active @endif"><a href="{{route('owner.list.assign.lot')}}">List of owned Lot No <span
-                                    class="label label-danger pull-right"></span></a></li>
-                    <li class="@if(request()->is('dashboard/owner/sell-to-other')) active @endif"><a href="{{route('owner.lot.sell.other')}}">Sell to Other <span
-                                    class="label label-danger pull-right"></span></a></li>
+                                    class="label label-danger pull-right"></span></a>
+                    </li>
+                    @if(! auth()->user()->hasRole('Owner'))
+                        <li class="@if(request()->is('dashboard/owner/sell-to-other')) active @endif"><a href="{{route('owner.lot.sell.other')}}">Sell to Other <span
+                                        class="label label-danger pull-right"></span></a>
+                        </li>
+                    @endif
                 </ul>
             </li>
         @endif
@@ -80,10 +88,12 @@
                 <span class="text">Lots Management</span>
                 <span class="arrow"></span>
             </a>
-            <ul>
-                <li class="@if(request()->is('dashboard/lot/add')) active @endif"><a href="{{route('get.lot.list')}}">Add
-                        Lot Type<span class="label label-success pull-right"></span></a></li>
-            </ul>
+            @if(! auth()->user()->hasRole('Owner'))
+                <ul>
+                    <li class="@if(request()->is('dashboard/lot/add')) active @endif"><a href="{{route('get.lot.list')}}">Add
+                            Lot Type<span class="label label-success pull-right"></span></a></li>
+                </ul>
+            @endif
 
             <ul>
                 <li class="@if(request()->is('dashboard/lot/manage')) active @endif"><a

@@ -14,7 +14,7 @@ class Owner extends Model
 
     protected $guarded = [];
 
-    protected $appends = ['status'];
+    protected $appends = ['status', 'active_status'];
 
     public function ownedLots()
     {
@@ -63,10 +63,25 @@ class Owner extends Model
         $owner->owner_phone1 = isset($request->owner_phone1) ? $request->owner_phone1 : '';
         $owner->owner_phone2 = isset($request->owner_phone2) ? $request->owner_phone2 : '';
         $owner->is_company = isset($request->is_company) ? 1 : 0;
+        $owner->is_active = isset($request->is_active) ? 1 : 0;
         if (is_null($owner->user))
             $owner->user_id = $request->user_id;
         $owner->save();
 
         return $owner;
+    }
+
+    public function isActive()
+    {
+        return $this->is_active == 1 ? true : false;
+    }
+
+    public function getActiveStatusAttribute()
+    {
+        if ($this->is_active == 1) {
+            return '<span class="label label-info">True</span>';
+        } else {
+            return '<span class="label label-danger">False</span>';
+        }
     }
 }

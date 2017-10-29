@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\MessageBag;
@@ -50,7 +51,8 @@ class LoginController extends Controller
 
     }
 
-    public function logout(){
+    public function logout()
+    {
 
         Auth::logout();
         return redirect('/login');
@@ -65,5 +67,28 @@ class LoginController extends Controller
     protected function guard()
     {
         return Auth::guard();
+    }
+
+    /**
+     * The user has been authenticated.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  mixed $user
+     * @return mixed
+     */
+    protected function authenticated(Request $request, $user)
+    {
+//        if (is_null($user->owner)) {
+//            auth()->logout();
+//            return "Access Denied: Don't have owner profile, please ask your administrator to add owner profile.!";
+//        }
+
+        if (!is_null($user->owner)) {
+            if (! $user->owner->isActive()) {
+
+                auth()->logout();
+                return 'Access Denied: Please contact to the administrator to get access to your account!';
+            }
+        }
     }
 }

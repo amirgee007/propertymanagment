@@ -131,7 +131,15 @@
                                         </div>
                                     </div><!-- /.form-group -->
 
-
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Is Active</label>
+                                        <div class="col-sm-7">
+                                            <div class="ckbox ckbox-theme rounded">
+                                                <input id="is_active" type="checkbox" name="is_active">
+                                                <label for="is_active"></label>
+                                            </div>
+                                        </div>
+                                    </div><!-- /.form-group -->
 
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Is Company</label>

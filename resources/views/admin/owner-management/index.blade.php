@@ -35,12 +35,14 @@
                             <div class="pull-left">
                                 <h3 class="panel-title">List Owners</h3>
                             </div>
-                            <div class="pull-right">
-                                <a href="{{ route('owner.add.new') }}" class="btn btn-md btn-info"
-                                   data-toggle="tooltip" data-placement="top" data-title="Add owner"
-                                   data-original-title="Add Owner" title="Add Owner"><i class="fa fa-plus"></i>
-                                    &nbsp;Add Owner Profile</a>
-                            </div>
+                            @if(! auth()->user()->hasRole('Owner'))
+                                <div class="pull-right">
+                                    <a href="{{ route('owner.add.new') }}" class="btn btn-md btn-info"
+                                       data-toggle="tooltip" data-placement="top" data-title="Add owner"
+                                       data-original-title="Add Owner" title="Add Owner"><i class="fa fa-plus"></i>
+                                        &nbsp;Add Owner Profile</a>
+                                </div>
+                            @endif
                             <div class="clearfix"></div>
                         </div>
                         <div class="panel-body">
@@ -55,6 +57,7 @@
                                         <th>Email</th>
                                         <th>Type</th>
                                         <th>Company</th>
+                                        <th>Is Active</th>
                                         <th>Actions</th>
                                     </tr>
                                     </thead>
@@ -70,6 +73,7 @@
                                                 <label class="label label-info">{{ ucwords($owner->owner_type) }}</label>
                                             </td>
                                             <td>{!! $owner->status !!}</td>
+                                            <td>{!! $owner->active_status !!}</td>
                                             <td class="text-center">
                                                 <a href="{{ route('owner.show', $owner->owner_id) }}"
                                                    class="btn btn-success btn-xs rounded"
@@ -83,13 +87,15 @@
                                                    data-original-title="Edit"><i class="fa fa-pencil"></i>
                                                 </a>
 
-                                                <a href="#" class="btn btn-danger btn-xs rounded delete-owner"
-                                                   data-toggle="tooltip" data-placement="top"
-                                                   data-original-title="Delete Owner"
-                                                   data-owner-id="{{ $owner->owner_id }}"
-                                                   data-url="{{ route('owner.destroy', $owner->owner_id) }}">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
+                                                @if(! auth()->user()->hasRole('Owner'))
+                                                    <a href="#" class="btn btn-danger btn-xs rounded delete-owner"
+                                                       data-toggle="tooltip" data-placement="top"
+                                                       data-original-title="Delete Owner"
+                                                       data-owner-id="{{ $owner->owner_id }}"
+                                                       data-url="{{ route('owner.destroy', $owner->owner_id) }}">
+                                                        <i class="fa fa-times"></i>
+                                                    </a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

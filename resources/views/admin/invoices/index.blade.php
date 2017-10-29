@@ -60,59 +60,63 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($invoices as $invoice)
-                                        <tr>
-                                            <td>{{ $invoice->invoice_id }}</td>
-                                            <td>{{ @$invoice->owner->owner_name }}</td>
-                                            <td>{{ ucwords($invoice->type) }}</td>
-                                            <td>
-                                                {{ str_limit($invoice->invoice_trans_des, 25) }}
-                                            </td>
-                                            <td>
-                                                {{ is_null($invoice->date) ? "" :  $invoice->date->format('d-m-Y')  }}
-                                            </td>
-                                            <td>
-                                                {{ isset($invoice->due_date)?$invoice->due_date:'' }}
-                                            </td>
-                                            <td>{{ $invoice->invoice_amount }}</td>
-                                            <td>{!! $invoice->label_status !!}</td>
-                                            <td class="text-center">
-                                                <a href="#" class="btn btn-info btn-xs rounded add-payment"
-                                                   data-toggle="tooltip" data-placement="top"
-                                                   data-original-title="Record payment"
-                                                   data-invoice-id="{{ $invoice->invoice_id }}">
-                                                    <i class="fa fa-credit-card"></i>
-                                                </a>
+                                        @foreach($invoices as $invoice)
+                                            <tr>
+                                                <td>{{ $invoice->invoice_id }}</td>
+                                                <td>{{ @$invoice->owner->owner_name }}</td>
+                                                <td>{{ ucwords($invoice->type) }}</td>
+                                                <td>
+                                                    {{ str_limit($invoice->invoice_trans_des, 25) }}
+                                                </td>
+                                                <td>
+                                                    {{ is_null($invoice->date) ? null :  $invoice->date->format('d-m-Y')  }}
+                                                </td>
+                                                <td>
+                                                    {{ isset($invoice->due_date) ? $invoice->due_date : null }}
+                                                </td>
+                                                <td>{{ $invoice->invoice_amount }}</td>
+                                                <td>{!! $invoice->label_status !!}</td>
+                                                <td class="text-center">
+                                                    @if(! auth()->user()->hasRole('Owner'))
+                                                        <a href="#" class="btn btn-info btn-xs rounded add-payment"
+                                                           data-toggle="tooltip" data-placement="top"
+                                                           data-original-title="Record payment"
+                                                           data-invoice-id="{{ $invoice->invoice_id }}">
+                                                            <i class="fa fa-credit-card"></i>
+                                                        </a>
+                                                    @endif
 
-                                                <a data-url="{{ route('invoices.pdf', $invoice->invoice_id) }}"
-                                                   class="btn btn-success btn-xs rounded pdf_download_popup"
-                                                   title="Download PDF"
-                                                   data-toggle="modal" data-target="#pdfmodal"><i
-                                                            class="fa fa-file-pdf-o"></i>
-                                                </a>
+                                                    <a data-url="{{ route('invoices.pdf', $invoice->invoice_id) }}"
+                                                       class="btn btn-success btn-xs rounded pdf_download_popup"
+                                                       title="Download PDF"
+                                                       data-toggle="modal" data-target="#pdfmodal"><i
+                                                                class="fa fa-file-pdf-o"></i>
+                                                    </a>
 
-                                                <a href="{{ route('invoices.show', $invoice) }}"
-                                                   class="btn btn-success btn-xs rounded"
-                                                   data-toggle="tooltip" data-placement="top"
-                                                   data-original-title="View detail"><i class="fa fa-eye"></i>
-                                                </a>
+                                                    <a href="{{ route('invoices.show', $invoice) }}"
+                                                       class="btn btn-success btn-xs rounded"
+                                                       data-toggle="tooltip" data-placement="top"
+                                                       data-original-title="View detail"><i class="fa fa-eye"></i>
+                                                    </a>
 
-                                                <a href="{{ route('invoices.edit', $invoice) }}"
-                                                   class="btn btn-primary btn-xs rounded"
-                                                   data-toggle="tooltip" data-placement="top"
-                                                   data-original-title="Edit"><i class="fa fa-pencil"></i>
-                                                </a>
+                                                    @if(! auth()->user()->hasRole('Owner'))
+                                                        <a href="{{ route('invoices.edit', $invoice) }}"
+                                                           class="btn btn-primary btn-xs rounded"
+                                                           data-toggle="tooltip" data-placement="top"
+                                                           data-original-title="Edit"><i class="fa fa-pencil"></i>
+                                                        </a>
 
-                                                <a href="#" class="btn btn-danger btn-xs rounded delete-invoice"
-                                                   data-toggle="tooltip" data-placement="top"
-                                                   data-original-title="Delete"
-                                                   data-invoice-id="{{ $invoice->invoice_id }}"
-                                                   data-url="{{ route('invoices.destroy', $invoice->invoice_id) }}">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                                        <a href="#" class="btn btn-danger btn-xs rounded delete-invoice"
+                                                           data-toggle="tooltip" data-placement="top"
+                                                           data-original-title="Delete"
+                                                           data-invoice-id="{{ $invoice->invoice_id }}"
+                                                           data-url="{{ route('invoices.destroy', $invoice->invoice_id) }}">
+                                                            <i class="fa fa-times"></i>
+                                                        </a>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

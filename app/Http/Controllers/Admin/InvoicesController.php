@@ -39,8 +39,8 @@ class InvoicesController extends Controller
         $user = auth()->user();
 
         if ($user->hasRole('Owner')) {
-            $owner_ids = Owner::where('user_id', $user->id)->pluck('owner_id');
-            $invoices = Invoice::whereIn('owner_id', $owner_ids)->get();
+            $owner_ids = Owner::query()->where('user_id', $user->id)->pluck('owner_id');
+            $invoices = Invoice::query()->whereIn('owner_id', $owner_ids)->get();
         } else {
             $invoices = Invoice::all();
         }

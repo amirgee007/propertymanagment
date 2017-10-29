@@ -197,6 +197,17 @@
                                                     <input type="text" value="{{$owner->owner_phone2 or null}}" class="form-control input-sm" name="owner_phone2">
                                                 </div>
                                             </div><!-- /.form-group -->
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Is Active</label>
+                                                <div class="col-sm-7">
+                                                    <div class="ckbox ckbox-theme rounded">
+                                                        <input id="is_active" @if($owner->is_active) checked @endif type="checkbox" name="is_active">
+                                                        <label for="is_active"></label>
+                                                    </div>
+                                                </div>
+                                            </div><!-- /.form-group -->
+
                                         </div>
 
                                         <div class="form-footer">
@@ -267,8 +278,9 @@
                                 </div>
 
                                 <div class="tab-pane fade" id="lot-tab">
-                                    <h4>Lot Tab</h4>
-                                    <form class="form-horizontal form-bordered" action="{{route('post.owner.assign.lot')}}" role="form" id="owner-assign-lot" method="post">
+                                    @if(! auth()->user()->hasRole('Owner'))
+                                        <h4>Lot Tab</h4>
+                                        <form class="form-horizontal form-bordered" action="{{route('post.owner.assign.lot')}}" role="form" id="owner-assign-lot" method="post">
                                         <div class="form-body">
                                             <div class="form-group form-group-divider">
                                                 <div class="form-inner">
@@ -312,8 +324,7 @@
                                             </div>
                                         </div>
                                     </form>
-
-
+                                    @endif
                                     <div class="body-content animated fadeIn">
                                         <div class="row">
                                             <div class="col-md-12">
@@ -326,14 +337,16 @@
                                                     </div>
                                                     <div class="panel-body">
                                                         <br>
-                                                        <div class="col-xs-12">
-                                                            <table class="table table-responsive table-striped table-theme">
+                                                        <div class="table-responsive col-xs-12">
+                                                            <table id="owner-lots-table" class="table table-striped table-theme">
                                                                 <thead>
                                                                 <tr>
                                                                     <th># Id</th>
                                                                     <th>Lot Type Name</th>
                                                                     <th>Lot Name</th>
-                                                                    <th>Action</th>
+                                                                    @if(! auth()->user()->hasRole('Owner'))
+                                                                        <th>Action</th>
+                                                                    @endif
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -342,9 +355,11 @@
                                                                         <td>{{ $ownedLot->lot_id }}</td>
                                                                         <td>{{ @$ownedLot->lotType->lot_type_name }}</td>
                                                                         <td>{{ $ownedLot->lot_name }}</td>
-                                                                        <td>
-                                                                            <button type="button" data-url="{{route('owner.ownerLot.destroy' , $ownedLot->lot_id)}}" class="btn btn-danger delete-lots">Unassign</button>
-                                                                        </td>
+                                                                        @if(! auth()->user()->hasRole('Owner'))
+                                                                            <td>
+                                                                                <button type="button" data-url="{{route('owner.ownerLot.destroy' , $ownedLot->lot_id)}}" class="btn btn-danger delete-lots">Unassign</button>
+                                                                            </td>
+                                                                        @endif
                                                                     </tr>
                                                                 @empty
                                                                     <tr>
@@ -426,7 +441,9 @@
                                                                     <th># Id</th>
                                                                     <th>Car Park No.</th>
                                                                     <th>Area Text</th>
-                                                                    <th>Action</th>
+                                                                    @if(! auth()->user()->hasRole('Owner'))
+                                                                        <th>Action</th>
+                                                                    @endif
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody id="car-park-tbody">
@@ -435,9 +452,11 @@
                                                                         <td>{{ $carPark->owner_car_park_id }}</td>
                                                                         <td>{{ $carPark->car_park_no }}</td>
                                                                         <td>{{ $carPark->loc_area_text }}</td>
-                                                                        <td>
-                                                                            <button type="button" data-url="{{route('delete.owner.assign.carpark' , $carPark->owner_car_park_id)}}" class="btn btn-danger car-park-delete">Delete</button>
-                                                                        </td>
+                                                                        @if(! auth()->user()->hasRole('Owner'))
+                                                                            <td>
+                                                                                <button type="button" data-url="{{route('delete.owner.assign.carpark' , $carPark->owner_car_park_id)}}" class="btn btn-danger car-park-delete">Delete</button>
+                                                                            </td>
+                                                                        @endif
                                                                     </tr>
                                                                 @empty
                                                                     <tr>
@@ -458,68 +477,69 @@
                                 </div>
 
                                 <div class="tab-pane fade" id="meter-tab">
-                                    <h4>Meter Data</h4>
-                                    @if($owner->ownerLots->count() > 0)
-                                        <form class="form-horizontal form-bordered" action="{{route('post.owner.assign.carpark')}}"
-                                          role="form" id="sample-validation-2" method="post">
-                                        <div class="form-body">
-                                            <div class="form-group form-group-divider">
-                                                <div class="form-inner">
-                                                    <h4 class="no-margin"><span
-                                                                class="label label-success label-circle">1</span> Meter
-                                                        Information</h4>
+                                    @if(! auth()->user()->hasRole('Owner'))
+                                        @if($owner->ownerLots->count() > 0)
+                                            <form class="form-horizontal form-bordered" action="{{route('post.owner.assign.carpark')}}"
+                                              role="form" id="sample-validation-2" method="post">
+                                            <div class="form-body">
+                                                <div class="form-group form-group-divider">
+                                                    <div class="form-inner">
+                                                        <h4 class="no-margin"><span
+                                                                    class="label label-success label-circle">1</span> Meter
+                                                            Information</h4>
+                                                    </div>
+                                                </div>
+                                                {{csrf_field()}}
+                                                <input type="hidden" name="owner_id" value="{{$owner->owner_id or null}}" >
+
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label">Meter Type <span
+                                                                class="asterisk">*</span></label>
+                                                    <div class="col-sm-7">
+                                                        <input type="text" value="" class="form-control input-sm" name="meter_type"
+                                                               required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label">Meter Id <span
+                                                                class="asterisk">*</span></label>
+                                                    <div class="col-sm-7">
+                                                        <input type="text" value="" class="form-control input-sm" name="meter_id"
+                                                               required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label">Meter no <span
+                                                                class="asterisk">*</span></label>
+                                                    <div class="col-sm-7">
+                                                        <input type="text" value="" class="form-control input-sm" name="meter_no"
+                                                               required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label">Lot no <span
+                                                                class="asterisk">*</span></label>
+                                                    <div class="col-sm-7">
+                                                        <input type="text" value="" class="form-control input-sm" name="lot_number"
+                                                               required>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-footer">
+                                                <div class="col-sm-offset-3">
+                                                    <button type="submit" class="btn btn-theme">Save Info</button>
                                                 </div>
                                             </div>
-                                            {{csrf_field()}}
-                                            <input type="hidden" name="owner_id" value="{{$owner->owner_id or null}}" >
 
-                                            <div class="form-group">
-                                                <label class="col-sm-3 control-label">Meter Type <span
-                                                            class="asterisk">*</span></label>
-                                                <div class="col-sm-7">
-                                                    <input type="text" value="" class="form-control input-sm" name="meter_type"
-                                                           required>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="col-sm-3 control-label">Meter Id <span
-                                                            class="asterisk">*</span></label>
-                                                <div class="col-sm-7">
-                                                    <input type="text" value="" class="form-control input-sm" name="meter_id"
-                                                           required>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="col-sm-3 control-label">Meter no <span
-                                                            class="asterisk">*</span></label>
-                                                <div class="col-sm-7">
-                                                    <input type="text" value="" class="form-control input-sm" name="meter_no"
-                                                           required>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="col-sm-3 control-label">Lot no <span
-                                                            class="asterisk">*</span></label>
-                                                <div class="col-sm-7">
-                                                    <input type="text" value="" class="form-control input-sm" name="lot_number"
-                                                           required>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="form-footer">
-                                            <div class="col-sm-offset-3">
-                                                <button type="submit" class="btn btn-theme">Save Info</button>
-                                            </div>
-                                        </div>
-
-                                    </form>
+                                        </form>
+                                        @endif
                                     @endif
-                        {{-------------------owner Lots lists--------------}}
+                                    {{-------------------owner Lots lists--------------}}
                                     <div class="col-md-12">
                                         <div class="panel rounded shadow">
                                             <div class="panel-heading" style="padding: 2%">
@@ -530,13 +550,13 @@
                                             <div class="panel-body no-padding">
                                                 <div class="col-lg-12">
                                                     <br>
-                                                    <div class="table-responsive">
-                                                        <table class="table">
+                                                    <div class="table-responsive col-xs-12">
+                                                        <table id="owner-meter-table" class="table table-striped table-theme">
                                                             <thead>
                                                             <tr>
                                                                 <th>Meter Type</th>
                                                                 <th>Lot Type</th>
-                                                                <th>lot Name</th>
+                                                                <th>Lot Name</th>
                                                             </tr>
                                                             </thead>
                                                             <tbody id="meter-tbody">
@@ -616,6 +636,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
     <script>
+
+        $('#owner-meter-table').DataTable();
+        $('#owner-lots-table').DataTable();
 
         toastr.success("welcome to Edit Owner Page.", "Thanks");
 
