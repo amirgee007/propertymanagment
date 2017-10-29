@@ -35,12 +35,14 @@
                             <div class="pull-left">
                                 <h3 class="panel-title">List Invoices</h3>
                             </div>
-                            <div class="pull-right">
-                                <a href="{{ route('invoices.create') }}" class="btn btn-md btn-info"
-                                   data-toggle="tooltip" data-placement="top" data-title="Add Invoice"
-                                   data-original-title="Add Invoice" title="Add Invoice"><i class="fa fa-plus"></i>
-                                    &nbsp;Add Invoice</a>
-                            </div>
+                            @if(! auth()->user()->hasRole('Owner'))
+                                <div class="pull-right">
+                                    <a href="{{ route('invoices.create') }}" class="btn btn-md btn-info"
+                                       data-toggle="tooltip" data-placement="top" data-title="Add Invoice"
+                                       data-original-title="Add Invoice" title="Add Invoice"><i class="fa fa-plus"></i>
+                                        &nbsp;Add Invoice</a>
+                                </div>
+                            @endif
                             <div class="clearfix"></div>
                         </div>
                         <div class="panel-body">

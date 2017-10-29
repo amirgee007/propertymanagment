@@ -32,9 +32,11 @@
                                     <div class="pull-left">
                                         <h3 class="panel-title">Lot Management</h3>
                                     </div>
-                                    <div class="pull-right">
-                                        <a href="{{route('get.lot.list')}}" class="btn btn-info">Add lots Types</a>
-                                    </div>
+                                    @if(! auth()->user()->hasRole('Owner'))
+                                        <div class="pull-right">
+                                            <a href="{{route('get.lot.list')}}" class="btn btn-info">Add lots Types</a>
+                                        </div>
+                                    @endif
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="panel-body">
