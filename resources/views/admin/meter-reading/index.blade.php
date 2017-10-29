@@ -6,6 +6,12 @@
 @stop
 
 @section('header_styles')
+    <style>
+        a.disabled-click {
+            pointer-events: none;
+            cursor: default;
+        }
+    </style>
     <link href="/admin/assets/global/plugins/bower_components/bootstrap-datepicker-vitalets/css/datepicker.css"
           rel="stylesheet">
     <link href="/admin/assets/global/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.css"

@@ -21,6 +21,9 @@ class MeterReadingService
         $pricePerUnit =  static::pricePerUnit($meterRates);
 
         $amount = 0;
+        if (!is_null($meter_type->minimum_charges) && $totalUnit <= 0) {
+            $amount += $meter_type->minimum_charges;
+        }
         foreach ($pricePerUnit as $item) {
             if (($totalUnit - $item['units']) > 0) {
                 $amount += $item['units'] * $item['rate'];
@@ -39,10 +42,6 @@ class MeterReadingService
             $amount += $percentageAmount;
         }
 
-
-        if (!is_null($meter_type->minimum_charges) && $totalUnit <= 0) {
-            $amount += $meter_type->minimum_charges;
-        }
         return $amount;
     }
 

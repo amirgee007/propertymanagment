@@ -42,7 +42,7 @@
                                             <span class="caret"></span></button>
                                         <ul class="dropdown-menu dropdown-menu-right">
                                             <li><a href="javascript:void(0)" data-meter-id="{{$meter->id}}" data-lot-id="{{$meter->lot_id}}" class="meterReadingM">Add Reading</a></li>
-                                            <li><a href="{{route('meter.reading.generate-report' , [$meter->id])}}" target="_blank" class="">Export Report</a></li>
+                                            <li class="{{$meter->currentReading() != "N/A"?:"disabled"}}"><a class="{{$meter->currentReading() != "N/A"?:"disabled-click"}}" href="{{route('meter.reading.generate-report' , [$meter->id])}}" target="_blank" disabled class="">Export Report</a></li>
                                         </ul>
                                     </div>
                                 </td>
