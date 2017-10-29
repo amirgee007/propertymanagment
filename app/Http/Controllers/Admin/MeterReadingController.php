@@ -128,6 +128,11 @@ class MeterReadingController extends Controller
             ];
         }
         $meter = isset($meterReading)?$meterReading->meter:[];
+        if (!$meter) {
+            flash()->success('This Meter did not contain previous reading');
+            return back();
+        }
+
         $pdf->loadView('admin.reports.meter-annual-report' , compact('data' , 'meter'));
 
         $file_name = @$meter->owner()->owner_name . '-' . $meter->id . '.pdf';

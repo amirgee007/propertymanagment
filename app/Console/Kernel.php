@@ -39,7 +39,6 @@ class Kernel extends ConsoleKernel
                 return Carbon::today() == $due_date;
             });
 
-
         $schedule->command('generate:maintenance-invoice')->daily();
 
 

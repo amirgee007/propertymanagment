@@ -88,6 +88,7 @@
             <div class="right-arrow"></div>
         </div>
         <div class="company-name2">
+
             <span>RM{{$invoice->meterReading->readingAmount()}}</span>
 
         </div>
@@ -100,7 +101,7 @@
                     <span>Bill To:</span>
                 </td>
                 <td>
-                    <span>{{$meter->owner->owner_name}}	</span>
+                    <span>{{$meter->owner()->owner_name}}	</span>
                 </td>
             </tr>
             <tr>

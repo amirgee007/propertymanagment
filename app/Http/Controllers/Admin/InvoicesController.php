@@ -213,7 +213,6 @@ class InvoicesController extends Controller
 
             $meter = Meter::where('id', $invoice->model_id)
                 ->with('lot.lotType', 'meterReadings', 'meterType.meterRates')->first();
-
             $pdf->loadView('admin.reports.utility-template', compact('meter', 'invoice'));
 
         } elseif ($invoice->type == Invoice::SINKING) {
