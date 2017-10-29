@@ -18,7 +18,6 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\SinkingFundInvoice::class,
         Commands\MaintenanceInvoice::class,
-        Commands\serverTestCommand::class
 
     ];
 
@@ -40,10 +39,6 @@ class Kernel extends ConsoleKernel
             ->daily()->when(function () use ($due_date) {
                 return Carbon::today() == $due_date;
             });
-
-        $schedule->command('command:test')
-            ->everyMinute();
-
 
         $schedule->command('generate:maintenance-invoice')->monthly();
 
